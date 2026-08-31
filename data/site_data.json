@@ -1,0 +1,269 @@
+{
+  "settings": {
+    "companyName": "LUNO",
+    "tagline": "Voice automation for the first layer of business calls.",
+    "email": "koppulasaitharunreddy7@gmail.com",
+    "phone": "+91 9032015985",
+    "whatsapp": "+91 9032015985",
+    "meetingUrl": "https://cal.com/luno-studio/discovery",
+    "heroEyebrow": "VOICE AUTOMATION",
+    "heroHeadline": "Automate the first layer of every call.",
+    "heroSubheadline": "Luno builds AI voice agents that handle conversations, bookings, enquiries, lead capture, support, and routing—so your team doesn't have to answer every repetitive call.",
+    "googleSheetsWebhookUrl": "https://script.google.com/macros/s/AKfycbxEsFQSv-3Rqm295uKDrKRo81wiO2dGyt-fy11ctVBy5r0JXJDem3fooqhND79yj4lfKw/exec",
+    "voiceDemoEnabled": true,
+    "voiceDemoTitle": "Talk to Luno",
+    "voiceDemoDescription": "Experience how an AI voice system can handle the first layer of a real business conversation.",
+    "voiceDemoAgentId": "246585",
+    "adminPasswordHash": "admin123"
+  },
+  "stats": {
+    "companiesBuilt": 2,
+    "voiceAgents": 5,
+    "useCasesAutomated": 5,
+    "callsHandled": 120000,
+    "uptime": "99.98%",
+    "avgResponseLatency": "< 450ms"
+  },
+  "projects": [
+    {
+      "id": "vanguard-realty",
+      "name": "Noor Modern Doors",
+      "industry": "Doors & Windows",
+      "tagline": "AI voice agent for instant customer enquiries, lead qualification, and appointment scheduling",
+      "problem": "Customers called at different times, but missed calls and delayed responses caused potential leads to be lost. The sales team also spent significant time answering repetitive questions about doors, windows, pricing, and requirements.",
+      "whatLunoAutomated": "Deployed a 24/7 AI voice agent that answers customer calls naturally, understands their requirements, asks qualifying questions, provides basic product information, captures lead details, and schedules follow-ups or showroom visits automatically.",
+      "handles": [
+        "Property specifications, pricing & HOA details",
+        "Buyer/tenant timeline and budget qualification",
+        "Instant private showing scheduling",
+        "Automated CRM sync and broker notification"
+      ],
+      "result": "Reduced lead response time from hours to seconds, improved lead capture, reduced missed-call opportunities, and allowed the sales team to focus on high-intent customers.",
+      "active": true,
+      "demoAvailable": true,
+      "demoIndustryId": "real-estate"
+    }
+  ],
+  "industries": [
+    {
+      "id": "real-estate",
+      "name": "Real Estate",
+      "tagline": "Inbound lead qualification, listing info & viewing scheduling",
+      "description": "Automate property enquiries, buyer requirement collection, lead qualification, budget/location questions, viewing requests, and structured follow-ups.",
+      "icon": "Home",
+      "workflows": [
+        "Property specifications & pricing inquiries",
+        "Buyer & tenant budget and timeline qualification",
+        "Location & bedroom requirements collection",
+        "Private showing and open house calendar booking",
+        "Instant agent notification & CRM synchronization"
+      ],
+      "isFeatured": true
+    },
+    {
+      "id": "restaurant",
+      "name": "Restaurants",
+      "tagline": "Reservations, opening hours & dietary requirements",
+      "description": "Handle high-volume table reservations, party sizes, dietary restrictions, and opening hour inquiries without pulling floor staff from diners.",
+      "icon": "Utensils",
+      "workflows": [
+        "Live table availability & reservation booking",
+        "Dietary restriction & allergy logging",
+        "Operating hours & parking directions",
+        "Large party & private dining routing"
+      ]
+    },
+    {
+      "id": "clinic",
+      "name": "Clinics",
+      "tagline": "Appointment scheduling, patient intake & triage routing",
+      "description": "Automate patient appointment booking, practitioner selection, insurance provider logging, and emergency triage routing with complete clinical compliance.",
+      "icon": "Stethoscope",
+      "workflows": [
+        "Practitioner calendar appointment booking",
+        "Insurance provider and policy number collection",
+        "Pre-procedure preparation guidance",
+        "Emergency escalation to on-call clinician"
+      ]
+    },
+    {
+      "id": "hotel",
+      "name": "Hotels",
+      "tagline": "Guest reservations, room availability & concierge inquiries",
+      "description": "Provide 24/7 guest service for room rates, check-in logistics, amenities, pet policies, and seamless transfer to front desk staff.",
+      "icon": "Building2",
+      "workflows": [
+        "Room availability & rate quotes",
+        "Check-in / check-out policy assistance",
+        "Spa and dining reservation booking",
+        "Seamless transfer to front desk manager"
+      ]
+    },
+    {
+      "id": "services",
+      "name": "Service Businesses",
+      "tagline": "Quote requests, job dispatch & structured intake",
+      "description": "Capture job details, emergency service requests, customer contact information, and dispatch technician visits automatically.",
+      "icon": "Briefcase",
+      "workflows": [
+        "Job scope & service requirement capture",
+        "Instant callback scheduling & dispatch",
+        "Pricing tier & estimate consultations",
+        "CRM & lead pipeline synchronization"
+      ]
+    }
+  ],
+  "useCases": [
+    {
+      "id": "enquiries",
+      "title": "Customer Enquiries",
+      "description": "Provide instant, accurate responses to frequent questions regarding pricing, location, policies, opening hours, and service specifications.",
+      "icon": "HelpCircle",
+      "active": true
+    },
+    {
+      "id": "reservations",
+      "title": "Reservations & Bookings",
+      "description": "Check real-time calendar availability, resolve scheduling conflicts, reserve slots, and trigger instant SMS confirmations.",
+      "icon": "CalendarCheck",
+      "active": true
+    },
+    {
+      "id": "qualification",
+      "title": "Lead Qualification",
+      "description": "Ask structured questions to determine caller budget, urgency, timeline, and project suitability before routing.",
+      "icon": "Filter",
+      "active": true
+    },
+    {
+      "id": "sales",
+      "title": "Sales Conversations",
+      "description": "Engage inbound prospective buyers with product details, answer objection queries, and book high-intent consultation meetings.",
+      "icon": "TrendingUp",
+      "active": true
+    },
+    {
+      "id": "support",
+      "title": "Customer Support",
+      "description": "Resolve tier-one customer service tickets, provide status lookups, and guide callers through structured troubleshooting.",
+      "icon": "Headphones",
+      "active": true
+    },
+    {
+      "id": "followups",
+      "title": "Follow-Ups",
+      "description": "Conduct structured outbound calls for booking confirmations, appointment reminders, feedback collection, and customer re-engagement.",
+      "icon": "RefreshCw",
+      "active": true
+    },
+    {
+      "id": "collection",
+      "title": "Information Collection",
+      "description": "Accurately capture customer contact details, form submissions, and structured project specifications on first contact.",
+      "icon": "UserCheck",
+      "active": true
+    },
+    {
+      "id": "routing",
+      "title": "Call Routing",
+      "description": "Seamlessly transfer complex, VIP, or emergency conversations to the exact department or human specialist with complete context.",
+      "icon": "PhoneForwarded",
+      "active": true
+    }
+  ],
+  "leads": [
+    {
+      "name": "sai",
+      "company": "Noor",
+      "email": "koppulasaitharunreddy60@gmail.com",
+      "phone": "+919032015985",
+      "industry": "Real Estate & Leasing",
+      "monthlyCallVolume": "Under 500 calls / month",
+      "requirements": "SAASA",
+      "id": "lead-1788168678757-oihhau",
+      "status": "new",
+      "createdAt": "2026-08-31T09:31:18.757Z",
+      "syncedToSheets": true
+    },
+    {
+      "name": "sai",
+      "company": "Noor",
+      "email": "koppulasaitharunreddy60@gmail.com",
+      "phone": "+919032015985",
+      "industry": "Other",
+      "monthlyCallVolume": "Under 500 calls / month",
+      "requirements": "asaa",
+      "id": "lead-1788168482927-yictav",
+      "status": "new",
+      "createdAt": "2026-08-31T09:28:02.927Z",
+      "syncedToSheets": true
+    },
+    {
+      "name": "Julian Vance",
+      "company": "Vance Capital Hospitality",
+      "email": "j.vance@vancecap.com",
+      "phone": "+1 650 382 9901",
+      "industry": "Restaurant & Hospitality",
+      "monthlyCallVolume": "",
+      "requirements": "Inbound high-volume table reservation and VIP private dining booking automation.",
+      "id": "lead-1788161772457-m2mt5p",
+      "status": "new",
+      "createdAt": "2026-08-31T07:36:12.457Z",
+      "syncedToSheets": false
+    },
+    {
+      "name": "Victoria Sterling",
+      "company": "Sterling Estate Holdings",
+      "email": "v.sterling@sterlingestates.com",
+      "phone": "+1 415 902 4431",
+      "industry": "Real Estate & Leasing",
+      "monthlyCallVolume": "",
+      "requirements": "Inbound property qualification and viewing tour scheduling.",
+      "id": "lead-1788157027449-tfpcvm",
+      "status": "new",
+      "createdAt": "2026-08-31T06:17:07.449Z",
+      "syncedToSheets": false
+    },
+    {
+      "name": "Jonathan Thorne",
+      "company": "Thorne Wealth",
+      "email": "j.thorne@thorne.com",
+      "phone": "+1 415 880 9912",
+      "industry": "",
+      "monthlyCallVolume": "",
+      "requirements": "Inbound consultation scheduling and qualification",
+      "id": "lead-1788155536003-32fq33",
+      "status": "new",
+      "createdAt": "2026-08-31T05:52:16.003Z",
+      "syncedToSheets": false
+    },
+    {
+      "id": "lead-demo-1",
+      "name": "Marcus Vance",
+      "company": "Vance Luxury Motors",
+      "email": "m.vance@vancemotors.com",
+      "phone": "+1 (415) 890-2134",
+      "industry": "Automotive & Dealerships",
+      "monthlyCallVolume": "1,000 - 5,000 calls",
+      "requirements": "We need a voice agent to qualify test drive bookings, service department scheduling, and trade-in valuation requests.",
+      "status": "new",
+      "notes": "Interested in bilingual Spanish/English voice agent.",
+      "createdAt": "2026-08-31T00:51:54.287Z",
+      "syncedToSheets": true
+    },
+    {
+      "id": "lead-demo-2",
+      "name": "Elena Rostova",
+      "company": "Cascade Dental Group",
+      "email": "elena@cascadedental.org",
+      "phone": "+1 (206) 430-8812",
+      "industry": "Healthcare & Dental",
+      "monthlyCallVolume": "500 - 1,000 calls",
+      "requirements": "Looking to automate routine cleaning bookings and emergency dental triage after 6 PM.",
+      "status": "contacted",
+      "notes": "Demo scheduled for Friday 2 PM.",
+      "createdAt": "2026-08-30T01:51:54.287Z",
+      "syncedToSheets": true
+    }
+  ]
+}
