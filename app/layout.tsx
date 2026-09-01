@@ -40,6 +40,8 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `(function(){try{var t=localStorage.getItem("luno-theme");var m=window.matchMedia("(prefers-color-scheme: dark)").matches;var isDark=t==="dark"||(t!=="light"&&m);if(isDark){document.documentElement.classList.add("dark");document.documentElement.setAttribute("data-theme","dark");}else{document.documentElement.classList.remove("dark");document.documentElement.setAttribute("data-theme","light");}}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -49,6 +51,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="antialiased selection:bg-blue-600 selection:text-white">
         <ThemeProvider>{children}</ThemeProvider>

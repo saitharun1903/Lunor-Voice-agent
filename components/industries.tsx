@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   Home,
@@ -31,10 +31,10 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Briefcase,
 };
 
-export function IndustriesSection({ industries }: IndustriesProps) {
-  const scrollToContact = () => {
+export const IndustriesSection = memo(function IndustriesSection({ industries }: IndustriesProps) {
+  const scrollToContact = useCallback(() => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   const realEstate = industries.find((i) => i.id === "real-estate");
   const otherIndustries = industries.filter((i) => i.id !== "real-estate");
@@ -44,46 +44,23 @@ export function IndustriesSection({ industries }: IndustriesProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase"
-          >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Tailored Industry Architecture</span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5"
-          >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
             See what your business could automate.
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance"
-          >
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
             Every phone conversation is structured into custom business logic, calendar scheduling, and backend operational synchronization.
-          </motion.p>
+          </p>
         </div>
 
         {/* 1. Large Editorial Featured Showcase: REAL ESTATE */}
         {realEstate && (
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 rounded-3xl p-8 sm:p-12 backdrop-blur-2xl bg-white/90 dark:bg-zinc-900/80 border border-blue-500/30 dark:border-blue-400/30 shadow-2xl relative overflow-hidden"
-          >
+          <div className="mb-16 rounded-3xl p-8 sm:p-12 backdrop-blur-xl bg-white/90 dark:bg-zinc-900/80 border border-blue-500/30 dark:border-blue-400/30 shadow-2xl relative overflow-hidden">
             {/* Top Accent Line */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-400" />
 
@@ -155,26 +132,22 @@ export function IndustriesSection({ industries }: IndustriesProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* 2. Other Industry Cards (Restaurants, Clinics, Hotels, Service Businesses) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {otherIndustries.map((ind, index) => {
+          {otherIndustries.map((ind) => {
             const Icon = ICON_MAP[ind.icon] || Briefcase;
 
             return (
-              <motion.div
+              <div
                 key={ind.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="relative rounded-3xl p-7 backdrop-blur-xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:border-black/[0.12] dark:hover:border-white/[0.16] transition-all duration-300 flex flex-col justify-between group"
+                className="relative rounded-3xl p-7 backdrop-blur-md bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:border-black/[0.12] dark:hover:border-white/[0.16] transition-all duration-200 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-11 h-11 rounded-2xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                    <div className="w-11 h-11 rounded-2xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
@@ -213,11 +186,11 @@ export function IndustriesSection({ industries }: IndustriesProps) {
                     <ArrowRight className="w-3.5 h-3.5 text-blue-500" />
                   </button>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
       </div>
     </section>
   );
-}
+});

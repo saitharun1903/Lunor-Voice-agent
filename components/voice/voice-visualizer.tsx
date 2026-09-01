@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import { VoiceAgentState } from "./provider-types";
 
 interface VoiceVisualizerProps {
@@ -9,9 +9,13 @@ interface VoiceVisualizerProps {
   className?: string;
 }
 
-export function VoiceVisualizer({ getAudioData, state, className = "" }: VoiceVisualizerProps) {
+export const VoiceVisualizer = memo(function VoiceVisualizer({
+  getAudioData,
+  state,
+  className = "",
+}: VoiceVisualizerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animFrameId = useRef<number>();
+  const animFrameId = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -19,20 +23,39 @@ export function VoiceVisualizer({ getAudioData, state, className = "" }: VoiceVi
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const width = canvas.width;
+    const height = canvas.height;
+    const numBars = 24;
+    const barWidth = 3;
+    const gap = (width - numBars * barWidth) / (numBars + 1);
+
+    // If ready or ending, draw a static baseline once and do NOT run requestAnimationFrame
+    if (state === "ready" || state === "ending") {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "rgba(140, 140, 150, 0.35)";
+      for (let i = 0; i < numBars; i++) {
+        const x = gap + i * (barWidth + gap);
+        const y = (height - 4) / 2;
+        ctx.beginPath();
+        ctx.roundRect(x, y, barWidth, 4, barWidth / 2);
+        ctx.fill();
+      }
+      return;
+    }
+
     let phase = 0;
 
     const render = () => {
+      if (document.visibilityState === "hidden") {
+        animFrameId.current = requestAnimationFrame(render);
+        return;
+      }
+
       phase += 0.05;
-      const width = canvas.width;
-      const height = canvas.height;
       ctx.clearRect(0, 0, width, height);
 
       const audioData = getAudioData();
-      const numBars = 24;
-      const barWidth = 3;
-      const gap = (width - numBars * barWidth) / (numBars + 1);
 
-      // Determine active intensity based on state
       let baseAmplitude = 4;
       if (state === "speaking") {
         baseAmplitude = 22;
@@ -42,7 +65,8 @@ export function VoiceVisualizer({ getAudioData, state, className = "" }: VoiceVi
         baseAmplitude = 8;
       }
 
-      ctx.fillStyle = state === "speaking" ? "#3b82f6" : state === "listening" ? "#10b981" : "#818cf8";
+      ctx.fillStyle =
+        state === "speaking" ? "#3b82f6" : state === "listening" ? "#10b981" : "#818cf8";
 
       for (let i = 0; i < numBars; i++) {
         let barHeight = 4;
@@ -51,8 +75,7 @@ export function VoiceVisualizer({ getAudioData, state, className = "" }: VoiceVi
           const dataIndex = Math.floor((i / numBars) * (audioData.length / 2));
           const val = audioData[dataIndex] || 0;
           barHeight = Math.max(4, (val / 255) * height * 0.85);
-        } else if (state === "speaking" || state === "listening" || state === "thinking") {
-          // Dynamic sine-wave motion when speaking or listening
+        } else {
           const wave = Math.sin(phase + i * 0.45) * 0.5 + 0.5;
           const secondary = Math.cos(phase * 1.3 + i * 0.3) * 0.3 + 0.5;
           barHeight = Math.max(4, wave * secondary * baseAmplitude + 4);
@@ -62,7 +85,6 @@ export function VoiceVisualizer({ getAudioData, state, className = "" }: VoiceVi
         const y = (height - barHeight) / 2;
         const radius = barWidth / 2;
 
-        // Draw rounded capsule bar
         ctx.beginPath();
         ctx.roundRect(x, y, barWidth, barHeight, radius);
         ctx.fill();
@@ -76,6 +98,7 @@ export function VoiceVisualizer({ getAudioData, state, className = "" }: VoiceVi
     return () => {
       if (animFrameId.current) {
         cancelAnimationFrame(animFrameId.current);
+        animFrameId.current = null;
       }
     };
   }, [getAudioData, state]);
@@ -88,4 +111,4 @@ export function VoiceVisualizer({ getAudioData, state, className = "" }: VoiceVi
       className={`w-full max-w-[180px] h-10 ${className}`}
     />
   );
-}
+});

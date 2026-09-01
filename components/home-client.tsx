@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { Navbar } from "./navbar";
 import { Hero } from "./hero";
 import { LiveDemoSection } from "./live-demo-section";
@@ -23,15 +23,15 @@ interface HomeClientProps {
   initialData: SiteData;
 }
 
-export function HomeClient({ initialData }: HomeClientProps) {
+export const HomeClient = memo(function HomeClient({ initialData }: HomeClientProps) {
   const { settings, stats, projects, industries, useCases } = initialData;
 
-  const scrollToDemo = () => {
+  const scrollToDemo = useCallback(() => {
     document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#fbfbfd] dark:bg-[#030305] text-[#1d1d1f] dark:text-[#f5f5f7] selection:bg-blue-600 selection:text-white transition-colors duration-500 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#fafafc] dark:bg-[#030305] text-[#1d1d1f] dark:text-[#f5f5f7] selection:bg-blue-600 selection:text-white transition-colors duration-200 overflow-x-hidden">
       {/* Subtle Ambient Background Mesh & Desktop Cursor Proximity Glow */}
       <AmbientBackground />
       <CursorGlow />
@@ -93,4 +93,4 @@ export function HomeClient({ initialData }: HomeClientProps) {
       <Footer settings={settings} />
     </div>
   );
-}
+});

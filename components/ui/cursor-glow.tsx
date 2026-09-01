@@ -1,42 +1,63 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import React, { useEffect, useRef, useState, memo } from "react";
 
-export function CursorGlow() {
+export const CursorGlow = memo(function CursorGlow() {
   const [mounted, setMounted] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
-
-  const mouseX = useSpring(0, { stiffness: 200, damping: 25 });
-  const mouseY = useSpring(0, { stiffness: 200, damping: 25 });
+  const glowRef = useRef<HTMLDivElement>(null);
+  const targetPos = useRef({ x: -1000, y: -1000 });
+  const currentPos = useRef({ x: -1000, y: -1000 });
+  const rafId = useRef<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
-    if (window.matchMedia("(pointer: coarse)").matches) {
+    if (window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setIsTouch(true);
       return;
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+    const onMouseMove = (e: MouseEvent) => {
+      targetPos.current.x = e.clientX;
+      targetPos.current.y = e.clientY;
     };
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+    const animate = () => {
+      if (!glowRef.current) return;
+      if (document.visibilityState === "hidden") {
+        rafId.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      // Smooth lerp (linear interpolation) at 60fps
+      currentPos.current.x += (targetPos.current.x - currentPos.current.x) * 0.12;
+      currentPos.current.y += (targetPos.current.y - currentPos.current.y) * 0.12;
+
+      glowRef.current.style.transform = `translate3d(${currentPos.current.x}px, ${currentPos.current.y}px, 0) translate(-50%, -50%)`;
+      rafId.current = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    rafId.current = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
+  }, []);
 
   if (!mounted || isTouch) return null;
 
   return (
-    <motion.div
+    <div
+      ref={glowRef}
+      aria-hidden="true"
       style={{
-        x: mouseX,
-        y: mouseY,
-        translateX: "-50%",
-        translateY: "-50%",
+        background:
+          "radial-gradient(circle, rgba(59, 130, 246, 0.07) 0%, rgba(37, 99, 235, 0.02) 45%, transparent 70%)",
+        willChange: "transform",
       }}
-      className="fixed top-0 left-0 w-[420px] h-[420px] rounded-full bg-blue-500/[0.04] dark:bg-blue-400/[0.06] blur-[80px] pointer-events-none -z-10 transition-opacity duration-300"
+      className="fixed top-0 left-0 w-[420px] h-[420px] rounded-full pointer-events-none -z-10"
     />
   );
-}
+});

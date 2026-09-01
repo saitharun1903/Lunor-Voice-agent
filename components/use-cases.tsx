@@ -1,23 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  HelpCircle,
-  CalendarCheck,
-  Filter,
-  TrendingUp,
-  Headphones,
-  RefreshCw,
-  UserCheck,
-  PhoneForwarded,
-  Sparkles,
   Zap,
-  Check,
-  MessageSquare,
-  ArrowRight,
   ChevronRight,
-  Layers,
+  ArrowRight,
 } from "lucide-react";
 import { UseCase } from "@/lib/types";
 
@@ -68,7 +56,7 @@ const SAMPLE_DIALOGUES: Record<string, { caller: string; agent: string; workflow
   },
 };
 
-export function UseCasesSection({ useCases }: UseCasesProps) {
+export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCasesProps) {
   const [selectedId, setSelectedId] = useState<string>("customer-enquiries");
   const activeCases = useCases.filter((uc) => uc.active);
 
@@ -79,44 +67,27 @@ export function UseCasesSection({ useCases }: UseCasesProps) {
     workflow: ["Caller Intent Analysis", "Business Action Trigger", "CRM Dispatch"],
   };
 
-  const scrollToContact = () => {
+  const scrollToContact = useCallback(() => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <section id="use-cases" className="py-24 md:py-32 relative overflow-hidden bg-black/[0.015] dark:bg-white/[0.015] border-y border-black/[0.04] dark:border-white/[0.04]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase"
-          >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase">
             <Zap className="w-3.5 h-3.5" />
             <span>Universal Business Capabilities</span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5"
-          >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
             What can Luno automate?
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance"
-          >
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
             From high-intent inquiries and automated booking to complex lead qualification and warm human routing, Luno handles structured business conversations.
-          </motion.p>
+          </p>
         </div>
 
         {/* Editorial Split Layout: Left Stacked Rows / Right Product Interface */}
@@ -131,7 +102,7 @@ export function UseCasesSection({ useCases }: UseCasesProps) {
                 <button
                   key={uc.id}
                   onClick={() => setSelectedId(uc.id)}
-                  className={`w-full text-left p-4.5 rounded-2xl transition-all duration-200 border flex items-center justify-between group ${
+                  className={`w-full text-left p-4.5 rounded-2xl transition-all duration-150 border flex items-center justify-between group ${
                     isSelected
                       ? "bg-white dark:bg-zinc-900 border-blue-500/30 dark:border-blue-400/40 shadow-md"
                       : "bg-white/40 dark:bg-white/[0.03] border-transparent hover:border-black/[0.06] dark:hover:border-white/[0.08] hover:bg-white/80 dark:hover:bg-white/[0.06]"
@@ -180,11 +151,11 @@ export function UseCasesSection({ useCases }: UseCasesProps) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedId}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.25 }}
-                className="rounded-3xl p-6 sm:p-8 backdrop-blur-2xl bg-white dark:bg-zinc-900 border border-black/[0.08] dark:border-white/[0.12] shadow-xl relative overflow-hidden space-y-6"
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="rounded-3xl p-6 sm:p-8 backdrop-blur-xl bg-white dark:bg-zinc-900 border border-black/[0.08] dark:border-white/[0.12] shadow-xl relative overflow-hidden space-y-6"
               >
                 {/* Top Specular Line */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
@@ -271,4 +242,4 @@ export function UseCasesSection({ useCases }: UseCasesProps) {
       </div>
     </section>
   );
-}
+});

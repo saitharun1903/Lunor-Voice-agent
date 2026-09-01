@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 
 type Theme = "light" | "dark" | "system";
 
@@ -10,76 +10,76 @@ interface ThemeContextType {
   setTheme: (theme: Theme) => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  resolvedTheme: "light",
+  setTheme: () => {},
+});
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("luno-theme") as Theme | null;
-    if (savedTheme && ["light", "dark", "system"].includes(savedTheme)) {
-      setThemeState(savedTheme);
-    } else {
-      setThemeState("light");
+  const applyThemeToDOM = useCallback((targetTheme: Theme) => {
+    const isDark =
+      targetTheme === "dark" ||
+      (targetTheme === "system" &&
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+    const resolved = isDark ? "dark" : "light";
+    setResolvedTheme(resolved);
+
+    if (typeof document !== "undefined") {
+      const root = document.documentElement;
+      if (isDark) {
+        root.classList.add("dark");
+        root.setAttribute("data-theme", "dark");
+      } else {
+        root.classList.remove("dark");
+        root.setAttribute("data-theme", "light");
+      }
     }
-    setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
+    const savedTheme = (localStorage.getItem("luno-theme") as Theme) || "light";
+    setThemeState(savedTheme);
+    applyThemeToDOM(savedTheme);
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const applyTheme = () => {
-      let target: "light" | "dark" = "light";
-      if (theme === "system") {
-        target = mediaQuery.matches ? "dark" : "light";
-      } else {
-        target = theme;
-      }
-
-      setResolvedTheme(target);
-
-      const root = document.documentElement;
-      if (target === "dark") {
-        root.classList.add("dark");
-      } else {
-        root.classList.remove("dark");
-      }
-    };
-
-    applyTheme();
-
     const listener = () => {
-      if (theme === "system") {
-        applyTheme();
+      const current = (localStorage.getItem("luno-theme") as Theme) || "light";
+      if (current === "system") {
+        applyThemeToDOM("system");
       }
     };
 
-    mediaQuery.addEventListener("change", listener);
-    return () => mediaQuery.removeEventListener("change", listener);
-  }, [theme, mounted]);
+    mediaQuery.addEventListener("change", listener, { passive: true } as any);
+    return () => mediaQuery.removeEventListener("change", listener as any);
+  }, [applyThemeToDOM]);
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    localStorage.setItem("luno-theme", newTheme);
-  };
-
-  return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
-      <div style={{ visibility: mounted ? "visible" : "visible" }}>
-        {children}
-      </div>
-    </ThemeContext.Provider>
+  const setTheme = useCallback(
+    (newTheme: Theme) => {
+      setThemeState(newTheme);
+      try {
+        localStorage.setItem("luno-theme", newTheme);
+      } catch (e) {
+        // ignore in private browsing modes
+      }
+      applyThemeToDOM(newTheme);
+    },
+    [applyThemeToDOM]
   );
+
+  const value = useMemo(
+    () => ({ theme, resolvedTheme, setTheme }),
+    [theme, resolvedTheme, setTheme]
+  );
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
+  return useContext(ThemeContext);
 }
