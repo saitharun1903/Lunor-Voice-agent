@@ -10,61 +10,138 @@ import {
 import { UseCase } from "@/lib/types";
 
 interface UseCasesProps {
-  useCases: UseCase[];
+  useCases?: UseCase[];
 }
 
-const SAMPLE_DIALOGUES: Record<string, { caller: string; agent: string; workflow: string[] }> = {
+const DEFAULT_USE_CASES: UseCase[] = [
+  {
+    id: "customer-enquiries",
+    title: "Customer Enquiries",
+    description: "Instant answers for business hours, location details, service pricing, and company FAQs.",
+    icon: "HelpCircle",
+    active: true,
+  },
+  {
+    id: "reservations-bookings",
+    title: "Bookings & Reservations",
+    description: "Check real-time calendar availability, schedule appointments, and coordinate confirmations.",
+    icon: "CalendarCheck",
+    active: true,
+  },
+  {
+    id: "lead-qualification",
+    title: "Lead Qualification",
+    description: "Intake caller criteria, verify budget parameters, and score intent before human handoff.",
+    icon: "Filter",
+    active: true,
+  },
+  {
+    id: "sales-conversations",
+    title: "Sales Conversations",
+    description: "Conduct initial discovery, answer product specifications, and route qualified prospects.",
+    icon: "TrendingUp",
+    active: true,
+  },
+  {
+    id: "customer-support",
+    title: "Customer Support",
+    description: "Triage inbound tickets, check status of work orders, and resolve recurring issues.",
+    icon: "Headphones",
+    active: true,
+  },
+  {
+    id: "follow-ups",
+    title: "Follow-ups",
+    description: "Automate appointment reminders, estimate check-ins, and service renewals.",
+    icon: "RefreshCw",
+    active: true,
+  },
+  {
+    id: "information-collection",
+    title: "Information Collection",
+    description: "Structured intake for applications, claims, client onboarding, and incident reports.",
+    icon: "UserCheck",
+    active: true,
+  },
+  {
+    id: "call-routing",
+    title: "Call Routing",
+    description: "Intelligent intent classification with context-rich warm human transfers.",
+    icon: "PhoneForwarded",
+    active: true,
+  },
+];
+
+const CAPABILITY_DATA: Record<
+  string,
+  {
+    caller: string;
+    agent: string;
+    workflowFlow: string[];
+    actionsExecuted: string[];
+  }
+> = {
   "customer-enquiries": {
-    caller: "What are your holiday hours, and do you have parking on-site?",
-    agent: "We're open until 9 PM tonight, and we have complimentary guest parking behind the building on 4th Ave.",
-    workflow: ["Intent Recognition", "Knowledge Base Lookup", "Natural Audio Delivery"],
+    caller: "What are your holiday hours, and do you have guest parking on-site?",
+    agent: "We're open until 9 PM tonight, and we have complimentary guest parking behind the main building on 4th Ave.",
+    workflowFlow: ["CALL", "INTENT", "KNOWLEDGE BASE", "RESOLUTION"],
+    actionsExecuted: ["Instant Intent Parsing", "Knowledge Base Query", "Sub-400ms Audio Delivery"],
   },
   "reservations-bookings": {
-    caller: "I'd like to book a consultation for tomorrow afternoon at 3:00 PM.",
-    agent: "Tomorrow at 3:00 PM is open. I've reserved that slot for you and dispatched a confirmation to your phone.",
-    workflow: ["Live Calendar Slot Query", "Conflict Avoidance", "Bi-directional Booking Sync"],
+    caller: "I'd like to book a private consultation for tomorrow afternoon at 3:00 PM.",
+    agent: "Tomorrow at 3:00 PM is open. I've reserved that slot for you and dispatched an SMS confirmation with the calendar invite.",
+    workflowFlow: ["CALL", "AVAILABILITY", "BOOKING", "CONFIRMATION"],
+    actionsExecuted: ["Real-time Calendar Slot Check", "Conflict Prevention", "Bi-directional Calendar Sync"],
   },
   "lead-qualification": {
-    caller: "I'm looking to buy a 3-bedroom home in Westside with a budget of $1.2M.",
-    agent: "Excellent. I've logged your location criteria and pre-approval status. Our senior broker is preparing listing matches for you.",
-    workflow: ["Budget & Timeline Intake", "Criteria Verification", "High-Priority Agent Alert"],
+    caller: "I'm looking to purchase a 3-bedroom property in Westside with a budget of $1.2M.",
+    agent: "Understood. I've logged your location criteria and pre-approval status. Our senior broker is preparing matching property listings for you.",
+    workflowFlow: ["CALL", "QUESTION", "REQUIREMENT", "QUALIFIED LEAD"],
+    actionsExecuted: ["Budget & Timeline Intake", "Criteria Verification", "High-Priority CRM Alert"],
   },
   "sales-conversations": {
-    caller: "How does your enterprise deployment compare to standard setup?",
-    agent: "Our enterprise tier includes custom SIP routing, SLA guarantees, and dedicated webhook sync. Let's schedule your technical scoping call.",
-    workflow: ["Requirement Discovery", "Tier Qualification", "Executive Calendar Dispatch"],
+    caller: "How does your enterprise telephony setup compare to standard call forwarding?",
+    agent: "Our enterprise tier includes custom carrier SIP routing, SLA guarantees, and dedicated webhook sync. Let's schedule your technical scoping call.",
+    workflowFlow: ["CALL", "DISCOVERY", "TIER SCOPING", "CALENDAR DISPATCH"],
+    actionsExecuted: ["Requirement Intake", "Tier Scoping", "Executive Calendar Dispatch"],
   },
   "customer-support": {
-    caller: "I need to check the status of work order #8491.",
-    agent: "Work order #8491 was marked completed at 11:30 AM today by our technician. Would you like the full report texted to you?",
-    workflow: ["Database Query", "Identity Confirmation", "SMS Status Notification"],
+    caller: "I need to check the status of repair work order #8491.",
+    agent: "Work order #8491 was marked completed at 11:30 AM today by our technician. Would you like the full technician report texted to your phone?",
+    workflowFlow: ["CALL", "IDENTITY", "DATABASE LOOKUP", "SMS DISPATCH"],
+    actionsExecuted: ["Database Record Query", "Identity Verification", "SMS Status Notification"],
   },
   "follow-ups": {
-    caller: "Just calling back regarding the inspection estimate sent yesterday.",
+    caller: "Just calling back regarding the service estimate emailed yesterday.",
     agent: "I see your estimate was approved. Would you like me to schedule the technician dispatch for this Thursday morning?",
-    workflow: ["CRM Record Lookup", "Approval Status Check", "Dispatch Coordination"],
+    workflowFlow: ["CALL", "CRM LOOKUP", "APPROVAL CHECK", "DISPATCH"],
+    actionsExecuted: ["CRM Record Lookup", "Approval Status Check", "Dispatch Coordination"],
   },
   "information-collection": {
-    caller: "I want to file an intake for the commercial lease inquiry.",
-    agent: "I'll take your company name, square footage requirement, and target lease start date right now.",
-    workflow: ["Multi-field Structured Intake", "Data Normalization", "Instant CRM Record Injection"],
+    caller: "I want to file an intake for the commercial building lease inquiry.",
+    agent: "I'll take your company name, square footage requirement, and target move-in date right now.",
+    workflowFlow: ["CALL", "MULTI-FIELD INTAKE", "NORMALIZATION", "CRM INJECTION"],
+    actionsExecuted: ["Multi-field Structured Intake", "Data Normalization", "Instant CRM Injection"],
   },
   "call-routing": {
-    caller: "I have an urgent billing dispute that requires an account manager.",
-    agent: "Understood. I am executing an immediate warm transfer to Sarah in Accounts with your full account history.",
-    workflow: ["Priority Evaluation", "SIP REFER Hand-off", "Warm Agent Context Delivery"],
+    caller: "I have an urgent account billing dispute that requires an executive account manager.",
+    agent: "Understood. I am executing an immediate warm transfer to Sarah in Accounts with your full account history and transcript.",
+    workflowFlow: ["CALL", "INTENT", "DEPARTMENT", "WARM HUMAN"],
+    actionsExecuted: ["Priority Evaluation", "SIP REFER Hand-off", "Warm Agent Context Delivery"],
   },
 };
 
 export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCasesProps) {
   const [selectedId, setSelectedId] = useState<string>("customer-enquiries");
-  const activeCases = useCases.filter((uc) => uc.active);
+  const rawCases = (useCases && useCases.length > 0) ? useCases : DEFAULT_USE_CASES;
+  const activeCases = rawCases.filter((uc) => uc && uc.active);
 
-  const selectedCase = activeCases.find((c) => c.id === selectedId) || activeCases[0];
-  const dialogueData = SAMPLE_DIALOGUES[selectedId] || {
+  const selectedCase = activeCases.find((c) => c.id === selectedId) || activeCases[0] || DEFAULT_USE_CASES[0];
+  const itemData = CAPABILITY_DATA[selectedId] || {
     caller: "I have a question regarding your business services.",
     agent: "I can answer your questions, capture requirements, or schedule a direct consultation.",
-    workflow: ["Caller Intent Analysis", "Business Action Trigger", "CRM Dispatch"],
+    workflowFlow: ["CALL", "INTENT", "ACTION", "RESOLUTION"],
+    actionsExecuted: ["Caller Intent Analysis", "Business Action Trigger", "CRM Dispatch"],
   };
 
   const scrollToContact = useCallback(() => {
@@ -76,9 +153,9 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase font-mono">
             <Zap className="w-3.5 h-3.5" />
-            <span>Universal Business Capabilities</span>
+            <span>Structured Business Capabilities</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
@@ -86,13 +163,13 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
-            From high-intent inquiries and automated booking to complex lead qualification and warm human routing, Luno handles structured business conversations.
+            From high-intent inquiries and automated calendar bookings to multi-field lead qualification and warm human routing, Luno handles structured business conversations.
           </p>
         </div>
 
-        {/* Editorial Split Layout: Left Stacked Rows / Right Product Interface */}
+        {/* Editorial Split Layout: Left Numbered Ledger / Right Interactive Product Terminal */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Numbered Editorial Capability Rows */}
+          {/* Left Column: Flowing Numbered Capability Rows */}
           <div className="lg:col-span-6 space-y-2">
             {activeCases.map((uc, index) => {
               const isSelected = selectedId === uc.id;
@@ -146,7 +223,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
             })}
           </div>
 
-          {/* Right Column: Live Conversational Simulation & Workflow Preview */}
+          {/* Right Column: Live Conversational Simulation & Concrete Action Flow */}
           <div className="lg:col-span-6 lg:sticky lg:top-24">
             <AnimatePresence mode="wait">
               <motion.div
@@ -164,22 +241,34 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                 <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
                   <div>
                     <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">
-                      Capability Preview
+                      Workflow Blueprint
                     </span>
                     <h3 className="text-xl font-bold text-zinc-950 dark:text-white mt-0.5">
                       {selectedCase.title}
                     </h3>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-mono">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Verified Workflow
+                    Verified Architecture
                   </span>
+                </div>
+
+                {/* Concrete Workflow Path Badge */}
+                <div className="p-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono font-bold text-zinc-700 dark:text-zinc-300">
+                  {itemData.workflowFlow.map((step, idx) => (
+                    <React.Fragment key={idx}>
+                      <span className="text-blue-600 dark:text-blue-400">{step}</span>
+                      {idx < itemData.workflowFlow.length - 1 && (
+                        <span className="text-zinc-400">→</span>
+                      )}
+                    </React.Fragment>
+                  ))}
                 </div>
 
                 {/* Live Dialogue Exchange */}
                 <div className="space-y-3.5">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
-                    Live Dialogue Interaction
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 font-mono">
+                    Conversational Interaction
                   </span>
 
                   {/* Caller */}
@@ -188,28 +277,28 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                       Caller:
                     </span>
                     <p className="text-zinc-800 dark:text-zinc-200">
-                      “{dialogueData.caller}”
+                      “{itemData.caller}”
                     </p>
                   </div>
 
                   {/* Luno Agent */}
                   <div className="p-4 rounded-2xl bg-blue-500/[0.07] dark:bg-blue-500/15 border border-blue-500/20 text-xs sm:text-sm">
                     <span className="font-semibold text-blue-600 dark:text-blue-400 text-[11px] block mb-1">
-                      Luno Voice Agent:
+                      Luno Voice Engine:
                     </span>
                     <p className="text-zinc-900 dark:text-white font-medium">
-                      “{dialogueData.agent}”
+                      “{itemData.agent}”
                     </p>
                   </div>
                 </div>
 
                 {/* Real-time Business Pipeline */}
                 <div className="space-y-2 pt-2 border-t border-black/[0.05] dark:border-white/[0.06]">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
-                    Automated Actions Executed:
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 font-mono">
+                    Autonomous Actions Executed:
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {dialogueData.workflow.map((action, i) => (
+                    {itemData.actionsExecuted.map((action, i) => (
                       <div
                         key={i}
                         className="p-2.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] text-center"

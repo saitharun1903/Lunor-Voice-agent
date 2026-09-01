@@ -10,9 +10,9 @@ import {
   Zap,
   Volume2,
   Mic,
-  Sparkles,
   Activity,
   CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 
 interface HeroProps {
@@ -23,9 +23,9 @@ interface HeroProps {
 }
 
 export const Hero = memo(function Hero({
-  eyebrow = "PRODUCTION AI VOICE TELEPHONY",
-  headline = "Automate the first layer of every call.",
-  subheadline = "Luno builds custom AI voice systems that handle repetitive business phone conversations—from enquiries and calendar bookings to lead qualification, customer support, follow-ups and warm human routing.",
+  eyebrow = "VOICE AUTOMATION FOR BUSINESS",
+  headline = "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
+  subheadline = "Luno builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
   onTalkToLuno,
 }: HeroProps) {
   const scrollToContact = useCallback(() => {
@@ -44,25 +44,25 @@ export const Hero = memo(function Hero({
     <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* 1. Subtle Eyebrow Badge */}
+          {/* 1. Subtle Eyebrow Label */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold tracking-wider text-zinc-900 dark:text-zinc-100 bg-white/90 dark:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.12] shadow-sm mb-6 uppercase font-mono"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
             <span>{eyebrow}</span>
           </motion.div>
 
-          {/* 2. Dominant Headline with Signature Acoustic Signal Aperture */}
+          {/* 2. Dominant Display Typography with Signature Luno Acoustic Signal Aperture */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 dark:text-white leading-[1.12] mb-6 text-balance select-none"
           >
-            Automate the{" "}
+            AUTOMATE THE{" "}
             {/* Signature Luno Acoustic Signal Aperture / Floating Glass Squircle */}
             <motion.span
               onClick={handleTalkToLuno}
@@ -171,13 +171,14 @@ export const Hero = memo(function Hero({
                 <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-400 border border-white" />
               </motion.span>
             </motion.span>
+            <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">
-              first layer
+              FIRST LAYER
             </span>{" "}
-            of every call.
+            OF EVERY CALL.
           </motion.h1>
 
-          {/* 3. High-Clarity Subheadline */}
+          {/* 3. Restrained Supporting Copy */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -198,7 +199,7 @@ export const Hero = memo(function Hero({
               onClick={scrollToContact}
               className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-sm font-semibold glass-button-primary shadow-xl"
             >
-              <span>Build My Voice Agent</span>
+              <span>BUILD MY VOICE AGENT</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
@@ -207,7 +208,7 @@ export const Hero = memo(function Hero({
               className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-sm font-semibold glass-button-secondary"
             >
               <PhoneCall className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>Talk to Luno</span>
+              <span>TALK TO LUNO</span>
             </button>
           </motion.div>
 
@@ -295,7 +296,7 @@ export const Hero = memo(function Hero({
                 className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold glass-button-primary shrink-0"
               >
                 <Mic className="w-3.5 h-3.5" />
-                <span>Test Live Demo</span>
+                <span>TEST LIVE DEMO</span>
               </button>
             </div>
           </div>

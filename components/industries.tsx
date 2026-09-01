@@ -1,7 +1,6 @@
 "use client";
 
 import React, { memo, useCallback } from "react";
-import { motion } from "framer-motion";
 import {
   Home,
   Utensils,
@@ -20,8 +19,47 @@ import {
 import { IndustryItem } from "@/lib/types";
 
 interface IndustriesProps {
-  industries: IndustryItem[];
+  industries?: IndustryItem[];
 }
+
+const DEFAULT_INDUSTRIES: IndustryItem[] = [
+  {
+    id: "real-estate",
+    name: "Real Estate & Leasing",
+    tagline: "Inbound Buyer & Tenant Qualification",
+    description: "Handle incoming property calls, qualify buyer budgets, verify pre-approval status, and schedule showings.",
+    icon: "Home",
+    workflows: ["Property Enquiry Intake", "Budget & Location Qualification", "Showing Scheduling"],
+    active: true,
+  },
+  {
+    id: "restaurants",
+    name: "Restaurants & Hospitality",
+    tagline: "Reservations & Peak Hour Enquiries",
+    description: "Capture dinner reservations, dietary questions, party bookings, and hours without tying up front-of-house staff.",
+    icon: "Utensils",
+    workflows: ["Table Reservation Intake", "Special Request Capture", "Hours & Directions"],
+    active: true,
+  },
+  {
+    id: "clinics",
+    name: "Medical & Dental Clinics",
+    tagline: "Patient Intake & Scheduling",
+    description: "Provide 24/7 patient booking, appointment rescheduling, insurance intake, and triage routing.",
+    icon: "Stethoscope",
+    workflows: ["Patient Appointment Booking", "Rescheduling & Reminders", "Insurance Policy Verification"],
+    active: true,
+  },
+  {
+    id: "hotels",
+    name: "Hotels & Stays",
+    tagline: "Guest Concierge & Booking",
+    description: "Field room availability queries, property amenities, direct reservations, and concierge questions.",
+    icon: "Building2",
+    workflows: ["Room Availability Query", "Guest Amenity Q&A", "Late Check-in Coordination"],
+    active: true,
+  },
+];
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Home,
@@ -36,25 +74,25 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const realEstate = industries.find((i) => i.id === "real-estate");
-  const otherIndustries = industries.filter((i) => i.id !== "real-estate");
+  const rawIndustries = (industries && industries.length > 0) ? industries : DEFAULT_INDUSTRIES;
+  const realEstate = rawIndustries.find((i) => i && i.id === "real-estate") || DEFAULT_INDUSTRIES[0];
+  const otherIndustries = rawIndustries.filter((i) => i && i.id !== "real-estate");
 
   return (
     <section id="industries" className="py-24 md:py-32 relative overflow-hidden bg-black/[0.015] dark:bg-white/[0.015] border-y border-black/[0.04] dark:border-white/[0.04]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase font-mono">
             <span>Tailored Industry Architecture</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
-            See what your business could automate.
+            WHERE VOICE AUTOMATION FITS.
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
-            Every phone conversation is structured into custom business logic, calendar scheduling, and backend operational synchronization.
+            Every business phone conversation is structured into custom conversational logic, calendar scheduling, and automated operational synchronization.
           </p>
         </div>
 
@@ -67,17 +105,17 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               {/* Left Column: Editorial Summary */}
               <div className="lg:col-span-6 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono">
                   <Home className="w-3.5 h-3.5" />
-                  <span>Featured Solution • Real Estate & Leasing</span>
+                  <span>FEATURED ARCHITECTURE • REAL ESTATE & LEASING</span>
                 </div>
 
                 <h3 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-white leading-tight">
-                  Turn every property enquiry into an opportunity.
+                  TURN EVERY PROPERTY ENQUIRY INTO A QUALIFIED CONVERSATION.
                 </h3>
 
                 <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  Prospective buyers and tenants call across varying hours. Luno provides an instant, knowledgeable conversational voice layer that qualifies buyer budgets, answers listing specifications, and schedules private showings directly into agent calendars.
+                  Prospective buyers and tenants call across varying hours. Luno provides an instant conversational voice layer that qualifies buyer budgets, answers listing specifications, and schedules private showings directly into agent calendars.
                 </p>
 
                 <div className="pt-2">
@@ -97,16 +135,16 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                     Real Estate Autonomous Workflow
                   </span>
-                  <span className="text-[11px] text-zinc-400">0s Response Time</span>
+                  <span className="text-[11px] font-mono text-zinc-400">0s Response Time</span>
                 </div>
 
                 <div className="space-y-3">
                   {[
                     { step: "01", title: "Incoming Call", sub: "Instant greeting & property listing recognition", icon: PhoneCall },
-                    { step: "02", title: "Intent & Requirement", sub: "Collects bedroom count, location & move-in timeline", icon: Layers },
+                    { step: "02", title: "Requirement Collection", sub: "Collects bedroom count, location & move-in timeline", icon: Layers },
                     { step: "03", title: "Buyer Qualification", sub: "Pre-approval status & budget range verification", icon: Filter },
-                    { step: "04", title: "Private Showing Schedule", sub: "Coordinates showing slot onto broker calendar", icon: Calendar },
-                    { step: "05", title: "Instant Notification", sub: "SMS confirmation & CRM lead sync dispatched", icon: Send },
+                    { step: "04", title: "Site Visit Schedule", sub: "Coordinates showing slot onto broker calendar", icon: Calendar },
+                    { step: "05", title: "Follow-up & CRM Sync", sub: "SMS confirmation & CRM lead sync dispatched", icon: Send },
                   ].map((wf, idx) => {
                     const WfIcon = wf.icon;
                     return (
@@ -155,7 +193,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
                   <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-1.5">
                     {ind.name}
                   </h3>
-                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-3">
+                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-3 font-mono">
                     {ind.tagline}
                   </p>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
@@ -163,7 +201,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
                   </p>
 
                   <div className="space-y-2 mb-6">
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 font-mono">
                       Workflows:
                     </p>
                     <div className="space-y-1.5">

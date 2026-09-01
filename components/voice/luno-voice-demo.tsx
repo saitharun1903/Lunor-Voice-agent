@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mic,
@@ -14,6 +14,8 @@ import {
   Shield,
   Activity,
   Radio,
+  Layers,
+  Cpu,
 } from "lucide-react";
 import { getVoiceAgentService, LunoVoiceState } from "@/lib/voice-service";
 
@@ -21,7 +23,7 @@ interface LunoVoiceDemoProps {
   className?: string;
 }
 
-export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
+export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
   const [state, setState] = useState<LunoVoiceState>("idle");
   const [isMuted, setIsMuted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -56,19 +58,19 @@ export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
     };
   }, []);
 
-  const handleStartCall = async () => {
+  const handleStartCall = useCallback(async () => {
     setLatestTranscript(null);
     await serviceRef.current.start();
-  };
+  }, []);
 
-  const handleStopCall = () => {
+  const handleStopCall = useCallback(() => {
     serviceRef.current.stop();
-  };
+  }, []);
 
-  const handleToggleMute = () => {
+  const handleToggleMute = useCallback(() => {
     serviceRef.current.toggleMute();
     setIsMuted(serviceRef.current.getIsMuted());
-  };
+  }, []);
 
   const getStateDetails = () => {
     switch (state) {
@@ -77,48 +79,56 @@ export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
           label: "Connecting...",
           sub: "Establishing secure low-latency voice pipeline",
           color: "text-amber-500",
+          statusTag: "INITIALIZING",
         };
       case "listening":
         return {
           label: "Listening...",
           sub: "Speak naturally into your microphone",
           color: "text-emerald-500",
+          statusTag: "LISTENING",
         };
       case "speaking":
         return {
           label: "Luno is speaking",
           sub: "Streaming real-time neural audio response",
           color: "text-blue-500",
+          statusTag: "TRANSMITTING",
         };
       case "muted":
         return {
           label: "Microphone muted",
           sub: "Click unmute to resume speaking",
           color: "text-amber-500",
+          statusTag: "MUTED",
         };
       case "ending":
         return {
           label: "Ending conversation...",
           sub: "Releasing audio streams",
           color: "text-zinc-400",
+          statusTag: "CLOSING",
         };
       case "ended":
         return {
           label: "Conversation ended",
           sub: "Thank you for exploring Luno voice capabilities",
           color: "text-zinc-500",
+          statusTag: "DISCONNECTED",
         };
       case "error":
         return {
           label: "Something went wrong",
           sub: errorMessage || "Please try again or contact Luno directly.",
           color: "text-rose-500",
+          statusTag: "ERROR",
         };
       default:
         return {
           label: "Live Voice Engine Ready",
           sub: "Click 'Start Conversation' to talk with Luno's real AI voice agent live.",
           color: "text-zinc-600 dark:text-zinc-400",
+          statusTag: "STANDBY",
         };
     }
   };
@@ -128,7 +138,7 @@ export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
 
   return (
     <div className={`relative w-full max-w-2xl mx-auto ${className}`}>
-      {/* Dynamic Background Glow */}
+      {/* Dynamic Ambient Background Glow */}
       <div
         className={`absolute -inset-6 rounded-3xl transition-all duration-700 blur-3xl pointer-events-none ${
           state === "speaking"
@@ -141,36 +151,39 @@ export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
         }`}
       />
 
-      {/* Modern Glass Voice Terminal */}
-      <div className="relative rounded-3xl p-8 sm:p-12 backdrop-blur-2xl bg-white/95 dark:bg-zinc-900/80 border border-black/[0.08] dark:border-white/[0.12] shadow-2xl transition-all duration-300">
-        {/* Top Accent Line */}
+      {/* Hardware-Inspired Tactile Voice Terminal */}
+      <div className="relative rounded-3xl p-7 sm:p-10 backdrop-blur-xl bg-white/95 dark:bg-zinc-900/80 border border-black/[0.08] dark:border-white/[0.12] shadow-2xl transition-all duration-300">
+        {/* Top Specular Line */}
         <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
 
-        <div className="flex flex-col items-center text-center">
-          {/* Status Indicator Chip */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-black/[0.04] dark:bg-white/[0.08] border border-black/[0.06] dark:border-white/[0.1] mb-6">
+        {/* Console Telemetry Header Bar */}
+        <div className="flex items-center justify-between pb-5 mb-5 border-b border-black/[0.05] dark:border-white/[0.06] text-[11px] font-mono">
+          <div className="flex items-center gap-2">
             <span
-              className={`w-2.5 h-2.5 rounded-full ${
-                state === "speaking"
-                  ? "bg-blue-500 animate-pulse"
-                  : state === "listening"
-                  ? "bg-emerald-500 animate-ping"
+              className={`w-2 h-2 rounded-full ${
+                isActive
+                  ? "bg-emerald-500 animate-pulse"
                   : state === "connecting"
-                  ? "bg-amber-500 animate-pulse"
-                  : state === "muted"
-                  ? "bg-amber-500"
+                  ? "bg-amber-500 animate-spin"
                   : state === "error"
                   ? "bg-rose-500"
-                  : "bg-emerald-500"
+                  : "bg-zinc-400"
               }`}
             />
-            <span className="text-zinc-800 dark:text-zinc-200 tracking-wider uppercase text-[11px] font-bold">
-              {state === "idle" ? "Live Voice Engine • Ready" : stateDetails.label}
+            <span className="font-bold text-zinc-900 dark:text-white">
+              {isActive ? "LIVE ● CONNECTED" : "ENGINE ● " + stateDetails.statusTag}
             </span>
           </div>
 
+          <div className="hidden sm:flex items-center gap-4 text-zinc-500">
+            <span>INTENT: Inbound Enquiry</span>
+            <span>CADENCE: Sub-400ms</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center text-center">
           {/* Central Interactive Voice Orb */}
-          <div className="relative my-4 flex items-center justify-center">
+          <div className="relative my-3 flex items-center justify-center">
             {/* Audio Wave Ripples */}
             <AnimatePresence>
               {isActive && (
@@ -243,8 +256,9 @@ export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
               {[20, 45, 80, 100, 60, 90, 40, 75, 95, 50, 85, 30].map((h, i) => (
                 <motion.span
                   key={i}
+                  style={{ transformOrigin: "bottom" }}
                   animate={{
-                    height: [`${h * 0.2}%`, `${h}%`, `${h * 0.3}%`],
+                    scaleY: [`${h * 0.2}%`, `${h}%`, `${h * 0.3}%`],
                   }}
                   transition={{
                     repeat: Infinity,
@@ -265,7 +279,7 @@ export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
             </div>
           )}
 
-          {/* Subtitle / Live Transcript */}
+          {/* Subtitle / Live Transcript Bubble */}
           <div className="mt-3 mb-2 min-h-[48px] px-4 py-2 flex items-center justify-center">
             {latestTranscript ? (
               <motion.div
@@ -350,4 +364,4 @@ export function LunoVoiceDemo({ className = "" }: LunoVoiceDemoProps) {
       </div>
     </div>
   );
-}
+});

@@ -21,11 +21,39 @@ import { CursorGlow } from "./ui/cursor-glow";
 import { SiteData } from "@/lib/types";
 
 interface HomeClientProps {
-  initialData: SiteData;
+  initialData?: SiteData;
 }
 
 export const HomeClient = memo(function HomeClient({ initialData }: HomeClientProps) {
-  const { settings, stats, projects, industries, useCases } = initialData;
+  const settings = initialData?.settings || {
+    companyName: "Luno",
+    tagline: "Voice automation for the first layer of business calls.",
+    email: "conversations@luno.ai",
+    phone: "+1 (888) 586-6240",
+    whatsapp: "+18885866240",
+    meetingUrl: "https://meet.google.com",
+    heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
+    heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
+    heroSubheadline:
+      "Luno builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+    googleSheetsWebhookUrl: "",
+    voiceDemoEnabled: true,
+    voiceDemoTitle: "Talk to Luno",
+    voiceDemoDescription:
+      "Experience how an AI voice system handles the first layer of a real business conversation with sub-second response times.",
+  };
+
+  const stats = initialData?.stats || {
+    companiesBuilt: 12,
+    voiceAgents: 24,
+    useCasesAutomated: 40,
+    uptime: "99.98%",
+    avgResponseLatency: "<400ms",
+  };
+
+  const projects = initialData?.projects || [];
+  const industries = initialData?.industries || [];
+  const useCases = initialData?.useCases || [];
 
   const scrollToDemo = useCallback(() => {
     document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });

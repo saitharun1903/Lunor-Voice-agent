@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo, useCallback } from "react";
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { PhoneCall, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export function Navbar() {
+export const Navbar = memo(function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
@@ -14,7 +14,6 @@ export function Navbar() {
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // 1. Optimized Passive Scroll Listener using requestAnimationFrame
     const handleScroll = () => {
       if (rafRef.current !== null) return;
       rafRef.current = requestAnimationFrame(() => {
@@ -26,8 +25,7 @@ export function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // 2. High-Performance IntersectionObserver for Active Navigation Sections
-    const sectionIds = ["work", "use-cases", "industries", "integrations", "process", "faq", "contact"];
+    const sectionIds = ["work", "use-cases", "industries", "process", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries.find((e) => e.isIntersecting);
@@ -54,15 +52,13 @@ export function Navbar() {
     { label: "Work", href: "#work", id: "work" },
     { label: "Capabilities", href: "#use-cases", id: "use-cases" },
     { label: "Industries", href: "#industries", id: "industries" },
-    { label: "Integrations", href: "#integrations", id: "integrations" },
-    { label: "Process", href: "#process", id: "process" },
-    { label: "FAQ", href: "#faq", id: "faq" },
+    { label: "How It Works", href: "#process", id: "process" },
     { label: "Contact", href: "#contact", id: "contact" },
   ];
 
-  const scrollToDemo = () => {
+  const scrollToDemo = useCallback(() => {
     document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <>
@@ -74,9 +70,9 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Wordmark */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-sm shadow-md shadow-blue-500/20 transition-transform duration-200 group-hover:scale-105">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-sm shadow-md shadow-blue-500/20 transition-transform duration-200 group-hover:scale-105 font-mono">
               L
             </div>
             <span className="font-extrabold text-lg tracking-tight text-zinc-950 dark:text-white">
@@ -84,7 +80,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation Links with Light Blue Sliding Pill Animation */}
+          {/* Desktop Navigation Links with Sliding Pill Indicator */}
           <nav
             onMouseLeave={() => setHoveredNav(null)}
             className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-black/[0.035] dark:bg-white/[0.06] border border-black/[0.05] dark:border-white/[0.08] backdrop-blur-md relative"
@@ -107,7 +103,7 @@ export function Navbar() {
                 >
                   <span className="relative z-10">{link.label}</span>
 
-                  {/* Sliding Indicator Pill with Light Blue Material */}
+                  {/* Sliding Indicator Pill */}
                   {isActive && (
                     <motion.div
                       layoutId="navbar-sliding-pill"
@@ -132,7 +128,7 @@ export function Navbar() {
               onClick={scrollToDemo}
               className="flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold glass-button-primary shadow-md hover:scale-[1.02] active:scale-[0.98] transition-transform"
             >
-              <PhoneCall className="w-3.5 h-3.5 animate-pulse" />
+              <PhoneCall className="w-3.5 h-3.5" />
               <span>Talk to Luno</span>
             </button>
           </div>
@@ -190,4 +186,4 @@ export function Navbar() {
       </AnimatePresence>
     </>
   );
-}
+});
