@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -10,6 +10,9 @@ import {
   Zap,
   Volume2,
   Mic,
+  Sparkles,
+  Activity,
+  CheckCircle2,
 } from "lucide-react";
 
 interface HeroProps {
@@ -20,72 +23,72 @@ interface HeroProps {
 }
 
 export const Hero = memo(function Hero({
-  eyebrow = "AI VOICE AUTOMATION STUDIO",
+  eyebrow = "PRODUCTION AI VOICE TELEPHONY",
   headline = "Automate the first layer of every call.",
-  subheadline = "Luno builds AI voice systems that handle repetitive business conversations—from enquiries and bookings to lead qualification, support, follow-ups and more.",
+  subheadline = "Luno builds custom AI voice systems that handle repetitive business phone conversations—from enquiries and calendar bookings to lead qualification, customer support, follow-ups and warm human routing.",
   onTalkToLuno,
 }: HeroProps) {
-  const scrollToContact = () => {
+  const scrollToContact = useCallback(() => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
-  const handleTalkToLuno = () => {
+  const handleTalkToLuno = useCallback(() => {
     if (onTalkToLuno) {
       onTalkToLuno();
     } else {
       document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  }, [onTalkToLuno]);
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Eyebrow Badge */}
+          {/* 1. Subtle Eyebrow Badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold tracking-wider text-zinc-900 dark:text-zinc-100 bg-white/90 dark:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.12] shadow-sm mb-6 uppercase"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold tracking-wider text-zinc-900 dark:text-zinc-100 bg-white/90 dark:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.12] shadow-sm mb-6 uppercase font-mono"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>{eyebrow}</span>
           </motion.div>
 
-          {/* Dominant Headline with Highly-Animated 3D Floating Mic Badge */}
+          {/* 2. Dominant Headline with Signature Acoustic Signal Aperture */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 dark:text-white leading-[1.14] mb-6 text-balance select-none"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 dark:text-white leading-[1.12] mb-6 text-balance select-none"
           >
             Automate the{" "}
-            {/* Highly Animated 3D Floating Mic Badge */}
+            {/* Signature Luno Acoustic Signal Aperture / Floating Glass Squircle */}
             <motion.span
               onClick={handleTalkToLuno}
               title="Click to talk with Luno"
-              whileHover={{ scale: 1.12, rotate: 8 }}
+              whileHover={{ scale: 1.1, rotate: 6 }}
               whileTap={{ scale: 0.94 }}
-              className="inline-flex items-center justify-center align-middle mx-2 sm:mx-3.5 my-1 relative cursor-pointer group"
+              className="inline-flex items-center justify-center align-middle mx-2 sm:mx-3 my-1 relative cursor-pointer group"
             >
               {/* Outer Radiant Glow Aura */}
               <motion.span
                 animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.35, 0.65, 0.35],
+                  scale: [1, 1.22, 1],
+                  opacity: [0.35, 0.7, 0.35],
                 }}
                 transition={{
                   repeat: Infinity,
-                  duration: 2.4,
+                  duration: 2.5,
                   ease: "easeInOut",
                 }}
-                className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 blur-lg opacity-50 pointer-events-none group-hover:opacity-90 transition-opacity"
+                className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 blur-xl opacity-50 pointer-events-none group-hover:opacity-90 transition-opacity"
               />
 
               {/* Pulsing Concentric Soundwave Ripples */}
               <motion.span
                 animate={{
-                  scale: [1, 1.4, 1.75],
+                  scale: [1, 1.45, 1.8],
                   opacity: [0.55, 0.18, 0],
                 }}
                 transition={{
@@ -99,9 +102,9 @@ export const Hero = memo(function Hero({
               {/* 3D Floating & Tilting Glass Squircle */}
               <motion.span
                 animate={{
-                  y: [-5, 5, -5],
-                  rotate: [-5, 5, -5],
-                  scale: [1, 1.03, 1],
+                  y: [-4, 4, -4],
+                  rotate: [-4, 4, -4],
+                  scale: [1, 1.02, 1],
                 }}
                 transition={{
                   repeat: Infinity,
@@ -127,7 +130,7 @@ export const Hero = memo(function Hero({
                 {/* Top Glass Highlight */}
                 <span className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/45 to-transparent pointer-events-none rounded-t-2xl sm:rounded-t-3xl" />
 
-                {/* Animated Equalizer Waveform Background (GPU scaleY) */}
+                {/* Animated Waveform Equalizer */}
                 <div className="absolute inset-x-2 bottom-1.5 flex items-end justify-center gap-0.5 sm:gap-1 h-3 opacity-60">
                   {[0.4, 0.8, 1, 0.6, 0.9, 0.5].map((s, idx) => (
                     <motion.span
@@ -148,7 +151,7 @@ export const Hero = memo(function Hero({
                   ))}
                 </div>
 
-                {/* Mic Icon with Breathing Animation */}
+                {/* Microphone Icon with Gentle Breathing Pulse */}
                 <motion.span
                   animate={{
                     scale: [1, 1.08, 1],
@@ -163,7 +166,7 @@ export const Hero = memo(function Hero({
                   <Mic className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white" />
                 </motion.span>
 
-                {/* Pulsing Active Dot */}
+                {/* Pulsing Active Status Indicator */}
                 <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-400 border border-white animate-ping" />
                 <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-400 border border-white" />
               </motion.span>
@@ -174,22 +177,22 @@ export const Hero = memo(function Hero({
             of every call.
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* 3. High-Clarity Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.16 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal mb-10 max-w-2xl text-balance"
           >
             {subheadline}
           </motion.p>
 
-          {/* High-Converting CTAs */}
+          {/* 4. High-Converting Primary & Secondary CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.22 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto"
           >
             <button
               onClick={scrollToContact}
@@ -208,7 +211,7 @@ export const Hero = memo(function Hero({
             </button>
           </motion.div>
 
-          {/* Trust Value Points */}
+          {/* 5. Production Reliability Telemetry Badges */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -232,7 +235,7 @@ export const Hero = memo(function Hero({
           </motion.div>
         </div>
 
-        {/* Modern Live Autonomous Telephony Console Card */}
+        {/* 6. Modern Autonomous Telephony Deck Console */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -254,7 +257,7 @@ export const Hero = memo(function Hero({
                     <span className="text-sm font-bold text-zinc-950 dark:text-white">
                       Luno Autonomous Telephony Layer
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2.5 py-0.5 rounded-full font-mono">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
                       Live Ready
                     </span>

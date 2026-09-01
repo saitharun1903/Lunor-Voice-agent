@@ -4,6 +4,7 @@ import React, { memo, useCallback } from "react";
 import { Navbar } from "./navbar";
 import { Hero } from "./hero";
 import { LiveDemoSection } from "./live-demo-section";
+import { SystemDiagram } from "./ui/system-diagram";
 import { UseCasesSection } from "./use-cases";
 import { IndustriesSection } from "./industries";
 import { IntegrationsSection } from "./integrations";
@@ -41,7 +42,7 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
 
       {/* Main Experience Flow */}
       <main className="relative">
-        {/* 1. Hero with Dominant Typography & Autonomous Telephony Console */}
+        {/* Chapter 1: Hero with Dominant Typography & Autonomous Telephony Console */}
         <Hero
           eyebrow={settings.heroEyebrow}
           headline={settings.heroHeadline}
@@ -49,43 +50,46 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
           onTalkToLuno={scrollToDemo}
         />
 
-        {/* 2. Central Live Voice Demo (EXACTLY ONE Demonstration) */}
+        {/* Chapter 2: Central Live Voice Product Deck (EXACTLY ONE Demonstration) */}
         <LiveDemoSection
           title={settings.voiceDemoTitle || "Talk to Luno"}
           description={
             settings.voiceDemoDescription ||
-            "Experience how an AI voice system can handle the first layer of a real business conversation."
+            "Experience how an AI voice system handles the first layer of a real business conversation."
           }
         />
 
-        {/* 3. Universal Use Cases (Interactive Matrix with Live Dialogue Simulations) */}
+        {/* Chapter 3: Visual System Architecture (The First Layer Workflow) */}
+        <SystemDiagram />
+
+        {/* Chapter 4: Universal Use Cases & Operational Dialogue Simulations */}
         <UseCasesSection useCases={useCases} />
 
-        {/* 4. Tailored Industry Architecture (Featured Real Estate + Workflows) */}
+        {/* Chapter 5: Tailored Industry Architecture (Featured Real Estate + Workflows) */}
         <IndustriesSection industries={industries} />
 
-        {/* 5. Enterprise Carrier, SIP & CRM Integrations */}
+        {/* Chapter 6: Enterprise Carrier, SIP & CRM Integrations */}
         <IntegrationsSection />
 
-        {/* 6. Cinematic 4-Step Deployment Pipeline */}
+        {/* Chapter 7: Operational 4-Step Deployment Pipeline */}
         <HowItWorksSection />
 
-        {/* 7. Measurable Operational Return */}
+        {/* Chapter 8: Measurable Operational Return */}
         <ResultsValueSection />
 
-        {/* 8. Proven Deployments (Stats & Large Case Studies) */}
+        {/* Chapter 9: Proven Client Deployments & Case Studies */}
         <PortfolioSection projects={projects} stats={stats} />
 
-        {/* 9. Enterprise Reliability & Security */}
+        {/* Chapter 10: Enterprise Reliability & Security */}
         <TrustSection />
 
-        {/* 10. Frequently Asked Technical Questions */}
+        {/* Chapter 11: Frequently Asked Technical Questions */}
         <FaqSection />
 
-        {/* 11. Studio Philosophy */}
+        {/* Chapter 12: Studio Philosophy */}
         <AboutSection />
 
-        {/* 12. Product Launch-Grade Contact & Conversion Section */}
+        {/* Chapter 13: Product Launch-Grade Contact & Conversion Inbound Deck */}
         <ContactSection settings={settings} />
       </main>
 

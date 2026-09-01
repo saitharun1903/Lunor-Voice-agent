@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -15,10 +15,7 @@ import {
   PhoneCall,
   ShieldCheck,
   X,
-  Clock,
   Video,
-  User,
-  Building,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { SiteSettings } from "@/lib/types";
@@ -27,7 +24,7 @@ interface ContactSectionProps {
   settings: SiteSettings;
 }
 
-export function ContactSection({ settings }: ContactSectionProps) {
+export const ContactSection = memo(function ContactSection({ settings }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -58,9 +55,9 @@ export function ContactSection({ settings }: ContactSectionProps) {
   const [meetingStatus, setMeetingStatus] = useState<"idle" | "success" | "error">("idle");
   const [meetingError, setMeetingError] = useState("");
 
-  const scrollToDemo = () => {
+  const scrollToDemo = useCallback(() => {
     document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -166,43 +163,22 @@ export function ContactSection({ settings }: ContactSectionProps) {
   return (
     <>
       <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
-        {/* Ambient background glow behind form */}
-        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-l from-blue-500/10 to-transparent blur-[120px] rounded-full pointer-events-none -z-10" />
-
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Column: Direct Contact Touchpoints */}
             <div className="lg:col-span-5 space-y-8">
               <div>
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Begin Your Deployment</span>
-                </motion.div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase font-mono">
+                  <span>Inbound Deployment Request</span>
+                </div>
 
-                <motion.h2
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5 leading-tight"
-                >
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5 leading-tight">
                   Let&apos;s automate your first layer.
-                </motion.h2>
+                </h2>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed"
-                >
-                  Tell us where repetitive calls are slowing your business down.
-                </motion.p>
+                <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                  Tell us which calls your business receives and what you&apos;d like to automate.
+                </p>
               </div>
 
               {/* Quick Action Button */}
@@ -212,7 +188,7 @@ export function ContactSection({ settings }: ContactSectionProps) {
                   className="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold glass-button-secondary"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Test Live Voice Demo First</span>
+                  <span>Talk to Luno</span>
                 </button>
               </div>
 
@@ -250,25 +226,7 @@ export function ContactSection({ settings }: ContactSectionProps) {
                   </div>
                 </a>
 
-                {/* 3. WhatsApp */}
-                <a
-                  href={`https://wa.me/${(settings.whatsapp || "").replace(/[^0-9]/g, "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] hover:border-blue-500/30 transition-all group shadow-sm"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <MessageSquare className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-zinc-500 font-medium">WhatsApp Business</p>
-                    <p className="text-sm font-semibold text-zinc-900 dark:text-white">
-                      Direct Messenger Support
-                    </p>
-                  </div>
-                </a>
-
-                {/* 4. Book Video Consultation (Interactive Modal) */}
+                {/* 3. Book Video Consultation (Interactive Modal) */}
                 <button
                   onClick={() => setIsMeetingModalOpen(true)}
                   className="w-full flex items-center gap-3.5 p-4 rounded-2xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] hover:border-purple-500/40 transition-all group shadow-sm text-left"
@@ -289,19 +247,14 @@ export function ContactSection({ settings }: ContactSectionProps) {
 
             {/* Right Column: Glossy Liquid Glass Form */}
             <div className="lg:col-span-7">
-              <motion.div
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="rounded-3xl p-8 sm:p-10 backdrop-blur-2xl bg-white/80 dark:bg-zinc-900/70 border border-black/[0.08] dark:border-white/[0.12] shadow-2xl relative overflow-hidden"
-              >
+              <div className="rounded-3xl p-8 sm:p-10 backdrop-blur-xl bg-white/85 dark:bg-zinc-900/75 border border-black/[0.08] dark:border-white/[0.12] shadow-2xl relative overflow-hidden">
                 {/* Top Specular Line Accent */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/80 dark:via-white/25 to-transparent" />
 
                 <AnimatePresence mode="wait">
                   {status === "success" ? (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
+                      initial={{ opacity: 0, scale: 0.96 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="py-12 text-center space-y-4"
                     >
@@ -309,7 +262,7 @@ export function ContactSection({ settings }: ContactSectionProps) {
                         <CheckCircle2 className="w-8 h-8" />
                       </div>
                       <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
-                        Message received.
+                        Inquiry Received.
                       </h3>
                       <p className="text-sm text-zinc-600 dark:text-zinc-300 max-w-sm mx-auto leading-relaxed">
                         Luno engineering will review your workflow requirements and provide a custom conversational blueprint within 24 hours.
@@ -335,14 +288,10 @@ export function ContactSection({ settings }: ContactSectionProps) {
                       </div>
 
                       {status === "error" && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-600 dark:text-rose-400"
-                        >
+                        <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-600 dark:text-rose-400">
                           <AlertCircle className="w-4 h-4 shrink-0" />
                           <span>{errorMessage}</span>
-                        </motion.div>
+                        </div>
                       )}
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -432,7 +381,7 @@ export function ContactSection({ settings }: ContactSectionProps) {
                         {/* Monthly Call Volume */}
                         <div className="space-y-1.5">
                           <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                            Monthly Inbound Call Volume
+                            Monthly Inbound Call Volume (Optional)
                           </label>
                           <select
                             value={formData.monthlyCallVolume}
@@ -485,7 +434,7 @@ export function ContactSection({ settings }: ContactSectionProps) {
                     </form>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
@@ -725,4 +674,4 @@ export function ContactSection({ settings }: ContactSectionProps) {
       </AnimatePresence>
     </>
   );
-}
+});

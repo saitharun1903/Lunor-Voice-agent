@@ -1,101 +1,74 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Search, PenTool, Code2, Rocket, Sparkles, ArrowRight } from "lucide-react";
+import React, { memo } from "react";
+import { Search, PenTool, Code2, Rocket, ArrowRight, CheckCircle2 } from "lucide-react";
 
-export function HowItWorksSection() {
+export const HowItWorksSection = memo(function HowItWorksSection() {
   const steps = [
     {
       phase: "01",
-      name: "DISCOVER",
-      title: "Understand the company's calls",
+      name: "UNDERSTAND",
+      title: "Understand how your business handles calls",
       description:
-        "We audit call logs and staff scripts to identify frequent questions, edge cases, and high-frequency friction points.",
-      deliverables: "Call volume audit, conversation map & escalation criteria",
+        "We audit call recordings, intake scripts, and frequent inquiry types to identify edge cases, repeated questions, and high-friction operational bottlenecks.",
+      deliverable: "Call volume audit, conversation map & escalation criteria",
       icon: Search,
     },
     {
       phase: "02",
       name: "DESIGN",
-      title: "Design the conversation & business logic",
+      title: "Design the conversation and business rules",
       description:
-        "We construct the dialogue trees, brand voice parameters, structured data collection, and warm human handoff rules.",
-      deliverables: "Deterministic prompt engineering & voice persona tuning",
+        "We engineer deterministic dialogue flows, tone parameters, structured intake fields, and human escalation triggers tailored to your brand.",
+      deliverable: "Prompt architecture & voice persona specification",
       icon: PenTool,
     },
     {
       phase: "03",
       name: "BUILD",
-      title: "Develop & connect the system",
+      title: "Build the voice system around the workflow",
       description:
-        "We integrate your voice agent with booking calendars, CRM databases, telephony carriers, and notification webhooks.",
-      deliverables: "SIP trunking, bi-directional API sync & live staging tests",
+        "We connect your voice agent to your calendars, CRM databases, carrier SIP trunks, and webhook notification pipelines with low-latency routing.",
+      deliverable: "Carrier SIP trunking, bi-directional API sync & staging tests",
       icon: Code2,
     },
     {
       phase: "04",
       name: "LAUNCH",
-      title: "Deploy & monitor",
+      title: "Deploy, monitor, and continuously improve",
       description:
-        "Your voice agent fields incoming calls 24/7 with sub-400ms latency, automatic transcript logging, and zero missed calls.",
-      deliverables: "Production cutover, live monitoring & continuous tuning",
+        "Your voice agent fields incoming calls 24/7 with sub-400ms cadence, automatic transcript sync, and continuous accuracy optimization.",
+      deliverable: "Zero-downtime production cutover & telemetry dashboard",
       icon: Rocket,
     },
   ];
-
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section id="process" className="py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Operational Process</span>
-          </motion.div>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase font-mono">
+            <span>Operational Methodology</span>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5"
-          >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
             How implementation works.
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance"
-          >
-            A transparent four-phase engineering framework designed to deliver a tested, brand-accurate voice layer with zero downtime.
-          </motion.p>
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
+            A transparent four-phase engineering framework designed to deliver a tested, brand-accurate voice layer with zero disruption to your daily operations.
+          </p>
         </div>
 
-        {/* 4-Phase Operational Timeline */}
+        {/* 4-Phase Connected Operational Ribbon */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <motion.div
+              <div
                 key={step.phase}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="relative rounded-3xl p-7 backdrop-blur-xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between group"
+                className="relative rounded-3xl p-7 backdrop-blur-xl bg-white/80 dark:bg-zinc-900/70 border border-black/[0.06] dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between group"
               >
                 {/* Top Accent Line */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/80 dark:via-white/20 to-transparent" />
@@ -106,7 +79,7 @@ export function HowItWorksSection() {
                     <span className="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full">
                       PHASE {step.phase}
                     </span>
-                    <div className="w-10 h-10 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                    <div className="w-10 h-10 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                       <Icon className="w-4 h-4" />
                     </div>
                   </div>
@@ -114,7 +87,7 @@ export function HowItWorksSection() {
                   <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 block mb-1">
                     {step.name}
                   </span>
-                  <h3 className="text-base font-bold text-zinc-950 dark:text-white mb-2.5">
+                  <h3 className="text-base font-bold text-zinc-950 dark:text-white mb-2.5 leading-snug">
                     {step.title}
                   </h3>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-5">
@@ -127,14 +100,14 @@ export function HowItWorksSection() {
                     Deliverable:
                   </p>
                   <p className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
-                    {step.deliverables}
+                    {step.deliverable}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
       </div>
     </section>
   );
-}
+});
