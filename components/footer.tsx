@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Lock, X, Shield, FileText } from "lucide-react";
+import { X, Shield, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SiteSettings } from "@/lib/types";
 import { LunorLogo } from "./ui/lunor-logo";
@@ -20,7 +20,7 @@ export function Footer({ settings }: FooterProps) {
 
   return (
     <>
-      <footer className="py-16 border-t border-black/[0.06] dark:border-white/[0.08] bg-black/[0.01] dark:bg-black/40">
+      <footer className="py-16 border-t border-black/[0.06] dark:border-white/[0.08] bg-black/[0.015] dark:bg-black/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-black/[0.05] dark:border-white/[0.06]">
             {/* Column 1: Brand & Tagline */}
@@ -32,19 +32,19 @@ export function Footer({ settings }: FooterProps) {
                 {settings.tagline || "Voice automation for the first layer of business calls."}
               </p>
               <p className="text-xs text-zinc-500 font-mono">
-                Custom voice systems engineered for real business workflows.
+                Custom conversational systems engineered for real operational workflows.
               </p>
             </div>
 
             {/* Column 2: Quick Links */}
             <div className="md:col-span-3 space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-white font-mono">
+              <p className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-950 dark:text-white">
                 Studio
               </p>
               <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <a href="#work" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Client Work
+                  <a href="#demo" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                    Live Demo
                   </a>
                 </li>
                 <li>
@@ -53,36 +53,33 @@ export function Footer({ settings }: FooterProps) {
                   </a>
                 </li>
                 <li>
+                  <a href="#architecture" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                    Architecture
+                  </a>
+                </li>
+                <li>
                   <a href="#industries" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Industry Solutions
+                    Industries
                   </a>
                 </li>
                 <li>
-                  <a href="#process" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    How It Works
+                  <a href="#work" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                    Client Case Studies
                   </a>
-                </li>
-                <li>
-                  <button
-                    onClick={scrollToDemo}
-                    className="hover:text-zinc-950 dark:hover:text-white transition-colors text-left"
-                  >
-                    Talk to Lunor
-                  </button>
                 </li>
               </ul>
             </div>
 
             {/* Column 3: Contact & Direct */}
             <div className="md:col-span-4 space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-white font-mono">
-                Contact & Inquiries
+              <p className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-950 dark:text-white">
+                Direct Inquiries
               </p>
               <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
                 <li>
                   <a
                     href={`mailto:${settings.email || "conversations@lunor.co.in"}`}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-mono"
                   >
                     {settings.email || "conversations@lunor.co.in"}
                   </a>
@@ -90,19 +87,9 @@ export function Footer({ settings }: FooterProps) {
                 <li>
                   <a
                     href={`tel:${settings.phone || "+18885866240"}`}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-mono"
                   >
                     {settings.phone || "+1 (888) 586-6240"}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`https://wa.me/${(settings.whatsapp || "").replace(/[^0-9]/g, "")}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
-                  >
-                    WhatsApp Business Chat
                   </a>
                 </li>
                 <li className="pt-2">
@@ -118,7 +105,7 @@ export function Footer({ settings }: FooterProps) {
           </div>
 
           {/* Bottom Bar */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
             <p>© {new Date().getFullYear()} Lunor Technologies Inc. All rights reserved.</p>
 
             <div className="flex items-center gap-5">
@@ -148,22 +135,22 @@ export function Footer({ settings }: FooterProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setLegalModal(null)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm"
             />
             <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              initial={{ scale: 0.95, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative w-full max-w-lg rounded-3xl backdrop-blur-2xl bg-white dark:bg-zinc-950 border border-black/10 dark:border-white/15 p-6 sm:p-8 shadow-2xl z-10 space-y-4"
+              exit={{ scale: 0.95, opacity: 0, y: 15 }}
+              className="relative w-full max-w-lg rounded-3xl structured-card p-6 sm:p-8 shadow-2xl z-10 space-y-4"
             >
               <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
                 <div className="flex items-center gap-2">
                   {legalModal === "privacy" ? (
-                    <Shield className="w-4 h-4 text-blue-500" />
+                    <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   ) : (
-                    <FileText className="w-4 h-4 text-blue-500" />
+                    <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   )}
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
                     {legalModal === "privacy" ? "Privacy Policy" : "Terms of Service"}
                   </h3>
                 </div>

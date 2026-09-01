@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HelpCircle, ArrowRight } from "lucide-react";
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -10,10 +10,10 @@ export function FaqSection() {
   const faqs = [
     {
       q: "Do we need to change our existing business phone number?",
-      a: "No. You keep your existing numbers with zero disruption. We simply set up conditional call forwarding, SIP trunking, or simultaneous ringing from your existing carrier (Twilio, RingCentral, Vonage, Telnyx, Verizon, AT&T, etc.) into your Lunor voice agent.",
+      a: "No. You keep your existing numbers with zero disruption. We simply set up conditional call forwarding, SIP trunking, or simultaneous ringing from your existing carrier (Twilio, RingCentral, Vonage, Telnyx, Verizon, AT&T, FreePBX, etc.) into your Lunor voice agent.",
     },
     {
-      q: "What happens when a caller asks something complex or requests a human manager?",
+      q: "What happens when a caller asks something complex or requests a human specialist?",
       a: "Lunor handles human escalation gracefully. If a caller requests a specialist, exhibits high urgency, or presents a complex edge case, Lunor performs an instant warm transfer (SIP REFER) to your designated staff line while automatically dispatching a real-time transcript summary to your phone or CRM.",
     },
     {
@@ -39,73 +39,51 @@ export function FaqSection() {
   };
 
   return (
-    <section id="faq" className="py-24 md:py-32 relative overflow-hidden bg-black/[0.015] dark:bg-white/[0.015] border-y border-black/[0.04] dark:border-white/[0.04]">
+    <section id="faq" className="py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase font-mono"
-          >
-            <HelpCircle className="w-3.5 h-3.5" />
+        <div className="max-w-2xl mb-16 md:mb-20 text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4 uppercase">
             <span>Technical & Operational Clarity</span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5"
-          >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.035em] text-zinc-950 dark:text-white mb-5">
             Frequently asked questions.
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed text-balance"
-          >
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Everything business owners and technical leaders need to know about deploying Lunor voice systems.
-          </motion.p>
+          </p>
         </div>
 
         {/* FAQ Accordion List */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={`rounded-3xl border transition-all overflow-hidden ${
+                className={`rounded-2xl transition-all border ${
                   isOpen
-                    ? "bg-white dark:bg-zinc-900 border-blue-500/40 shadow-lg"
-                    : "bg-white/70 dark:bg-zinc-900/60 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.12] dark:hover:border-white/[0.15]"
+                    ? "bg-white dark:bg-zinc-900 border-black/[0.12] dark:border-white/[0.16] shadow-sm"
+                    : "bg-black/[0.015] dark:bg-white/[0.02] border-black/[0.05] dark:border-white/[0.06] hover:border-black/[0.09]"
                 }`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full p-6 sm:p-7 text-left flex items-center justify-between gap-4"
+                  className="w-full p-6 text-left flex items-center justify-between gap-4"
                 >
-                  <span className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
+                  <span className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white">
                     {faq.q}
                   </span>
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
                       isOpen
-                        ? "bg-blue-600 text-white rotate-180"
-                        : "bg-black/[0.04] dark:bg-white/[0.08] text-zinc-600 dark:text-zinc-400"
+                        ? "bg-black text-white dark:bg-white dark:text-black rotate-180"
+                        : "bg-black/[0.04] dark:bg-white/[0.08] text-zinc-500"
                     }`}
                   >
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-3.5 h-3.5" />
                   </div>
                 </button>
 
@@ -115,30 +93,32 @@ export function FaqSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
+                      transition={{ duration: 0.18 }}
                     >
-                      <div className="px-6 sm:px-7 pb-6 sm:pb-7 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed border-t border-black/[0.04] dark:border-white/[0.06] pt-4">
+                      <div className="px-6 pb-6 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed border-t border-black/[0.04] dark:border-white/[0.05] pt-4">
                         {faq.a}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             );
           })}
         </div>
 
-        {/* Have more questions CTA */}
-        <div className="mt-12 text-center p-8 rounded-3xl backdrop-blur-xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08]">
-          <h4 className="text-base font-bold text-zinc-900 dark:text-white mb-2">
-            Have a custom workflow or enterprise telephony architecture requirement?
-          </h4>
-          <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-md mx-auto mb-5">
-            Our engineering team will review your call recording samples and provide a custom conversational blueprint.
-          </p>
+        {/* Have custom requirement */}
+        <div className="mt-12 p-8 rounded-3xl structured-card flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 text-left">
+            <h4 className="text-base font-bold text-zinc-950 dark:text-white">
+              Have a custom telephony architecture requirement?
+            </h4>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Our engineering team will review your call recording samples and provide a custom blueprint.
+            </p>
+          </div>
           <button
             onClick={scrollToContact}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold glass-button-primary shadow-md"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold btn-solid-primary shrink-0"
           >
             <span>Speak With An Engineer</span>
             <ArrowRight className="w-3.5 h-3.5" />

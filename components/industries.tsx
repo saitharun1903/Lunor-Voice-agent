@@ -1,20 +1,15 @@
 "use client";
 
-import React, { memo, useCallback } from "react";
+import React, { useState, memo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Home,
   Utensils,
   Stethoscope,
   Building2,
   Briefcase,
-  Check,
   ArrowRight,
-  Sparkles,
-  PhoneCall,
-  Calendar,
-  Filter,
-  Layers,
-  Send,
+  CheckCircle2,
 } from "lucide-react";
 import { IndustryItem } from "@/lib/types";
 
@@ -22,212 +17,192 @@ interface IndustriesProps {
   industries?: IndustryItem[];
 }
 
-const DEFAULT_INDUSTRIES: IndustryItem[] = [
+const INDUSTRY_SOLUTIONS = [
   {
     id: "real-estate",
     name: "Real Estate & Leasing",
-    tagline: "Inbound Buyer & Tenant Qualification",
-    description: "Handle incoming property calls, qualify buyer budgets, verify pre-approval status, and schedule showings.",
-    icon: "Home",
-    workflows: ["Property Enquiry Intake", "Budget & Location Qualification", "Showing Scheduling"],
-    active: true,
+    icon: Home,
+    tagline: "Turn every property enquiry into a qualified viewing.",
+    headline: "Automate inbound buyer intake, budget qualification, and private showing coordination.",
+    workflows: [
+      { step: "01. Intake", title: "Property Specification", detail: "Answers questions regarding square footage, HOA rules, floor plans, and pricing." },
+      { step: "02. Qualify", title: "Budget & Timeline", detail: "Captures pre-approval status, target move-in date, and specific bedroom/location criteria." },
+      { step: "03. Schedule", title: "Showing Calendar Sync", detail: "Queries broker calendar in real time to lock in private showing appointments." },
+      { step: "04. Dispatch", title: "Instant Broker Handoff", detail: "Dispatches SMS summary and creates complete CRM lead record with caller notes." },
+    ],
+    verifiedMetric: "68% Showing Conversion · Zero Weekend Drop-off",
   },
   {
-    id: "restaurants",
+    id: "restaurant",
     name: "Restaurants & Hospitality",
-    tagline: "Reservations & Peak Hour Enquiries",
-    description: "Capture dinner reservations, dietary questions, party bookings, and hours without tying up front-of-house staff.",
-    icon: "Utensils",
-    workflows: ["Table Reservation Intake", "Special Request Capture", "Hours & Directions"],
-    active: true,
+    icon: Utensils,
+    tagline: "Capture dinner reservations during peak rush hours.",
+    headline: "Handle high-volume table reservations, party sizes, and dietary restrictions without pulling floor staff from diners.",
+    workflows: [
+      { step: "01. Availability", title: "Table Inventory Query", detail: "Checks OpenTable, Resy, or custom POS table availability in real time." },
+      { step: "02. Logging", title: "Party & Dietary Intake", detail: "Logs party size, seating preferences, allergies, and special anniversary notes." },
+      { step: "03. Confirm", title: "Instant SMS Confirmation", detail: "Dispatches SMS booking confirmation with map directions and cancellation policy." },
+      { step: "04. VIP Route", title: "Private Dining Escalation", detail: "Transfers large buyouts and VIP requests to the general manager." },
+    ],
+    verifiedMetric: "92% Calls Resolved Autonomously · 0 Missed Covers",
   },
   {
-    id: "clinics",
+    id: "clinic",
     name: "Medical & Dental Clinics",
-    tagline: "Patient Intake & Scheduling",
-    description: "Provide 24/7 patient booking, appointment rescheduling, insurance intake, and triage routing.",
-    icon: "Stethoscope",
-    workflows: ["Patient Appointment Booking", "Rescheduling & Reminders", "Insurance Policy Verification"],
-    active: true,
+    icon: Stethoscope,
+    tagline: "HIPAA-compliant appointment coordination and emergency triage.",
+    headline: "Coordinate patient appointments across multiple practitioners, verify insurance providers, and triage urgent medical calls.",
+    workflows: [
+      { step: "01. Slot Check", title: "Practitioner Calendar", detail: "Checks real-time availability across doctors and dental hygienists." },
+      { step: "02. Intake", title: "Insurance & Reason for Visit", detail: "Collects insurance provider details, policy numbers, and chief complaint." },
+      { step: "03. Compliance", title: "HIPAA PHI Redaction", detail: "Strict encryption ensuring caller data is protected according to health regulations." },
+      { step: "04. Triage", title: "Urgent Clinical Transfer", detail: "Instantly routes acute emergency cases to the on-call physician." },
+    ],
+    verifiedMetric: "42% Reduction in Front-Desk Load · 99.4% Satisfaction",
   },
   {
-    id: "hotels",
-    name: "Hotels & Stays",
-    tagline: "Guest Concierge & Booking",
-    description: "Field room availability queries, property amenities, direct reservations, and concierge questions.",
-    icon: "Building2",
-    workflows: ["Room Availability Query", "Guest Amenity Q&A", "Late Check-in Coordination"],
-    active: true,
+    id: "hotel",
+    name: "Hotels & Resorts",
+    icon: Building2,
+    tagline: "24/7 guest concierge, amenities booking, and room routing.",
+    headline: "Provide 24/7 front desk service for room rates, check-in logistics, amenities, spa bookings, and manager transfers.",
+    workflows: [
+      { step: "01. Rates", title: "Live Availability & Quotes", detail: "Provides real-time room availability, pet policies, and rate quotes." },
+      { step: "02. Concierge", title: "Amenity & Spa Bookings", detail: "Coordinates on-site restaurant reservations and spa time slots." },
+      { step: "03. Logistics", title: "Check-in & Valet Guidance", detail: "Guides late-arriving guests on keycard pickup and parking procedures." },
+      { step: "04. Transfer", title: "Front Desk Manager SIP", detail: "Executes warm transfer to the front desk when personal assistance is required." },
+    ],
+    verifiedMetric: "100% 24/7 Answer Rate · Average Call Duration <90s",
+  },
+  {
+    id: "services",
+    name: "Service Businesses",
+    icon: Briefcase,
+    tagline: "Quote requests, job dispatch, and emergency service intake.",
+    headline: "Capture job details, address information, and urgency levels to dispatch technicians and update field service software.",
+    workflows: [
+      { step: "01. Scope", title: "Job Requirement Intake", detail: "Logs service problem details, equipment models, and site address." },
+      { step: "02. Urgency", title: "Emergency Triage", detail: "Identifies urgent commercial leaks/power outages for instant technician alert." },
+      { step: "03. Quote", title: "Estimate Coordination", detail: "Schedules on-site quote inspection visits directly onto dispatch calendars." },
+      { step: "04. Pipeline", title: "CRM Sync & Follow-up", detail: "Synchronizes lead record with ServiceTitan, Jobber, or Salesforce." },
+    ],
+    verifiedMetric: "3.5x Faster Estimate Booking · 100% Lead Capture",
   },
 ];
 
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Home,
-  Utensils,
-  Stethoscope,
-  Building2,
-  Briefcase,
-};
-
 export const IndustriesSection = memo(function IndustriesSection({ industries }: IndustriesProps) {
+  const [activeTab, setActiveTab] = useState<string>("real-estate");
+
+  const activeIndustry =
+    INDUSTRY_SOLUTIONS.find((ind) => ind.id === activeTab) || INDUSTRY_SOLUTIONS[0];
+
   const scrollToContact = useCallback(() => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const rawIndustries = (industries && industries.length > 0) ? industries : DEFAULT_INDUSTRIES;
-  const realEstate = rawIndustries.find((i) => i && i.id === "real-estate") || DEFAULT_INDUSTRIES[0];
-  const otherIndustries = rawIndustries.filter((i) => i && i.id !== "real-estate");
-
   return (
-    <section id="industries" className="py-24 md:py-32 relative overflow-hidden bg-black/[0.015] dark:bg-white/[0.015] border-y border-black/[0.04] dark:border-white/[0.04]">
+    <section id="industries" className="py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase font-mono">
-            <span>Tailored Industry Architecture</span>
+        <div className="max-w-3xl mb-12 md:mb-16 text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4 uppercase">
+            <span>Industry Solutions</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
-            WHERE VOICE AUTOMATION FITS.
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.035em] text-zinc-950 dark:text-white mb-5">
+            Voice automation for real business.
           </h2>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
-            Every business phone conversation is structured into custom conversational logic, calendar scheduling, and automated operational synchronization.
+          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
+            Every studio deployment is tailored to the exact decision trees, software systems, and edge cases of your industry.
           </p>
         </div>
 
-        {/* 1. Large Editorial Featured Showcase: REAL ESTATE */}
-        {realEstate && (
-          <div className="mb-16 rounded-3xl p-8 sm:p-12 backdrop-blur-xl bg-white/90 dark:bg-zinc-900/80 border border-blue-500/30 dark:border-blue-400/30 shadow-2xl relative overflow-hidden">
-            {/* Top Accent Line */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-400" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              {/* Left Column: Editorial Summary */}
-              <div className="lg:col-span-6 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono">
-                  <Home className="w-3.5 h-3.5" />
-                  <span>FEATURED ARCHITECTURE • REAL ESTATE & LEASING</span>
-                </div>
-
-                <h3 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-white leading-tight">
-                  TURN EVERY PROPERTY ENQUIRY INTO A QUALIFIED CONVERSATION.
-                </h3>
-
-                <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  Prospective buyers and tenants call across varying hours. Lunor provides an instant conversational voice layer that qualifies buyer budgets, answers listing specifications, and schedules private showings directly into agent calendars.
-                </p>
-
-                <div className="pt-2">
-                  <button
-                    onClick={scrollToContact}
-                    className="flex items-center gap-2 px-7 py-3.5 rounded-full text-xs sm:text-sm font-semibold glass-button-primary shadow-lg"
-                  >
-                    <span>Discuss Your Real Estate Workflow</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Column: 5-Step Inbound Flow Visual */}
-              <div className="lg:col-span-6 rounded-2xl p-6 sm:p-7 bg-black/[0.03] dark:bg-black/40 border border-black/[0.06] dark:border-white/[0.08] space-y-4">
-                <div className="flex items-center justify-between border-b border-black/[0.05] dark:border-white/[0.06] pb-3">
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                    Real Estate Autonomous Workflow
-                  </span>
-                  <span className="text-[11px] font-mono text-zinc-400">0s Response Time</span>
-                </div>
-
-                <div className="space-y-3">
-                  {[
-                    { step: "01", title: "Incoming Call", sub: "Instant greeting & property listing recognition", icon: PhoneCall },
-                    { step: "02", title: "Requirement Collection", sub: "Collects bedroom count, location & move-in timeline", icon: Layers },
-                    { step: "03", title: "Buyer Qualification", sub: "Pre-approval status & budget range verification", icon: Filter },
-                    { step: "04", title: "Site Visit Schedule", sub: "Coordinates showing slot onto broker calendar", icon: Calendar },
-                    { step: "05", title: "Follow-up & CRM Sync", sub: "SMS confirmation & CRM lead sync dispatched", icon: Send },
-                  ].map((wf, idx) => {
-                    const WfIcon = wf.icon;
-                    return (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-3.5 p-3 rounded-xl bg-white/70 dark:bg-zinc-800/60 border border-black/[0.04] dark:border-white/[0.06] shadow-sm"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs shrink-0">
-                          <WfIcon className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between">
-                            <h4 className="text-xs font-bold text-zinc-900 dark:text-white">
-                              {wf.title}
-                            </h4>
-                            <span className="text-[10px] font-mono text-zinc-400">Step {wf.step}</span>
-                          </div>
-                          <p className="text-[11px] text-zinc-500 truncate">{wf.sub}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 2. Other Industry Cards (Restaurants, Clinics, Hotels, Service Businesses) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {otherIndustries.map((ind) => {
-            const Icon = ICON_MAP[ind.icon] || Briefcase;
-
+        {/* Minimalist Tab Switcher */}
+        <div className="flex items-center gap-2 pb-4 overflow-x-auto border-b border-black/[0.06] dark:border-white/[0.08] mb-8">
+          {INDUSTRY_SOLUTIONS.map((ind) => {
+            const Icon = ind.icon;
+            const isSelected = activeTab === ind.id;
             return (
-              <div
+              <button
                 key={ind.id}
-                className="relative rounded-3xl p-7 backdrop-blur-md bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:border-black/[0.12] dark:hover:border-white/[0.16] transition-all duration-200 flex flex-col justify-between group"
+                onClick={() => setActiveTab(ind.id)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+                  isSelected
+                    ? "btn-solid-primary"
+                    : "btn-outline-secondary text-zinc-600 dark:text-zinc-400"
+                }`}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-11 h-11 rounded-2xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                  </div>
-
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-1.5">
-                    {ind.name}
-                  </h3>
-                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-3 font-mono">
-                    {ind.tagline}
-                  </p>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-                    {ind.description}
-                  </p>
-
-                  <div className="space-y-2 mb-6">
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 font-mono">
-                      Workflows:
-                    </p>
-                    <div className="space-y-1.5">
-                      {ind.workflows.map((wf, i) => (
-                        <div key={i} className="flex items-start gap-2 text-xs text-zinc-700 dark:text-zinc-300">
-                          <Check className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
-                          <span>{wf}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06]">
-                  <button
-                    onClick={scrollToContact}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-xs font-semibold glass-button-secondary group-hover:border-blue-500/30 transition-all"
-                  >
-                    <span>Discuss This Workflow</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-blue-500" />
-                  </button>
-                </div>
-              </div>
+                <Icon className="w-3.5 h-3.5" />
+                <span>{ind.name}</span>
+              </button>
             );
           })}
         </div>
+
+        {/* Featured Industry Operational Canvas */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.18 }}
+            className="p-8 sm:p-10 rounded-3xl structured-card space-y-8"
+          >
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-black/[0.05] dark:border-white/[0.06] pb-6">
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                  {activeIndustry.name} Blueprinted Architecture
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-bold text-zinc-950 dark:text-white">
+                  {activeIndustry.tagline}
+                </h3>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl mt-1">
+                  {activeIndustry.headline}
+                </p>
+              </div>
+
+              <div className="px-4 py-2 rounded-2xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.05] dark:border-white/[0.08] text-xs font-mono text-emerald-600 dark:text-emerald-400 shrink-0">
+                {activeIndustry.verifiedMetric}
+              </div>
+            </div>
+
+            {/* 4-Step Operational Flow */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {activeIndustry.workflows.map((wf, i) => (
+                <div
+                  key={i}
+                  className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] space-y-2.5"
+                >
+                  <span className="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400">
+                    {wf.step}
+                  </span>
+                  <h4 className="text-sm font-bold text-zinc-950 dark:text-white">
+                    {wf.title}
+                  </h4>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    {wf.detail}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer Row */}
+            <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs text-zinc-500 font-mono">
+                Custom voice persona, telephony routing, and API integration included.
+              </span>
+              <button
+                onClick={scrollToContact}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold btn-solid-primary"
+              >
+                <span>Deploy for {activeIndustry.name}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

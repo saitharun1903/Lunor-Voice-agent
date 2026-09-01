@@ -7,11 +7,10 @@ import {
   MicOff,
   PhoneCall,
   PhoneOff,
-  Sparkles,
-  Volume2,
   AlertCircle,
-  RefreshCw,
-  Shield,
+  Volume2,
+  Radio,
+  Sparkles,
 } from "lucide-react";
 import { getVoiceAgentService, LunoVoiceState } from "@/lib/voice-service";
 
@@ -23,12 +22,13 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
   const [state, setState] = useState<LunoVoiceState>("idle");
   const [isMuted, setIsMuted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [latestTranscript, setLatestTranscript] = useState<{ role: string; text: string } | null>(
-    null
-  );
+  const [transcripts, setTranscripts] = useState<Array<{ role: string; text: string }>>([]);
 
   const serviceRef = useRef(getVoiceAgentService());
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameRef = useRef<number>();
 
+  // Subscribe to real voice agent service
   useEffect(() => {
     const service = serviceRef.current;
     const unsubscribe = service.subscribe({
@@ -41,7 +41,10 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       },
       onTranscript: (t) => {
         if (t.text && t.text.trim()) {
-          setLatestTranscript({ role: t.role, text: t.text });
+          setTranscripts((prev) => {
+            const next = [...prev, { role: t.role, text: t.text }];
+            return next.slice(-4); // Keep last 4 turns for clean studio feel
+          });
         }
       },
       onError: (msg) => {
@@ -54,8 +57,100 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
     };
   }, []);
 
+  // Custom Lunor Dynamic Spectral Waveform Canvas Renderer
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let phase = 0;
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const width = canvas.width;
+      const height = canvas.height;
+      const midY = height / 2;
+
+      phase += 0.04;
+
+      // Draw subtle grid lines
+      ctx.strokeStyle = "rgba(100, 100, 120, 0.08)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, midY);
+      ctx.lineTo(width, midY);
+      ctx.stroke();
+
+      // Configure waveform frequency & amplitude based on active speech state
+      let amplitude = 12;
+      let waveColor = "#3b82f6";
+      let waveGlow = "rgba(59, 130, 246, 0.4)";
+
+      if (state === "speaking") {
+        amplitude = 36 + Math.sin(phase * 3) * 14;
+        waveColor = "#2563eb";
+        waveGlow = "rgba(37, 99, 235, 0.6)";
+      } else if (state === "listening") {
+        amplitude = 24 + Math.cos(phase * 2) * 8;
+        waveColor = "#10b981";
+        waveGlow = "rgba(16, 185, 129, 0.5)";
+      } else if (state === "connecting") {
+        amplitude = 16;
+        waveColor = "#f59e0b";
+        waveGlow = "rgba(245, 158, 11, 0.4)";
+      }
+
+      // Draw harmonic primary wave
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = waveGlow;
+      ctx.strokeStyle = waveColor;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+
+      for (let x = 0; x < width; x++) {
+        const norm = (x / width) * Math.PI * 4;
+        const envelope = Math.sin((x / width) * Math.PI); // Window function at edges
+        const y = midY + Math.sin(norm + phase) * amplitude * envelope;
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+
+      // Draw secondary trailing harmonic
+      ctx.shadowBlur = 4;
+      ctx.strokeStyle = state === "speaking" ? "#60a5fa" : "rgba(100, 116, 139, 0.3)";
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+
+      for (let x = 0; x < width; x++) {
+        const norm = (x / width) * Math.PI * 6;
+        const envelope = Math.sin((x / width) * Math.PI);
+        const y = midY + Math.cos(norm - phase * 1.5) * (amplitude * 0.5) * envelope;
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+
+      animationFrameRef.current = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [state]);
+
   const handleStartCall = useCallback(async () => {
-    setLatestTranscript(null);
+    setTranscripts([]);
     await serviceRef.current.start();
   }, []);
 
@@ -68,294 +163,143 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
     setIsMuted(serviceRef.current.getIsMuted());
   }, []);
 
-  const getStateDetails = () => {
+  const isActive = state === "listening" || state === "speaking" || state === "muted";
+
+  const getStatusBadge = () => {
     switch (state) {
       case "connecting":
-        return {
-          label: "Connecting...",
-          sub: "Establishing secure low-latency voice pipeline",
-          color: "text-amber-500",
-          statusTag: "INITIALIZING",
-        };
+        return { label: "CONNECTING TO LUNOR", color: "text-amber-600 dark:text-amber-400", dot: "bg-amber-500" };
       case "listening":
-        return {
-          label: "Listening...",
-          sub: "Speak naturally into your microphone",
-          color: "text-emerald-500",
-          statusTag: "LISTENING",
-        };
+        return { label: "LISTENING TO YOU", color: "text-emerald-600 dark:text-emerald-400", dot: "bg-emerald-500" };
       case "speaking":
-        return {
-          label: "Lunor is speaking",
-          sub: "Streaming real-time neural audio response",
-          color: "text-blue-500",
-          statusTag: "TRANSMITTING",
-        };
+        return { label: "LUNOR TRANSMITTING", color: "text-blue-600 dark:text-blue-400", dot: "bg-blue-500" };
       case "muted":
-        return {
-          label: "Microphone muted",
-          sub: "Click unmute to resume speaking",
-          color: "text-amber-500",
-          statusTag: "MUTED",
-        };
-      case "ending":
-        return {
-          label: "Ending conversation...",
-          sub: "Releasing audio streams",
-          color: "text-zinc-400",
-          statusTag: "CLOSING",
-        };
-      case "ended":
-        return {
-          label: "Conversation ended",
-          sub: "Thank you for exploring Lunor voice capabilities",
-          color: "text-zinc-500",
-          statusTag: "DISCONNECTED",
-        };
+        return { label: "MICROPHONE MUTED", color: "text-amber-600 dark:text-amber-400", dot: "bg-amber-500" };
       case "error":
-        return {
-          label: "Something went wrong",
-          sub: errorMessage || "Please try again or contact Lunor directly.",
-          color: "text-rose-500",
-          statusTag: "ERROR",
-        };
+        return { label: "CONNECTION ERROR", color: "text-rose-600 dark:text-rose-400", dot: "bg-rose-500" };
       default:
-        return {
-          label: "Live Voice Engine Ready",
-          sub: "Click 'Start Conversation' to talk with Lunor's real AI voice agent live.",
-          color: "text-zinc-600 dark:text-zinc-400",
-          statusTag: "STANDBY",
-        };
+        return { label: "LIVE ENGINE STANDBY", color: "text-zinc-500", dot: "bg-zinc-400" };
     }
   };
 
-  const stateDetails = getStateDetails();
-  const isActive = state === "listening" || state === "speaking" || state === "muted";
+  const statusBadge = getStatusBadge();
 
   return (
     <div className={`relative w-full max-w-2xl mx-auto ${className}`}>
-      {/* Dynamic Ambient Background Glow */}
-      <div
-        className={`absolute -inset-6 rounded-3xl transition-all duration-700 blur-3xl pointer-events-none ${
-          state === "speaking"
-            ? "bg-blue-500/25 opacity-100 scale-105"
-            : state === "listening"
-            ? "bg-emerald-500/20 opacity-90 scale-105"
-            : state === "connecting"
-            ? "bg-amber-500/20 opacity-80"
-            : "bg-blue-500/10 opacity-50 dark:opacity-30"
-        }`}
-      />
-
-      {/* Hardware-Inspired Tactile Voice Terminal */}
-      <div className="relative rounded-3xl p-7 sm:p-10 backdrop-blur-xl bg-white/95 dark:bg-zinc-900/80 border border-black/[0.08] dark:border-white/[0.12] shadow-2xl transition-all duration-300">
-        {/* Top Specular Line */}
-        <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
-
-        {/* Console Telemetry Header Bar */}
-        <div className="flex items-center justify-between pb-5 mb-5 border-b border-black/[0.05] dark:border-white/[0.06] text-[11px] font-mono">
+      {/* Tactile Hardware Studio Deck */}
+      <div className="relative rounded-3xl p-6 sm:p-9 structured-card shadow-2xl overflow-hidden space-y-6">
+        {/* Top Header Bar */}
+        <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-4 text-[11px] font-mono">
           <div className="flex items-center gap-2">
-            <span
-              className={`w-2 h-2 rounded-full ${
-                isActive
-                  ? "bg-emerald-500 animate-pulse"
-                  : state === "connecting"
-                  ? "bg-amber-500 animate-spin"
-                  : state === "error"
-                  ? "bg-rose-500"
-                  : "bg-zinc-400"
-              }`}
-            />
-            <span className="font-bold text-zinc-900 dark:text-white">
-              {isActive ? "LIVE ● CONNECTED" : "ENGINE ● " + stateDetails.statusTag}
-            </span>
+            <span className={`w-2 h-2 rounded-full ${statusBadge.dot} ${isActive ? "animate-ping" : ""}`} />
+            <span className={`font-bold ${statusBadge.color}`}>{statusBadge.label}</span>
           </div>
 
-          <div className="hidden sm:flex items-center gap-4 text-zinc-500">
-            <span>INTENT: Inbound Enquiry</span>
-            <span>CADENCE: Sub-400ms</span>
+          <div className="flex items-center gap-4 text-zinc-400">
+            <span>PROTOCOL: WEBRTC</span>
+            <span>LATENCY: &lt;400MS</span>
           </div>
         </div>
 
-        <div className="flex flex-col items-center text-center">
-          {/* Central Interactive Voice Orb */}
-          <div className="relative my-3 flex items-center justify-center">
-            {/* Audio Wave Ripples */}
-            <AnimatePresence>
-              {isActive && (
-                <>
-                  <motion.div
-                    initial={{ scale: 0.95, opacity: 0.7 }}
-                    animate={{ scale: 1.45, opacity: 0 }}
-                    exit={{ scale: 1, opacity: 0 }}
-                    transition={{ repeat: Infinity, duration: 2.0, ease: "easeOut" }}
-                    className={`absolute w-36 h-36 rounded-full border pointer-events-none ${
-                      state === "speaking"
-                        ? "border-blue-500/50"
-                        : state === "listening"
-                        ? "border-emerald-500/50"
-                        : "border-zinc-400/20"
-                    }`}
-                  />
-                  <motion.div
-                    initial={{ scale: 0.9, opacity: 0.5 }}
-                    animate={{ scale: 1.25, opacity: 0 }}
-                    exit={{ scale: 1, opacity: 0 }}
-                    transition={{ repeat: Infinity, duration: 1.6, delay: 0.3, ease: "easeOut" }}
-                    className={`absolute w-36 h-36 rounded-full border pointer-events-none ${
-                      state === "speaking"
-                        ? "border-indigo-500/40"
-                        : state === "listening"
-                        ? "border-teal-500/40"
-                        : "border-zinc-400/10"
-                    }`}
-                  />
-                </>
-              )}
-            </AnimatePresence>
+        {/* Dynamic Acoustic Spectral Waveform Visualizer */}
+        <div className="relative h-28 w-full rounded-2xl bg-black/[0.03] dark:bg-black/40 border border-black/[0.05] dark:border-white/[0.06] flex items-center justify-center overflow-hidden">
+          <canvas
+            ref={canvasRef}
+            width={600}
+            height={112}
+            className="w-full h-full object-cover"
+          />
 
-            {/* Core Action Button / Orb */}
-            <div
-              className={`relative z-10 flex items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-full transition-all duration-500 shadow-2xl ${
-                state === "speaking"
-                  ? "bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 text-white shadow-blue-500/40 scale-105"
-                  : state === "listening"
-                  ? "bg-gradient-to-tr from-emerald-600 via-teal-600 to-emerald-500 text-white shadow-emerald-500/40 scale-105"
-                  : state === "connecting"
-                  ? "bg-gradient-to-tr from-amber-500 to-orange-500 text-white animate-pulse"
-                  : state === "muted"
-                  ? "bg-gradient-to-tr from-zinc-700 to-zinc-600 text-white"
-                  : state === "error"
-                  ? "bg-gradient-to-tr from-rose-600 to-red-500 text-white shadow-rose-500/30"
-                  : "bg-gradient-to-tr from-zinc-950 to-zinc-800 dark:from-zinc-100 dark:to-zinc-300 text-white dark:text-zinc-900 shadow-xl shadow-black/10"
-              }`}
-            >
-              {state === "speaking" ? (
-                <Volume2 className="w-10 h-10 sm:w-12 sm:h-12 animate-pulse" />
-              ) : state === "listening" ? (
-                <Mic className="w-10 h-10 sm:w-12 sm:h-12 animate-pulse" />
-              ) : state === "muted" ? (
-                <MicOff className="w-10 h-10 sm:w-12 sm:h-12" />
-              ) : state === "connecting" ? (
-                <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 animate-spin" />
-              ) : state === "error" ? (
-                <AlertCircle className="w-10 h-10 sm:w-12 sm:h-12" />
-              ) : (
-                <PhoneCall className="w-10 h-10 sm:w-12 sm:h-12" />
-              )}
-            </div>
-          </div>
-
-          {/* Real-Time Live Waveform Display When Active */}
-          {isActive && (
-            <div className="flex items-center gap-1 h-6 my-2">
-              {[20, 45, 80, 100, 60, 90, 40, 75, 95, 50, 85, 30].map((h, i) => (
-                <motion.span
-                  key={i}
-                  style={{ transformOrigin: "bottom" }}
-                  animate={{
-                    scaleY: [`${h * 0.2}%`, `${h}%`, `${h * 0.3}%`],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 0.8 + (i % 3) * 0.2,
-                    ease: "easeInOut",
-                    repeatType: "mirror",
-                    delay: i * 0.05,
-                  }}
-                  className={`w-1 rounded-full ${
-                    state === "speaking"
-                      ? "bg-blue-500"
-                      : state === "listening"
-                      ? "bg-emerald-500"
-                      : "bg-amber-500"
-                  }`}
-                />
-              ))}
+          {!isActive && state !== "connecting" && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500 bg-white/70 dark:bg-zinc-900/80 px-3 py-1 rounded-full border border-black/[0.05] dark:border-white/[0.08]">
+                Click &apos;Start Conversation&apos; to speak
+              </span>
             </div>
           )}
+        </div>
 
-          {/* Subtitle / Live Transcript Bubble */}
-          <div className="mt-3 mb-2 min-h-[48px] px-4 py-2 flex items-center justify-center">
-            {latestTranscript ? (
-              <motion.div
-                key={latestTranscript.text}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="max-w-md px-5 py-2.5 rounded-2xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.05] dark:border-white/[0.08] text-xs sm:text-sm text-zinc-800 dark:text-zinc-200 shadow-sm"
-              >
-                <span className="font-semibold text-blue-600 dark:text-blue-400">
-                  {latestTranscript.role === "agent" ? "Lunor: " : "You: "}
-                </span>
-                <span>“{latestTranscript.text}”</span>
-              </motion.div>
-            ) : (
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-md leading-relaxed">
-                {stateDetails.sub}
-              </p>
-            )}
-          </div>
-
-          {/* Controls Deck */}
-          <div className="mt-6 w-full flex flex-col items-center gap-3">
-            {state === "idle" || state === "ended" ? (
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleStartCall}
-                className="w-full sm:w-auto px-10 py-4 rounded-full text-sm font-semibold glass-button-primary flex items-center justify-center gap-2.5 shadow-xl"
-              >
-                <PhoneCall className="w-4 h-4" />
-                <span>Start Conversation</span>
-              </motion.button>
-            ) : state === "error" ? (
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleStartCall}
-                className="px-7 py-3 rounded-full text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white flex items-center gap-2 shadow-md"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>Try Again</span>
-              </motion.button>
-            ) : state === "connecting" ? (
-              <div className="flex items-center gap-2.5 px-6 py-3 rounded-full text-xs font-semibold bg-black/[0.04] dark:bg-white/[0.08] text-zinc-700 dark:text-zinc-300">
-                <div className="w-4 h-4 border-2 border-zinc-400 border-t-blue-600 rounded-full animate-spin" />
-                <span>Connecting to Lunor Voice...</span>
-              </div>
-            ) : (
-              /* Active Controls: Mute & End */
-              <div className="flex items-center justify-center gap-3">
-                <button
-                  onClick={handleToggleMute}
-                  aria-label={isMuted ? "Unmute microphone" : "Mute microphone"}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold transition-all ${
-                    isMuted
-                      ? "bg-amber-500 hover:bg-amber-600 text-white shadow-md"
-                      : "bg-black/[0.05] dark:bg-white/[0.1] text-zinc-800 dark:text-zinc-200 hover:bg-black/[0.08] border border-black/[0.08] dark:border-white/[0.12]"
+        {/* Live Conversation Transcript Feed */}
+        <div className="min-h-[100px] space-y-2.5 p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.05] text-xs leading-relaxed">
+          {transcripts.length === 0 ? (
+            <div className="text-center py-4 text-zinc-400 font-mono text-[11px]">
+              {isActive
+                ? "Speak into your mic: 'Do you have property in Gachibowli?' or 'I want to schedule an appointment'..."
+                : "Live telemetry transcript will appear here during call..."}
+            </div>
+          ) : (
+            transcripts.map((t, idx) => (
+              <div key={idx} className="flex items-start gap-2.5">
+                <span
+                  className={`text-[10px] font-mono font-bold uppercase px-1.5 py-0.5 rounded shrink-0 ${
+                    t.role === "user"
+                      ? "bg-black/[0.06] dark:bg-white/[0.08] text-zinc-700 dark:text-zinc-300"
+                      : "bg-blue-500/15 text-blue-600 dark:text-blue-400"
                   }`}
                 >
-                  {isMuted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                  {t.role === "user" ? "YOU" : "LUNOR"}
+                </span>
+                <p className="text-zinc-800 dark:text-zinc-200">{t.text}</p>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Error Notification */}
+        {errorMessage && (
+          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-600 dark:text-rose-400 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
+        {/* Hardware Studio Controls */}
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
+            <Radio className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
+            <span>Direct Carrier Audio Node</span>
+          </div>
+
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            {!isActive ? (
+              <button
+                onClick={handleStartCall}
+                disabled={state === "connecting"}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-semibold btn-solid-primary disabled:opacity-50"
+              >
+                {state === "connecting" ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <PhoneCall className="w-3.5 h-3.5" />
+                    <span>Start Conversation</span>
+                  </>
+                )}
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={handleToggleMute}
+                  className={`px-4 py-2.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                    isMuted
+                      ? "bg-amber-500 text-white"
+                      : "btn-outline-secondary"
+                  }`}
+                >
+                  {isMuted ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
                   <span>{isMuted ? "Unmute" : "Mute"}</span>
                 </button>
 
                 <button
                   onClick={handleStopCall}
-                  aria-label="End voice conversation"
-                  className="flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white shadow-md transition-all"
+                  className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white shadow-md transition-colors"
                 >
-                  <PhoneOff className="w-4 h-4" />
-                  <span>End Conversation</span>
+                  <PhoneOff className="w-3.5 h-3.5" />
+                  <span>End Call</span>
                 </button>
-              </div>
+              </>
             )}
           </div>
-
-          {/* Privacy Note */}
-          <p className="mt-6 text-[11px] text-zinc-500 flex items-center justify-center gap-1.5">
-            <Shield className="w-3 h-3 text-emerald-500" />
-            <span>Microphone access requested only when call begins. Zero audio storage.</span>
-          </p>
         </div>
       </div>
     </div>
