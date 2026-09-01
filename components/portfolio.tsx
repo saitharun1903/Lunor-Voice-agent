@@ -146,7 +146,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
                     <span>{project.problem}</span>
                   </div>
                   <div>
-                    <span className="font-bold text-zinc-900 dark:text-white">What Luno Engineered: </span>
+                    <span className="font-bold text-zinc-900 dark:text-white">What Lunor Engineered: </span>
                     <span>{project.whatLunoAutomated}</span>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-zinc-900 dark:text-white mb-1">What Luno Engineered</h4>
+                  <h4 className="font-bold text-zinc-900 dark:text-white mb-1">What Lunor Engineered</h4>
                   <p>{selectedProject.whatLunoAutomated}</p>
                 </div>
 

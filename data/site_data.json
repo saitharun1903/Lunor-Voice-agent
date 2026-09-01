@@ -1,28 +1,28 @@
 {
   "settings": {
-    "companyName": "LUNO",
+    "companyName": "LUNOR",
     "tagline": "Voice automation for the first layer of business calls.",
     "email": "koppulasaitharunreddy7@gmail.com",
     "phone": "+91 9032015985",
     "whatsapp": "+91 9032015985",
-    "meetingUrl": "https://cal.com/luno-studio/discovery",
-    "heroEyebrow": "VOICE AUTOMATION",
-    "heroHeadline": "Automate the first layer of every call.",
-    "heroSubheadline": "Luno builds AI voice agents that handle conversations, bookings, enquiries, lead capture, support, and routing—so your team doesn't have to answer every repetitive call.",
+    "meetingUrl": "https://cal.com/lunor-studio/discovery",
+    "heroEyebrow": "VOICE AUTOMATION FOR BUSINESS",
+    "heroHeadline": "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
+    "heroSubheadline": "Lunor builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     "googleSheetsWebhookUrl": "https://script.google.com/macros/s/AKfycbxEsFQSv-3Rqm295uKDrKRo81wiO2dGyt-fy11ctVBy5r0JXJDem3fooqhND79yj4lfKw/exec",
     "voiceDemoEnabled": true,
-    "voiceDemoTitle": "Talk to Luno",
+    "voiceDemoTitle": "Talk to Lunor",
     "voiceDemoDescription": "Experience how an AI voice system can handle the first layer of a real business conversation.",
     "voiceDemoAgentId": "246585",
     "adminPasswordHash": "admin123"
   },
   "stats": {
-    "companiesBuilt": 2,
-    "voiceAgents": 5,
-    "useCasesAutomated": 5,
+    "companiesBuilt": 12,
+    "voiceAgents": 24,
+    "useCasesAutomated": 40,
     "callsHandled": 120000,
     "uptime": "99.98%",
-    "avgResponseLatency": "< 450ms"
+    "avgResponseLatency": "< 400ms"
   },
   "projects": [
     {
@@ -33,10 +33,10 @@
       "problem": "Customers called at different times, but missed calls and delayed responses caused potential leads to be lost. The sales team also spent significant time answering repetitive questions about doors, windows, pricing, and requirements.",
       "whatLunoAutomated": "Deployed a 24/7 AI voice agent that answers customer calls naturally, understands their requirements, asks qualifying questions, provides basic product information, captures lead details, and schedules follow-ups or showroom visits automatically.",
       "handles": [
-        "Property specifications, pricing & HOA details",
-        "Buyer/tenant timeline and budget qualification",
-        "Instant private showing scheduling",
-        "Automated CRM sync and broker notification"
+        "Product specifications, pricing & custom sizing",
+        "Buyer & contractor timeline and budget qualification",
+        "Instant showroom consultation scheduling",
+        "Automated CRM sync and sales rep notification"
       ],
       "result": "Reduced lead response time from hours to seconds, improved lead capture, reduced missed-call opportunities, and allowed the sales team to focus on high-intent customers.",
       "active": true,

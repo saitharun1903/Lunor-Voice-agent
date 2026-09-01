@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HelpCircle, Sparkles, PhoneCall, ArrowRight } from "lucide-react";
+import { ChevronDown, HelpCircle, ArrowRight } from "lucide-react";
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -10,23 +10,23 @@ export function FaqSection() {
   const faqs = [
     {
       q: "Do we need to change our existing business phone number?",
-      a: "No. You keep your existing numbers with zero disruption. We simply set up conditional call forwarding, SIP trunking, or simultaneous ringing from your existing carrier (Twilio, RingCentral, Vonage, Telnyx, Verizon, AT&T, etc.) into your Luno voice agent.",
+      a: "No. You keep your existing numbers with zero disruption. We simply set up conditional call forwarding, SIP trunking, or simultaneous ringing from your existing carrier (Twilio, RingCentral, Vonage, Telnyx, Verizon, AT&T, etc.) into your Lunor voice agent.",
     },
     {
       q: "What happens when a caller asks something complex or requests a human manager?",
-      a: "Luno handles human escalation gracefully. If a caller requests a specialist, exhibits high urgency, or presents a complex edge case, Luno performs an instant warm transfer (SIP REFER) to your designated staff line while automatically dispatching a real-time transcript summary to your phone or CRM.",
+      a: "Lunor handles human escalation gracefully. If a caller requests a specialist, exhibits high urgency, or presents a complex edge case, Lunor performs an instant warm transfer (SIP REFER) to your designated staff line while automatically dispatching a real-time transcript summary to your phone or CRM.",
     },
     {
-      q: "Can Luno check real-time calendar availability and prevent double bookings?",
-      a: "Yes. Luno integrates directly with your Google Calendar, Outlook 365, Calendly, OpenTable, JaneApp, or custom booking API. Before confirming any booking, Luno queries live availability and holds the slot in real time with zero risk of double booking.",
+      q: "Can Lunor check real-time calendar availability and prevent double bookings?",
+      a: "Yes. Lunor integrates directly with your Google Calendar, Outlook 365, Calendly, OpenTable, JaneApp, or custom booking API. Before confirming any booking, Lunor queries live availability and holds the slot in real time with zero risk of double booking.",
     },
     {
-      q: "How fast is Luno's voice response cadence during a live conversation?",
-      a: "Luno operates with an ultra-low conversational latency of sub-400ms. This enables natural human-like cadence, dynamic turn-taking, intelligent interruption handling, and zero awkward pauses.",
+      q: "How fast is Lunor's voice response cadence during a live conversation?",
+      a: "Lunor operates with an ultra-low conversational latency of sub-400ms. This enables natural human-like cadence, dynamic turn-taking, intelligent interruption handling, and zero awkward pauses.",
     },
     {
       q: "Is our caller conversation and patient/client data secure?",
-      a: "Yes. Luno is engineered with enterprise security guardrails including SOC2 readiness, HIPAA safeguards for PHI redaction, TLS 1.3/SRTP encrypted audio streams, and a strict zero data retention policy for foundation model training.",
+      a: "Yes. Lunor is engineered with enterprise security guardrails including SOC2 readiness, HIPAA safeguards for PHI redaction, TLS 1.3/SRTP encrypted audio streams, and a strict zero data retention policy for foundation model training.",
     },
     {
       q: "How long does a custom studio deployment take from kickoff to go-live?",
@@ -47,7 +47,7 @@ export function FaqSection() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/10 border border-blue-500/20 mb-4 uppercase font-mono"
           >
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Technical & Operational Clarity</span>
@@ -70,7 +70,7 @@ export function FaqSection() {
             transition={{ delay: 0.2 }}
             className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed text-balance"
           >
-            Everything business owners and technical leaders need to know about deploying Luno voice systems.
+            Everything business owners and technical leaders need to know about deploying Lunor voice systems.
           </motion.p>
         </div>
 

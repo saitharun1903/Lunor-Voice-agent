@@ -57,7 +57,7 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
-            No complex phone system rip-and-replace. Luno sits seamlessly in front of your carriers, booking tools, and CRMs.
+            No complex phone system rip-and-replace. Lunor sits seamlessly in front of your carriers, booking tools, and CRMs.
           </p>
         </div>
 

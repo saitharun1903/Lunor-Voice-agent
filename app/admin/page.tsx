@@ -382,7 +382,7 @@ export default function AdminDashboardPage() {
             </div>
             <div>
               <span className="font-extrabold text-base tracking-tight text-zinc-950 dark:text-white">
-                LUNO ADMIN
+                LUNOR ADMIN
               </span>
               <span className="ml-2 text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">
                 Production Studio
@@ -1144,7 +1144,7 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="text"
-                    value={data.settings.voiceDemoTitle || "Talk to Luno"}
+                    value={data.settings.voiceDemoTitle || "Talk to Lunor"}
                     onChange={(e) =>
                       setData({
                         ...data,
@@ -1215,7 +1215,7 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="email"
-                    value={data.settings.email || "conversations@luno.ai"}
+                    value={data.settings.email || "conversations@lunor.co.in"}
                     onChange={(e) =>
                       setData({
                         ...data,
@@ -1452,7 +1452,7 @@ export default function AdminDashboardPage() {
 
                 <div>
                   <label className="font-semibold text-zinc-700 dark:text-zinc-300">
-                    What Luno Automated
+                    What Lunor Automated
                   </label>
                   <textarea
                     rows={2}

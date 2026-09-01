@@ -12,10 +12,6 @@ import {
   AlertCircle,
   RefreshCw,
   Shield,
-  Activity,
-  Radio,
-  Layers,
-  Cpu,
 } from "lucide-react";
 import { getVoiceAgentService, LunoVoiceState } from "@/lib/voice-service";
 
@@ -90,7 +86,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
         };
       case "speaking":
         return {
-          label: "Luno is speaking",
+          label: "Lunor is speaking",
           sub: "Streaming real-time neural audio response",
           color: "text-blue-500",
           statusTag: "TRANSMITTING",
@@ -112,21 +108,21 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       case "ended":
         return {
           label: "Conversation ended",
-          sub: "Thank you for exploring Luno voice capabilities",
+          sub: "Thank you for exploring Lunor voice capabilities",
           color: "text-zinc-500",
           statusTag: "DISCONNECTED",
         };
       case "error":
         return {
           label: "Something went wrong",
-          sub: errorMessage || "Please try again or contact Luno directly.",
+          sub: errorMessage || "Please try again or contact Lunor directly.",
           color: "text-rose-500",
           statusTag: "ERROR",
         };
       default:
         return {
           label: "Live Voice Engine Ready",
-          sub: "Click 'Start Conversation' to talk with Luno's real AI voice agent live.",
+          sub: "Click 'Start Conversation' to talk with Lunor's real AI voice agent live.",
           color: "text-zinc-600 dark:text-zinc-400",
           statusTag: "STANDBY",
         };
@@ -289,7 +285,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
                 className="max-w-md px-5 py-2.5 rounded-2xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.05] dark:border-white/[0.08] text-xs sm:text-sm text-zinc-800 dark:text-zinc-200 shadow-sm"
               >
                 <span className="font-semibold text-blue-600 dark:text-blue-400">
-                  {latestTranscript.role === "agent" ? "Luno: " : "You: "}
+                  {latestTranscript.role === "agent" ? "Lunor: " : "You: "}
                 </span>
                 <span>“{latestTranscript.text}”</span>
               </motion.div>
@@ -325,7 +321,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
             ) : state === "connecting" ? (
               <div className="flex items-center gap-2.5 px-6 py-3 rounded-full text-xs font-semibold bg-black/[0.04] dark:bg-white/[0.08] text-zinc-700 dark:text-zinc-300">
                 <div className="w-4 h-4 border-2 border-zinc-400 border-t-blue-600 rounded-full animate-spin" />
-                <span>Connecting to Luno Voice...</span>
+                <span>Connecting to Lunor Voice...</span>
               </div>
             ) : (
               /* Active Controls: Mute & End */

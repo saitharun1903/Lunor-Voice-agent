@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { CheckCircle2, Sliders, ShieldCheck, HeartHandshake } from "lucide-react";
+import { Sliders, ShieldCheck, HeartHandshake } from "lucide-react";
 
 export function AboutSection() {
   const pillars = [
@@ -31,14 +30,14 @@ export function AboutSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="rounded-3xl p-8 sm:p-12 backdrop-blur-xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] shadow-lg">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3 font-mono">
               Our Studio Philosophy
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-white mb-6">
               We build voice systems around how businesses actually work.
             </h2>
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed mb-8">
-              Most automated phone menus and generic bots fail because they force callers into unnatural numbered menus. Luno takes the opposite approach: we build conversational agents that understand colloquial speech, adapt to interruptions, and execute real actions across your business software.
+              Most automated phone menus and generic bots fail because they force callers into unnatural numbered menus. Lunor takes the opposite approach: we build conversational agents that understand colloquial speech, adapt to interruptions, and execute real actions across your business software.
             </p>
           </div>
 

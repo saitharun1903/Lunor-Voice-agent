@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { PhoneCall, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { LunorLogo } from "./ui/lunor-logo";
 
 export const Navbar = memo(function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -70,14 +71,9 @@ export const Navbar = memo(function Navbar() {
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-          {/* Brand Wordmark */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-sm shadow-md shadow-blue-500/20 transition-transform duration-200 group-hover:scale-105 font-mono">
-              L
-            </div>
-            <span className="font-extrabold text-lg tracking-tight text-zinc-950 dark:text-white">
-              LUNO
-            </span>
+          {/* Distinctive LUNOR Brand Mark & Wordmark */}
+          <Link href="/" className="group" aria-label="Lunor Home">
+            <LunorLogo size={32} showWordmark={true} />
           </Link>
 
           {/* Desktop Navigation Links with Sliding Pill Indicator */}
@@ -129,7 +125,7 @@ export const Navbar = memo(function Navbar() {
               className="flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold glass-button-primary shadow-md hover:scale-[1.02] active:scale-[0.98] transition-transform"
             >
               <PhoneCall className="w-3.5 h-3.5" />
-              <span>Talk to Luno</span>
+              <span>Talk to Lunor</span>
             </button>
           </div>
 
@@ -177,7 +173,7 @@ export const Navbar = memo(function Navbar() {
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-full text-sm font-semibold glass-button-primary shadow-lg"
                 >
                   <PhoneCall className="w-4 h-4" />
-                  <span>Talk to Luno</span>
+                  <span>Talk to Lunor</span>
                 </button>
               </div>
             </div>

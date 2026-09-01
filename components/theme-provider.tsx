@@ -43,13 +43,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem("luno-theme") as Theme) || "light";
+    const savedTheme =
+      (localStorage.getItem("lunor-theme") as Theme) ||
+      (localStorage.getItem("luno-theme") as Theme) ||
+      "light";
     setThemeState(savedTheme);
     applyThemeToDOM(savedTheme);
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const listener = () => {
-      const current = (localStorage.getItem("luno-theme") as Theme) || "light";
+      const current =
+        (localStorage.getItem("lunor-theme") as Theme) ||
+        (localStorage.getItem("luno-theme") as Theme) ||
+        "light";
       if (current === "system") {
         applyThemeToDOM("system");
       }
@@ -63,7 +69,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     (newTheme: Theme) => {
       setThemeState(newTheme);
       try {
-        localStorage.setItem("luno-theme", newTheme);
+        localStorage.setItem("lunor-theme", newTheme);
       } catch (e) {
         // ignore in private browsing modes
       }

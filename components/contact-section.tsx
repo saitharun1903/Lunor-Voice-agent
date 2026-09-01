@@ -107,7 +107,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
       });
     } catch (err: any) {
       setStatus("error");
-      setErrorMessage(err.message || "Something went wrong. Please try again or contact Luno directly.");
+      setErrorMessage(err.message || "Something went wrong. Please try again or contact Lunor directly.");
     } finally {
       setLoading(false);
     }
@@ -188,7 +188,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   className="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold glass-button-secondary"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Talk to Luno</span>
+                  <span>Talk to Lunor</span>
                 </button>
               </div>
 
@@ -196,7 +196,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
               <div className="space-y-3.5 pt-2">
                 {/* 1. Email */}
                 <a
-                  href={`mailto:${settings.email || "conversations@luno.ai"}`}
+                  href={`mailto:${settings.email || "conversations@lunor.co.in"}`}
                   className="flex items-center gap-3.5 p-4 rounded-2xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] hover:border-blue-500/30 transition-all group shadow-sm"
                 >
                   <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -205,7 +205,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   <div>
                     <p className="text-[11px] text-zinc-500 font-medium">Direct Engineering Inquiries</p>
                     <p className="text-sm font-semibold text-zinc-900 dark:text-white">
-                      {settings.email || "conversations@luno.ai"}
+                      {settings.email || "conversations@lunor.co.in"}
                     </p>
                   </div>
                 </a>
@@ -265,7 +265,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         Inquiry Received.
                       </h3>
                       <p className="text-sm text-zinc-600 dark:text-zinc-300 max-w-sm mx-auto leading-relaxed">
-                        Luno engineering will review your workflow requirements and provide a custom conversational blueprint within 24 hours.
+                        Lunor engineering will review your workflow requirements and provide a custom conversational blueprint within 24 hours.
                       </p>
                       <div className="pt-4">
                         <button

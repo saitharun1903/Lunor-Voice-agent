@@ -10,10 +10,8 @@ import {
   Zap,
   Volume2,
   Mic,
-  Activity,
-  CheckCircle2,
-  Sparkles,
 } from "lucide-react";
+import { Lunor3DMark } from "./ui/lunor-3d-mark";
 
 interface HeroProps {
   eyebrow?: string;
@@ -25,14 +23,14 @@ interface HeroProps {
 export const Hero = memo(function Hero({
   eyebrow = "VOICE AUTOMATION FOR BUSINESS",
   headline = "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
-  subheadline = "Luno builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+  subheadline = "Lunor builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
   onTalkToLuno,
 }: HeroProps) {
   const scrollToContact = useCallback(() => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const handleTalkToLuno = useCallback(() => {
+  const handleTalkToLunor = useCallback(() => {
     if (onTalkToLuno) {
       onTalkToLuno();
     } else {
@@ -55,7 +53,7 @@ export const Hero = memo(function Hero({
             <span>{eyebrow}</span>
           </motion.div>
 
-          {/* 2. Dominant Display Typography with Signature Luno Acoustic Signal Aperture */}
+          {/* 2. Dominant Display Typography with Signature LUNOR 3D Brand Mark */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,113 +61,15 @@ export const Hero = memo(function Hero({
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 dark:text-white leading-[1.12] mb-6 text-balance select-none"
           >
             AUTOMATE THE{" "}
-            {/* Signature Luno Acoustic Signal Aperture / Floating Glass Squircle */}
+            {/* Signature LUNOR 3D Brand Mark */}
             <motion.span
-              onClick={handleTalkToLuno}
-              title="Click to talk with Luno"
-              whileHover={{ scale: 1.1, rotate: 6 }}
-              whileTap={{ scale: 0.94 }}
-              className="inline-flex items-center justify-center align-middle mx-2 sm:mx-3 my-1 relative cursor-pointer group"
+              onClick={handleTalkToLunor}
+              title="Click to talk with Lunor"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center align-middle mx-2 sm:mx-3 my-1 relative cursor-pointer"
             >
-              {/* Outer Radiant Glow Aura */}
-              <motion.span
-                animate={{
-                  scale: [1, 1.22, 1],
-                  opacity: [0.35, 0.7, 0.35],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2.5,
-                  ease: "easeInOut",
-                }}
-                className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 blur-xl opacity-50 pointer-events-none group-hover:opacity-90 transition-opacity"
-              />
-
-              {/* Pulsing Concentric Soundwave Ripples */}
-              <motion.span
-                animate={{
-                  scale: [1, 1.45, 1.8],
-                  opacity: [0.55, 0.18, 0],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2.0,
-                  ease: "easeOut",
-                }}
-                className="absolute inset-0 rounded-2xl sm:rounded-3xl border-2 border-blue-400/40 pointer-events-none"
-              />
-
-              {/* 3D Floating & Tilting Glass Squircle */}
-              <motion.span
-                animate={{
-                  y: [-4, 4, -4],
-                  rotate: [-4, 4, -4],
-                  scale: [1, 1.02, 1],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 3.2,
-                  ease: "easeInOut",
-                }}
-                className="relative flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 text-white shadow-xl shadow-blue-500/30 border-2 border-white/40 overflow-hidden transform-gpu"
-              >
-                {/* Diagonal Specular Light Beam Sweep */}
-                <motion.span
-                  animate={{
-                    x: ["-120%", "220%"],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    repeatDelay: 2.5,
-                    duration: 1.2,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute inset-y-0 w-8 bg-gradient-to-r from-transparent via-white/50 to-transparent skew-x-12 pointer-events-none"
-                />
-
-                {/* Top Glass Highlight */}
-                <span className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/45 to-transparent pointer-events-none rounded-t-2xl sm:rounded-t-3xl" />
-
-                {/* Animated Waveform Equalizer */}
-                <div className="absolute inset-x-2 bottom-1.5 flex items-end justify-center gap-0.5 sm:gap-1 h-3 opacity-60">
-                  {[0.4, 0.8, 1, 0.6, 0.9, 0.5].map((s, idx) => (
-                    <motion.span
-                      key={idx}
-                      style={{ transformOrigin: "bottom" }}
-                      animate={{
-                        scaleY: [s * 0.3, s, s * 0.4],
-                      }}
-                      transition={{
-                        repeat: Infinity,
-                        duration: 0.7 + (idx % 3) * 0.15,
-                        ease: "easeInOut",
-                        repeatType: "mirror",
-                        delay: idx * 0.08,
-                      }}
-                      className="w-0.5 sm:w-1 h-full rounded-full bg-white/80"
-                    />
-                  ))}
-                </div>
-
-                {/* Microphone Icon with Gentle Breathing Pulse */}
-                <motion.span
-                  animate={{
-                    scale: [1, 1.08, 1],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 1.6,
-                    ease: "easeInOut",
-                  }}
-                  className="relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                >
-                  <Mic className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white" />
-                </motion.span>
-
-                {/* Pulsing Active Status Indicator */}
-                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-400 border border-white animate-ping" />
-                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-400 border border-white" />
-              </motion.span>
+              <Lunor3DMark size={72} />
             </motion.span>
             <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">
@@ -204,11 +104,11 @@ export const Hero = memo(function Hero({
             </button>
 
             <button
-              onClick={handleTalkToLuno}
+              onClick={handleTalkToLunor}
               className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-sm font-semibold glass-button-secondary"
             >
               <PhoneCall className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>TALK TO LUNO</span>
+              <span>TALK TO LUNOR</span>
             </button>
           </motion.div>
 
@@ -256,7 +156,7 @@ export const Hero = memo(function Hero({
                 <div className="text-left">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-zinc-950 dark:text-white">
-                      Luno Autonomous Telephony Layer
+                      Lunor Autonomous Telephony Layer
                     </span>
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2.5 py-0.5 rounded-full font-mono">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
@@ -292,7 +192,7 @@ export const Hero = memo(function Hero({
 
               {/* Right: Instant Trigger Button */}
               <button
-                onClick={handleTalkToLuno}
+                onClick={handleTalkToLunor}
                 className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold glass-button-primary shrink-0"
               >
                 <Mic className="w-3.5 h-3.5" />

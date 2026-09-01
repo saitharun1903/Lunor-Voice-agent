@@ -21,7 +21,7 @@ export function TrustSection() {
     {
       title: "Warm Human Escalation",
       description:
-        "When a caller needs a human specialist, Luno summarizes the context and executes an instant warm phone transfer.",
+        "When a caller needs a human specialist, Lunor summarizes the context and executes an instant warm phone transfer.",
       icon: PhoneForwarded,
     },
     {
@@ -48,7 +48,7 @@ export function TrustSection() {
     <section className="py-24 relative overflow-hidden bg-black/[0.015] dark:bg-white/[0.015] border-y border-black/[0.04] dark:border-white/[0.04]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3">
+          <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-3 font-mono">
             Enterprise Architecture
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-white mb-4">

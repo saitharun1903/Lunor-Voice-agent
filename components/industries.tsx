@@ -115,7 +115,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
                 </h3>
 
                 <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  Prospective buyers and tenants call across varying hours. Luno provides an instant conversational voice layer that qualifies buyer budgets, answers listing specifications, and schedules private showings directly into agent calendars.
+                  Prospective buyers and tenants call across varying hours. Lunor provides an instant conversational voice layer that qualifies buyer budgets, answers listing specifications, and schedules private showings directly into agent calendars.
                 </p>
 
                 <div className="pt-2">

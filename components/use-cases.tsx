@@ -159,11 +159,11 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
-            What can Luno automate?
+            What can Lunor automate?
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">
-            From high-intent inquiries and automated calendar bookings to multi-field lead qualification and warm human routing, Luno handles structured business conversations.
+            From high-intent inquiries and automated calendar bookings to multi-field lead qualification and warm human routing, Lunor handles structured business conversations.
           </p>
         </div>
 
@@ -281,10 +281,10 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                     </p>
                   </div>
 
-                  {/* Luno Agent */}
+                  {/* Lunor Agent */}
                   <div className="p-4 rounded-2xl bg-blue-500/[0.07] dark:bg-blue-500/15 border border-blue-500/20 text-xs sm:text-sm">
                     <span className="font-semibold text-blue-600 dark:text-blue-400 text-[11px] block mb-1">
-                      Luno Voice Engine:
+                      Lunor Voice Engine:
                     </span>
                     <p className="text-zinc-900 dark:text-white font-medium">
                       “{itemData.agent}”

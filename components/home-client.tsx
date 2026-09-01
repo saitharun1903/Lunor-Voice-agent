@@ -26,19 +26,19 @@ interface HomeClientProps {
 
 export const HomeClient = memo(function HomeClient({ initialData }: HomeClientProps) {
   const settings = initialData?.settings || {
-    companyName: "Luno",
+    companyName: "Lunor",
     tagline: "Voice automation for the first layer of business calls.",
-    email: "conversations@luno.ai",
+    email: "conversations@lunor.co.in",
     phone: "+1 (888) 586-6240",
     whatsapp: "+18885866240",
     meetingUrl: "https://meet.google.com",
     heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
     heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
     heroSubheadline:
-      "Luno builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+      "Lunor builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     googleSheetsWebhookUrl: "",
     voiceDemoEnabled: true,
-    voiceDemoTitle: "Talk to Luno",
+    voiceDemoTitle: "Talk to Lunor",
     voiceDemoDescription:
       "Experience how an AI voice system handles the first layer of a real business conversation with sub-second response times.",
   };
@@ -80,7 +80,7 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
 
         {/* Chapter 2: Central Live Voice Product Deck (EXACTLY ONE Demonstration) */}
         <LiveDemoSection
-          title={settings.voiceDemoTitle || "Talk to Luno"}
+          title={settings.voiceDemoTitle || "Talk to Lunor"}
           description={
             settings.voiceDemoDescription ||
             "Experience how an AI voice system handles the first layer of a real business conversation."

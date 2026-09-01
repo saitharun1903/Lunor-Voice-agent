@@ -6,6 +6,7 @@ import { Lock, ArrowRight, Shield, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LunorLogo } from "@/components/ui/lunor-logo";
 
 export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
@@ -45,13 +46,8 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-[#fafafc] dark:bg-[#030305] text-[#1d1d1f] dark:text-[#f5f5f7] flex flex-col justify-between p-4 sm:p-6 transition-colors duration-300">
       {/* Top Bar */}
       <div className="max-w-6xl w-full mx-auto flex items-center justify-between py-2">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-md shadow-blue-500/20">
-            L
-          </div>
-          <span className="font-extrabold text-base tracking-tight text-zinc-950 dark:text-white">
-            LUNO
-          </span>
+        <Link href="/" aria-label="Lunor Home">
+          <LunorLogo size={30} showWordmark={true} />
         </Link>
         <ThemeToggle />
       </div>
@@ -68,7 +64,7 @@ export default function AdminLoginPage() {
               <Shield className="w-6 h-6" />
             </div>
             <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
-              Studio Admin
+              Lunor Admin Portal
             </h1>
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
               Enter authorized administrator password to manage studio data, projects, and leads.
@@ -133,8 +129,8 @@ export default function AdminLoginPage() {
       </div>
 
       {/* Bottom info */}
-      <div className="text-center py-2 text-xs text-zinc-400">
-        Luno Studio Telephony & Voice Agent Management System
+      <div className="text-center py-2 text-xs text-zinc-400 font-mono">
+        Lunor Studio Telephony & Voice Agent Management System
       </div>
     </div>
   );

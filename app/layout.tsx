@@ -4,43 +4,49 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lunor.co.in"),
-  title: "Luno — AI Voice Automation for Business",
+  title: "Lunor — AI Voice Automation for Business",
   description:
-    "Luno builds AI voice agents that automate the first layer of business phone conversations—handling bookings, qualification, enquiries, routing, and customer support with sub-second response times.",
+    "Lunor builds AI voice systems that automate the first layer of business phone conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
   keywords: [
+    "Lunor",
+    "Lunor AI",
     "AI Voice Agent",
     "Voice Automation",
     "Business Phone Automation",
     "Conversational AI",
-    "Automated Phone Reception",
+    "Automated Phone Telephony",
     "Inbound Lead Qualification",
     "AI Reservation Booking",
   ],
-  authors: [{ name: "Luno Technologies" }],
+  authors: [{ name: "Lunor Technologies" }],
   alternates: {
     canonical: "https://lunor.co.in",
   },
   openGraph: {
-    title: "Luno — AI Voice Automation for Business",
+    title: "Lunor — AI Voice Automation for Business",
     description:
-      "Automate the first layer of every business call. Custom voice agents designed for real workflows.",
+      "Automate the first layer of every business call. Custom voice systems designed for real workflows.",
     url: "https://lunor.co.in",
-    siteName: "Luno",
+    siteName: "Lunor",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Luno — AI Voice Automation for Business",
+    title: "Lunor — AI Voice Automation for Business",
     description:
-      "Automate the first layer of every business call. Custom voice agents designed for real workflows.",
+      "Automate the first layer of every business call. Custom voice systems designed for real workflows.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    apple: "/apple-icon.png",
   },
 };
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem("luno-theme");var m=window.matchMedia("(prefers-color-scheme: dark)").matches;var isDark=t==="dark"||(t!=="light"&&m);if(isDark){document.documentElement.classList.add("dark");document.documentElement.setAttribute("data-theme","dark");}else{document.documentElement.classList.remove("dark");document.documentElement.setAttribute("data-theme","light");}}catch(e){}})();`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem("lunor-theme")||localStorage.getItem("luno-theme");var m=window.matchMedia("(prefers-color-scheme: dark)").matches;var isDark=t==="dark"||(t!=="light"&&m);if(isDark){document.documentElement.classList.add("dark");document.documentElement.setAttribute("data-theme","dark");}else{document.documentElement.classList.remove("dark");document.documentElement.setAttribute("data-theme","light");}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -51,6 +57,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="antialiased selection:bg-blue-600 selection:text-white">

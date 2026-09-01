@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Lock, X, Shield, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SiteSettings } from "@/lib/types";
+import { LunorLogo } from "./ui/lunor-logo";
 
 interface FooterProps {
   settings: SiteSettings;
@@ -14,7 +15,7 @@ export function Footer({ settings }: FooterProps) {
   const [legalModal, setLegalModal] = useState<"privacy" | "terms" | null>(null);
 
   const scrollToDemo = () => {
-    document.getElementById("live-demo")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -24,25 +25,20 @@ export function Footer({ settings }: FooterProps) {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-black/[0.05] dark:border-white/[0.06]">
             {/* Column 1: Brand & Tagline */}
             <div className="md:col-span-5 space-y-4">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-zinc-900 to-zinc-700 dark:from-zinc-100 dark:to-zinc-300 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs">
-                  L
-                </div>
-                <span className="font-bold text-base tracking-tight text-zinc-900 dark:text-white">
-                  LUNO
-                </span>
-              </div>
+              <Link href="/" className="inline-block group" aria-label="Lunor Home">
+                <LunorLogo size={28} showWordmark={true} />
+              </Link>
               <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
                 {settings.tagline || "Voice automation for the first layer of business calls."}
               </p>
-              <p className="text-xs text-zinc-500">
-                Custom voice agents engineered for real business workflows.
+              <p className="text-xs text-zinc-500 font-mono">
+                Custom voice systems engineered for real business workflows.
               </p>
             </div>
 
             {/* Column 2: Quick Links */}
             <div className="md:col-span-3 space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-white">
+              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-white font-mono">
                 Studio
               </p>
               <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
@@ -62,7 +58,7 @@ export function Footer({ settings }: FooterProps) {
                   </a>
                 </li>
                 <li>
-                  <a href="#how-it-works" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <a href="#process" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     How It Works
                   </a>
                 </li>
@@ -71,7 +67,7 @@ export function Footer({ settings }: FooterProps) {
                     onClick={scrollToDemo}
                     className="hover:text-zinc-950 dark:hover:text-white transition-colors text-left"
                   >
-                    Live Voice Demo
+                    Talk to Lunor
                   </button>
                 </li>
               </ul>
@@ -79,16 +75,16 @@ export function Footer({ settings }: FooterProps) {
 
             {/* Column 3: Contact & Direct */}
             <div className="md:col-span-4 space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-white">
+              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900 dark:text-white font-mono">
                 Contact & Inquiries
               </p>
               <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
                 <li>
                   <a
-                    href={`mailto:${settings.email || "conversations@luno.ai"}`}
+                    href={`mailto:${settings.email || "conversations@lunor.co.in"}`}
                     className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    {settings.email || "conversations@luno.ai"}
+                    {settings.email || "conversations@lunor.co.in"}
                   </a>
                 </li>
                 <li>
@@ -123,7 +119,7 @@ export function Footer({ settings }: FooterProps) {
 
           {/* Bottom Bar */}
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-            <p>© {new Date().getFullYear()} Luno Technologies Inc. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Lunor Technologies Inc. All rights reserved.</p>
 
             <div className="flex items-center gap-5">
               <button
@@ -183,7 +179,7 @@ export function Footer({ settings }: FooterProps) {
                 {legalModal === "privacy" ? (
                   <>
                     <p>
-                      <strong>1. Privacy Commitments:</strong> Luno designs conversational systems that respect customer data sovereignty. We do not sell or monetize caller data.
+                      <strong>1. Privacy Commitments:</strong> Lunor designs conversational systems that respect customer data sovereignty. We do not sell or monetize caller data.
                     </p>
                     <p>
                       <strong>2. Telephony & Audio Data:</strong> Voice audio processed during calls is routed exclusively through enterprise-grade channels and stored according to your business data retention policies.
@@ -195,7 +191,7 @@ export function Footer({ settings }: FooterProps) {
                 ) : (
                   <>
                     <p>
-                      <strong>1. Service Scope:</strong> Luno provides voice automation studio services, conversational agent deployment, and telephony workflow integration.
+                      <strong>1. Service Scope:</strong> Lunor provides voice automation studio services, conversational agent deployment, and telephony workflow integration.
                     </p>
                     <p>
                       <strong>2. Service Level Agreement:</strong> Enterprise tier deployments include high availability telephony routing with automated fallback and warm human transfer capabilities.

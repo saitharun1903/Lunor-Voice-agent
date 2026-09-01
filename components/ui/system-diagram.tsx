@@ -33,7 +33,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
     },
     {
       id: 1,
-      title: "Luno Neural Voice Engine",
+      title: "Lunor Neural Voice Engine",
       badge: "Step 02 • Conversational Logic",
       icon: Cpu,
       color: "from-blue-600 via-indigo-600 to-purple-600",
@@ -58,7 +58,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
       icon: UserCheck,
       color: "from-emerald-600 to-teal-500",
       description:
-        "When an inquiry requires executive judgment, Luno executes an immediate warm transfer to your team with full caller context and transcript.",
+        "When an inquiry requires executive judgment, Lunor executes an immediate warm transfer to your team with full caller context and transcript.",
       details: ["Zero-wait warm SIP transfer", "Full transcript & context attached", "Custom escalation triggers"],
     },
   ];
@@ -74,7 +74,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white mb-5">
-            How Luno automates the first layer.
+            How Lunor automates the first layer.
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto text-balance">

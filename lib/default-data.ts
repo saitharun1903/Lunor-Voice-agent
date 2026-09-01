@@ -2,19 +2,19 @@ import { SiteData } from "./types";
 
 export const defaultSiteData: SiteData = {
   settings: {
-    companyName: "LUNO",
+    companyName: "LUNOR",
     tagline: "Voice automation for the first layer of business calls.",
-    email: "conversations@luno.ai",
+    email: "conversations@lunor.co.in",
     phone: "+1 (888) 586-6240",
     whatsapp: "+1 (888) 586-6240",
-    meetingUrl: "https://cal.com/luno-studio/discovery",
-    heroEyebrow: "VOICE AUTOMATION",
-    heroHeadline: "Automate the first layer of every call.",
+    meetingUrl: "https://cal.com/lunor-studio/discovery",
+    heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
+    heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
     heroSubheadline:
-      "Luno builds AI voice systems that handle repetitive business conversations—from enquiries and bookings to lead qualification, support, follow-ups and more.",
+      "Lunor builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     googleSheetsWebhookUrl: "",
     voiceDemoEnabled: true,
-    voiceDemoTitle: "Talk to Luno",
+    voiceDemoTitle: "Talk to Lunor",
     voiceDemoDescription:
       "Experience how an AI voice system can handle the first layer of a real business conversation.",
     voiceDemoAgentId: "246585",
@@ -26,7 +26,7 @@ export const defaultSiteData: SiteData = {
     useCasesAutomated: 19,
     callsHandled: 120000,
     uptime: "99.98%",
-    avgResponseLatency: "< 450ms",
+    avgResponseLatency: "< 400ms",
   },
   projects: [
     {
