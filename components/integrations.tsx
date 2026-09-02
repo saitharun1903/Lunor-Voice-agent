@@ -6,28 +6,28 @@ import { PhoneCall, Calendar, Layers, ShieldCheck, CheckCircle2 } from "lucide-r
 export const IntegrationsSection = memo(function IntegrationsSection() {
   const categories = [
     {
-      title: "Telephony & Carriers",
+      title: "Telephony & Carrier Networks",
       description: "Keep your existing business phone number. Connect via conditional call forwarding or direct SIP trunking.",
-      items: ["Twilio", "RingCentral", "Telnyx", "Vonage", "8x8", "FreePBX / Asterisk", "SIP Trunking"],
+      items: ["Twilio", "RingCentral", "Telnyx", "Vonage", "8x8", "FreePBX / Asterisk", "Direct SIP Trunking"],
       icon: PhoneCall,
       highlight: "Keep Existing Number",
     },
     {
-      title: "Calendar & Scheduling",
+      title: "Calendar & Scheduling APIs",
       description: "Real-time bi-directional slot verification, conflict prevention, and instant booking dispatch.",
       items: ["Google Calendar", "Outlook 365", "Calendly", "OpenTable", "Resy", "JaneApp", "Mindbody"],
       icon: Calendar,
       highlight: "Zero Double Booking",
     },
     {
-      title: "CRMs & Operational Systems",
+      title: "CRMs & Operational Databases",
       description: "Automatically log caller transcripts, qualified lead attributes, and booking confirmations into your database.",
       items: ["Salesforce", "HubSpot", "GoHighLevel", "Zoho CRM", "Zendesk", "Zapier", "Custom Webhooks"],
       icon: Layers,
       highlight: "Instant Lead Sync",
     },
     {
-      title: "Enterprise Governance",
+      title: "Enterprise Governance & Security",
       description: "Strict isolation ensuring zero caller audio or transcripts are ever used to train foundation models.",
       items: ["SOC2 Type II Ready", "HIPAA PHI Safeguards", "TLS 1.3 / SRTP", "Zero Model Retention", "Role-Based Access"],
       icon: ShieldCheck,
@@ -40,7 +40,7 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
             <span>Carrier & Software Ecosystem</span>
           </div>
 
@@ -60,7 +60,7 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
             return (
               <div
                 key={cat.title}
-                className="p-8 rounded-3xl structured-card flex flex-col justify-between space-y-6"
+                className="p-8 rounded-3xl structured-card flex flex-col justify-between space-y-6 shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between border-b border-black/[0.05] dark:border-white/[0.06] pb-4 mb-6">
@@ -86,9 +86,9 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
                     {cat.items.map((item, i) => (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg type-body-sm bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg type-body-sm bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200"
                       >
-                        <CheckCircle2 className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                         <span>{item}</span>
                       </span>
                     ))}

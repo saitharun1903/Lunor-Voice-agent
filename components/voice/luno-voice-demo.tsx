@@ -8,6 +8,8 @@ import {
   PhoneOff,
   AlertCircle,
   Radio,
+  Activity,
+  Cpu,
 } from "lucide-react";
 import { getVoiceAgentService, LunoVoiceState } from "@/lib/voice-service";
 
@@ -181,7 +183,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
     <div className={`relative w-full max-w-2xl mx-auto ${className}`}>
       {/* Tactile Hardware Studio Deck */}
       <div className="relative rounded-3xl p-6 sm:p-9 structured-card shadow-2xl space-y-6">
-        {/* Top Header Bar */}
+        {/* Top Header Bar with Live Telemetry */}
         <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
           <div className="flex items-center gap-2">
             <span className={`w-2 h-2 rounded-full ${statusBadge.dot} ${isActive ? "animate-ping" : ""}`} />
@@ -189,8 +191,14 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
           </div>
 
           <div className="flex items-center gap-4 type-label-tech text-zinc-400">
-            <span>PROTOCOL: WEBRTC</span>
-            <span>LATENCY: &lt;400MS</span>
+            <span className="flex items-center gap-1">
+              <Cpu className="w-3 h-3 text-blue-500" />
+              <span>WEBRTC NODE</span>
+            </span>
+            <span className="flex items-center gap-1">
+              <Activity className="w-3 h-3 text-emerald-500" />
+              <span>&lt;380MS</span>
+            </span>
           </div>
         </div>
 
@@ -218,7 +226,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
             <div className="text-center py-4 type-body-sm text-zinc-400">
               {isActive
                 ? "Speak naturally into your mic: 'Do you have property in Gachibowli?' or 'I want to schedule an appointment'..."
-                : "Live conversation transcript will appear here during call..."}
+                : "Live conversation transcript will stream here in real time..."}
             </div>
           ) : (
             transcripts.map((t, idx) => (
@@ -258,7 +266,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
               <button
                 onClick={handleStartCall}
                 disabled={state === "connecting"}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full type-btn btn-solid-primary disabled:opacity-50"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-full type-btn btn-solid-primary disabled:opacity-50 shadow-lg"
               >
                 {state === "connecting" ? (
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

@@ -9,6 +9,7 @@ import {
   Building2,
   Briefcase,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import { IndustryItem } from "@/lib/types";
 
@@ -104,8 +105,9 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-12 md:mb-16 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
-            <span>Industry Solutions</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Industry Operating Blueprints</span>
           </div>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
@@ -126,9 +128,9 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
               <button
                 key={ind.id}
                 onClick={() => setActiveTab(ind.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full type-btn whitespace-nowrap transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full type-btn whitespace-nowrap transition-all ${
                   isSelected
-                    ? "btn-solid-primary"
+                    ? "btn-solid-primary shadow-md"
                     : "btn-outline-secondary text-zinc-600 dark:text-zinc-400"
                 }`}
               >
@@ -147,7 +149,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.18 }}
-            className="p-8 sm:p-10 rounded-3xl structured-card space-y-8"
+            className="p-8 sm:p-10 rounded-3xl structured-card space-y-8 shadow-xl"
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-black/[0.05] dark:border-white/[0.06] pb-6">
               <div className="space-y-1">
@@ -194,7 +196,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
               </span>
               <button
                 onClick={scrollToContact}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full type-btn btn-solid-primary"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full type-btn btn-solid-primary shadow-md"
               >
                 <span>Deploy for {activeIndustry.name}</span>
                 <ArrowRight className="w-3.5 h-3.5" />

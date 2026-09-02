@@ -78,9 +78,9 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Proven Studio Deployments</span>
+            <span>Verified Studio Deployments</span>
           </div>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
@@ -93,7 +93,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
         </div>
 
         {/* Verified Stats Bar */}
-        <div className="mb-14 grid grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-8 rounded-3xl structured-card">
+        <div className="mb-14 grid grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-8 rounded-3xl structured-card shadow-md">
           <div className="text-center p-3 border-r border-black/[0.05] dark:border-white/[0.06] last:border-r-0">
             <div className="text-2xl sm:text-4xl font-extrabold font-mono text-zinc-950 dark:text-white mb-1">
               {safeStats.companiesBuilt || 12}
@@ -136,7 +136,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
           {activeProjects.map((project) => (
             <div
               key={project.id}
-              className="p-8 sm:p-10 rounded-3xl structured-card space-y-6 flex flex-col justify-between"
+              className="p-8 sm:p-10 rounded-3xl structured-card space-y-6 flex flex-col justify-between shadow-lg"
             >
               {/* Header with full width for project title */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/[0.05] dark:border-white/[0.06] pb-5">
@@ -286,7 +286,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
                     setSelectedProject(null);
                     scrollToContact();
                   }}
-                  className="flex items-center gap-1.5 px-6 py-2.5 rounded-full type-btn btn-solid-primary"
+                  className="flex items-center gap-1.5 px-6 py-2.5 rounded-full type-btn btn-solid-primary shadow-md"
                 >
                   <span>Build My Voice Agent</span>
                   <ArrowRight className="w-3.5 h-3.5" />

@@ -1,29 +1,29 @@
 "use client";
 
 import React, { memo } from "react";
-import { Search, PenTool, Code2, Rocket } from "lucide-react";
+import { Search, PenTool, Code2, Rocket, Workflow } from "lucide-react";
 
 export const HowItWorksSection = memo(function HowItWorksSection() {
   const steps = [
     {
       phase: "01",
-      name: "UNDERSTAND",
-      title: "Audit Call Records & Workflows",
+      name: "AUDIT & UNDERSTAND",
+      title: "Audit Call Records & Inquiry Patterns",
       description: "We audit your recent call recordings, intake scripts, and frequent inquiry patterns to identify edge cases, repeated questions, and operational bottlenecks.",
       deliverable: "Conversation Map & Escalation Criteria",
       icon: Search,
     },
     {
       phase: "02",
-      name: "DESIGN",
-      title: "Engineer Dialogue & Business Rules",
+      name: "DIALOGUE DESIGN",
+      title: "Engineer Voice Persona & Guardrails",
       description: "We design deterministic conversational pathways, tone parameters, structured intake fields, and human warm-transfer protocols tailored to your brand.",
       deliverable: "Prompt Architecture & Persona Spec",
       icon: PenTool,
     },
     {
       phase: "03",
-      name: "BUILD",
+      name: "SYSTEM INTEGRATION",
       title: "Connect Calendars, CRMs & Carriers",
       description: "We wire your voice agent directly to your calendars, CRM databases, carrier SIP trunks, and webhook notification pipelines with sub-400ms routing.",
       deliverable: "SIP Trunking & Staging Validation",
@@ -31,8 +31,8 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
     },
     {
       phase: "04",
-      name: "LAUNCH",
-      title: "Deploy, Supervise & Optimize",
+      name: "LAUNCH & SUPERVISION",
+      title: "Deploy Live & Supervise Accuracy",
       description: "Your voice agent answers live incoming calls 24/7 with automatic transcript synchronization, zero hold times, and continuous accuracy supervision.",
       deliverable: "Production Cutover & Telemetry Dashboard",
       icon: Rocket,
@@ -44,8 +44,9 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
-            <span>Operational Methodology</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
+            <Workflow className="w-3.5 h-3.5" />
+            <span>Implementation Framework</span>
           </div>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
@@ -64,7 +65,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
             return (
               <div
                 key={step.phase}
-                className="p-6 rounded-3xl structured-card flex flex-col justify-between space-y-6 group"
+                className="p-6 rounded-3xl structured-card flex flex-col justify-between space-y-6 group shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between border-b border-black/[0.05] dark:border-white/[0.06] pb-4 mb-5">

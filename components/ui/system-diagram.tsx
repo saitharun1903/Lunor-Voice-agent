@@ -1,30 +1,30 @@
 "use client";
 
 import React, { memo } from "react";
-import { Phone, Brain, Database, UserCheck } from "lucide-react";
+import { Phone, Brain, Database, UserCheck, Cpu, ArrowRight, Activity } from "lucide-react";
 
 export const SystemDiagram = memo(function SystemDiagram() {
   const steps = [
     {
       num: "01",
       title: "Inbound Carrier Signal",
-      subtitle: "Customer dials your existing phone line via SIP or forwarding",
+      subtitle: "Direct SIP trunking or conditional call forwarding from your existing carrier",
       icon: Phone,
       tag: "VOICE STREAM",
       detail: "Sub-400ms direct audio stream ingested via carrier SIP trunk.",
     },
     {
       num: "02",
-      title: "Lunor Neural Understanding",
-      subtitle: "Dynamic speech-to-intent parsing and entity extraction",
+      title: "Acoustic Intent Parsing",
+      subtitle: "Dynamic speech-to-text, entity recognition, and multi-variable extraction",
       icon: Brain,
-      tag: "INTENT & ENTITY",
-      detail: "Colloquial language normalized into structured schema.",
+      tag: "NEURAL ENGINE",
+      detail: "Colloquial language normalized into structured data fields.",
     },
     {
       num: "03",
-      title: "Autonomous Business Action",
-      subtitle: "Query calendar, hold booking slot, and update CRM database",
+      title: "Autonomous API Action",
+      subtitle: "Query calendar, hold booking slot, and update CRM records in real time",
       icon: Database,
       tag: "SYSTEM API",
       detail: "Direct API dispatch to Google Calendar, Salesforce, EHR, etc.",
@@ -32,7 +32,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
     {
       num: "04",
       title: "Resolution or Warm Handoff",
-      subtitle: "SMS confirmation dispatched or warm human SIP transfer executed",
+      subtitle: "Instant SMS confirmation or warm SIP transfer with live transcript notes",
       icon: UserCheck,
       tag: "COMPLETION",
       detail: "Instant confirmation SMS or live phone handoff with full transcript.",
@@ -44,8 +44,9 @@ export const SystemDiagram = memo(function SystemDiagram() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
-            <span>Product Architecture</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
+            <Cpu className="w-3.5 h-3.5" />
+            <span>Neural Telephony Pipeline</span>
           </div>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
@@ -64,7 +65,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
             return (
               <div
                 key={step.num}
-                className="relative p-6 rounded-3xl structured-card flex flex-col justify-between space-y-6"
+                className="relative p-6 rounded-3xl structured-card flex flex-col justify-between space-y-6 shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between border-b border-black/[0.05] dark:border-white/[0.06] pb-4 mb-5">
@@ -98,15 +99,18 @@ export const SystemDiagram = memo(function SystemDiagram() {
         </div>
 
         {/* Concrete Illustrative Architecture Trace Banner */}
-        <div className="mt-10 p-6 sm:p-8 rounded-3xl structured-card space-y-4">
+        <div className="mt-10 p-6 sm:p-8 rounded-3xl structured-card space-y-4 shadow-lg">
           <div className="flex items-center justify-between type-label-tech text-zinc-500 border-b border-black/[0.05] dark:border-white/[0.06] pb-3">
-            <span>LIVE TELEPHONY TRACE EXAMPLE</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">280MS TOTAL LATENCY</span>
+            <span className="flex items-center gap-1.5">
+              <Activity className="w-3 h-3 text-blue-500" />
+              <span>LIVE TELEPHONY TRACE LOG</span>
+            </span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">280MS LATENCY</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05]">
-              <span className="type-label-tech text-zinc-400 block mb-1">CALLER AUDIO:</span>
+              <span className="type-label-tech text-zinc-400 block mb-1">INBOUND CALLER AUDIO:</span>
               <p className="type-body-sm text-zinc-800 dark:text-zinc-200 font-medium">
                 “Do you have a 3BHK in Gachibowli with a ₹90L budget?”
               </p>
@@ -114,16 +118,16 @@ export const SystemDiagram = memo(function SystemDiagram() {
 
             <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05]">
               <span className="type-label-tech text-blue-600 dark:text-blue-400 block mb-1">
-                EXTRACTED INTENT & DATA:
+                NORMALIZED INTENT & ENTITIES:
               </span>
-              <p className="type-body-sm text-zinc-800 dark:text-zinc-200">
+              <p className="type-body-sm text-zinc-800 dark:text-zinc-200 font-mono">
                 Type: 3BHK | Loc: Gachibowli | Budget: ₹90L
               </p>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05]">
               <span className="type-label-tech text-emerald-600 dark:text-emerald-400 block mb-1">
-                EXECUTED ACTION:
+                EXECUTED BUSINESS ACTION:
               </span>
               <p className="type-body-sm text-zinc-800 dark:text-zinc-200 font-medium">
                 Showing scheduled in Broker Calendar & CRM alert sent

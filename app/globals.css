@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  /* Editorial Light Mode Palette: Warm Ivory/Bone Paper + Deep Graphite + Restrained Cobalt */
-  --bg-primary: #f8f8f6;
-  --bg-secondary: #f2f2ee;
-  --bg-tertiary: #e9e9e4;
+  /* Light Mode Palette: Warm Alabaster Paper + Deep Obsidian + Restrained Cobalt */
+  --bg-primary: #fafaf8;
+  --bg-secondary: #f3f3ee;
+  --bg-tertiary: #ebebe5;
   
-  --text-primary: #111113;
-  --text-secondary: #4a4a52;
-  --text-tertiary: #71717a;
-  --text-muted: #8e8e96;
-  --text-technical: #64748b;
+  --text-primary: #0c0c0e;
+  --text-secondary: #404047;
+  --text-tertiary: #6b6b75;
+  --text-muted: #8b8b96;
+  --text-technical: #475569;
   
   --surface-card: #ffffff;
   --surface-card-hover: #ffffff;
@@ -32,20 +32,20 @@
 }
 
 .dark {
-  /* Cinematic Dark Mode Palette: Velvety Charcoal Graphite + Warm Off-White + Cobalt Accent */
-  --bg-primary: #08080a;
-  --bg-secondary: #0e0e12;
-  --bg-tertiary: #16161c;
+  /* Dark Mode Palette: Deep Space Charcoal + Warm Off-White + Cobalt Focal Points */
+  --bg-primary: #060608;
+  --bg-secondary: #0c0c10;
+  --bg-tertiary: #14141a;
   
-  --text-primary: #f4f4f5;
+  --text-primary: #f5f5f7;
   --text-secondary: #a1a1aa;
   --text-tertiary: #71717a;
   --text-muted: #52525b;
   --text-technical: #94a3b8;
   
-  --surface-card: #111115;
-  --surface-card-hover: #15151a;
-  --surface-plate: #0d0d10;
+  --surface-card: #0e0e12;
+  --surface-card-hover: #131318;
+  --surface-plate: #0a0a0d;
   
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
@@ -71,36 +71,36 @@ body {
   color: var(--text-primary);
   transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-x: hidden;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.011em;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 /* =========================================================
-   CENTRALIZED TYPOGRAPHY SYSTEM
+   CENTRALIZED TYPOGRAPHY SYSTEM (INTER OPTICAL KERNING)
    ========================================================= */
 
 /* Display / Hero Headline */
 .type-display {
-  font-size: clamp(2.25rem, 5vw, 4rem);
-  line-height: 1.08;
-  font-weight: 700;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.4rem, 5.5vw, 4.25rem);
+  line-height: 1.06;
+  font-weight: 800;
+  letter-spacing: -0.038em;
   text-wrap: balance;
 }
 
 /* H1 / Major Section Headings */
 .type-h1 {
-  font-size: clamp(1.85rem, 3.8vw, 2.75rem);
-  line-height: 1.12;
+  font-size: clamp(1.9rem, 4vw, 2.85rem);
+  line-height: 1.1;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.032em;
   text-wrap: balance;
 }
 
 /* H2 / Standard Section Headings */
 .type-h2 {
   font-size: clamp(1.5rem, 2.8vw, 2.25rem);
-  line-height: 1.18;
+  line-height: 1.16;
   font-weight: 700;
   letter-spacing: -0.025em;
   text-wrap: balance;
@@ -143,7 +143,7 @@ body {
   font-size: 0.6875rem;
   line-height: 1.25;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -179,29 +179,29 @@ body {
 
 /* Tactile Solid Primary Button */
 .btn-solid-primary {
-  background-color: #111113;
+  background-color: #0c0c0e;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .dark .btn-solid-primary {
-  background-color: #f4f4f5;
-  color: #09090b;
+  background-color: #f5f5f7;
+  color: #060608;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 14px rgba(255, 255, 255, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .btn-solid-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 .dark .btn-solid-primary:hover {
   background-color: #ffffff;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.28);
 }
 
 .btn-solid-primary:active {
@@ -227,7 +227,7 @@ body {
   transform: translateY(1px);
 }
 
-/* Glass Surface (Used selectively for Nav and Modals) */
+/* Glass Surface (Used selectively for Nav, Modals, Console Headers) */
 .glass-surface {
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -237,7 +237,7 @@ body {
 }
 
 .dark .glass-surface {
-  background-color: rgba(14, 14, 18, 0.82);
+  background-color: rgba(12, 12, 16, 0.85);
   border: 1px solid var(--border-subtle);
 }
 
@@ -256,16 +256,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* Legacy utility aliases */
-.glass-button-primary {
-  @apply btn-solid-primary;
-}
-
-.glass-button-secondary {
-  @apply btn-outline-secondary;
-}
-
-/* Clean Custom Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
