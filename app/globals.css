@@ -3,55 +3,59 @@
 @tailwind utilities;
 
 :root {
-  /* Light Mode Palette: Warm Alabaster Paper + Deep Obsidian + Electric Cobalt Accent */
-  --bg-primary: #fbfbfd;
-  --bg-secondary: #f4f4f7;
-  --bg-tertiary: #eaebee;
+  /* =========================================================
+     LIGHT MODE: Warm Editorial Stone + Deep Ink + Restrained Cobalt
+     ========================================================= */
+  --bg-primary: #fcfbf9;
+  --bg-secondary: #f4f3ef;
+  --bg-tertiary: #ebe9e3;
   
-  --text-primary: #0a0a0d;
-  --text-secondary: #4b4b54;
-  --text-tertiary: #71717e;
-  --text-muted: #9c9ca8;
+  --text-primary: #121316;
+  --text-secondary: #52545f;
+  --text-tertiary: #787a87;
+  --text-muted: #9da0ad;
   
   --surface-card: #ffffff;
-  --surface-plate: #f6f6f9;
+  --surface-plate: #f7f6f2;
   
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-strong: rgba(0, 0, 0, 0.12);
-  --border-accent: rgba(37, 99, 235, 0.25);
+  --border-subtle: rgba(18, 19, 22, 0.06);
+  --border-strong: rgba(18, 19, 22, 0.12);
+  --border-accent: rgba(37, 99, 235, 0.22);
   
   --accent: #2563eb;
-  --accent-light: #3b82f6;
-  --accent-glow: rgba(37, 99, 235, 0.12);
+  --accent-hover: #1d4ed8;
+  --accent-muted: rgba(37, 99, 235, 0.08);
   
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 16px -2px rgba(0, 0, 0, 0.03);
-  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.06), 0 16px 32px -4px rgba(0, 0, 0, 0.06);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --card-shadow-hover: 0 4px 16px -2px rgba(0, 0, 0, 0.06), 0 12px 28px -4px rgba(0, 0, 0, 0.04);
 }
 
 .dark {
-  /* Dark Mode Palette: Deep Space Obsidian + Warm Titanium White + Precision Electric Iris */
-  --bg-primary: #07080b;
-  --bg-secondary: #0d0e13;
-  --bg-tertiary: #13141b;
+  /* =========================================================
+     DARK MODE: Deep Cinematic Charcoal + Warm Off-White + Restrained Cobalt
+     ========================================================= */
+  --bg-primary: #0c0d11;
+  --bg-secondary: #13141a;
+  --bg-tertiary: #1a1b22;
   
-  --text-primary: #f7f7fa;
-  --text-secondary: #a2a3b0;
-  --text-tertiary: #717282;
-  --text-muted: #525363;
+  --text-primary: #f3f3f6;
+  --text-secondary: #9ea0ad;
+  --text-tertiary: #717380;
+  --text-muted: #515360;
   
-  --surface-card: #0e0f15;
-  --surface-plate: #0a0a0f;
+  --surface-card: #13141a;
+  --surface-plate: #0e0f14;
   
   --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --border-accent: rgba(59, 130, 246, 0.35);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-accent: rgba(59, 130, 246, 0.3);
   
   --accent: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent-glow: rgba(59, 130, 246, 0.18);
+  --accent-hover: #60a5fa;
+  --accent-muted: rgba(59, 130, 246, 0.12);
   
-  --card-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.05);
-  --card-shadow-hover: 0 10px 30px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.04);
+  --card-shadow-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 html {
@@ -65,71 +69,58 @@ body {
   color: var(--text-primary);
   transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-x: hidden;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.012em;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Background Ambient Lighting Effect */
-.bg-ambient-radial {
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.09), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(99, 102, 241, 0.05), transparent 70%);
-}
-
-.dark .bg-ambient-radial {
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.15), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(37, 99, 235, 0.08), transparent 70%);
-}
-
 /* =========================================================
-   WORLD-CLASS PRODUCT TYPOGRAPHY SYSTEM
+   AUTHENTIC PRODUCT TYPOGRAPHY (STANDARD WEIGHTS 400/500/600/700)
    ========================================================= */
 
-/* Display / Hero Headline (Refined Editorial Scale) */
+/* Hero / Display Title */
 .type-display {
-  font-size: clamp(2.35rem, 4.4vw, 4.1rem);
-  line-height: 1.05;
+  font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+  line-height: 1.08;
   font-weight: 600;
-  letter-spacing: -0.038em;
+  letter-spacing: -0.035em;
   text-wrap: balance;
 }
 
-/* H1 / Major Section Headings */
+/* Primary Section Headings */
 .type-h1 {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1.12;
+  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+  line-height: 1.15;
   font-weight: 600;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
-/* H2 / Standard Section Headings */
+/* Secondary Section Headings */
 .type-h2 {
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
-  line-height: 1.18;
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1.2;
   font-weight: 600;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
-/* H3 / Subsection Headings */
+/* Subsection Titles */
 .type-h3 {
-  font-size: 1.1rem;
-  line-height: 1.28;
+  font-size: 1.0625rem;
+  line-height: 1.3;
   font-weight: 600;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.015em;
 }
 
-/* Body Large (Hero Subheadlines, Lead-ins) */
+/* Lead / Hero Body */
 .type-body-lg {
-  font-size: 1.1rem;
+  font-size: 1.0625rem;
   line-height: 1.6;
   font-weight: 400;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.01em;
 }
 
-/* Body Normal */
+/* Standard Body */
 .type-body {
   font-size: 0.9375rem;
   line-height: 1.55;
@@ -137,7 +128,7 @@ body {
   letter-spacing: -0.008em;
 }
 
-/* Body Small */
+/* Caption / Small Body */
 .type-body-sm {
   font-size: 0.8125rem;
   line-height: 1.5;
@@ -150,11 +141,11 @@ body {
   font-size: 0.6875rem;
   line-height: 1.25;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-/* Technical / Monospace Label */
+/* Tech / Monospace Code Label */
 .type-label-tech {
   font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace);
   font-size: 0.6875rem;
@@ -162,14 +153,6 @@ body {
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-}
-
-/* Navigation Link */
-.type-nav-link {
-  font-size: 0.8125rem;
-  line-height: 1.2;
-  font-weight: 450;
-  letter-spacing: -0.005em;
 }
 
 /* Button Label */
@@ -181,48 +164,47 @@ body {
 }
 
 /* =========================================================
-   BUTTON & MATERIAL TOKENS
+   BUTTON & MATERIAL PRIMITIVES
    ========================================================= */
 
-/* Solid Primary Tactile Button */
+/* Solid Primary Button */
 .btn-solid-primary {
-  background-color: #0c0d11;
+  background-color: #121316;
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   font-weight: 600;
-  letter-spacing: -0.01em;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .dark .btn-solid-primary {
-  background-color: #f7f7fa;
-  color: #07080b;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 1px 6px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background-color: #f3f3f6;
+  color: #0c0d11;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .btn-solid-primary:hover {
+  background-color: #202127;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
 }
 
 .dark .btn-solid-primary:hover {
   background-color: #ffffff;
-  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 3px 12px rgba(255, 255, 255, 0.2);
 }
 
 .btn-solid-primary:active {
   transform: translateY(1px);
 }
 
-/* Quiet Secondary Button */
+/* Outline Secondary Button */
 .btn-outline-secondary {
   background-color: transparent;
   color: var(--text-primary);
   border: 1px solid var(--border-subtle);
   font-weight: 500;
-  letter-spacing: -0.01em;
   transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
@@ -236,35 +218,34 @@ body {
   transform: translateY(1px);
 }
 
-/* Glass Surface (Used selectively for Nav, Modals, Console Headers) */
+/* Quiet Structured Card */
+.structured-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--card-shadow);
+  border-radius: 1rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.structured-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Glass Surface for Navigation */
 .glass-surface {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(252, 251, 249, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
 }
 
 .dark .glass-surface {
-  background-color: rgba(13, 14, 19, 0.85);
+  background-color: rgba(12, 13, 17, 0.82);
   border: 1px solid var(--border-subtle);
 }
 
-/* Structural Surface Card */
-.structured-card {
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--card-shadow);
-  border-radius: 1.25rem;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
-}
-
-.structured-card:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-1.5px);
-}
-
-/* Custom Scrollbar */
+/* Minimal Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -275,12 +256,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(130, 130, 140, 0.22);
+  background: rgba(120, 122, 135, 0.2);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(130, 130, 140, 0.45);
+  background: rgba(120, 122, 135, 0.35);
 }
 
 :focus-visible {
@@ -288,7 +269,7 @@ body {
   outline-offset: 2px;
 }
 
-/* Prefers Reduced Motion Accessibility */
+/* Prefers Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
