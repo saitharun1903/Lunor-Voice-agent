@@ -43,15 +43,15 @@ export function FaqSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-2xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4 uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
             <span>Technical & Operational Clarity</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.035em] text-zinc-950 dark:text-white mb-5">
+          <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
             Frequently asked questions.
           </h2>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p className="type-body-lg text-zinc-600 dark:text-zinc-400">
             Everything business owners and technical leaders need to know about deploying Lunor voice systems.
           </p>
         </div>
@@ -73,7 +73,7 @@ export function FaqSection() {
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   className="w-full p-6 text-left flex items-center justify-between gap-4"
                 >
-                  <span className="text-sm sm:text-base font-bold text-zinc-950 dark:text-white">
+                  <span className="type-h3 text-zinc-950 dark:text-white">
                     {faq.q}
                   </span>
                   <div
@@ -95,7 +95,7 @@ export function FaqSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.18 }}
                     >
-                      <div className="px-6 pb-6 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed border-t border-black/[0.04] dark:border-white/[0.05] pt-4">
+                      <div className="px-6 pb-6 type-body text-zinc-600 dark:text-zinc-300 border-t border-black/[0.04] dark:border-white/[0.05] pt-4">
                         {faq.a}
                       </div>
                     </motion.div>
@@ -109,16 +109,16 @@ export function FaqSection() {
         {/* Have custom requirement */}
         <div className="mt-12 p-8 rounded-3xl structured-card flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-left">
-            <h4 className="text-base font-bold text-zinc-950 dark:text-white">
+            <h4 className="type-h3 text-zinc-950 dark:text-white">
               Have a custom telephony architecture requirement?
             </h4>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+            <p className="type-body-sm text-zinc-500 dark:text-zinc-400">
               Our engineering team will review your call recording samples and provide a custom blueprint.
             </p>
           </div>
           <button
             onClick={scrollToContact}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold btn-solid-primary shrink-0"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full type-btn btn-solid-primary shrink-0"
           >
             <span>Speak With An Engineer</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -7,9 +7,12 @@
   --bg-primary: #f8f8f6;
   --bg-secondary: #f2f2ee;
   --bg-tertiary: #e9e9e4;
+  
   --text-primary: #111113;
   --text-secondary: #4a4a52;
   --text-tertiary: #71717a;
+  --text-muted: #8e8e96;
+  --text-technical: #64748b;
   
   --surface-card: #ffffff;
   --surface-card-hover: #ffffff;
@@ -33,9 +36,12 @@
   --bg-primary: #08080a;
   --bg-secondary: #0e0e12;
   --bg-tertiary: #16161c;
+  
   --text-primary: #f4f4f5;
-  --text-secondary: #9b9ba6;
-  --text-tertiary: #6b6b76;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --text-muted: #52525b;
+  --text-technical: #94a3b8;
   
   --surface-card: #111115;
   --surface-card-hover: #15151a;
@@ -65,25 +71,113 @@ body {
   color: var(--text-primary);
   transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-x: hidden;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.012em;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Editorial Heading Scales with Optical Kerning */
-h1, h2, h3, h4 {
-  letter-spacing: -0.035em;
+/* =========================================================
+   CENTRALIZED TYPOGRAPHY SYSTEM
+   ========================================================= */
+
+/* Display / Hero Headline */
+.type-display {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.08;
   font-weight: 700;
+  letter-spacing: -0.035em;
   text-wrap: balance;
 }
 
-/* Restrained Interactive Transitions */
-a, button, input, select, textarea {
-  transition-property: color, background-color, border-color, transform, box-shadow, opacity;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  transition-duration: 160ms;
+/* H1 / Major Section Headings */
+.type-h1 {
+  font-size: clamp(1.85rem, 3.8vw, 2.75rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
-/* Tactile Solid Primary Button (No plastic glow, pure materiality) */
+/* H2 / Standard Section Headings */
+.type-h2 {
+  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* H3 / Card & Subsection Headings */
+.type-h3 {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Body Large (Lead-ins, Hero subheadlines) */
+.type-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+}
+
+/* Body Normal (Default description, content paragraphs) */
+.type-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Body Small (Compact descriptions, workflow details) */
+.type-body-sm {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+/* Section Eyebrow Label (Sans-serif, uppercase, clean tracking) */
+.type-eyebrow {
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Technical Label (Strictly for real technical data, telemetry, protocol tags) */
+.type-label-tech {
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace);
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Navigation Link */
+.type-nav-link {
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+/* Button Label */
+.type-btn {
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* =========================================================
+   BUTTON & MATERIAL TOKENS
+   ========================================================= */
+
+/* Tactile Solid Primary Button */
 .btn-solid-primary {
   background-color: #111113;
   color: #ffffff;
@@ -133,7 +227,7 @@ a, button, input, select, textarea {
   transform: translateY(1px);
 }
 
-/* Glass Surface (Used selectively for Nav, Voice console, and Modals) */
+/* Glass Surface (Used selectively for Nav and Modals) */
 .glass-surface {
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -147,7 +241,7 @@ a, button, input, select, textarea {
   border: 1px solid var(--border-subtle);
 }
 
-/* Structural Surface Card (Clean, tactile, minimal blur) */
+/* Structural Surface Card */
 .structured-card {
   background-color: var(--surface-card);
   border: 1px solid var(--border-subtle);
@@ -162,7 +256,7 @@ a, button, input, select, textarea {
   transform: translateY(-2px);
 }
 
-/* Legacy utility aliases for backward compatibility */
+/* Legacy utility aliases */
 .glass-button-primary {
   @apply btn-solid-primary;
 }

@@ -40,15 +40,15 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4 uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
             <span>Carrier & Software Ecosystem</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.035em] text-zinc-950 dark:text-white mb-5">
+          <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
             Integrates natively into your existing phone stack.
           </h2>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
+          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
             No complex phone system rip-and-replace. Lunor sits seamlessly in front of your carriers, booking tools, and CRMs.
           </p>
         </div>
@@ -68,16 +68,16 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
                       <div className="w-9 h-9 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] text-zinc-800 dark:text-zinc-200 flex items-center justify-center">
                         <Icon className="w-4 h-4" />
                       </div>
-                      <h3 className="text-base font-bold text-zinc-950 dark:text-white">
+                      <h3 className="type-h3 text-zinc-950 dark:text-white">
                         {cat.title}
                       </h3>
                     </div>
-                    <span className="text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.06] text-zinc-600 dark:text-zinc-300">
+                    <span className="type-eyebrow px-2.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.06] text-zinc-600 dark:text-zinc-300">
                       {cat.highlight}
                     </span>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+                  <p className="type-body-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
                     {cat.description}
                   </p>
 
@@ -86,7 +86,7 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
                     {cat.items.map((item, i) => (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200"
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg type-body-sm bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] text-zinc-800 dark:text-zinc-200"
                       >
                         <CheckCircle2 className="w-3 h-3 text-blue-600 dark:text-blue-400" />
                         <span>{item}</span>
@@ -95,9 +95,9 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-black/[0.04] dark:border-white/[0.06] flex items-center justify-between text-xs font-mono text-zinc-500">
+                <div className="pt-4 border-t border-black/[0.04] dark:border-white/[0.06] flex items-center justify-between type-body-sm text-zinc-500">
                   <span>Direct Integration</span>
-                  <span className="text-emerald-600 dark:text-emerald-400">Zero Lock-In</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Zero Lock-In</span>
                 </div>
               </div>
             );

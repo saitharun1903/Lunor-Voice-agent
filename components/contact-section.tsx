@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   AlertCircle,
   ArrowRight,
-  PhoneCall,
   X,
   Video,
 } from "lucide-react";
@@ -50,10 +49,6 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
   const [meetingLoading, setMeetingLoading] = useState(false);
   const [meetingStatus, setMeetingStatus] = useState<"idle" | "success" | "error">("idle");
   const [meetingError, setMeetingError] = useState("");
-
-  const scrollToDemo = useCallback(() => {
-    document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -164,15 +159,15 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
             {/* Left Column: Direct Touchpoints */}
             <div className="lg:col-span-5 space-y-8">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4 uppercase">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
                   <span>Inbound Deployment Request</span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.035em] text-zinc-950 dark:text-white mb-5 leading-tight">
+                <h2 className="type-h1 text-zinc-950 dark:text-white mb-5 leading-tight">
                   Let&apos;s automate your first layer.
                 </h2>
 
-                <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p className="type-body-lg text-zinc-600 dark:text-zinc-400">
                   Tell us which calls your business receives and what you&apos;d like to automate.
                 </p>
               </div>
@@ -188,8 +183,8 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-mono text-zinc-400">Direct Inquiries</p>
-                    <p className="text-sm font-semibold text-zinc-950 dark:text-white">
+                    <p className="type-eyebrow text-zinc-400">Direct Inquiries</p>
+                    <p className="type-body font-semibold text-zinc-950 dark:text-white font-mono">
                       {settings.email || "conversations@lunor.co.in"}
                     </p>
                   </div>
@@ -204,8 +199,8 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-mono text-zinc-400">Studio Line</p>
-                    <p className="text-sm font-semibold text-zinc-950 dark:text-white">
+                    <p className="type-eyebrow text-zinc-400">Studio Line</p>
+                    <p className="type-body font-semibold text-zinc-950 dark:text-white font-mono">
                       {settings.phone || "+1 (888) 586-6240"}
                     </p>
                   </div>
@@ -220,8 +215,8 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                     <Calendar className="w-5 h-5" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-[11px] font-mono text-zinc-400">Live Scoping Session</p>
-                    <p className="text-sm font-semibold text-zinc-950 dark:text-white">
+                    <p className="type-eyebrow text-zinc-400">Live Scoping Session</p>
+                    <p className="type-body font-semibold text-zinc-950 dark:text-white">
                       Book a Video Consultation
                     </p>
                   </div>
@@ -243,16 +238,16 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-4">
                         <CheckCircle2 className="w-7 h-7" />
                       </div>
-                      <h3 className="text-2xl font-bold text-zinc-950 dark:text-white">
+                      <h3 className="type-h2 text-zinc-950 dark:text-white">
                         Inquiry Received.
                       </h3>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto leading-relaxed">
+                      <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto">
                         Lunor engineering will review your workflow requirements and provide a custom conversational blueprint within 24 hours.
                       </p>
                       <div className="pt-4">
                         <button
                           onClick={() => setStatus("idle")}
-                          className="px-6 py-2.5 rounded-full text-xs font-semibold btn-outline-secondary"
+                          className="px-6 py-2.5 rounded-full type-btn btn-outline-secondary"
                         >
                           Submit another inquiry
                         </button>
@@ -261,16 +256,16 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="border-b border-black/[0.05] dark:border-white/[0.06] pb-4 mb-5">
-                        <h3 className="text-xl font-bold text-zinc-950 dark:text-white">
+                        <h3 className="type-h3 text-zinc-950 dark:text-white">
                           Start the Conversation
                         </h3>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                        <p className="type-body-sm text-zinc-500 dark:text-zinc-400 mt-1">
                           Tell us about the phone friction your company wants to eliminate.
                         </p>
                       </div>
 
                       {status === "error" && (
-                        <div className="flex items-center gap-2 p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-600 dark:text-rose-400">
+                        <div className="flex items-center gap-2 p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20 type-body-sm text-rose-600 dark:text-rose-400">
                           <AlertCircle className="w-4 h-4 shrink-0" />
                           <span>{errorMessage}</span>
                         </div>
@@ -279,7 +274,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* Name */}
                         <div className="space-y-1.5">
-                          <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                          <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                             Your Name <span className="text-blue-600">*</span>
                           </label>
                           <input
@@ -288,13 +283,13 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             placeholder="e.g. Alex Morgan"
-                            className="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full px-4 py-3 rounded-xl type-body bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
                           />
                         </div>
 
                         {/* Company */}
                         <div className="space-y-1.5">
-                          <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                          <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                             Company Name
                           </label>
                           <input
@@ -302,7 +297,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                             value={formData.company}
                             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                             placeholder="e.g. Acme Hospitality"
-                            className="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full px-4 py-3 rounded-xl type-body bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
                           />
                         </div>
                       </div>
@@ -310,7 +305,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* Email */}
                         <div className="space-y-1.5">
-                          <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                          <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                             Work Email <span className="text-blue-600">*</span>
                           </label>
                           <input
@@ -319,13 +314,13 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             placeholder="alex@company.com"
-                            className="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full px-4 py-3 rounded-xl type-body bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
                           />
                         </div>
 
                         {/* Phone */}
                         <div className="space-y-1.5">
-                          <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                          <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                             Phone Number
                           </label>
                           <input
@@ -333,7 +328,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             placeholder="+1 (555) 000-0000"
-                            className="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full px-4 py-3 rounded-xl type-body bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
                           />
                         </div>
                       </div>
@@ -341,13 +336,13 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* Industry */}
                         <div className="space-y-1.5">
-                          <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                          <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                             Industry
                           </label>
                           <select
                             value={formData.industry}
                             onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full px-4 py-3 rounded-xl type-body bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                           >
                             <option value="">Select industry</option>
                             <option value="Real Estate & Leasing">Real Estate & Leasing</option>
@@ -362,7 +357,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
                         {/* Volume */}
                         <div className="space-y-1.5">
-                          <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                          <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                             Monthly Call Volume (Optional)
                           </label>
                           <select
@@ -370,7 +365,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                             onChange={(e) =>
                               setFormData({ ...formData, monthlyCallVolume: e.target.value })
                             }
-                            className="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full px-4 py-3 rounded-xl type-body bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                           >
                             <option value="">Select volume</option>
                             <option value="Under 500 calls / month">Under 500 calls / month</option>
@@ -383,7 +378,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
                       {/* Requirements */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                        <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                           What would you like to automate? <span className="text-blue-600">*</span>
                         </label>
                         <textarea
@@ -394,7 +389,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                             setFormData({ ...formData, requirements: e.target.value })
                           }
                           placeholder="Tell us what callers typically ask, what intake or scheduling is needed, and any software you use..."
-                          className="w-full px-4 py-3 rounded-xl text-xs sm:text-sm bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
+                          className="w-full px-4 py-3 rounded-xl type-body bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
                         />
                       </div>
 
@@ -402,7 +397,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       <button
                         type="submit"
                         disabled={loading}
-                        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full text-xs sm:text-sm font-semibold btn-solid-primary shadow-lg disabled:opacity-50"
+                        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full type-btn btn-solid-primary shadow-lg disabled:opacity-50"
                       >
                         {loading ? (
                           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -446,10 +441,10 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                     <Video className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
+                    <h3 className="type-h3 text-zinc-950 dark:text-white">
                       Book Video Consultation
                     </h3>
-                    <p className="text-[11px] font-mono text-zinc-500">Live Engineering & Scoping Session</p>
+                    <p className="type-body-sm text-zinc-500">Live Engineering & Scoping Session</p>
                   </div>
                 </div>
 
@@ -466,10 +461,10 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-2">
                     <CheckCircle2 className="w-7 h-7" />
                   </div>
-                  <h4 className="text-xl font-bold text-zinc-950 dark:text-white">
+                  <h4 className="type-h3 text-zinc-950 dark:text-white">
                     Consultation Requested!
                   </h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto leading-relaxed">
+                  <p className="type-body-sm text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto leading-relaxed">
                     We have reserved your slot for <strong>{meetingData.date}</strong> at <strong>{meetingData.timeSlot}</strong>. A calendar invite has been sent to <strong>{meetingData.email}</strong>.
                   </p>
                   <div className="pt-3">
@@ -478,23 +473,23 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         setMeetingStatus("idle");
                         setIsMeetingModalOpen(false);
                       }}
-                      className="px-6 py-2.5 rounded-full text-xs font-semibold btn-solid-primary"
+                      className="px-6 py-2.5 rounded-full type-btn btn-solid-primary"
                     >
                       Done
                     </button>
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleBookMeeting} className="space-y-4 text-xs">
+                <form onSubmit={handleBookMeeting} className="space-y-4">
                   {meetingStatus === "error" && (
-                    <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-[11px] flex items-center gap-2">
+                    <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 type-body-sm flex items-center gap-2">
                       <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                       <span>{meetingError}</span>
                     </div>
                   )}
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-zinc-700 dark:text-zinc-300">
+                    <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                       Consultation Type
                     </label>
                     <select
@@ -502,7 +497,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       onChange={(e) =>
                         setMeetingData({ ...meetingData, sessionType: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white"
+                      className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white type-body-sm"
                     >
                       <option value="Technical Voice Architecture Review (30 min)">
                         Technical Voice Architecture Review (30 min)
@@ -515,7 +510,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="font-semibold text-zinc-700 dark:text-zinc-300">
+                      <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                         Date
                       </label>
                       <input
@@ -525,12 +520,12 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         onChange={(e) =>
                           setMeetingData({ ...meetingData, date: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white font-mono"
+                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white type-body-sm font-mono"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="font-semibold text-zinc-700 dark:text-zinc-300">
+                      <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                         Time Slot
                       </label>
                       <select
@@ -538,7 +533,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         onChange={(e) =>
                           setMeetingData({ ...meetingData, timeSlot: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white font-mono"
+                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white type-body-sm"
                       >
                         <option value="10:00 AM EST">10:00 AM EST</option>
                         <option value="11:30 AM EST">11:30 AM EST</option>
@@ -551,7 +546,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="font-semibold text-zinc-700 dark:text-zinc-300">
+                      <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                         Your Name <span className="text-blue-600">*</span>
                       </label>
                       <input
@@ -562,12 +557,12 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         onChange={(e) =>
                           setMeetingData({ ...meetingData, name: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white"
+                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white type-body-sm"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="font-semibold text-zinc-700 dark:text-zinc-300">
+                      <label className="type-body-sm font-semibold text-zinc-700 dark:text-zinc-300">
                         Work Email <span className="text-blue-600">*</span>
                       </label>
                       <input
@@ -578,7 +573,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         onChange={(e) =>
                           setMeetingData({ ...meetingData, email: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white"
+                        className="w-full px-3 py-2 rounded-xl bg-black/[0.02] dark:bg-zinc-800 border border-black/[0.08] dark:border-white/[0.1] text-zinc-900 dark:text-white type-body-sm"
                       />
                     </div>
                   </div>
@@ -587,14 +582,14 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                     <button
                       type="button"
                       onClick={() => setIsMeetingModalOpen(false)}
-                      className="px-4 py-2 rounded-full text-xs font-semibold text-zinc-500 hover:text-zinc-800 dark:hover:text-white"
+                      className="px-4 py-2 rounded-full type-btn text-zinc-500 hover:text-zinc-800 dark:hover:text-white"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={meetingLoading}
-                      className="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold btn-solid-primary disabled:opacity-50"
+                      className="flex items-center gap-2 px-6 py-2.5 rounded-full type-btn btn-solid-primary disabled:opacity-50"
                     >
                       {meetingLoading ? (
                         <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

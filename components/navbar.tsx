@@ -46,7 +46,7 @@ export const Navbar = memo(function Navbar() {
     { label: "Architecture", id: "architecture" },
     { label: "Industries", id: "industries" },
     { label: "Methodology", id: "process" },
-    { label: "Work", id: "work" },
+    { label: "Case Studies", id: "work" },
     { label: "FAQ", id: "faq" },
   ];
 
@@ -70,12 +70,12 @@ export const Navbar = memo(function Navbar() {
           </Link>
 
           {/* 2. Desktop Editorial Navigation Links */}
-          <div className="hidden lg:flex items-center gap-6 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+          <div className="hidden lg:flex items-center gap-5 text-zinc-600 dark:text-zinc-400">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="hover:text-zinc-950 dark:hover:text-white transition-colors relative py-1"
+                className="type-nav-link hover:text-zinc-950 dark:hover:text-white transition-colors relative py-1"
               >
                 <span>{link.label}</span>
               </button>
@@ -88,7 +88,7 @@ export const Navbar = memo(function Navbar() {
 
             <button
               onClick={() => scrollToSection("demo")}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold btn-solid-primary"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full type-btn btn-solid-primary"
             >
               <PhoneCall className="w-3.5 h-3.5" />
               <span>Talk to Lunor</span>
@@ -121,7 +121,7 @@ export const Navbar = memo(function Navbar() {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-left px-3 py-2 text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl hover:bg-black/[0.03] dark:hover:bg-white/[0.05] flex items-center justify-between"
+                  className="text-left px-3 py-2 text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl hover:bg-black/[0.03] dark:hover:bg-white/[0.05] flex items-center justify-between"
                 >
                   <span>{link.label}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />

@@ -94,22 +94,22 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4 uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
             <span>Capabilities Ledger</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.035em] text-zinc-950 dark:text-white mb-5">
+          <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
             What Lunor automates.
           </h2>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
+          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
             From high-volume customer inquiries and calendar bookings to multi-field lead qualification and warm human handoffs, Lunor handles structured business conversations.
           </p>
         </div>
 
         {/* Editorial Split: Numbered Index List on Left / Sticky Product Architecture Blueprint on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: 01-06 Magazine Style Typographic Index */}
+          {/* Left Column: 01-06 Typographic Index with Comfortable Reading Measure */}
           <div className="lg:col-span-6 divide-y divide-black/[0.06] dark:divide-white/[0.08]">
             {DEFAULT_EDITORIAL_CASES.map((item) => {
               const isSelected = selectedId === item.id;
@@ -117,7 +117,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                 <button
                   key={item.id}
                   onClick={() => setSelectedId(item.id)}
-                  className={`w-full text-left py-5 px-3 transition-colors flex items-center justify-between group rounded-xl ${
+                  className={`w-full text-left py-5 px-3.5 transition-colors flex items-center justify-between group rounded-2xl ${
                     isSelected
                       ? "bg-black/[0.03] dark:bg-white/[0.04]"
                       : "hover:bg-black/[0.015] dark:hover:bg-white/[0.02]"
@@ -125,7 +125,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                 >
                   <div className="flex items-start gap-4">
                     <span
-                      className={`text-xs font-mono font-bold transition-colors mt-0.5 ${
+                      className={`type-label-tech font-bold transition-colors mt-0.5 ${
                         isSelected
                           ? "text-blue-600 dark:text-blue-400"
                           : "text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-300"
@@ -135,7 +135,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                     </span>
                     <div>
                       <h3
-                        className={`text-base sm:text-lg font-bold transition-colors ${
+                        className={`type-h3 transition-colors ${
                           isSelected
                             ? "text-zinc-950 dark:text-white"
                             : "text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-950 dark:group-hover:text-white"
@@ -143,7 +143,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                       >
                         {item.title}
                       </h3>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-md line-clamp-2">
+                      <p className="type-body-sm text-zinc-500 dark:text-zinc-400 mt-1 max-w-md line-clamp-2">
                         {item.description}
                       </p>
                     </div>
@@ -175,23 +175,23 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                 {/* Header */}
                 <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
                   <div>
-                    <span className="text-[10px] font-mono font-bold uppercase text-blue-600 dark:text-blue-400 tracking-wider">
+                    <span className="type-label-tech text-blue-600 dark:text-blue-400 font-bold block mb-0.5">
                       OPERATIONAL BLUEPRINT {currentCase.num}
                     </span>
-                    <h3 className="text-xl font-bold text-zinc-950 dark:text-white mt-0.5">
+                    <h3 className="type-h3 text-zinc-950 dark:text-white">
                       {currentCase.headline}
                     </h3>
                   </div>
-                  <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
-                    Live Verified
+                  <span className="type-label-tech px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-semibold">
+                    LIVE VERIFIED
                   </span>
                 </div>
 
                 {/* Pipeline Flow Bar */}
-                <div className="p-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono font-semibold text-zinc-700 dark:text-zinc-300 overflow-x-auto">
+                <div className="p-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] flex items-center justify-between type-label-tech text-zinc-700 dark:text-zinc-300 overflow-x-auto">
                   {currentCase.pipeline.map((step, i) => (
                     <React.Fragment key={i}>
-                      <span className="text-blue-600 dark:text-blue-400">{step}</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-semibold">{step}</span>
                       {i < currentCase.pipeline.length - 1 && (
                         <span className="text-zinc-400 px-1">→</span>
                       )}
@@ -201,26 +201,26 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
 
                 {/* Dialogue Simulation */}
                 <div className="space-y-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">
-                    CONVERSATIONAL EXCHANGE
+                  <span className="type-eyebrow text-zinc-500 dark:text-zinc-400 block">
+                    Conversational Interaction
                   </span>
 
                   {/* Caller */}
-                  <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] text-xs">
-                    <span className="text-[10px] font-mono font-bold text-zinc-500 block mb-1">
+                  <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05]">
+                    <span className="type-label-tech text-zinc-500 block mb-1">
                       CALLER:
                     </span>
-                    <p className="text-zinc-800 dark:text-zinc-200">
+                    <p className="type-body text-zinc-800 dark:text-zinc-200">
                       “{currentCase.caller}”
                     </p>
                   </div>
 
                   {/* Lunor Agent */}
-                  <div className="p-3.5 rounded-2xl bg-blue-500/[0.06] dark:bg-blue-500/10 border border-blue-500/20 text-xs">
-                    <span className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400 block mb-1">
+                  <div className="p-3.5 rounded-2xl bg-blue-500/[0.06] dark:bg-blue-500/10 border border-blue-500/20">
+                    <span className="type-label-tech text-blue-600 dark:text-blue-400 block mb-1">
                       LUNOR VOICE ENGINE:
                     </span>
-                    <p className="text-zinc-900 dark:text-white font-medium">
+                    <p className="type-body font-medium text-zinc-950 dark:text-white">
                       “{currentCase.agent}”
                     </p>
                   </div>
@@ -228,12 +228,12 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
 
                 {/* Autonomous Backend Actions */}
                 <div className="space-y-2 pt-2 border-t border-black/[0.05] dark:border-white/[0.06]">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">
-                    ACTIONS EXECUTED IN YOUR STACK:
+                  <span className="type-eyebrow text-zinc-500 dark:text-zinc-400 block">
+                    Actions Executed In Stack
                   </span>
                   <div className="space-y-1.5">
                     {currentCase.actions.map((act, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+                      <div key={i} className="flex items-center gap-2 type-body-sm text-zinc-700 dark:text-zinc-300">
                         <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                         <span>{act}</span>
                       </div>
@@ -245,7 +245,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                 <div className="pt-2">
                   <button
                     onClick={scrollToContact}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-full text-xs font-semibold btn-solid-primary"
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-full type-btn btn-solid-primary"
                   >
                     <span>Configure {currentCase.title} for Your Business</span>
                     <ArrowRight className="w-3.5 h-3.5" />

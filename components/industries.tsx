@@ -9,7 +9,6 @@ import {
   Building2,
   Briefcase,
   ArrowRight,
-  CheckCircle2,
 } from "lucide-react";
 import { IndustryItem } from "@/lib/types";
 
@@ -105,15 +104,15 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-12 md:mb-16 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4 uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
             <span>Industry Solutions</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.035em] text-zinc-950 dark:text-white mb-5">
+          <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
             Voice automation for real business.
           </h2>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
+          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
             Every studio deployment is tailored to the exact decision trees, software systems, and edge cases of your industry.
           </p>
         </div>
@@ -127,7 +126,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
               <button
                 key={ind.id}
                 onClick={() => setActiveTab(ind.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full type-btn whitespace-nowrap transition-colors ${
                   isSelected
                     ? "btn-solid-primary"
                     : "btn-outline-secondary text-zinc-600 dark:text-zinc-400"
@@ -152,18 +151,18 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-black/[0.05] dark:border-white/[0.06] pb-6">
               <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                <span className="type-eyebrow text-blue-600 dark:text-blue-400 block">
                   {activeIndustry.name} Blueprinted Architecture
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-zinc-950 dark:text-white">
+                <h3 className="type-h2 text-zinc-950 dark:text-white">
                   {activeIndustry.tagline}
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl mt-1">
+                <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-2xl mt-1">
                   {activeIndustry.headline}
                 </p>
               </div>
 
-              <div className="px-4 py-2 rounded-2xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.05] dark:border-white/[0.08] text-xs font-mono text-emerald-600 dark:text-emerald-400 shrink-0">
+              <div className="px-4 py-2 rounded-2xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.05] dark:border-white/[0.08] type-body-sm font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
                 {activeIndustry.verifiedMetric}
               </div>
             </div>
@@ -175,13 +174,13 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
                   key={i}
                   className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] space-y-2.5"
                 >
-                  <span className="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400">
+                  <span className="type-eyebrow text-blue-600 dark:text-blue-400 block">
                     {wf.step}
                   </span>
-                  <h4 className="text-sm font-bold text-zinc-950 dark:text-white">
+                  <h4 className="type-h3 text-zinc-950 dark:text-white">
                     {wf.title}
                   </h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  <p className="type-body-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     {wf.detail}
                   </p>
                 </div>
@@ -190,12 +189,12 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
 
             {/* Footer Row */}
             <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-xs text-zinc-500 font-mono">
+              <span className="type-body-sm text-zinc-500">
                 Custom voice persona, telephony routing, and API integration included.
               </span>
               <button
                 onClick={scrollToContact}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold btn-solid-primary"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full type-btn btn-solid-primary"
               >
                 <span>Deploy for {activeIndustry.name}</span>
                 <ArrowRight className="w-3.5 h-3.5" />

@@ -14,10 +14,6 @@ interface FooterProps {
 export function Footer({ settings }: FooterProps) {
   const [legalModal, setLegalModal] = useState<"privacy" | "terms" | null>(null);
 
-  const scrollToDemo = () => {
-    document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <>
       <footer className="py-16 border-t border-black/[0.06] dark:border-white/[0.08] bg-black/[0.015] dark:bg-black/60">
@@ -28,20 +24,20 @@ export function Footer({ settings }: FooterProps) {
               <Link href="/" className="inline-block group" aria-label="Lunor Home">
                 <LunorLogo size={28} showWordmark={true} />
               </Link>
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
+              <p className="type-body-sm text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
                 {settings.tagline || "Voice automation for the first layer of business calls."}
               </p>
-              <p className="text-xs text-zinc-500 font-mono">
+              <p className="type-body-sm text-zinc-500">
                 Custom conversational systems engineered for real operational workflows.
               </p>
             </div>
 
             {/* Column 2: Quick Links */}
             <div className="md:col-span-3 space-y-3">
-              <p className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-950 dark:text-white">
+              <p className="type-eyebrow text-zinc-950 dark:text-white">
                 Studio
               </p>
-              <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
+              <ul className="space-y-2 type-body-sm text-zinc-600 dark:text-zinc-400">
                 <li>
                   <a href="#demo" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Live Demo
@@ -64,7 +60,7 @@ export function Footer({ settings }: FooterProps) {
                 </li>
                 <li>
                   <a href="#work" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Client Case Studies
+                    Case Studies
                   </a>
                 </li>
               </ul>
@@ -72,10 +68,10 @@ export function Footer({ settings }: FooterProps) {
 
             {/* Column 3: Contact & Direct */}
             <div className="md:col-span-4 space-y-3">
-              <p className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-950 dark:text-white">
+              <p className="type-eyebrow text-zinc-950 dark:text-white">
                 Direct Inquiries
               </p>
-              <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
+              <ul className="space-y-2 type-body-sm text-zinc-600 dark:text-zinc-400">
                 <li>
                   <a
                     href={`mailto:${settings.email || "conversations@lunor.co.in"}`}
@@ -95,7 +91,7 @@ export function Footer({ settings }: FooterProps) {
                 <li className="pt-2">
                   <a
                     href="#contact"
-                    className="inline-flex items-center text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                    className="inline-flex items-center type-btn text-blue-600 dark:text-blue-400 hover:underline"
                   >
                     Build My Voice Agent →
                   </a>
@@ -105,7 +101,7 @@ export function Footer({ settings }: FooterProps) {
           </div>
 
           {/* Bottom Bar */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 type-body-sm text-zinc-500">
             <p>© {new Date().getFullYear()} Lunor Technologies Inc. All rights reserved.</p>
 
             <div className="flex items-center gap-5">
@@ -150,7 +146,7 @@ export function Footer({ settings }: FooterProps) {
                   ) : (
                     <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   )}
-                  <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
+                  <h3 className="type-h3 text-zinc-950 dark:text-white">
                     {legalModal === "privacy" ? "Privacy Policy" : "Terms of Service"}
                   </h3>
                 </div>
@@ -162,7 +158,7 @@ export function Footer({ settings }: FooterProps) {
                 </button>
               </div>
 
-              <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 space-y-3 leading-relaxed max-h-[60vh] overflow-y-auto pr-2">
+              <div className="type-body-sm text-zinc-600 dark:text-zinc-300 space-y-3 leading-relaxed max-h-[60vh] overflow-y-auto pr-2">
                 {legalModal === "privacy" ? (
                   <>
                     <p>
