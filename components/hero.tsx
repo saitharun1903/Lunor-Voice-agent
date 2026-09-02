@@ -40,7 +40,7 @@ export const Hero = memo(function Hero({
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-zinc-900 dark:text-zinc-200 bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.06] dark:border-white/[0.08]"
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-zinc-900 dark:text-zinc-200 bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.06] dark:border-white/[0.08]"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
               <span>{eyebrow}</span>
