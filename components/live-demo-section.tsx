@@ -10,18 +10,22 @@ interface LiveDemoSectionProps {
 
 export const LiveDemoSection = memo(function LiveDemoSection({
   title = "Talk to Lunor.",
-  description = "Experience how an AI voice system handles the first layer of a real business conversation.",
+  description = "Experience how an AI voice system handles the first layer of a real business conversation with sub-400ms latency.",
 }: LiveDemoSectionProps) {
   return (
-    <section id="demo" className="py-20 md:py-28 relative overflow-hidden border-y border-black/[0.05] dark:border-white/[0.05] bg-black/[0.015] dark:bg-white/[0.01]">
+    <section id="demo" className="py-24 md:py-32 relative overflow-hidden border-y border-black/[0.05] dark:border-white/[0.05] bg-black/[0.015] dark:bg-white/[0.01]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Restrained left-aligned header — the console is the visual anchor */}
-        <div className="max-w-2xl mb-10 md:mb-14">
-          <p className="type-eyebrow text-zinc-400 mb-3">Live Demo</p>
-          <h2 className="type-h1 text-zinc-950 dark:text-white mb-3">
+        {/* Restrained Header */}
+        <div className="max-w-3xl mb-12 md:mb-16 text-left">
+          <p className="type-eyebrow text-blue-600 dark:text-blue-400 mb-3 tracking-wider">
+            LIVE VOICE SESSION
+          </p>
+
+          <h2 className="type-h1 text-zinc-950 dark:text-white mb-4">
             {title}
           </h2>
-          <p className="type-body text-zinc-500 dark:text-zinc-400">
+
+          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-xl">
             {description}
           </p>
         </div>
