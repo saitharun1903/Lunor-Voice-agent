@@ -1,104 +1,52 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useTheme } from "./theme-provider";
-import { Sun, Moon, Monitor } from "lucide-react";
-import { motion } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [hovered, setHovered] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  }, [theme, setTheme]);
+
   if (!mounted) {
     return (
-      <div className={`h-8 w-24 rounded-full bg-black/5 dark:bg-white/10 ${className}`} />
+      <div className={`w-8 h-8 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] ${className}`} />
     );
   }
 
-  const options: {
-    value: "light" | "dark" | "system";
-    icon: React.ComponentType<{ className?: string }>;
-    label: string;
-  }[] = [
-    { value: "light", icon: Sun, label: "Light" },
-    { value: "dark", icon: Moon, label: "Dark" },
-    { value: "system", icon: Monitor, label: "System" },
-  ];
+  const isDark = theme === "dark";
 
   return (
-    <div
-      role="radiogroup"
-      aria-label="Theme selection"
-      onMouseLeave={() => setHovered(null)}
-      className={`relative inline-flex items-center p-1 rounded-full bg-black/[0.04] dark:bg-white/[0.08] backdrop-blur-md border border-black/[0.06] dark:border-white/[0.1] shadow-inner ${className}`}
+    <button
+      onClick={toggleTheme}
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      className={`relative w-8 h-8 rounded-xl flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${className}`}
     >
-      {options.map((opt) => {
-        const Icon = opt.icon;
-        const isSelected = theme === opt.value;
-        const isHovered = hovered === opt.value && !isSelected;
-
-        return (
-          <button
-            key={opt.value}
-            onClick={() => setTheme(opt.value)}
-            onMouseEnter={() => setHovered(opt.value)}
-            aria-label={`Switch to ${opt.label} theme`}
-            aria-checked={isSelected}
-            role="radio"
-            className={`relative z-10 flex items-center justify-center w-7 h-7 rounded-full text-xs font-medium transition-colors duration-200 ${
-              isSelected
-                ? "text-blue-600 dark:text-blue-400 font-bold"
-                : "text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-300"
-            }`}
-          >
-            <motion.div
-              animate={{
-                scale: isSelected ? 1.08 : 0.92,
-                rotate:
-                  isSelected && opt.value === "light"
-                    ? 20
-                    : isSelected && opt.value === "dark"
-                    ? -20
-                    : 0,
-              }}
-              transition={{ type: "spring", stiffness: 500, damping: 30 }}
-            >
-              <Icon className="w-3.5 h-3.5" />
-            </motion.div>
-
-            {/* Active Selected Sliding Pill with Light Blue Accent */}
-            {isSelected && (
-              <motion.div
-                layoutId="theme-active-indicator"
-                transition={{
-                  type: "spring",
-                  stiffness: 480,
-                  damping: 34,
-                }}
-                className="absolute inset-0 rounded-full bg-gradient-to-b from-blue-50 to-indigo-50/90 dark:from-blue-950/80 dark:to-zinc-900 shadow-sm border border-blue-500/30 dark:border-blue-400/40 -z-10"
-              />
-            )}
-
-            {/* Subtle Hover Indicator Pill */}
-            {isHovered && (
-              <motion.div
-                layoutId="theme-hover-indicator"
-                transition={{
-                  type: "spring",
-                  stiffness: 450,
-                  damping: 32,
-                }}
-                className="absolute inset-0 rounded-full bg-blue-500/[0.06] dark:bg-blue-400/[0.08] -z-20"
-              />
-            )}
-          </button>
-        );
-      })}
-    </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={isDark ? "dark" : "light"}
+          initial={{ opacity: 0, rotate: isDark ? -45 : 45, scale: 0.8 }}
+          animate={{ opacity: 1, rotate: 0, scale: 1 }}
+          exit={{ opacity: 0, rotate: isDark ? 45 : -45, scale: 0.8 }}
+          transition={{ duration: 0.18, ease: "easeOut" }}
+          className="flex items-center justify-center"
+        >
+          {isDark ? (
+            <Moon className="w-4 h-4 text-blue-400" />
+          ) : (
+            <Sun className="w-4 h-4 text-amber-500" />
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </button>
   );
 }
