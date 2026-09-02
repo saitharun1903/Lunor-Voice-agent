@@ -16,7 +16,7 @@ export const Navbar = memo(function Navbar() {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
+          setScrolled(window.scrollY > 15);
           ticking = false;
         });
         ticking = true;
@@ -30,7 +30,7 @@ export const Navbar = memo(function Navbar() {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const navOffset = 80;
+      const navOffset = 75;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
       window.scrollTo({
@@ -51,13 +51,13 @@ export const Navbar = memo(function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-200 py-3 sm:py-4 px-4 sm:px-6">
+    <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-200 py-2.5 sm:py-3 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <nav
-          className={`flex items-center justify-between px-4 sm:px-5 py-2.5 rounded-full transition-all duration-200 ${
+          className={`flex items-center justify-between px-4 sm:px-5 py-2 rounded-full transition-all duration-200 ${
             scrolled
-              ? "glass-surface shadow-lg border border-black/[0.08] dark:border-white/[0.1]"
-              : "bg-white/60 dark:bg-zinc-950/60 backdrop-blur-md border border-black/[0.04] dark:border-white/[0.06]"
+              ? "glass-surface shadow-md border border-black/[0.06] dark:border-white/[0.08]"
+              : "bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm border border-black/[0.03] dark:border-white/[0.05]"
           }`}
         >
           {/* 1. Brand Logo */}
@@ -66,16 +66,16 @@ export const Navbar = memo(function Navbar() {
             className="flex items-center gap-2 group shrink-0"
             aria-label="Lunor Home"
           >
-            <LunorLogo size={26} showWordmark={true} />
+            <LunorLogo size={22} showWordmark={true} />
           </Link>
 
           {/* 2. Desktop Editorial Navigation Links */}
-          <div className="hidden lg:flex items-center gap-5 text-zinc-600 dark:text-zinc-400">
+          <div className="hidden lg:flex items-center gap-6 text-[13px] font-medium text-zinc-600 dark:text-zinc-400">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="type-nav-link hover:text-zinc-950 dark:hover:text-white transition-colors relative py-1"
+                className="hover:text-zinc-950 dark:hover:text-white transition-colors py-1"
               >
                 <span>{link.label}</span>
               </button>
@@ -83,14 +83,14 @@ export const Navbar = memo(function Navbar() {
           </div>
 
           {/* 3. Action Buttons */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <ThemeToggle />
 
             <button
               onClick={() => scrollToSection("demo")}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full type-btn btn-solid-primary"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium btn-solid-primary"
             >
-              <PhoneCall className="w-3.5 h-3.5" />
+              <PhoneCall className="w-3 h-3" />
               <span>Talk to Lunor</span>
             </button>
 
@@ -98,9 +98,9 @@ export const Navbar = memo(function Navbar() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="lg:hidden w-8 h-8 rounded-full flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.08]"
+              className="lg:hidden w-7 h-7 rounded-full flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.08]"
             >
-              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {mobileMenuOpen ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
             </button>
           </div>
         </nav>
@@ -110,27 +110,27 @@ export const Navbar = memo(function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.18 }}
-            className="lg:hidden mt-2 p-5 rounded-3xl glass-surface border border-black/[0.08] dark:border-white/[0.12] shadow-2xl max-w-sm mx-auto space-y-3"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.16 }}
+            className="lg:hidden mt-2 p-4 rounded-2xl glass-surface border border-black/[0.06] dark:border-white/[0.08] shadow-xl max-w-sm mx-auto space-y-2.5"
           >
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-1.5">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-left px-3 py-2 text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl hover:bg-black/[0.03] dark:hover:bg-white/[0.05] flex items-center justify-between"
+                  className="text-left px-3 py-1.5 text-xs font-medium text-zinc-800 dark:text-zinc-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-black/[0.03] dark:hover:bg-white/[0.05] flex items-center justify-between"
                 >
                   <span>{link.label}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
+                  <ArrowUpRight className="w-3 h-3 text-zinc-400" />
                 </button>
               ))}
-              <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.08]">
+              <div className="pt-2 border-t border-black/[0.05] dark:border-white/[0.06]">
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="w-full text-left px-3 py-2 text-sm font-semibold text-blue-600 dark:text-blue-400"
+                  className="w-full text-left px-3 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400"
                 >
                   Build My Voice Agent →
                 </button>

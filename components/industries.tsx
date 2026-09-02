@@ -50,12 +50,12 @@ const INDUSTRY_SOLUTIONS = [
     id: "clinic",
     name: "Medical & Dental Clinics",
     icon: Stethoscope,
-    tagline: "HIPAA-compliant appointment coordination and emergency triage.",
+    tagline: "Appointment coordination and emergency triage.",
     headline: "Coordinate patient appointments across multiple practitioners, verify insurance providers, and triage urgent medical calls.",
     workflows: [
       { step: "01. Slot Check", title: "Practitioner Calendar", detail: "Checks real-time availability across doctors and dental hygienists." },
       { step: "02. Intake", title: "Insurance & Reason for Visit", detail: "Collects insurance provider details, policy numbers, and chief complaint." },
-      { step: "03. Compliance", title: "HIPAA PHI Redaction", detail: "Strict encryption ensuring caller data is protected according to health regulations." },
+      { step: "03. Compliance", title: "Patient Data Privacy", detail: "Strict encryption ensuring caller data is protected according to health regulations." },
       { step: "04. Triage", title: "Urgent Clinical Transfer", detail: "Instantly routes acute emergency cases to the on-call physician." },
     ],
     verifiedMetric: "42% Reduction in Front-Desk Load · 99.4% Satisfaction",
@@ -101,26 +101,26 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
   }, []);
 
   return (
-    <section id="industries" className="py-24 md:py-32 relative overflow-hidden">
+    <section id="industries" className="py-20 md:py-28 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 md:mb-16 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
+        <div className="max-w-2xl mb-10 md:mb-14 text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-3.5">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Industry Operating Blueprints</span>
+            <span>Industries</span>
           </div>
 
-          <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
+          <h2 className="type-h1 text-zinc-950 dark:text-white mb-4">
             Voice automation for real business.
           </h2>
 
-          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            Every studio deployment is tailored to the exact decision trees, software systems, and edge cases of your industry.
+          <p className="type-body text-zinc-600 dark:text-zinc-400">
+            Every studio deployment is tailored to the exact decision trees, software tools, and workflows of your industry.
           </p>
         </div>
 
         {/* Minimalist Tab Switcher */}
-        <div className="flex items-center gap-2 pb-4 overflow-x-auto border-b border-black/[0.06] dark:border-white/[0.08] mb-8">
+        <div className="flex items-center gap-2 pb-3 overflow-x-auto border-b border-black/[0.05] dark:border-white/[0.06] mb-7">
           {INDUSTRY_SOLUTIONS.map((ind) => {
             const Icon = ind.icon;
             const isSelected = activeTab === ind.id;
@@ -128,9 +128,9 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
               <button
                 key={ind.id}
                 onClick={() => setActiveTab(ind.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full type-btn whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
                   isSelected
-                    ? "btn-solid-primary shadow-md"
+                    ? "btn-solid-primary shadow-sm"
                     : "btn-outline-secondary text-zinc-600 dark:text-zinc-400"
                 }`}
               >
@@ -145,36 +145,36 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.18 }}
-            className="p-8 sm:p-10 rounded-3xl structured-card space-y-8 shadow-xl"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.16 }}
+            className="p-7 sm:p-9 rounded-3xl structured-card space-y-7 shadow-lg"
           >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-black/[0.05] dark:border-white/[0.06] pb-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-black/[0.04] dark:border-white/[0.06] pb-5">
               <div className="space-y-1">
                 <span className="type-eyebrow text-blue-600 dark:text-blue-400 block">
-                  {activeIndustry.name} Blueprinted Architecture
+                  {activeIndustry.name} Workflow
                 </span>
                 <h3 className="type-h2 text-zinc-950 dark:text-white">
                   {activeIndustry.tagline}
                 </h3>
-                <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-2xl mt-1">
+                <p className="type-body-sm text-zinc-600 dark:text-zinc-400 max-w-2xl mt-0.5">
                   {activeIndustry.headline}
                 </p>
               </div>
 
-              <div className="px-4 py-2 rounded-2xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/[0.05] dark:border-white/[0.08] type-body-sm font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
+              <div className="px-3.5 py-1.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.06] text-xs font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
                 {activeIndustry.verifiedMetric}
               </div>
             </div>
 
             {/* 4-Step Operational Flow */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
               {activeIndustry.workflows.map((wf, i) => (
                 <div
                   key={i}
-                  className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] space-y-2.5"
+                  className="p-4 rounded-2xl bg-black/[0.015] dark:bg-white/[0.02] border border-black/[0.03] dark:border-white/[0.04] space-y-2"
                 >
                   <span className="type-eyebrow text-blue-600 dark:text-blue-400 block">
                     {wf.step}
@@ -190,15 +190,15 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
             </div>
 
             {/* Footer Row */}
-            <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="type-body-sm text-zinc-500">
-                Custom voice persona, telephony routing, and API integration included.
+            <div className="pt-3 border-t border-black/[0.04] dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3.5">
+              <span className="text-xs text-zinc-500">
+                Custom voice persona, phone routing, and API integration included.
               </span>
               <button
                 onClick={scrollToContact}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full type-btn btn-solid-primary shadow-md"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2 rounded-full type-btn btn-solid-primary shadow-sm"
               >
-                <span>Deploy for {activeIndustry.name}</span>
+                <span>Discuss {activeIndustry.name} Workflow</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
