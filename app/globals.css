@@ -3,61 +3,55 @@
 @tailwind utilities;
 
 :root {
-  /* Light Mode Palette: Warm Alabaster Paper + Deep Obsidian + Restrained Cobalt */
+  /* Light Mode Palette: 90% Warm Alabaster Paper + Deep Obsidian + 10% Cobalt Accent */
   --bg-primary: #fafaf8;
-  --bg-secondary: #f3f3ee;
-  --bg-tertiary: #ebebe5;
+  --bg-secondary: #f4f4f0;
+  --bg-tertiary: #ebebe6;
   
-  --text-primary: #0c0c0e;
-  --text-secondary: #404047;
-  --text-tertiary: #6b6b75;
-  --text-muted: #8b8b96;
-  --text-technical: #475569;
+  --text-primary: #0f0f12;
+  --text-secondary: #4a4a52;
+  --text-tertiary: #71717a;
+  --text-muted: #94949e;
   
   --surface-card: #ffffff;
-  --surface-card-hover: #ffffff;
-  --surface-plate: #f4f4f0;
+  --surface-plate: #f5f5f1;
   
-  --border-subtle: rgba(0, 0, 0, 0.07);
-  --border-strong: rgba(0, 0, 0, 0.14);
-  --border-accent: rgba(29, 78, 216, 0.25);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.12);
+  --border-accent: rgba(29, 78, 216, 0.2);
   
   --accent: #1d4ed8;
   --accent-light: #2563eb;
-  --accent-glow: rgba(29, 78, 216, 0.12);
+  --accent-glow: rgba(29, 78, 216, 0.1);
   
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 16px -2px rgba(0, 0, 0, 0.04);
-  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.06), 0 16px 32px -4px rgba(0, 0, 0, 0.07);
-  --specular-line: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --card-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.04), 0 10px 24px -4px rgba(0, 0, 0, 0.05);
 }
 
 .dark {
-  /* Dark Mode Palette: Deep Space Charcoal + Warm Off-White + Cobalt Focal Points */
-  --bg-primary: #060608;
-  --bg-secondary: #0c0c10;
-  --bg-tertiary: #14141a;
+  /* Dark Mode Palette: 90% Deep Space Charcoal + Warm Off-White + 10% Cobalt Accent */
+  --bg-primary: #08080a;
+  --bg-secondary: #0f0f13;
+  --bg-tertiary: #16161c;
   
   --text-primary: #f5f5f7;
   --text-secondary: #a1a1aa;
   --text-tertiary: #71717a;
   --text-muted: #52525b;
-  --text-technical: #94a3b8;
   
-  --surface-card: #0e0e12;
-  --surface-card-hover: #131318;
-  --surface-plate: #0a0a0d;
+  --surface-card: #101014;
+  --surface-plate: #0b0b0e;
   
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --border-accent: rgba(59, 130, 246, 0.35);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-accent: rgba(59, 130, 246, 0.3);
   
   --accent: #3b82f6;
   --accent-light: #60a5fa;
-  --accent-glow: rgba(59, 130, 246, 0.2);
+  --accent-glow: rgba(59, 130, 246, 0.15);
   
-  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(255, 255, 255, 0.05);
-  --card-shadow-hover: 0 12px 36px -4px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.12);
-  --specular-line: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  --card-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.04);
+  --card-shadow-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 html {
@@ -69,68 +63,68 @@ html {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-x: hidden;
   letter-spacing: -0.011em;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 /* =========================================================
-   CENTRALIZED TYPOGRAPHY SYSTEM (INTER OPTICAL KERNING)
+   REFINED PRODUCT TYPOGRAPHY SYSTEM (INTER OPTICAL KERNING)
    ========================================================= */
 
-/* Display / Hero Headline */
+/* Display / Hero Headline (Refined Product Scale) */
 .type-display {
-  font-size: clamp(2.4rem, 5.5vw, 4.25rem);
-  line-height: 1.06;
-  font-weight: 800;
-  letter-spacing: -0.038em;
+  font-size: clamp(2.15rem, 3.8vw, 3.4rem);
+  line-height: 1.08;
+  font-weight: 650;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
 /* H1 / Major Section Headings */
 .type-h1 {
-  font-size: clamp(1.9rem, 4vw, 2.85rem);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.032em;
+  font-size: clamp(1.65rem, 2.8vw, 2.35rem);
+  line-height: 1.15;
+  font-weight: 650;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
 /* H2 / Standard Section Headings */
 .type-h2 {
-  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
-  line-height: 1.16;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
-/* H3 / Card & Subsection Headings */
+/* H3 / Subsection Headings */
 .type-h3 {
-  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
-  line-height: 1.25;
+  font-size: 1.0625rem;
+  line-height: 1.3;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
 }
 
-/* Body Large (Lead-ins, Hero subheadlines) */
+/* Body Large (Hero Subheadlines, Lead-ins) */
 .type-body-lg {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   line-height: 1.6;
-  font-weight: 400;
-  letter-spacing: -0.012em;
-}
-
-/* Body Normal (Default description, content paragraphs) */
-.type-body {
-  font-size: 0.9375rem;
-  line-height: 1.55;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 
-/* Body Small (Compact descriptions, workflow details) */
+/* Body Normal */
+.type-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: -0.008em;
+}
+
+/* Body Small */
 .type-body-sm {
   font-size: 0.8125rem;
   line-height: 1.5;
@@ -138,7 +132,7 @@ body {
   letter-spacing: -0.005em;
 }
 
-/* Section Eyebrow Label (Sans-serif, uppercase, clean tracking) */
+/* Eyebrow Label */
 .type-eyebrow {
   font-size: 0.6875rem;
   line-height: 1.25;
@@ -147,7 +141,7 @@ body {
   text-transform: uppercase;
 }
 
-/* Technical Label (Strictly for real technical data, telemetry, protocol tags) */
+/* Technical / Monospace Label */
 .type-label-tech {
   font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace);
   font-size: 0.6875rem;
@@ -177,31 +171,32 @@ body {
    BUTTON & MATERIAL TOKENS
    ========================================================= */
 
-/* Tactile Solid Primary Button */
+/* Compact Tactile Solid Primary Button */
 .btn-solid-primary {
-  background-color: #0c0c0e;
+  background-color: #0f0f12;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.16);
   font-weight: 600;
   letter-spacing: -0.01em;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 .dark .btn-solid-primary {
   background-color: #f5f5f7;
-  color: #060608;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 2px 14px rgba(255, 255, 255, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: #08080a;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 8px rgba(255, 255, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .btn-solid-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
 }
 
 .dark .btn-solid-primary:hover {
   background-color: #ffffff;
-  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.28);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.22);
 }
 
 .btn-solid-primary:active {
@@ -213,8 +208,9 @@ body {
   background-color: transparent;
   color: var(--text-primary);
   border: 1px solid var(--border-subtle);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
 .btn-outline-secondary:hover {
@@ -229,37 +225,36 @@ body {
 
 /* Glass Surface (Used selectively for Nav, Modals, Console Headers) */
 .glass-surface {
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
-  box-shadow: var(--card-shadow);
 }
 
 .dark .glass-surface {
-  background-color: rgba(12, 12, 16, 0.85);
+  background-color: rgba(14, 14, 18, 0.8);
   border: 1px solid var(--border-subtle);
 }
 
-/* Structural Surface Card */
+/* Structural Surface Card (Soft 1.25rem radius) */
 .structured-card {
   background-color: var(--surface-card);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--card-shadow);
-  border-radius: 1.5rem;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  border-radius: 1.25rem;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
 }
 
 .structured-card:hover {
   border-color: var(--border-strong);
   box-shadow: var(--card-shadow-hover);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -267,12 +262,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(120, 120, 130, 0.25);
+  background: rgba(120, 120, 130, 0.2);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(120, 120, 130, 0.45);
+  background: rgba(120, 120, 130, 0.4);
 }
 
 :focus-visible {
