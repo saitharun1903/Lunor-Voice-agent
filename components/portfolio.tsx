@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo } from "react";
-import { ArrowUpRight, CheckCircle2, TrendingUp } from "lucide-react";
+import { CheckCircle2, TrendingUp, Check } from "lucide-react";
 import { Project, SiteStats } from "@/lib/types";
 
 interface PortfolioProps {
@@ -14,10 +14,16 @@ const DEFAULT_PROJECTS: Project[] = [
     id: "noor-doors",
     name: "Noor Modern Doors",
     industry: "Doors & Architectural Systems",
-    tagline: "Inbound Product Consultation & Showroom Booking",
-    problem: "Sales representatives spent 4+ hours daily answering repetitive calls regarding custom dimensions and pricing, leading to missed high-intent builder leads.",
-    whatLunoAutomated: "Built a custom bilingual voice agent that fields incoming calls, extracts architectural requirements, qualifies timeline and budget, and schedules showroom visits directly into sales calendars.",
-    result: "100% weekend inquiry capture · 40% increase in qualified showroom visits",
+    tagline: "AI voice agent for instant customer enquiries, lead qualification, and appointment scheduling",
+    problem: "Customers called at different times, but missed calls and delayed responses caused potential leads to be lost. The sales team also spent significant time answering repetitive questions about doors, windows, pricing, and requirements.",
+    whatLunoAutomated: "Deployed a 24/7 AI voice agent that answers customer calls naturally, understands their requirements, asks qualifying questions, provides basic product information, captures lead details, and schedules follow-ups or showroom visits automatically.",
+    handles: [
+      "Product specifications, pricing & custom sizing",
+      "Buyer & contractor timeline and budget qualification",
+      "Instant showroom consultation scheduling",
+      "Automated CRM sync and sales rep notification",
+    ],
+    result: "Reduced lead response time from hours to seconds, improved lead capture, reduced missed-call opportunities, and allowed the sales team to focus on high-intent customers.",
     active: true,
   },
   {
@@ -27,7 +33,13 @@ const DEFAULT_PROJECTS: Project[] = [
     tagline: "Autonomous Buyer Qualification & Showing Dispatch",
     problem: "Brokers missed 40% of inbound weekend calls from prospective property buyers inquiring about active high-value listings.",
     whatLunoAutomated: "Engineered a voice agent that answers instantly, qualifies buyer pre-approval & budget, answers property FAQs, and schedules private showings directly onto broker calendars.",
-    result: "100% call capture · 68% showing booking conversion rate",
+    handles: [
+      "Property specifications & pricing inquiries",
+      "Buyer budget and move-in timeline qualification",
+      "Instant private showing calendar scheduling",
+      "Broker CRM synchronization & instant SMS alerts",
+    ],
+    result: "100% weekend inquiry capture · 68% showing booking conversion rate · Average response time reduced to 0 seconds.",
     active: true,
   },
   {
@@ -37,7 +49,13 @@ const DEFAULT_PROJECTS: Project[] = [
     tagline: "24/7 Patient Appointment Coordination",
     problem: "Front desk staff spent 5+ hours per day handling routine booking calls and appointment confirmations instead of attending to in-clinic patients.",
     whatLunoAutomated: "Built a patient voice layer integrated with the clinic EHR calendar to coordinate bookings, cancellations, insurance questions, and urgent clinical triage.",
-    result: "Zero hold times · 78% reduction in front-desk call load",
+    handles: [
+      "Specialist calendar appointment booking",
+      "Insurance provider & policy collection",
+      "Pre-procedure preparation guidance",
+      "Emergency clinical triage escalation",
+    ],
+    result: "Zero hold times · 78% reduction in front-desk call load · 22% increase in new patient intake appointments.",
     active: true,
   },
 ];
@@ -65,44 +83,37 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
         </div>
 
         {/* Editorial Case Studies Spreads */}
-        <div className="space-y-8">
+        <div className="space-y-10">
           {activeProjects.map((project) => (
             <div
               key={project.id}
-              className="p-8 sm:p-10 rounded-3xl structured-card space-y-6 shadow-xl border border-black/[0.08] dark:border-white/[0.1]"
+              className="p-7 sm:p-9 md:p-10 rounded-3xl structured-card space-y-6 shadow-xl border border-black/[0.08] dark:border-white/[0.1] overflow-hidden"
             >
               {/* Header */}
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-black/[0.06] dark:border-white/[0.08] pb-5">
-                <div>
-                  <span className="type-eyebrow text-blue-600 dark:text-blue-400 block mb-1">
-                    {project.industry}
-                  </span>
-                  <h3 className="type-h2 text-zinc-950 dark:text-white">
-                    {project.name}
-                  </h3>
-                  <p className="type-body-sm text-zinc-500 dark:text-zinc-400 mt-1">
-                    {project.tagline}
-                  </p>
-                </div>
-
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold shrink-0">
-                  <TrendingUp className="w-3.5 h-3.5" />
-                  <span>{project.result}</span>
-                </div>
+              <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-5 space-y-2">
+                <span className="type-eyebrow text-blue-600 dark:text-blue-400 block font-bold">
+                  {project.industry}
+                </span>
+                <h3 className="type-h2 text-zinc-950 dark:text-white">
+                  {project.name}
+                </h3>
+                <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-3xl">
+                  {project.tagline}
+                </p>
               </div>
 
               {/* Problem & Solution Breakdown */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 type-body text-zinc-600 dark:text-zinc-400">
-                <div className="space-y-2 p-5 rounded-2xl bg-black/[0.015] dark:bg-white/[0.02] border border-black/[0.03] dark:border-white/[0.04]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2.5 p-5 sm:p-6 rounded-2xl bg-black/[0.015] dark:bg-white/[0.02] border border-black/[0.03] dark:border-white/[0.04]">
                   <span className="type-eyebrow text-zinc-950 dark:text-white block font-bold">
                     The Business Challenge
                   </span>
-                  <p className="leading-relaxed type-body-sm">
+                  <p className="leading-relaxed type-body-sm text-zinc-600 dark:text-zinc-400">
                     {project.problem}
                   </p>
                 </div>
 
-                <div className="space-y-2 p-5 rounded-2xl bg-blue-600/[0.02] dark:bg-blue-600/[0.04] border border-blue-600/15">
+                <div className="space-y-2.5 p-5 sm:p-6 rounded-2xl bg-blue-600/[0.02] dark:bg-blue-600/[0.04] border border-blue-600/15">
                   <span className="type-eyebrow text-blue-600 dark:text-blue-400 block font-bold">
                     What Lunor Built & Deployed
                   </span>
@@ -111,6 +122,39 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
                   </p>
                 </div>
               </div>
+
+              {/* Handled Capabilities List (if present) */}
+              {project.handles && project.handles.length > 0 && (
+                <div className="pt-1">
+                  <span className="type-eyebrow text-zinc-400 block mb-3">
+                    Automated Workflows
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {project.handles.map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300 bg-black/[0.015] dark:bg-white/[0.02] px-3.5 py-2 rounded-xl border border-black/[0.03] dark:border-white/[0.04]"
+                      >
+                        <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                        <span className="truncate">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Full-width Verified Business Impact Highlight Box */}
+              {project.result && (
+                <div className="p-4 sm:p-5 rounded-2xl bg-emerald-500/[0.06] dark:bg-emerald-500/[0.08] border border-emerald-500/20 space-y-1.5">
+                  <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs type-eyebrow">
+                    <TrendingUp className="w-4 h-4 shrink-0" />
+                    <span>Verified Business Outcome</span>
+                  </div>
+                  <p className="type-body-sm text-zinc-800 dark:text-zinc-200 font-medium leading-relaxed">
+                    {project.result}
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>

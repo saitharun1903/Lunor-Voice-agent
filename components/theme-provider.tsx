@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 
-type Theme = "light" | "dark" | "system";
+type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
@@ -17,16 +17,12 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Always default to "light" theme on every initial load / refresh
   const [theme, setThemeState] = useState<Theme>("light");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
 
   const applyThemeToDOM = useCallback((targetTheme: Theme) => {
-    const isDark =
-      targetTheme === "dark" ||
-      (targetTheme === "system" &&
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
-
+    const isDark = targetTheme === "dark";
     const resolved = isDark ? "dark" : "light";
     setResolvedTheme(resolved);
 
@@ -43,36 +39,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const savedTheme =
-      (localStorage.getItem("lunor-theme") as Theme) ||
-      (localStorage.getItem("luno-theme") as Theme) ||
-      "light";
-    setThemeState(savedTheme);
-    applyThemeToDOM(savedTheme);
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const listener = () => {
-      const current =
-        (localStorage.getItem("lunor-theme") as Theme) ||
-        (localStorage.getItem("luno-theme") as Theme) ||
-        "light";
-      if (current === "system") {
-        applyThemeToDOM("system");
-      }
-    };
-
-    mediaQuery.addEventListener("change", listener, { passive: true } as any);
-    return () => mediaQuery.removeEventListener("change", listener as any);
+    // On page load or refresh, strictly reset to light theme
+    try {
+      localStorage.removeItem("lunor-theme");
+      localStorage.removeItem("luno-theme");
+    } catch (e) {
+      // ignore in private mode
+    }
+    setThemeState("light");
+    applyThemeToDOM("light");
   }, [applyThemeToDOM]);
 
   const setTheme = useCallback(
     (newTheme: Theme) => {
       setThemeState(newTheme);
-      try {
-        localStorage.setItem("lunor-theme", newTheme);
-      } catch (e) {
-        // ignore in private browsing modes
-      }
       applyThemeToDOM(newTheme);
     },
     [applyThemeToDOM]
