@@ -18,12 +18,14 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lunor.co.in"),
+  metadataBase: new URL("https://voiceops.in"),
   title: "Lunor — AI Voice Automation for Business",
   description:
     "Lunor builds AI voice systems that automate the first layer of business phone conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
   keywords: [
     "Lunor",
+    "VoiceOps",
+    "voiceops.in",
     "Lunor AI",
     "AI Voice Agent",
     "Voice Automation",
@@ -35,13 +37,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Lunor Technologies" }],
   alternates: {
-    canonical: "https://lunor.co.in",
+    canonical: "https://voiceops.in",
   },
   openGraph: {
     title: "Lunor — AI Voice Automation for Business",
     description:
       "Automate the first layer of every business call. Custom voice systems designed for real workflows.",
-    url: "https://lunor.co.in",
+    url: "https://voiceops.in",
     siteName: "Lunor",
     type: "website",
     locale: "en_US",
