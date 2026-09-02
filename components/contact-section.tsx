@@ -159,32 +159,30 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
             {/* Left Column: Direct Touchpoints */}
             <div className="lg:col-span-5 space-y-8">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
-                  <span>Inbound Deployment Request</span>
-                </div>
+                <p className="type-eyebrow text-zinc-400 mb-4">Contact</p>
 
                 <h2 className="type-h1 text-zinc-950 dark:text-white mb-5 leading-tight">
                   Let&apos;s automate your first layer.
                 </h2>
 
-                <p className="type-body-lg text-zinc-600 dark:text-zinc-400">
+                <p className="type-body text-zinc-600 dark:text-zinc-400">
                   Tell us which calls your business receives and what you&apos;d like to automate.
                 </p>
               </div>
 
-              {/* Direct Channels */}
+              {/* Direct Channels — unified neutral treatment */}
               <div className="space-y-3 pt-2">
                 {/* 1. Email */}
                 <a
                   href={`mailto:${settings.email || "conversations@lunor.co.in"}`}
                   className="flex items-center gap-3.5 p-4 rounded-2xl structured-card"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                    <Mail className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] text-zinc-600 dark:text-zinc-400 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="type-eyebrow text-zinc-400">Direct Inquiries</p>
-                    <p className="type-body font-semibold text-zinc-950 dark:text-white font-mono">
+                    <p className="type-eyebrow text-zinc-400">Email</p>
+                    <p className="type-body font-semibold text-zinc-950 dark:text-white font-mono text-sm">
                       {settings.email || "conversations@lunor.co.in"}
                     </p>
                   </div>
@@ -195,12 +193,12 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   href={`tel:${settings.phone || "+18885866240"}`}
                   className="flex items-center gap-3.5 p-4 rounded-2xl structured-card"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                    <Phone className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] text-zinc-600 dark:text-zinc-400 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="type-eyebrow text-zinc-400">Studio Line</p>
-                    <p className="type-body font-semibold text-zinc-950 dark:text-white font-mono">
+                    <p className="type-eyebrow text-zinc-400">Phone</p>
+                    <p className="type-body font-semibold text-zinc-950 dark:text-white font-mono text-sm">
                       {settings.phone || "+1 (888) 586-6240"}
                     </p>
                   </div>
@@ -211,16 +209,16 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   onClick={() => setIsMeetingModalOpen(true)}
                   className="w-full flex items-center gap-3.5 p-4 rounded-2xl structured-card text-left"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-                    <Calendar className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] text-zinc-600 dark:text-zinc-400 flex items-center justify-center shrink-0">
+                    <Calendar className="w-4 h-4" />
                   </div>
                   <div className="flex-1">
-                    <p className="type-eyebrow text-zinc-400">Live Scoping Session</p>
+                    <p className="type-eyebrow text-zinc-400">Consultation</p>
                     <p className="type-body font-semibold text-zinc-950 dark:text-white">
-                      Book a Video Consultation
+                      Book a Video Session
                     </p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-zinc-400" />
+                  <ArrowRight className="w-4 h-4 text-zinc-300 dark:text-zinc-600" />
                 </button>
               </div>
             </div>

@@ -40,15 +40,13 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
-            <span>Carrier & Software Ecosystem</span>
-          </div>
+          <p className="type-eyebrow text-zinc-400 mb-4">Integrations</p>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
             Integrates natively into your existing phone stack.
           </h2>
 
-          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
+          <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-2xl">
             No complex phone system rip-and-replace. Lunor sits seamlessly in front of your carriers, booking tools, and CRMs.
           </p>
         </div>

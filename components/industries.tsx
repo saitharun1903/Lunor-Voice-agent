@@ -99,9 +99,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-2xl mb-10 md:mb-12 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-3">
-            <span>Industries</span>
-          </div>
+          <p className="type-eyebrow text-zinc-400 mb-3">Industries</p>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-3">
             Voice automation for real business.

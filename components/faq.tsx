@@ -43,15 +43,13 @@ export function FaqSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-2xl mb-16 md:mb-20 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full type-eyebrow text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 mb-4">
-            <span>Technical & Operational Clarity</span>
-          </div>
+          <p className="type-eyebrow text-zinc-400 mb-4">FAQ</p>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-5">
             Frequently asked questions.
           </h2>
 
-          <p className="type-body-lg text-zinc-600 dark:text-zinc-400">
+          <p className="type-body text-zinc-600 dark:text-zinc-400">
             Everything business owners and technical leaders need to know about deploying Lunor voice systems.
           </p>
         </div>
