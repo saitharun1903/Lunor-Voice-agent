@@ -7,7 +7,6 @@ import {
   PhoneCall,
   PhoneOff,
   AlertCircle,
-  Radio,
 } from "lucide-react";
 import { getVoiceAgentService, LunoVoiceState } from "@/lib/voice-service";
 
@@ -79,26 +78,26 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
       let amplitude = 10;
       let waveColor = "#3b82f6";
-      let waveGlow = "rgba(59, 130, 246, 0.3)";
+      let waveGlow = "rgba(59, 130, 246, 0.25)";
 
       if (state === "speaking") {
-        amplitude = 30 + Math.sin(phase * 3) * 12;
+        amplitude = 28 + Math.sin(phase * 3) * 10;
         waveColor = "#2563eb";
-        waveGlow = "rgba(37, 99, 235, 0.5)";
+        waveGlow = "rgba(37, 99, 235, 0.4)";
       } else if (state === "listening") {
-        amplitude = 20 + Math.cos(phase * 2) * 6;
+        amplitude = 18 + Math.cos(phase * 2) * 6;
         waveColor = "#10b981";
-        waveGlow = "rgba(16, 185, 129, 0.4)";
+        waveGlow = "rgba(16, 185, 129, 0.35)";
       } else if (state === "connecting") {
-        amplitude = 14;
+        amplitude = 12;
         waveColor = "#f59e0b";
-        waveGlow = "rgba(245, 158, 11, 0.3)";
+        waveGlow = "rgba(245, 158, 11, 0.25)";
       }
 
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 8;
       ctx.shadowColor = waveGlow;
       ctx.strokeStyle = waveColor;
-      ctx.lineWidth = 2.2;
+      ctx.lineWidth = 2;
       ctx.beginPath();
 
       for (let x = 0; x < width; x++) {
@@ -113,15 +112,15 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       }
       ctx.stroke();
 
-      ctx.shadowBlur = 3;
-      ctx.strokeStyle = state === "speaking" ? "#60a5fa" : "rgba(100, 116, 139, 0.25)";
+      ctx.shadowBlur = 2;
+      ctx.strokeStyle = state === "speaking" ? "#60a5fa" : "rgba(100, 116, 139, 0.2)";
       ctx.lineWidth = 1;
       ctx.beginPath();
 
       for (let x = 0; x < width; x++) {
         const norm = (x / width) * Math.PI * 6;
         const envelope = Math.sin((x / width) * Math.PI);
-        const y = midY + Math.cos(norm - phase * 1.5) * (amplitude * 0.45) * envelope;
+        const y = midY + Math.cos(norm - phase * 1.5) * (amplitude * 0.4) * envelope;
         if (x === 0) {
           ctx.moveTo(x, y);
         } else {
@@ -163,9 +162,9 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       case "connecting":
         return { label: "Connecting...", color: "text-amber-600 dark:text-amber-400", dot: "bg-amber-500" };
       case "listening":
-        return { label: "Listening", color: "text-emerald-600 dark:text-emerald-400", dot: "bg-emerald-500" };
+        return { label: "Listening...", color: "text-emerald-600 dark:text-emerald-400", dot: "bg-emerald-500" };
       case "speaking":
-        return { label: "Lunor is speaking", color: "text-blue-600 dark:text-blue-400", dot: "bg-blue-500" };
+        return { label: "Lunor is speaking...", color: "text-blue-600 dark:text-blue-400", dot: "bg-blue-500" };
       case "muted":
         return { label: "Microphone muted", color: "text-amber-600 dark:text-amber-400", dot: "bg-amber-500" };
       case "error":
@@ -179,22 +178,21 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
   return (
     <div className={`relative w-full max-w-2xl mx-auto ${className}`}>
-      <div className="relative rounded-3xl p-6 sm:p-8 structured-card shadow-xl space-y-5">
+      <div className="relative rounded-2xl p-6 sm:p-7 structured-card shadow-lg space-y-5">
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between border-b border-black/[0.05] dark:border-white/[0.06] pb-3.5">
+        <div className="flex items-center justify-between border-b border-black/[0.05] dark:border-white/[0.06] pb-3">
           <div className="flex items-center gap-2">
             <span className={`w-2 h-2 rounded-full ${statusBadge.dot} ${isActive ? "animate-ping" : ""}`} />
             <span className={`text-xs font-semibold ${statusBadge.color}`}>{statusBadge.label}</span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
-            <Radio className="w-3.5 h-3.5 text-blue-500" />
-            <span>Live Voice Session</span>
-          </div>
+          <span className="text-xs text-zinc-400">
+            Live Voice Session
+          </span>
         </div>
 
         {/* Dynamic Acoustic Waveform Canvas */}
-        <div className="relative h-24 w-full rounded-2xl bg-black/[0.02] dark:bg-black/30 border border-black/[0.04] dark:border-white/[0.05] flex items-center justify-center overflow-hidden">
+        <div className="relative h-24 w-full rounded-xl bg-black/[0.02] dark:bg-black/30 border border-black/[0.04] dark:border-white/[0.05] flex items-center justify-center overflow-hidden">
           <canvas
             ref={canvasRef}
             width={600}
@@ -212,7 +210,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
         </div>
 
         {/* Live Conversation Transcript Feed */}
-        <div className="min-h-[85px] space-y-2 p-3.5 rounded-2xl bg-black/[0.015] dark:bg-white/[0.02] border border-black/[0.03] dark:border-white/[0.04] text-xs leading-relaxed">
+        <div className="min-h-[80px] space-y-2 p-3.5 rounded-xl bg-black/[0.015] dark:bg-white/[0.02] border border-black/[0.03] dark:border-white/[0.04] text-xs leading-relaxed">
           {transcripts.length === 0 ? (
             <div className="text-center py-3 text-zinc-400">
               {isActive
