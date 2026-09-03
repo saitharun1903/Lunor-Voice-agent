@@ -28,8 +28,8 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
   ];
 
   return (
-    <section id="process" className="py-28 md:py-40 relative overflow-hidden chapter-stone border-t border-black/[0.06] dark:border-white/[0.08]">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+    <section id="process" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}

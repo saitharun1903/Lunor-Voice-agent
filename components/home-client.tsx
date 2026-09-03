@@ -33,7 +33,7 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
     whatsapp: "+18885866240",
     meetingUrl: "https://meet.google.com",
     heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
-    heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
+    heroHeadline: "Automate the first layer of every call.",
     heroSubheadline:
       "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     googleSheetsWebhookUrl: "",

@@ -27,7 +27,8 @@ interface ParticleNode {
 }
 
 export const Hero = memo(function Hero({
-  subheadline = "AI voice systems that handle the first layer of business calls — from enquiries and bookings to qualification, support and follow-ups.",
+  eyebrow = "VOICE AUTOMATION FOR BUSINESS",
+  subheadline = "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, and follow-ups.",
   onTalkToLuno,
   onTalkToVoiceOps,
 }: HeroProps) {
@@ -51,7 +52,7 @@ export const Hero = memo(function Hero({
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  // Central Interactive VoiceOps Signal Canvas
+  // Central Interactive VoiceOps Signal Canvas (Voice -> Understanding -> Action)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -61,7 +62,6 @@ export const Hero = memo(function Hero({
     let width = (canvas.width = canvas.offsetWidth);
     let height = (canvas.height = canvas.offsetHeight);
 
-    // Pause when offscreen for high performance
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
@@ -85,10 +85,9 @@ export const Hero = memo(function Hero({
     };
     window.addEventListener("resize", handleResize);
 
-    // Generate VOICEOPS Signal Field Nodes along harmonious wave contours
     let nodes: ParticleNode[] = [];
     const NUM_ROWS = 7;
-    const NODES_PER_ROW = 32;
+    const NODES_PER_ROW = 30;
 
     const initNodes = () => {
       nodes = [];
@@ -107,9 +106,9 @@ export const Hero = memo(function Hero({
             y: yBase,
             vx: 0,
             vy: 0,
-            radius: isCenter ? 1.8 : 1.2,
-            color: isCenter ? "#60a5fa" : "#94a3b8",
-            alpha: isCenter ? 0.75 : 0.4,
+            radius: isCenter ? 2 : 1.3,
+            color: isCenter ? "#3b82f6" : "#64748b",
+            alpha: isCenter ? 0.7 : 0.35,
             phase: Math.random() * Math.PI * 2,
             freq: 0.02 + Math.random() * 0.02,
           });
@@ -119,7 +118,6 @@ export const Hero = memo(function Hero({
 
     initNodes();
 
-    // Mouse tracker inside container
     const handleMouseMove = (e: MouseEvent) => {
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
@@ -139,78 +137,72 @@ export const Hero = memo(function Hero({
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
 
-    // Render loop with spring dynamics and wave propagation
     let time = 0;
     const render = () => {
-      if (!isVisibleRef.current) {
-        animFrameRef.current = requestAnimationFrame(render);
-        return;
-      }
+      if (isVisibleRef.current) {
+        ctx.clearRect(0, 0, width, height);
+        time += 0.02;
 
-      ctx.clearRect(0, 0, width, height);
-      time += 0.02;
+        const mx = mouseRef.current.x;
+        const my = mouseRef.current.y;
+        const mouseActive = mouseRef.current.active;
 
-      // Draw faint background frequency contours
-      ctx.lineWidth = 0.75;
-      for (let r = 0; r < NUM_ROWS; r++) {
-        ctx.beginPath();
-        ctx.strokeStyle = r % 2 === 0 ? "rgba(59, 130, 246, 0.12)" : "rgba(255, 255, 255, 0.04)";
-        let first = true;
-        for (let c = 0; c < NODES_PER_ROW; c++) {
-          const node = nodes[r * NODES_PER_ROW + c];
-          if (!node) continue;
-          if (first) {
-            ctx.moveTo(node.x, node.y);
-            first = false;
-          } else {
-            ctx.lineTo(node.x, node.y);
+        for (let i = 0; i < nodes.length; i++) {
+          const node = nodes[i];
+          const harmonic = Math.sin(time + node.phase + node.baseX * 0.005) * 8;
+          let targetY = node.baseY + harmonic;
+          let targetX = node.baseX;
+
+          if (mouseActive) {
+            const dx = mx - node.x;
+            const dy = my - node.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const maxDist = 140;
+
+            if (dist < maxDist) {
+              const force = (1 - dist / maxDist) * 16;
+              const angle = Math.atan2(dy, dx);
+              targetX -= Math.cos(angle) * force;
+              targetY -= Math.sin(angle) * force;
+            }
           }
-        }
-        ctx.stroke();
-      }
 
-      // Update and draw signal points
-      for (let i = 0; i < nodes.length; i++) {
-        const p = nodes[i];
+          node.vx += (targetX - node.x) * 0.08;
+          node.vy += (targetY - node.y) * 0.08;
+          node.vx *= 0.85;
+          node.vy *= 0.85;
+          node.x += node.vx;
+          node.y += node.vy;
 
-        // 1. Idle organic acoustic breathing
-        const idleWave = Math.sin(time * 1.5 + p.baseX * 0.01 + p.phase) * 5;
-        const targetY = p.baseY + idleWave;
-        const targetX = p.baseX + Math.cos(time + p.phase) * 2;
-
-        // 2. Localized cursor displacement (Desktop exploration)
-        if (mouseRef.current.active) {
-          const dx = p.x - mouseRef.current.x;
-          const dy = p.y - mouseRef.current.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const maxDist = 120;
-
-          if (dist < maxDist && dist > 0) {
-            const force = (1 - dist / maxDist) * 18;
-            p.vx += (dx / dist) * force * 0.2;
-            p.vy += (dy / dist) * force * 0.2;
-          }
+          ctx.fillStyle = node.color;
+          ctx.globalAlpha = node.alpha;
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+          ctx.fill();
         }
 
-        // Spring return to base target position
-        const ax = (targetX - p.x) * 0.06;
-        const ay = (targetY - p.y) * 0.06;
-
-        p.vx = (p.vx + ax) * 0.88;
-        p.vy = (p.vy + ay) * 0.88;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Draw node
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
+        // Connect adjacent horizontal nodes
+        ctx.lineWidth = 1;
+        for (let r = 0; r < NUM_ROWS; r++) {
+          ctx.beginPath();
+          let started = false;
+          for (let c = 0; c < NODES_PER_ROW; c++) {
+            const idx = r * NODES_PER_ROW + c;
+            const node = nodes[idx];
+            if (!started) {
+              ctx.moveTo(node.x, node.y);
+              started = true;
+            } else {
+              ctx.lineTo(node.x, node.y);
+            }
+          }
+          const rowFromCenter = Math.abs(r - NUM_ROWS / 2);
+          ctx.strokeStyle = rowFromCenter < 1.5 ? "rgba(59, 130, 246, 0.25)" : "rgba(100, 116, 139, 0.12)";
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
       }
 
-      ctx.globalAlpha = 1.0;
       animFrameRef.current = requestAnimationFrame(render);
     };
 
@@ -221,25 +213,27 @@ export const Hero = memo(function Hero({
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       observer.disconnect();
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      if (canvas) {
+        canvas.removeEventListener("mousemove", handleMouseMove);
+        canvas.removeEventListener("mouseleave", handleMouseLeave);
+      }
     };
   }, []);
 
   const handleCanvasClick = () => {
     setIsClickPulsing(true);
-    setTimeout(() => setIsClickPulsing(false), 600);
+    setTimeout(() => setIsClickPulsing(false), 500);
   };
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100svh] w-full chapter-midnight flex flex-col justify-between pt-28 pb-10 sm:pb-12 px-5 sm:px-8 md:px-12 overflow-hidden select-none"
+      className="relative min-h-[92svh] lg:min-h-[100svh] w-full bg-[#faf8f5] dark:bg-[#07090e] transition-colors duration-200 flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-12 px-5 sm:px-8 md:px-12 overflow-hidden select-none"
     >
-      {/* 1. Low-Contrast Fine Environmental Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:28px_28px] opacity-20 pointer-events-none -z-10" />
+      {/* Subtle Environmental Grid Texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.04)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none -z-10" />
 
-      {/* 3. Central Ambient Interactive VoiceOps Signal Visual */}
+      {/* Central Interactive VoiceOps Signal Visual (Voice -> Understanding -> Action) */}
       <div
         onClick={handleCanvasClick}
         className="absolute inset-0 flex items-center justify-center pointer-events-auto cursor-crosshair z-0"
@@ -247,72 +241,83 @@ export const Hero = memo(function Hero({
       >
         <canvas
           ref={canvasRef}
-          className={`w-full h-full max-w-4xl max-h-[500px] transition-transform duration-500 ${
+          className={`w-full h-full max-w-4xl max-h-[480px] transition-transform duration-500 ${
             isClickPulsing ? "scale-[1.02]" : "scale-100"
           }`}
         />
       </div>
 
-      {/* 4. Top Asymmetric Editorial Composition (Left-Anchored Headline + Empty Negative Space) */}
-      <div className="relative z-10 max-w-6xl mx-auto w-full my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pointer-events-none">
-        {/* Left: Controlled Large Serif Headline + Concise Thesis */}
-        <div className="lg:col-span-7 space-y-6 text-left pointer-events-auto">
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
+      {/* Top Editorial Composition */}
+      <div className="relative z-10 max-w-5xl mx-auto w-full my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pointer-events-none">
+        <div className="lg:col-span-8 space-y-5 sm:space-y-6 text-left pointer-events-auto">
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-4xl sm:text-5xl lg:text-[3.75rem] font-normal leading-[1.06] text-white tracking-tight"
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-2"
+          >
+            <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
+            <span className="font-mono text-xs font-semibold tracking-wider text-zinc-600 dark:text-zinc-400 uppercase">
+              {eyebrow}
+            </span>
+          </motion.div>
+
+          {/* Headline (Sentence Case, Balanced Editorial Hierarchy) */}
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="font-sans text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.08] text-zinc-950 dark:text-white tracking-tight"
           >
             Automate the first layer
             <br />
-            <span className="italic font-light text-zinc-400">
+            <span className="text-zinc-500 dark:text-zinc-400 font-normal">
               of every call.
             </span>
           </motion.h1>
 
-          {/* Short Supporting Copy (2-3 lines max, no large paragraph block) */}
+          {/* Supporting Statement (45-70 characters per line) */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="font-sans text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed font-normal"
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="font-sans text-base sm:text-lg text-zinc-600 dark:text-zinc-300 max-w-xl leading-relaxed font-normal"
           >
             {subheadline}
           </motion.p>
         </div>
 
-        {/* Right: Pure Negative Space Creating Editorial Tension */}
-        <div className="hidden lg:block lg:col-span-5" />
+        <div className="hidden lg:block lg:col-span-4" />
       </div>
 
-      {/* 5. Small Bottom Information Areas & Compact Editorial Actions (Zero Containers) */}
-      <div className="relative z-10 max-w-6xl mx-auto w-full pt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-white/[0.06]">
-        {/* Bottom Left: Quiet Typography */}
+      {/* Bottom Editorial Actions & Architecture Status */}
+      <div className="relative z-10 max-w-5xl mx-auto w-full pt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-black/[0.06] dark:border-white/[0.08]">
+        {/* Left Status */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
           className="text-left space-y-1"
         >
-          <p className="font-sans text-xs text-zinc-400 font-normal">
-            Voice automation for real business conversations.
+          <p className="font-sans text-xs text-zinc-700 dark:text-zinc-300 font-medium">
+            Autonomous first-layer phone automation.
           </p>
-          <p className="font-mono text-[11px] text-zinc-600">
-            VoiceOps First Layer Architecture
+          <p className="font-mono text-[11px] text-zinc-500 dark:text-zinc-500">
+            VoiceOps Architectural Pipeline · Sub-400ms Turn Cadence
           </p>
         </motion.div>
 
-        {/* Bottom Right: Compact Editorial Controls (No giant pills) */}
+        {/* Right Actions */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-3 sm:gap-4 self-start sm:self-auto"
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center gap-3 self-start sm:self-auto"
         >
           <button
             onClick={handleTalkToVoiceOps}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-sans text-xs font-medium transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5 shadow-sm"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-sans text-xs font-semibold tracking-tight transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5 shadow-sm"
           >
             <span>Talk to VoiceOps</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -320,10 +325,10 @@ export const Hero = memo(function Hero({
 
           <button
             onClick={scrollToContact}
-            className="btn-matte-secondary text-zinc-300 hover:text-white"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-transparent text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white border border-black/15 dark:border-white/15 hover:border-black/30 dark:hover:border-white/30 font-sans text-xs font-medium transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5"
           >
             <span>Build My Voice Agent</span>
-            <ArrowUpRight className="w-3 h-3 text-zinc-400" />
+            <ArrowUpRight className="w-3 h-3 text-zinc-500" />
           </button>
         </motion.div>
       </div>

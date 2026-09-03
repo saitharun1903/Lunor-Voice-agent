@@ -157,12 +157,12 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
   return (
     <div className={`w-full max-w-2xl mx-auto ${className}`}>
       {/* Hardware-Grade Precision Matte Console */}
-      <div className="relative rounded-3xl p-6 sm:p-8 bg-[#0a0d16] border border-white/[0.06] shadow-xl space-y-6 text-left">
+      <div className="relative rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#0b0e17] border border-black/[0.08] dark:border-white/[0.07] shadow-xl space-y-6 text-left transition-colors">
         {/* Status Header */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
-          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.06]">
+        <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-4">
+          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.05] dark:border-white/[0.06]">
             <span className={`w-2 h-2 rounded-full ${status.dot}`} />
-            <span className="font-mono text-xs font-semibold tracking-wider text-zinc-300 uppercase">
+            <span className="font-mono text-xs font-semibold tracking-wider text-zinc-700 dark:text-zinc-300 uppercase">
               {status.text}
             </span>
           </div>
@@ -172,8 +172,8 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
           </span>
         </div>
 
-        {/* Dynamic Voice Visualizer Canvas (Solid / Dark Surface for Maximum Contrast) */}
-        <div className="relative h-28 w-full rounded-2xl bg-black/40 border border-white/[0.04] flex items-center justify-center overflow-hidden">
+        {/* Dynamic Voice Visualizer Canvas (Solid Dark Precision Display) */}
+        <div className="relative h-28 w-full rounded-2xl bg-zinc-950 border border-black/10 dark:border-white/[0.06] flex items-center justify-center overflow-hidden">
           <canvas
             ref={canvasRef}
             width={640}
@@ -183,7 +183,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
           {!isActive && state !== "connecting" && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="font-sans text-xs text-zinc-400 bg-black/80 px-3.5 py-1.5 rounded-full border border-white/[0.06]">
+              <span className="font-sans text-xs text-zinc-300 bg-zinc-900/90 px-3.5 py-1.5 rounded-full border border-white/10">
                 Click &apos;Start Conversation&apos; to speak live
               </span>
             </div>
@@ -191,7 +191,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
         </div>
 
         {/* Quiet Transcript Terminal */}
-        <div className="min-h-[80px] space-y-2 p-4 rounded-xl bg-black/25 border border-white/[0.04] text-xs font-sans text-zinc-300">
+        <div className="min-h-[80px] space-y-2 p-4 rounded-xl bg-zinc-50 dark:bg-black/30 border border-black/[0.05] dark:border-white/[0.05] text-xs font-sans text-zinc-800 dark:text-zinc-300">
           {transcripts.length === 0 ? (
             <div className="text-center py-3 text-zinc-500 font-light">
               {isActive
@@ -204,13 +204,13 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
                 <span
                   className={`text-[10px] font-mono px-2 py-0.5 rounded-md shrink-0 uppercase tracking-wider ${
                     t.role === "user"
-                      ? "bg-white/[0.08] text-zinc-300"
-                      : "bg-blue-600/20 text-blue-400 font-bold"
+                      ? "bg-zinc-200 text-zinc-800 dark:bg-white/[0.08] dark:text-zinc-300 font-semibold"
+                      : "bg-blue-600/10 text-blue-600 dark:bg-blue-600/20 dark:text-blue-400 font-bold"
                   }`}
                 >
                   {t.role === "user" ? "YOU" : "VOICEOPS"}
                 </span>
-                <p className="font-sans text-zinc-200 leading-relaxed">{t.text}</p>
+                <p className="font-sans text-zinc-900 dark:text-zinc-200 leading-relaxed">{t.text}</p>
               </div>
             ))
           )}

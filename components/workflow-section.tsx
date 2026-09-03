@@ -37,8 +37,8 @@ export const WorkflowSection = memo(function WorkflowSection() {
   ];
 
   return (
-    <section id="workflow" className="py-28 md:py-40 relative overflow-hidden chapter-stone border-t border-black/[0.06] dark:border-white/[0.08]">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+    <section id="workflow" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Large Typography Statement (Editorial Break) */}
         <div className="max-w-3xl mb-16 sm:mb-24 text-left space-y-4">
           <motion.p

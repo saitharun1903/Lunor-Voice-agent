@@ -31,8 +31,8 @@ export const FaqSection = memo(function FaqSection() {
   ];
 
   return (
-    <section id="faq" className="py-28 md:py-40 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+    <section id="faq" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Two-Column Structure (Reference Style) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Heading & Eyebrow */}

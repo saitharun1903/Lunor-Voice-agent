@@ -19,43 +19,43 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
   };
 
   return (
-    <footer className="chapter-midnight border-t border-white/[0.08] py-16 sm:py-20 text-white">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 border-b border-white/[0.08] pb-12">
+    <footer className="bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] py-16 sm:py-20 text-zinc-950 dark:text-white transition-colors">
+      <div className="max-w-5xl mx-auto px-5 sm:px-8">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 border-b border-black/[0.06] dark:border-white/[0.08] pb-12">
           {/* Brand & Thesis */}
           <div className="space-y-3 max-w-sm text-left">
-            <Link href="/" className="inline-block font-sans font-bold text-sm uppercase tracking-tight text-white">
+            <Link href="/" className="inline-block font-sans font-bold text-sm uppercase tracking-tight text-zinc-950 dark:text-white">
               VOICEOPS
             </Link>
-            <p className="type-sans-body-sm text-zinc-400 font-normal leading-relaxed">
+            <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed">
               Voice automation for the first layer of business calls. Custom conversational systems engineered for real operational workflows.
             </p>
           </div>
 
-          {/* Quiet Navigation Columns */}
+          {/* Navigation Columns */}
           <div className="flex flex-wrap gap-12 sm:gap-16 text-xs text-left">
             <div className="space-y-3">
-              <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block">
+              <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold">
                 EXPERIENCE
               </span>
-              <ul className="space-y-2 font-sans text-zinc-400">
+              <ul className="space-y-2 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <button onClick={() => scrollTo("demo")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("demo")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Live Demo
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("use-cases")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("use-cases")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Capabilities
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("industries")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("industries")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Industries
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("architecture")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("architecture")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     The First Layer
                   </button>
                 </li>
@@ -63,27 +63,27 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
             </div>
 
             <div className="space-y-3">
-              <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block">
+              <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold">
                 STUDIO
               </span>
-              <ul className="space-y-2 font-sans text-zinc-400">
+              <ul className="space-y-2 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <button onClick={() => scrollTo("work")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("work")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Work & Case Studies
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("process")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("process")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Methodology
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("faq")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("faq")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     FAQ
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("contact")} className="hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("contact")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Deploy
                   </button>
                 </li>
@@ -91,12 +91,12 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
             </div>
 
             <div className="space-y-3">
-              <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block">
+              <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold">
                 ADMIN
               </span>
-              <ul className="space-y-2 font-sans text-zinc-400">
+              <ul className="space-y-2 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <Link href="/admin/login" className="hover:text-white transition-colors">
+                  <Link href="/admin/login" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
                     Admin Portal
                   </Link>
                 </li>
@@ -113,7 +113,7 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
             <span>voiceops.in</span>
             <button
               onClick={scrollToTop}
-              className="flex items-center gap-1 hover:text-white transition-colors"
+              className="flex items-center gap-1 hover:text-zinc-950 dark:hover:text-white transition-colors"
             >
               <span>Back to Top</span>
               <ArrowUp className="w-3 h-3" />
