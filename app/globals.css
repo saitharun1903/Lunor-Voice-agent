@@ -36,17 +36,14 @@
   --accent-muted: rgba(37, 99, 235, 0.08);
 
   --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 6px 18px -4px rgba(0, 0, 0, 0.03);
-  --card-shadow-hover: 0 12px 32px -6px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --card-shadow-hover: 0 12px 32px -6px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
 
-  /* LIQUID GLASS MATERIAL SYSTEM (Light Mode) */
-  --glass-bg-subtle: rgba(255, 255, 255, 0.45);
-  --glass-bg-standard: rgba(255, 255, 255, 0.72);
-  --glass-bg-active: rgba(255, 255, 255, 0.88);
-  --glass-border-subtle: rgba(17, 18, 21, 0.06);
-  --glass-border-standard: rgba(17, 18, 21, 0.09);
-  --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
-  --glass-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
-  --glass-blur: 14px;
+  /* MATTE PRODUCT MATERIAL SYSTEM (Light Mode) */
+  --surface-matte-01: rgba(255, 255, 255, 0.75);
+  --surface-matte-02: #ffffff;
+  --border-matte-subtle: rgba(17, 18, 21, 0.06);
+  --border-matte-standard: rgba(17, 18, 21, 0.09);
+  --shadow-matte: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
 }
 
 .dark {
@@ -64,26 +61,23 @@
   --surface-card: #0d101a;
   --surface-plate: #090b12;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
   --border-accent: rgba(59, 130, 246, 0.35);
 
   --accent: #3b82f6;
   --accent-hover: #60a5fa;
   --accent-muted: rgba(59, 130, 246, 0.12);
 
-  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(255, 255, 255, 0.04);
-  --card-shadow-hover: 0 14px 40px -4px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.55);
+  --card-shadow-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.7);
 
-  /* LIQUID GLASS MATERIAL SYSTEM (Dark Mode - Smoked Optical Glass) */
-  --glass-bg-subtle: rgba(14, 17, 26, 0.48);
-  --glass-bg-standard: rgba(16, 20, 30, 0.70);
-  --glass-bg-active: rgba(22, 28, 42, 0.86);
-  --glass-border-subtle: rgba(255, 255, 255, 0.07);
-  --glass-border-standard: rgba(255, 255, 255, 0.11);
-  --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.6), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --glass-blur: 14px;
+  /* MATTE PRODUCT MATERIAL SYSTEM (Dark Mode - Architectural Graphite) */
+  --surface-matte-01: rgba(14, 18, 28, 0.85);
+  --surface-matte-02: #0e121d;
+  --border-matte-subtle: rgba(255, 255, 255, 0.06);
+  --border-matte-standard: rgba(255, 255, 255, 0.09);
+  --shadow-matte: 0 8px 30px -4px rgba(0, 0, 0, 0.55);
 }
 
 html {
@@ -225,15 +219,6 @@ body {
   color: #f5f5f7;
 }
 
-/* Atmospheric Ambient Lighting Glow */
-.ambient-glow-midnight {
-  background: radial-gradient(circle at center, rgba(37, 99, 235, 0.18) 0%, rgba(29, 78, 216, 0.08) 45%, transparent 70%);
-}
-
-.ambient-glow-sapphire {
-  background: radial-gradient(circle at 60% 40%, rgba(59, 130, 246, 0.15) 0%, rgba(30, 58, 138, 0.06) 50%, transparent 75%);
-}
-
 /* Seamless Chapter Transition Gradient Bridges */
 .bridge-midnight-to-ivory {
   height: 6rem;
@@ -255,13 +240,8 @@ body {
   background: linear-gradient(180deg, #0b0e17 0%, #080a13 50%, #06080e 100%);
 }
 
-/* Ambient Continuous Signal Thread Glow */
-.signal-spine-glow {
-  box-shadow: 0 0 10px 1px rgba(59, 130, 246, 0.4);
-}
-
 /* =========================================================
-   3D FLIP CARD SYSTEM UTILITIES
+   3D FLIP CARD SYSTEM UTILITIES (Matte Physical Object)
    ========================================================= */
 .perspective-1400 {
   perspective: 1400px;
@@ -282,57 +262,44 @@ body {
 }
 
 /* =========================================================
-   LIQUID GLASS MATERIAL UTILITY CLASSES
+   MATTE PRODUCT MATERIAL UTILITIES
    ========================================================= */
 
-/* Glass Level 1: Very subtle floating surface */
+/* Matte Surface 01: Subtle floating surface */
+.matte-surface-01,
 .liquid-glass-01 {
-  background-color: var(--glass-bg-subtle);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border-subtle);
-  box-shadow: var(--glass-highlight);
-  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  background-color: var(--surface-matte-01);
+  border: 1px solid var(--border-matte-subtle);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Glass Level 2: Standard interactive surface */
+/* Matte Surface 02: Standard interactive surface */
+.matte-surface-02,
 .liquid-glass-02 {
-  background-color: var(--glass-bg-standard);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border-standard);
-  box-shadow: var(--glass-highlight), var(--glass-shadow);
-  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  background-color: var(--surface-matte-01);
+  border: 1px solid var(--border-matte-standard);
+  box-shadow: var(--shadow-matte);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Glass Level 3: Active / focused surface */
+/* Matte Surface 03: Active / focused surface */
+.matte-surface-03,
 .liquid-glass-03 {
-  background-color: var(--glass-bg-active);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background-color: var(--surface-matte-02);
   border: 1px solid var(--border-accent);
-  box-shadow: var(--glass-highlight), var(--glass-shadow);
-  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-/* Browser Fallback without backdrop-filter */
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .liquid-glass-01 {
-    background-color: rgba(18, 21, 30, 0.92);
-  }
-  .liquid-glass-02 {
-    background-color: rgba(18, 21, 30, 0.96);
-  }
-  .liquid-glass-03 {
-    background-color: rgba(24, 28, 40, 0.98);
-  }
+  box-shadow: var(--shadow-matte);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 /* =========================================================
    RESTRAINED BUTTONS & INTERACTION
    ========================================================= */
 
-/* Primary Compact Button */
+/* Primary Compact Button (Solid Matte) */
 .btn-compact-primary {
   background-color: #111215;
   color: #ffffff;
@@ -361,18 +328,16 @@ body {
   transform: translateY(1px);
 }
 
-/* Secondary Compact Liquid Glass Button */
+/* Secondary Compact Matte Button */
 .btn-compact-secondary,
-.btn-glass-secondary {
-  background-color: var(--glass-bg-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.btn-glass-secondary,
+.btn-matte-secondary {
+  background-color: transparent;
   color: inherit;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 500;
-  border: 1px solid var(--glass-border-standard);
-  box-shadow: var(--glass-highlight), 0 2px 8px -2px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--border-matte-standard);
   border-radius: 0.625rem;
   padding: 0.5rem 1.125rem;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
@@ -382,14 +347,16 @@ body {
 }
 
 .btn-compact-secondary:hover,
-.btn-glass-secondary:hover {
-  background-color: var(--glass-bg-standard);
+.btn-glass-secondary:hover,
+.btn-matte-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-1px);
 }
 
 .btn-compact-secondary:active,
-.btn-glass-secondary:active {
+.btn-glass-secondary:active,
+.btn-matte-secondary:active {
   transform: translateY(1px);
 }
 

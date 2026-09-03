@@ -64,28 +64,23 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       phase += 0.025;
 
       let amplitude = 6;
-      let lineColor = "rgba(120, 140, 180, 0.4)";
-      let glowColor = "transparent";
+      let lineColor = "rgba(148, 163, 184, 0.4)";
 
       if (state === "speaking") {
-        amplitude = 30 + Math.sin(phase * 2.8) * 14;
+        amplitude = 28 + Math.sin(phase * 2.8) * 12;
         lineColor = "#3b82f6";
-        glowColor = "rgba(59, 130, 246, 0.4)";
       } else if (state === "listening") {
         amplitude = 18 + Math.cos(phase * 2.2) * 8;
         lineColor = "#10b981";
-        glowColor = "rgba(16, 185, 129, 0.35)";
       } else if (state === "connecting") {
         amplitude = 12;
         lineColor = "#f59e0b";
-        glowColor = "rgba(245, 158, 11, 0.3)";
       }
 
-      // Smooth Horizontal Spectral Wave
-      ctx.shadowBlur = glowColor !== "transparent" ? 16 : 0;
-      ctx.shadowColor = glowColor;
+      // Precision Matte Spectral Wave (Zero Neon Shadow)
+      ctx.shadowBlur = 0;
       ctx.strokeStyle = lineColor;
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 2.0;
       ctx.beginPath();
 
       for (let x = 0; x < width; x++) {
@@ -161,11 +156,11 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
   return (
     <div className={`w-full max-w-2xl mx-auto ${className}`}>
-      {/* Hardware-Grade Optical Liquid Glass Console */}
-      <div className="relative rounded-3xl p-6 sm:p-8 liquid-glass-02 shadow-2xl space-y-6 text-left">
+      {/* Hardware-Grade Precision Matte Console */}
+      <div className="relative rounded-3xl p-6 sm:p-8 bg-[#0a0d16] border border-white/[0.06] shadow-xl space-y-6 text-left">
         {/* Status Header */}
         <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
-          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full liquid-glass-01">
+          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.06]">
             <span className={`w-2 h-2 rounded-full ${status.dot}`} />
             <span className="font-mono text-xs font-semibold tracking-wider text-zinc-300 uppercase">
               {status.text}
@@ -188,7 +183,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
           {!isActive && state !== "connecting" && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="font-sans text-xs text-zinc-400 liquid-glass-01 px-3.5 py-1.5 rounded-full border border-white/[0.08] backdrop-blur-md">
+              <span className="font-sans text-xs text-zinc-400 bg-black/80 px-3.5 py-1.5 rounded-full border border-white/[0.06]">
                 Click &apos;Start Conversation&apos; to speak live
               </span>
             </div>
@@ -258,7 +253,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
                   className={`px-4 py-2 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 ${
                     isMuted
                       ? "bg-amber-500 text-white"
-                      : "liquid-glass-01 hover:liquid-glass-02 text-zinc-300 hover:text-white"
+                      : "bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-zinc-300 hover:text-white"
                   }`}
                 >
                   {isMuted ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}

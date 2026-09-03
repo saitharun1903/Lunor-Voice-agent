@@ -25,9 +25,9 @@ export const SignalSpine = memo(function SignalSpine() {
         />
       </div>
 
-      {/* Floating Acoustic Signal Node */}
+      {/* Floating Acoustic Signal Node (Matte Precision Dot) */}
       <motion.div
-        className="absolute w-2 h-2 -left-[3.5px] rounded-full bg-blue-500 signal-spine-glow"
+        className="absolute w-1.5 h-1.5 -left-[2.5px] rounded-full bg-blue-500"
         style={{
           top: "0%",
           translateY: useSpring(

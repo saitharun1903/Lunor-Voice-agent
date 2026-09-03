@@ -90,7 +90,7 @@ export const Navbar = memo(function Navbar() {
           isCompressed ? "-translate-y-1.5 py-2" : "translate-y-0 py-3 sm:py-3.5"
         } ${
           isScrolled
-            ? "liquid-glass-02"
+            ? "bg-[#06080e]/92 dark:bg-[#06080e]/92 backdrop-blur-sm border-b border-white/[0.06] shadow-sm"
             : "bg-transparent border-b border-transparent"
         }`}
       >
@@ -142,13 +142,13 @@ export const Navbar = memo(function Navbar() {
             })}
           </nav>
 
-          {/* Right Action Stack with Liquid Glass Controls */}
+          {/* Right Action Stack with Matte Controls */}
           <div className="flex items-center gap-3">
-            {/* Minimal Liquid Glass Theme Toggle */}
+            {/* Minimal Matte Theme Toggle */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle visual theme"
-              className="w-8 h-8 rounded-lg liquid-glass-01 hover:liquid-glass-02 flex items-center justify-center text-zinc-300 hover:text-white transition-all shadow-xs"
+              className="w-8 h-8 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] flex items-center justify-center text-zinc-300 hover:text-white transition-all shadow-xs"
             >
               {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
@@ -161,11 +161,11 @@ export const Navbar = memo(function Navbar() {
               <span>Talk to VoiceOps</span>
             </button>
 
-            {/* Mobile Hamburger Button with Glass Material */}
+            {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open mobile menu"
-              className="md:hidden w-8 h-8 rounded-lg liquid-glass-01 hover:liquid-glass-02 flex items-center justify-center text-zinc-300 hover:text-white transition-colors"
+              className="md:hidden w-8 h-8 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] flex items-center justify-center text-zinc-300 hover:text-white transition-colors"
             >
               <Menu className="w-4 h-4" />
             </button>

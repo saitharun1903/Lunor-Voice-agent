@@ -78,9 +78,6 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
   return (
     <section id="contact" className="py-24 md:py-36 relative overflow-hidden chapter-midnight border-t border-white/[0.08]">
-      {/* Soft Midnight Atmosphere */}
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[700px] h-[400px] ambient-glow-midnight pointer-events-none -z-10 blur-3xl opacity-75" />
-
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Editorial Statement */}
@@ -109,7 +106,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
             <div className="pt-2">
               <button
                 onClick={scrollToDemo}
-                className="btn-glass-secondary text-zinc-300 hover:text-white"
+                className="btn-matte-secondary text-zinc-300 hover:text-white"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-blue-400" />
                 <span>Talk to VoiceOps Live Demo ↑</span>
@@ -119,7 +116,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
           {/* Right Column: Clean Editorial Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#0c101c] border border-white/[0.08] shadow-[var(--glass-highlight),0_20px_50px_rgba(0,0,0,0.5)] space-y-6">
+            <div className="p-8 sm:p-10 rounded-3xl bg-[#0c101c] border border-white/[0.07] shadow-xl space-y-6">
               {status === "success" ? (
                 <div className="py-12 text-center space-y-4">
                   <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">

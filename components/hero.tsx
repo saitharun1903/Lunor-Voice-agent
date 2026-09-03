@@ -236,11 +236,8 @@ export const Hero = memo(function Hero({
       ref={containerRef}
       className="relative min-h-[100svh] w-full chapter-midnight flex flex-col justify-between pt-28 pb-10 sm:pb-12 px-5 sm:px-8 md:px-12 overflow-hidden select-none"
     >
-      {/* 1. Atmospheric Deep Charcoal & Sapphire Light Fields */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[500px] ambient-glow-midnight pointer-events-none -z-10 blur-3xl opacity-60" />
-
-      {/* 2. Low-Contrast Fine Environmental Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:28px_28px] opacity-20 pointer-events-none -z-10" />
+      {/* 1. Low-Contrast Fine Environmental Texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:28px_28px] opacity-20 pointer-events-none -z-10" />
 
       {/* 3. Central Ambient Interactive VoiceOps Signal Visual */}
       <div
@@ -323,7 +320,7 @@ export const Hero = memo(function Hero({
 
           <button
             onClick={scrollToContact}
-            className="btn-glass-secondary text-zinc-300 hover:text-white"
+            className="btn-matte-secondary text-zinc-300 hover:text-white"
           >
             <span>Build My Voice Agent</span>
             <ArrowUpRight className="w-3 h-3 text-zinc-400" />

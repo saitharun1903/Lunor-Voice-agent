@@ -64,9 +64,6 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
 
   return (
     <section id="industries" className="py-28 md:py-40 relative overflow-hidden chapter-midnight border-t border-white/[0.08]">
-      {/* Background Soft Glow */}
-      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[600px] h-[350px] ambient-glow-sapphire pointer-events-none -z-10 blur-3xl opacity-60" />
-
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
         <motion.div

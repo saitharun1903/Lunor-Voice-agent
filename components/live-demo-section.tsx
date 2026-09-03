@@ -15,9 +15,6 @@ export const LiveDemoSection = memo(function LiveDemoSection({
 }: LiveDemoSectionProps) {
   return (
     <section id="demo" className="py-24 md:py-36 relative overflow-hidden chapter-midnight border-t border-white/[0.08]">
-      {/* Subtle Atmospheric Light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] ambient-glow-midnight pointer-events-none -z-10 blur-3xl opacity-75" />
-
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Editorial Heading Block with Smooth Reveal */}
         <motion.div
