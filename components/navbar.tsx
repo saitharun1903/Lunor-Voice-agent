@@ -78,9 +78,9 @@ export const Navbar = memo(function Navbar() {
       const navRect = nav.getBoundingClientRect();
       const elRect = targetEl.getBoundingClientRect();
 
-      // Position the 22px circular liquid glass indicator near the lower-right portion of the active item
-      const x = elRect.left - navRect.left + elRect.width - 22;
-      const y = elRect.top - navRect.top + (elRect.height - 22) / 2 + 2;
+      // Position the 18px pale light-blue luminous circle near the lower-right portion of the active item
+      const x = elRect.left - navRect.left + elRect.width - 20;
+      const y = elRect.top - navRect.top + (elRect.height - 18) / 2 + 1;
 
       if (isInitial) {
         setIndicatorPos({ x, y, opacity: 1, scale: 1 });
@@ -273,7 +273,7 @@ export const Navbar = memo(function Navbar() {
             className="relative hidden md:flex items-center gap-1 lg:gap-1.5 text-[13px] font-medium"
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            {/* ONE Persistent Liquid Light Active Indicator (Moves with Transform) */}
+            {/* ONE Persistent Light-Blue Luminous Circle Active Indicator (Moves with Transform) */}
             {indicatorMounted && (
               <motion.div
                 aria-hidden="true"
@@ -294,18 +294,38 @@ export const Navbar = memo(function Navbar() {
                   prefersReducedMotion
                     ? { duration: 0.15 }
                     : {
-                        type: "spring",
-                        stiffness: 350,
-                        damping: 28,
-                        mass: 0.75,
+                        duration: 0.30,
+                        ease: [0.22, 1, 0.36, 1],
                       }
                 }
-                style={{ width: 22, height: 22 }}
+                style={{ width: 18, height: 18 }}
               >
-                {/* Soft Pale-Blue Liquid Glass Circle with Tactile Highlight */}
-                <div className="w-full h-full rounded-full bg-[#CFE3FF]/85 dark:bg-blue-500/25 border border-[#BFD9FF] dark:border-blue-400/40 shadow-[0_2px_8px_rgba(37,99,235,0.18),inset_0_1px_1.5px_rgba(255,255,255,0.95)] dark:shadow-[0_2px_10px_rgba(59,130,246,0.3),inset_0_1px_1px_rgba(255,255,255,0.3)] backdrop-blur-[2px] flex items-center justify-center transition-colors">
-                  {/* Micro Liquid Iris Center */}
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-600/80 dark:bg-blue-400/90 shadow-[0_0_3px_rgba(37,99,235,0.5)]" />
+                {/* Small Pale Light-Blue Luminous Sphere (No White Core, No Neon) */}
+                <div
+                  className="w-full h-full rounded-full flex items-center justify-center transition-colors"
+                  style={{
+                    background: isDark
+                      ? "radial-gradient(circle at 35% 35%, #CDE3FF 0%, #BBD8FF 45%, #9BC4FF 100%)"
+                      : "radial-gradient(circle at 35% 35%, #DCEBFF 0%, #C9E1FF 45%, #B4D5FF 100%)",
+                    border: isDark
+                      ? "1px solid rgba(147, 197, 253, 0.35)"
+                      : "1px solid rgba(100, 160, 255, 0.28)",
+                    boxShadow: isDark
+                      ? "0 0 0 2px rgba(96, 165, 250, 0.20), 0 0 10px rgba(96, 165, 250, 0.28), 0 1px 3px rgba(37, 99, 235, 0.20)"
+                      : "0 0 0 2px rgba(100, 160, 255, 0.16), 0 0 10px rgba(100, 170, 255, 0.24), 0 1px 3px rgba(37, 99, 235, 0.12)",
+                  }}
+                >
+                  {/* Subtle Atmospheric Blue Center Dot */}
+                  <div
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{
+                      background: isDark ? "#60A5FA" : "#3B82F6",
+                      opacity: isDark ? 0.75 : 0.65,
+                      boxShadow: isDark
+                        ? "0 0 3px rgba(96, 165, 250, 0.6)"
+                        : "0 0 3px rgba(59, 130, 246, 0.4)",
+                    }}
+                  />
                 </div>
               </motion.div>
             )}
@@ -499,7 +519,14 @@ export const Navbar = memo(function Navbar() {
                   >
                     <span>{link.label}</span>
                     {activeSection === link.id && (
-                      <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0 shadow-xs" />
+                      <span
+                        className="w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{
+                          background: isDark ? "#BBD8FF" : "#C9E1FF",
+                          border: "1px solid rgba(100, 160, 255, 0.35)",
+                          boxShadow: "0 0 6px rgba(100, 170, 255, 0.4)",
+                        }}
+                      />
                     )}
                   </button>
                 ))}
