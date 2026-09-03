@@ -32,19 +32,26 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
               VOICEOPS
             </Link>
             <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 font-normal leading-relaxed">
-              Voice automation for the first layer of business calls. Custom conversational systems engineered for real operational workflows.
+              {settings?.footerDescription ||
+                "Voice automation for the first layer of business calls. Custom conversational systems engineered for real operational workflows."}
             </p>
             <div className="pt-2 space-y-1 font-mono text-xs text-[#58534C] dark:text-zinc-400">
               <p>
                 Email:{" "}
-                <a href="mailto:conversations@voiceops.in" className="hover:text-zinc-950 dark:hover:text-white transition-colors underline">
-                  conversations@voiceops.in
+                <a
+                  href={`mailto:${settings?.email || "conversations@voiceops.in"}`}
+                  className="hover:text-zinc-950 dark:hover:text-white transition-colors underline"
+                >
+                  {settings?.email || "conversations@voiceops.in"}
                 </a>
               </p>
               <p>
                 Phone:{" "}
-                <a href="tel:+18885866240" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                  +1 (888) 586-6240
+                <a
+                  href={`tel:${settings?.phone?.replace(/[^0-9+]/g, "") || "+18885866240"}`}
+                  className="hover:text-zinc-950 dark:hover:text-white transition-colors"
+                >
+                  {settings?.phone || "+1 (888) 586-6240"}
                 </a>
               </p>
             </div>
@@ -159,19 +166,6 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
                     className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
                   >
                     Contact VoiceOps
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-3">
-              <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold">
-                ADMIN
-              </span>
-              <ul className="space-y-1 font-sans text-zinc-600 dark:text-zinc-400">
-                <li>
-                  <Link href="/admin/login" className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
-                    Admin Portal
                   </Link>
                 </li>
               </ul>

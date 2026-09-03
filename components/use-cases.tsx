@@ -3,10 +3,11 @@
 import React, { memo, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { FlipCard } from "./ui/flip-card";
-import { UseCase } from "@/lib/types";
+import { CapabilityItem, UseCase } from "@/lib/types";
 
 interface UseCasesProps {
   useCases?: UseCase[];
+  capabilities?: CapabilityItem[];
 }
 
 const CAPABILITY_CARDS = [
@@ -66,8 +67,28 @@ const CAPABILITY_CARDS = [
   },
 ];
 
-export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCasesProps) {
+export const UseCasesSection = memo(function UseCasesSection({
+  useCases,
+  capabilities,
+}: UseCasesProps) {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+
+  const itemsToRender =
+    capabilities && capabilities.length > 0
+      ? capabilities.map((c, idx) => ({
+          index: c.index || String(idx + 1).padStart(2, "0"),
+          title: c.title,
+          subtitle: c.subtitle,
+          explanation: c.explanation,
+          workflow:
+            c.workflow && c.workflow.length > 0
+              ? c.workflow
+              : ["Ask", "Understand", "Answer", "Resolve"],
+          outcome: c.outcome,
+          tiltClass:
+            c.tiltClass || (idx % 2 === 0 ? "lg:rotate-[-0.5deg]" : "lg:rotate-[0.5deg]"),
+        }))
+      : CAPABILITY_CARDS;
 
   const handleCardToggle = useCallback((id: string) => {
     setActiveCardId((current) => (current === id ? null : id));
@@ -101,7 +122,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
 
         {/* 3D Flip Card Collection (3 Columns Desktop, 1 Column Mobile) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {CAPABILITY_CARDS.map((card, idx) => (
+          {itemsToRender.map((card, idx) => (
             <motion.div
               key={card.index}
               initial={{ opacity: 0, y: 20 }}

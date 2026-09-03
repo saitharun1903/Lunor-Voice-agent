@@ -86,7 +86,7 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
       <SignalSpine />
 
       {/* Dynamic Scroll-Reactive Navigation */}
-      <Navbar />
+      <Navbar navigation={initialData?.navigation} />
 
       {/* Main Experience Flow: 13-Chapter Seamless Continuous Architecture */}
       <main className="relative">
@@ -114,13 +114,13 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
         <SystemDiagram />
 
         {/* Chapter 05: Capabilities Matrix (01-06 3D Flip Card System) */}
-        <UseCasesSection useCases={useCases} />
+        <UseCasesSection useCases={useCases} capabilities={initialData?.capabilities} />
 
         {/* Chapter 06: Workflow (Calls Should End in Actions: 4-Stage Execution Pipeline) */}
         <WorkflowSection />
 
         {/* Chapter 07: Industry World (Voice Automation for the Way Your Business Works) */}
-        <IndustriesSection industries={industries} />
+        <IndustriesSection industries={industries} industryStories={initialData?.industryStories} />
 
         {/* Chapter 08: Integrations & Connectivity (Phone, Calendar, CRM, Business Systems) */}
         <IntegrationsSection />
@@ -129,10 +129,10 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
         <PortfolioSection projects={projects} stats={stats} />
 
         {/* Chapter 10: Process (01 Understand → 02 Design → 03 Build → 04 Launch) */}
-        <HowItWorksSection />
+        <HowItWorksSection processSteps={initialData?.processSteps} />
 
         {/* Chapter 11: FAQ (Reference-Style 2-Column Editorial Questions) */}
-        <FaqSection />
+        <FaqSection faqs={initialData?.faqs} />
 
         {/* Chapter 12: Contact (Cinematic Closing: Let's Automate Your First Layer) */}
         <ContactSection settings={settings} />

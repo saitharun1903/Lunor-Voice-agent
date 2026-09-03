@@ -31,6 +31,7 @@ interface ClickRipple {
 
 export const Hero = memo(function Hero({
   eyebrow = "VOICE AUTOMATION FOR BUSINESS",
+  headline = "Automate the first layer of every call.",
   subheadline = "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, and follow-ups.",
   onTalkToLuno,
   onTalkToVoiceOps,
@@ -446,11 +447,25 @@ export const Hero = memo(function Hero({
             transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="font-sans text-4xl sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] font-bold leading-[1.08] text-zinc-950 dark:text-white tracking-tight max-w-2xl"
           >
-            Automate the first layer
-            <br />
-            <span className="text-[#6E685E] dark:text-zinc-400 font-normal">
-              of every call.
-            </span>
+            {headline.includes("\n") ? (
+              <>
+                {headline.split("\n")[0]}
+                <br />
+                <span className="text-[#6E685E] dark:text-zinc-400 font-normal">
+                  {headline.split("\n").slice(1).join(" ")}
+                </span>
+              </>
+            ) : headline.toLowerCase().includes("of every call") ? (
+              <>
+                {headline.substring(0, headline.toLowerCase().indexOf("of every call")).trim()}
+                <br />
+                <span className="text-[#6E685E] dark:text-zinc-400 font-normal">
+                  {headline.substring(headline.toLowerCase().indexOf("of every call"))}
+                </span>
+              </>
+            ) : (
+              headline
+            )}
           </motion.h1>
 
           {/* Supporting Statement (500-750ms entrance, stable permanent position) */}

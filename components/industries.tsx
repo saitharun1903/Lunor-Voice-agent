@@ -3,10 +3,11 @@
 import React, { useState, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { IndustryItem } from "@/lib/types";
+import { IndustryItem, IndustryStory } from "@/lib/types";
 
 interface IndustriesProps {
   industries?: IndustryItem[];
+  industryStories?: IndustryStory[];
 }
 
 const INDUSTRY_STORIES = [
@@ -52,11 +53,16 @@ const INDUSTRY_STORIES = [
   },
 ];
 
-export const IndustriesSection = memo(function IndustriesSection({ industries }: IndustriesProps) {
-  const [activeId, setActiveId] = useState<string>("real-estate");
+export const IndustriesSection = memo(function IndustriesSection({
+  industries,
+  industryStories,
+}: IndustriesProps) {
+  const stories =
+    industryStories && industryStories.length > 0 ? industryStories : INDUSTRY_STORIES;
+  const [activeId, setActiveId] = useState<string>(stories[0]?.id || "real-estate");
 
   const current =
-    INDUSTRY_STORIES.find((s) => s.id === activeId) || INDUSTRY_STORIES[0];
+    stories.find((s) => s.id === activeId) || stories[0];
 
   const scrollToContact = useCallback(() => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -88,7 +94,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
 
         {/* Horizontal Editorial Selector with Gliding Active Signal */}
         <div className="flex items-center gap-2 pb-3 overflow-x-auto border-b border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] mb-10 no-scrollbar">
-          {INDUSTRY_STORIES.map((ind) => {
+          {stories.map((ind) => {
             const isSelected = activeId === ind.id;
             return (
               <button

@@ -2,30 +2,46 @@
 
 import React, { memo } from "react";
 import { motion } from "framer-motion";
+import { ProcessStep } from "@/lib/types";
 
-export const HowItWorksSection = memo(function HowItWorksSection() {
-  const stages = [
-    {
-      step: "01",
-      title: "Understand",
-      description: "We audit your inbound call recordings, common questions, and exception cases to map your team's exact conversational decision tree.",
-    },
-    {
-      step: "02",
-      title: "Design",
-      description: "We craft tailored conversational pathways, human-like cadences, and business boundaries in our dedicated testing environment.",
-    },
-    {
-      step: "03",
-      title: "Build & Integrate",
-      description: "We connect VoiceOps directly to your calendar software, CRM, and carrier numbers for real-time reads and writes.",
-    },
-    {
-      step: "04",
-      title: "Launch & Supervise",
-      description: "We deploy the first layer to live phone lines, audit early transcripts, and continuously calibrate response accuracy.",
-    },
-  ];
+interface HowItWorksProps {
+  processSteps?: ProcessStep[];
+}
+
+const DEFAULT_STAGES = [
+  {
+    step: "01",
+    title: "Understand",
+    description: "We audit your inbound call recordings, common questions, and exception cases to map your team's exact conversational decision tree.",
+  },
+  {
+    step: "02",
+    title: "Design",
+    description: "We craft tailored conversational pathways, human-like cadences, and business boundaries in our dedicated testing environment.",
+  },
+  {
+    step: "03",
+    title: "Build & Integrate",
+    description: "We connect VoiceOps directly to your calendar software, CRM, and carrier numbers for real-time reads and writes.",
+  },
+  {
+    step: "04",
+    title: "Launch & Supervise",
+    description: "We deploy the first layer to live phone lines, audit early transcripts, and continuously calibrate response accuracy.",
+  },
+];
+
+export const HowItWorksSection = memo(function HowItWorksSection({
+  processSteps,
+}: HowItWorksProps) {
+  const stages =
+    processSteps && processSteps.length > 0
+      ? processSteps.map((s, idx) => ({
+          step: s.step || String(idx + 1).padStart(2, "0"),
+          title: s.title,
+          description: s.description,
+        }))
+      : DEFAULT_STAGES;
 
   return (
     <section id="process" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">

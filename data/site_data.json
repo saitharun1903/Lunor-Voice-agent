@@ -9,12 +9,29 @@
     "heroEyebrow": "VOICE AUTOMATION FOR BUSINESS",
     "heroHeadline": "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
     "heroSubheadline": "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+    "heroPrimaryCtaText": "Talk to VoiceOps",
+    "heroSecondaryCtaText": "Explore Architecture",
     "googleSheetsWebhookUrl": "https://script.google.com/macros/s/AKfycbxEsFQSv-3Rqm295uKDrKRo81wiO2dGyt-fy11ctVBy5r0JXJDem3fooqhND79yj4lfKw/exec",
     "voiceDemoEnabled": true,
     "voiceDemoTitle": "Talk to VoiceOps",
     "voiceDemoDescription": "Experience how an AI voice system can handle the first layer of a real business conversation.",
     "voiceDemoAgentId": "246585",
-    "adminPasswordHash": "admin123"
+    "adminPasswordHash": "admin123",
+    "seoTitle": "VOICEOPS — AI Voice Automation for Business Calls",
+    "seoDescription": "VOICEOPS builds AI voice agents that automate the first layer of business calls — enquiries, bookings, qualification, support and follow-ups.",
+    "ogTitle": "VOICEOPS — AI Voice Automation for Business Calls",
+    "ogDescription": "Voice automation systems engineered for real business operations. Sub-second cadence, calendar sync, and CRM integration.",
+    "ogImage": "https://www.voiceops.in/og-image.png",
+    "footerDescription": "Voice automation for the first layer of business calls. Custom conversational systems engineered for real operational workflows.",
+    "copyrightYear": "2026"
+  },
+  "navigation": {
+    "demoLabel": "Live Demo",
+    "capabilitiesLabel": "Capabilities",
+    "industriesLabel": "Industries",
+    "workLabel": "Work",
+    "processLabel": "Process",
+    "ctaLabel": "Talk to VoiceOps"
   },
   "stats": {
     "companiesBuilt": 12,
@@ -171,6 +188,259 @@
       "active": true
     }
   ],
+  "capabilities": [
+    {
+      "id": "cap-01",
+      "index": "01",
+      "title": "ENQUIRIES",
+      "subtitle": "Answer repetitive customer questions.",
+      "explanation": "Answers incoming customer questions about hours, services, pricing and locations using verified business data.",
+      "workflow": [
+        "Ask",
+        "Understand",
+        "Answer",
+        "Resolve"
+      ],
+      "outcome": "Verified business response",
+      "tiltClass": "lg:rotate-[-0.5deg]",
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "cap-02",
+      "index": "02",
+      "title": "BOOKINGS",
+      "subtitle": "Handle reservations and appointments.",
+      "explanation": "Handles booking requests and checks availability before confirming a slot.",
+      "workflow": [
+        "Request",
+        "Check",
+        "Book",
+        "Confirm"
+      ],
+      "outcome": "Booking completed",
+      "tiltClass": "lg:rotate-[0.5deg]",
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "cap-03",
+      "index": "03",
+      "title": "QUALIFICATION",
+      "subtitle": "Capture requirements and identify intent.",
+      "explanation": "Collects the important requirements needed to understand caller intent.",
+      "workflow": [
+        "Ask",
+        "Qualify",
+        "Score",
+        "Route"
+      ],
+      "outcome": "Qualified lead",
+      "tiltClass": "lg:rotate-[-0.5deg]",
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "cap-04",
+      "index": "04",
+      "title": "SALES",
+      "subtitle": "Support inbound sales conversations.",
+      "explanation": "Answers product questions, handles common objections and captures interest.",
+      "workflow": [
+        "Listen",
+        "Answer",
+        "Qualify",
+        "Route"
+      ],
+      "outcome": "Lead captured",
+      "tiltClass": "lg:rotate-[0.5deg]",
+      "status": "published",
+      "order": 4
+    },
+    {
+      "id": "cap-05",
+      "index": "05",
+      "title": "SUPPORT",
+      "subtitle": "Resolve common customer issues.",
+      "explanation": "Handles routine support questions and provides accurate status information.",
+      "workflow": [
+        "Identify",
+        "Resolve",
+        "Confirm",
+        "Close"
+      ],
+      "outcome": "Issue resolved",
+      "tiltClass": "lg:rotate-[-0.5deg]",
+      "status": "published",
+      "order": 5
+    },
+    {
+      "id": "cap-06",
+      "index": "06",
+      "title": "FOLLOW-UPS",
+      "subtitle": "Handle structured outbound follow-ups.",
+      "explanation": "Handles reminders, confirmations and structured follow-up conversations.",
+      "workflow": [
+        "Call",
+        "Confirm",
+        "Update",
+        "Complete"
+      ],
+      "outcome": "Follow-up completed",
+      "tiltClass": "lg:rotate-[0.5deg]",
+      "status": "published",
+      "order": 6
+    }
+  ],
+  "industryStories": [
+    {
+      "id": "real-estate",
+      "name": "Real Estate",
+      "tagline": "Turn every property call into a qualified private showing.",
+      "summary": "Captures inbound buyer inquiries, scores budget and financing timeline, checks broker calendars, and locks showing appointments directly into CRM.",
+      "steps": [
+        "Property enquiry",
+        "Requirement",
+        "Qualification",
+        "Viewing",
+        "Follow-up"
+      ],
+      "metric": "100% weekend calls captured · 4x faster lead response",
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "restaurants",
+      "name": "Restaurants",
+      "tagline": "Capture dinner reservations during peak service hours.",
+      "summary": "Handles incoming table reservations, party sizes, high-chair needs, and dietary restrictions without pulling waitstaff away from dining guests.",
+      "steps": [
+        "Reservation",
+        "Availability",
+        "Booking",
+        "Confirmation"
+      ],
+      "metric": "Zero missed bookings during rush · 92% resolved autonomously",
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "healthcare",
+      "name": "Healthcare",
+      "tagline": "Coordinate patient appointments with complete discretion.",
+      "summary": "Coordinates patient visits across clinical practitioners, collects intake insurance details, and transfers urgent clinical emergencies instantly.",
+      "steps": [
+        "Appointment",
+        "Information",
+        "Scheduling",
+        "Confirmation"
+      ],
+      "metric": "78% routine call reduction · Zero double-booked slots",
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "hotels",
+      "name": "Hotels",
+      "tagline": "24/7 guest concierge, room inquiries, and late arrivals.",
+      "summary": "Provides real-time room availability, pet policies, amenities, and check-in guidance with seamless warm transfer to front desk staff.",
+      "steps": [
+        "Reservation",
+        "Availability",
+        "Booking",
+        "Guest follow-up"
+      ],
+      "metric": "Sub-90 second resolution · 24/7 continuous guest coverage",
+      "status": "published",
+      "order": 4
+    },
+    {
+      "id": "services",
+      "name": "Services",
+      "tagline": "Instant job intake, emergency dispatch, and estimate booking.",
+      "summary": "Captures site address, equipment models, and urgency levels to dispatch emergency technicians and schedule estimate visits on technician calendars.",
+      "steps": [
+        "Lead",
+        "Qualification",
+        "Scheduling",
+        "Follow-up"
+      ],
+      "metric": "Zero lost emergency calls · Instant technician sync",
+      "status": "published",
+      "order": 5
+    }
+  ],
+  "processSteps": [
+    {
+      "id": "process-01",
+      "step": "01",
+      "title": "Understand",
+      "description": "We audit your inbound call recordings, common questions, and exception cases to map your team's exact conversational decision tree.",
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "process-02",
+      "step": "02",
+      "title": "Design",
+      "description": "We craft tailored conversational pathways, human-like cadences, and business boundaries in our dedicated testing environment.",
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "process-03",
+      "step": "03",
+      "title": "Build & Integrate",
+      "description": "We connect VoiceOps directly to your calendar software, CRM, and carrier numbers for real-time reads and writes.",
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "process-04",
+      "step": "04",
+      "title": "Launch & Supervise",
+      "description": "We deploy the first layer to live phone lines, audit early transcripts, and continuously calibrate response accuracy.",
+      "status": "published",
+      "order": 4
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-01",
+      "q": "Do we need to change our existing business phone number?",
+      "a": "No. You keep your existing number with zero disruption. We set up simple conditional call forwarding or SIP trunking from your current carrier (Verizon, AT&T, Twilio, RingCentral, Vonage, Telnyx, etc.) so VoiceOps answers whenever your line rings.",
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "faq-02",
+      "q": "What happens when a caller needs a human specialist?",
+      "a": "VoiceOps handles escalation with complete poise. If a caller requests a team member, has an urgent concern, or presents an edge case, VoiceOps performs an instant warm transfer to your staff line, providing an audio or SMS summary so your team knows the context immediately.",
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "faq-03",
+      "q": "Can VoiceOps check real-time calendar availability and prevent double bookings?",
+      "a": "Yes. VoiceOps integrates directly with Google Calendar, Outlook 365, Calendly, Cal.com, OpenTable, or custom booking software. Before confirming any reservation or appointment, VoiceOps queries live availability in real time to lock the slot with zero conflict.",
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "faq-04",
+      "q": "How fast does VoiceOps respond during a live phone call?",
+      "a": "VoiceOps operates with sub-400ms conversational turn cadence. This delivers natural human-like cadence, dynamic turn-taking, intelligent interruption handling, and zero awkward pauses.",
+      "status": "published",
+      "order": 4
+    },
+    {
+      "id": "faq-05",
+      "q": "How long does a custom deployment take from audit to live calls?",
+      "a": "Most custom studio deployments go live within 7 to 10 business days. This covers auditing past call recordings, designing decision trees, integrating calendars & CRMs, and performing live validation testing before public launch.",
+      "status": "published",
+      "order": 5
+    }
+  ],
   "leads": [
     {
       "name": "sai",
@@ -264,6 +534,48 @@
       "notes": "Demo scheduled for Friday 2 PM.",
       "createdAt": "2026-08-30T01:51:54.287Z",
       "syncedToSheets": true
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "log-1788431572066-g8lm",
+      "timestamp": "2026-09-03T10:32:52.066Z",
+      "user": "Admin",
+      "action": "publish",
+      "entityType": "Capabilities",
+      "details": "Saved 6 capabilities (publish)"
+    },
+    {
+      "id": "log-1788431571980-5q3y",
+      "timestamp": "2026-09-03T10:32:51.980Z",
+      "user": "Admin",
+      "action": "publish",
+      "entityType": "Capabilities",
+      "details": "Saved 6 capabilities (publish)"
+    },
+    {
+      "id": "log-1788431528514-fjks",
+      "timestamp": "2026-09-03T10:32:08.514Z",
+      "user": "Admin",
+      "action": "publish",
+      "entityType": "Capabilities",
+      "details": "Saved 6 capabilities (publish)"
+    },
+    {
+      "id": "log-1788431528357-ahdb",
+      "timestamp": "2026-09-03T10:32:08.357Z",
+      "user": "Admin",
+      "action": "publish",
+      "entityType": "Capabilities",
+      "details": "Saved 6 capabilities (publish)"
+    },
+    {
+      "id": "log-init",
+      "timestamp": "2026-09-03T10:32:08.303Z",
+      "user": "System Admin",
+      "action": "publish",
+      "entityType": "System",
+      "details": "Initial production baseline loaded and verified."
     }
   ]
 }

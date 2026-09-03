@@ -42,7 +42,22 @@ function normalizeNavId(id: string | null | undefined): string {
   return clean;
 }
 
-export const Navbar = memo(function Navbar() {
+import { NavigationContent } from "@/lib/types";
+
+interface NavbarProps {
+  navigation?: NavigationContent;
+}
+
+export const Navbar = memo(function Navbar({ navigation }: NavbarProps) {
+  const primaryLinks: NavLink[] = [
+    { label: navigation?.demoLabel || "Live Demo", id: "demo" },
+    { label: navigation?.capabilitiesLabel || "Capabilities", id: "capabilities" },
+    { label: navigation?.industriesLabel || "Industries", id: "industries" },
+    { label: navigation?.workLabel || "Work", id: "work" },
+    { label: navigation?.processLabel || "Process", id: "process" },
+  ];
+  const ctaText = navigation?.ctaLabel || "Talk to VoiceOps";
+
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCompressed, setIsCompressed] = useState(false);
@@ -407,7 +422,7 @@ export const Navbar = memo(function Navbar() {
               />
             )}
 
-            {PRIMARY_LINKS.map((link, idx) => {
+            {primaryLinks.map((link, idx) => {
               const isActive = activeSection === link.id;
               const isHovered = hoveredIndex === idx;
               // On tablet (768-1023px), Process is accessible via More popover to prevent cramping
@@ -535,7 +550,7 @@ export const Navbar = memo(function Navbar() {
               className="group hidden sm:inline-flex items-center justify-center gap-1.5 min-h-[42px] px-3.5 sm:px-4 rounded-xl bg-[#141414] hover:bg-black text-white dark:bg-white dark:hover:bg-zinc-100 dark:text-[#141414] text-xs sm:text-[13px] font-semibold tracking-tight transition-all duration-150 shadow-xs hover:-translate-y-[1px] active:scale-[0.985] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation"
             >
               <PhoneCall className="w-3.5 h-3.5 text-blue-400 dark:text-blue-600 transition-transform group-hover:translate-x-0.5" />
-              <span>Talk to VoiceOps</span>
+              <span>{ctaText}</span>
             </button>
 
             {/* Mobile Hamburger Button */}
@@ -588,7 +603,7 @@ export const Navbar = memo(function Navbar() {
 
               {/* Navigation Items (Single List, Never Wraps) */}
               <div className="space-y-1 py-4 my-auto overflow-y-auto">
-                {[...PRIMARY_LINKS, ...SECONDARY_LINKS].map((link, idx) => {
+                {[...primaryLinks, ...SECONDARY_LINKS].map((link, idx) => {
                   const isActive = activeSection === link.id;
                   return (
                     <Link
@@ -617,7 +632,7 @@ export const Navbar = memo(function Navbar() {
                   className="w-full h-10 rounded-xl bg-[#141414] dark:bg-white text-white dark:text-[#141414] font-sans text-xs font-semibold tracking-tight shadow-sm flex items-center justify-center gap-1.5"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-blue-400 dark:text-blue-600" />
-                  <span>Talk to VoiceOps</span>
+                  <span>{ctaText}</span>
                 </button>
                 <div className="text-center">
                   <span className="text-[11px] font-mono text-[#888278] dark:text-zinc-500">

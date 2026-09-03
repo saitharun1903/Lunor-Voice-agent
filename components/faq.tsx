@@ -3,32 +3,42 @@
 import React, { useState, memo } from "react";
 import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaqItem } from "@/lib/types";
 
-export const FaqSection = memo(function FaqSection() {
+interface FaqProps {
+  faqs?: FaqItem[];
+}
+
+const DEFAULT_FAQS = [
+  {
+    q: "Do we need to change our existing business phone number?",
+    a: "No. You keep your existing number with zero disruption. We set up simple conditional call forwarding or SIP trunking from your current carrier (Verizon, AT&T, Twilio, RingCentral, Vonage, Telnyx, etc.) so VoiceOps answers whenever your line rings.",
+  },
+  {
+    q: "What happens when a caller needs a human specialist?",
+    a: "VoiceOps handles escalation with complete poise. If a caller requests a team member, has an urgent concern, or presents an edge case, VoiceOps performs an instant warm transfer to your staff line, providing an audio or SMS summary so your team knows the context immediately.",
+  },
+  {
+    q: "Can VoiceOps check real-time calendar availability and prevent double bookings?",
+    a: "Yes. VoiceOps integrates directly with Google Calendar, Outlook 365, Calendly, Cal.com, OpenTable, or custom booking software. Before confirming any reservation or appointment, VoiceOps queries live availability in real time to lock the slot with zero conflict.",
+  },
+  {
+    q: "How fast does VoiceOps respond during a live phone call?",
+    a: "VoiceOps operates with sub-400ms conversational turn cadence. This delivers natural human-like cadence, dynamic turn-taking, intelligent interruption handling, and zero awkward pauses.",
+  },
+  {
+    q: "How long does a custom deployment take from audit to live calls?",
+    a: "Most custom studio deployments go live within 7 to 10 business days. This covers auditing past call recordings, designing decision trees, integrating calendars & CRMs, and performing live validation testing before public launch.",
+  },
+];
+
+export const FaqSection = memo(function FaqSection({ faqs }: FaqProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const faqs = [
-    {
-      q: "Do we need to change our existing business phone number?",
-      a: "No. You keep your existing number with zero disruption. We set up simple conditional call forwarding or SIP trunking from your current carrier (Verizon, AT&T, Twilio, RingCentral, Vonage, Telnyx, etc.) so VoiceOps answers whenever your line rings.",
-    },
-    {
-      q: "What happens when a caller needs a human specialist?",
-      a: "VoiceOps handles escalation with complete poise. If a caller requests a team member, has an urgent concern, or presents an edge case, VoiceOps performs an instant warm transfer to your staff line, providing an audio or SMS summary so your team knows the context immediately.",
-    },
-    {
-      q: "Can VoiceOps check real-time calendar availability and prevent double bookings?",
-      a: "Yes. VoiceOps integrates directly with Google Calendar, Outlook 365, Calendly, Cal.com, OpenTable, or custom booking software. Before confirming any reservation or appointment, VoiceOps queries live availability in real time to lock the slot with zero conflict.",
-    },
-    {
-      q: "How fast does VoiceOps respond during a live phone call?",
-      a: "VoiceOps operates with sub-400ms conversational turn cadence. This delivers natural human-like cadence, dynamic turn-taking, intelligent interruption handling, and zero awkward pauses.",
-    },
-    {
-      q: "How long does a custom deployment take from audit to live calls?",
-      a: "Most custom studio deployments go live within 7 to 10 business days. This covers auditing past call recordings, designing decision trees, integrating calendars & CRMs, and performing live validation testing before public launch.",
-    },
-  ];
+  const items =
+    faqs && faqs.length > 0
+      ? faqs.map((f) => ({ q: f.q, a: f.a }))
+      : DEFAULT_FAQS;
 
   return (
     <section id="faq" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
@@ -58,7 +68,7 @@ export const FaqSection = memo(function FaqSection() {
 
           {/* Right Column: Question List with Thin Rules and Smooth Accordion */}
           <div className="lg:col-span-7 divide-y divide-[rgba(36,33,26,0.08)] dark:divide-white/[0.1] border-y border-[rgba(36,33,26,0.08)] dark:border-white/[0.1]">
-            {faqs.map((faq, index) => {
+            {items.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
                 <div key={index} className="py-6 text-left">
