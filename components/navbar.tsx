@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon, ChevronDown, PhoneCall } from "lucide-react";
 import { useTheme } from "./theme-provider";
+import { VoiceOpsSymbol } from "./ui/lunor-logo";
 
 interface NavLink {
   label: string;
@@ -258,19 +259,9 @@ export const Navbar = memo(function Navbar() {
           <Link
             href="/"
             aria-label="VoiceOps Homepage"
-            className="flex items-center gap-2.5 group outline-none shrink-0 transition-transform duration-150 hover:-translate-y-[1px]"
+            className="flex items-center gap-2 group outline-none shrink-0 transition-transform duration-150 hover:-translate-y-[1px]"
           >
-            <div className="w-5 h-5 flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 12V12.01M8 8V16M12 4V20M16 8V16M20 12V12.01"
-                  stroke="currentColor"
-                  strokeWidth="2.3"
-                  strokeLinecap="round"
-                  className="text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform"
-                />
-              </svg>
-            </div>
+            <VoiceOpsSymbol size={22} className="group-hover:scale-105 transition-transform" />
             <span className="font-sans font-bold text-[14px] sm:text-[15px] tracking-tight uppercase text-[#141414] dark:text-white transition-opacity group-hover:opacity-85 whitespace-nowrap">
               VOICEOPS
             </span>
@@ -487,16 +478,7 @@ export const Navbar = memo(function Navbar() {
               {/* Header */}
               <div className="flex items-center justify-between pb-5 border-b border-[rgba(28,25,20,0.07)] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M4 12V12.01M8 8V16M12 4V20M16 8V16M20 12V12.01"
-                        stroke="currentColor"
-                        strokeWidth="2.3"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </div>
+                  <VoiceOpsSymbol size={20} />
                   <span className="font-sans font-bold text-sm tracking-tight uppercase text-[#141414] dark:text-white">
                     VOICEOPS
                   </span>
