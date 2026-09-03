@@ -14,6 +14,9 @@ export const LiveDemoSection = memo(function LiveDemoSection({
 }: LiveDemoSectionProps) {
   return (
     <section id="demo" className="py-24 md:py-32 relative overflow-hidden border-y border-black/[0.05] dark:border-white/[0.05] bg-black/[0.015] dark:bg-white/[0.01]">
+      {/* Soft Cinematic Ambient Halo */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] ambient-glow-blue pointer-events-none -z-10 blur-3xl opacity-60" />
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Restrained Header */}
         <div className="max-w-3xl mb-12 md:mb-16 text-left">

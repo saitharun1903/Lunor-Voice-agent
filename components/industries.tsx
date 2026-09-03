@@ -118,7 +118,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
           </p>
         </div>
 
-        {/* Minimalist Tab Switcher */}
+        {/* Minimalist Tab Switcher with Fluid Spring Glider */}
         <div className="flex items-center gap-2 pb-3 overflow-x-auto border-b border-black/[0.06] dark:border-white/[0.08] mb-8">
           {INDUSTRY_SOLUTIONS.map((ind) => {
             const Icon = ind.icon;
@@ -127,14 +127,21 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
               <button
                 key={ind.id}
                 onClick={() => setActiveTab(ind.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-150 border ${
+                className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors duration-150 outline-none ${
                   isSelected
-                    ? "bg-zinc-950 text-white border-zinc-800 dark:bg-white dark:text-zinc-950 dark:border-zinc-200 shadow-sm"
-                    : "bg-transparent text-zinc-600 dark:text-zinc-400 border-transparent hover:bg-black/[0.03] dark:hover:bg-white/[0.05]"
+                    ? "text-white dark:text-zinc-950"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{ind.name}</span>
+                {isSelected && (
+                  <motion.div
+                    layoutId="activeIndustryPill"
+                    className="absolute inset-0 bg-zinc-950 dark:bg-white rounded-xl shadow-md -z-10"
+                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                  />
+                )}
+                <Icon className="w-3.5 h-3.5 relative z-10" />
+                <span className="relative z-10">{ind.name}</span>
               </button>
             );
           })}

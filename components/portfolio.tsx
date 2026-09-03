@@ -87,7 +87,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
           {activeProjects.map((project) => (
             <div
               key={project.id}
-              className="p-7 sm:p-9 md:p-10 rounded-3xl structured-card space-y-6 shadow-xl border border-black/[0.08] dark:border-white/[0.1] overflow-hidden"
+              className="p-7 sm:p-9 md:p-10 rounded-3xl interactive-card space-y-6 shadow-xl border border-black/[0.08] dark:border-white/[0.1] overflow-hidden"
             >
               {/* Header */}
               <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-5 space-y-2">

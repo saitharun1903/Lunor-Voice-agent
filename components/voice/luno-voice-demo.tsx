@@ -100,27 +100,32 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
       let amplitude = 8;
       let primaryColor = "#3b82f6";
-      let glowColor = "rgba(59, 130, 246, 0.25)";
+      let glowColor = "rgba(59, 130, 246, 0.3)";
 
       if (state === "speaking") {
-        amplitude = 26 + Math.sin(phase * 2.5) * 12;
+        amplitude = 28 + Math.sin(phase * 2.5) * 14;
         primaryColor = "#2563eb";
-        glowColor = "rgba(37, 99, 235, 0.45)";
+        glowColor = "rgba(37, 99, 235, 0.55)";
       } else if (state === "listening") {
-        amplitude = 16 + Math.cos(phase * 1.8) * 8;
+        amplitude = 18 + Math.cos(phase * 1.8) * 10;
         primaryColor = "#10b981";
-        glowColor = "rgba(16, 185, 129, 0.35)";
+        glowColor = "rgba(16, 185, 129, 0.45)";
       } else if (state === "connecting") {
-        amplitude = 12;
+        amplitude = 14;
         primaryColor = "#f59e0b";
-        glowColor = "rgba(245, 158, 11, 0.3)";
+        glowColor = "rgba(245, 158, 11, 0.35)";
       }
 
-      // 1. Primary Wave
-      ctx.shadowBlur = 10;
+      // 1. Primary Wave with Glowing Gradient
+      const grad = ctx.createLinearGradient(0, 0, width, 0);
+      grad.addColorStop(0, "rgba(59, 130, 246, 0.2)");
+      grad.addColorStop(0.5, primaryColor);
+      grad.addColorStop(1, "rgba(59, 130, 246, 0.2)");
+
+      ctx.shadowBlur = 14;
       ctx.shadowColor = glowColor;
-      ctx.strokeStyle = primaryColor;
-      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 3;
       ctx.beginPath();
 
       for (let x = 0; x < width; x++) {
@@ -132,16 +137,16 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       }
       ctx.stroke();
 
-      // 2. Harmonic Echo Wave
-      ctx.shadowBlur = 4;
-      ctx.strokeStyle = state === "speaking" ? "#60a5fa" : "rgba(148, 163, 184, 0.25)";
-      ctx.lineWidth = 1.2;
+      // 2. Harmonic Echo Wave with Refraction
+      ctx.shadowBlur = 6;
+      ctx.strokeStyle = state === "speaking" ? "#60a5fa" : "rgba(148, 163, 184, 0.3)";
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
 
       for (let x = 0; x < width; x++) {
         const norm = (x / width) * Math.PI * 6;
         const envelope = Math.sin((x / width) * Math.PI);
-        const y = midY + Math.cos(norm - phase * 1.3) * (amplitude * 0.45) * envelope;
+        const y = midY + Math.cos(norm - phase * 1.3) * (amplitude * 0.5) * envelope;
         if (x === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
