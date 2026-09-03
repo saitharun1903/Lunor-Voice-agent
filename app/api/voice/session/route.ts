@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     if (!apiKey) {
       console.error("[Voice Session] Missing server-side OMNIDIM_API_KEY");
       return NextResponse.json(
-        { error: "Luno's live demo is temporarily unavailable." },
+        { error: "VoiceOps live demo is temporarily unavailable." },
         { status: 503 }
       );
     }
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     if (!numericAgentId || isNaN(numericAgentId)) {
       console.error("[Voice Session] Invalid configured agent ID:", configuredAgentId);
       return NextResponse.json(
-        { error: "Voice agent configuration error. Please contact Luno support." },
+        { error: "Voice agent configuration error. Please contact VoiceOps support." },
         { status: 500 }
       );
     }
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("[Voice Session] Unexpected error creating session:", error?.message || error);
     return NextResponse.json(
-      { error: "Luno's live demo is temporarily unavailable." },
+      { error: "VoiceOps live demo is temporarily unavailable." },
       { status: 500 }
     );
   }

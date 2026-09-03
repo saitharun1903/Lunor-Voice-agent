@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: "Message received. Luno will be in touch.",
+        message: "Message received. VoiceOps will be in touch.",
         leadId: newLead.id,
         syncedToSheets: synced,
       },
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("Error processing contact form submission:", error);
     return NextResponse.json(
-      { error: "Something went wrong. Please try again or contact Luno directly." },
+      { error: "Something went wrong. Please try again or contact VoiceOps directly." },
       { status: 500 }
     );
   }

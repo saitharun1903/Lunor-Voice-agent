@@ -35,7 +35,7 @@ export const LunorSymbol = memo(function LunorSymbol({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={`shrink-0 select-none ${className}`}
-      aria-label="Lunor Brand Mark"
+      aria-label="VoiceOps Brand Mark"
     >
       <defs>
         {/* Primary Sapphire Stream Gradient */}
@@ -86,7 +86,7 @@ export const LunorSymbol = memo(function LunorSymbol({
             fill="url(#lunor-grad-secondary)"
           />
 
-          {/* Core Flowing Continuous 'L' Ribbon */}
+          {/* Core Flowing Continuous Ribbon */}
           <path
             d="M 11 8 C 11 5.791 12.791 4 15 4 L 19 4 C 21.209 4 23 5.791 23 8 L 23 26 C 23 28.761 25.239 31 28 31 L 37 31 C 39.209 31 41 32.791 41 35 L 41 39 C 41 41.209 39.209 43 37 43 L 23 43 C 16.373 43 11 37.627 11 31 Z"
             fill="url(#lunor-grad-primary)"
@@ -107,7 +107,7 @@ export const LunorSymbol = memo(function LunorSymbol({
 });
 
 /**
- * Complete LUNOR Logo Component with Precision Wordmark
+ * Complete VOICEOPS Logo Component with Precision Wordmark
  */
 export const LunorLogo = memo(function LunorLogo({
   size = 32,
@@ -119,7 +119,7 @@ export const LunorLogo = memo(function LunorLogo({
   className?: string;
 }) {
   return (
-    <div className={`inline-flex items-center gap-2.5 group cursor-pointer ${className}`}>
+    <div className={`inline-flex items-center gap-2 group cursor-pointer ${className}`}>
       {/* Precision Brand Symbol */}
       <div className="relative flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
         <LunorSymbol size={size} />
@@ -127,10 +127,13 @@ export const LunorLogo = memo(function LunorLogo({
 
       {/* Modern Refined Wordmark */}
       {showWordmark && (
-        <span className="font-extrabold text-lg sm:text-xl tracking-[-0.035em] text-zinc-950 dark:text-white font-sans transition-colors">
-          LUNOR
+        <span className="font-extrabold text-base sm:text-lg tracking-[-0.03em] text-zinc-950 dark:text-white font-sans transition-colors">
+          VOICEOPS
         </span>
       )}
     </div>
   );
 });
+
+export const VoiceOpsLogo = LunorLogo;
+export const VoiceOpsSymbol = LunorSymbol;

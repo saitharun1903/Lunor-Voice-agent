@@ -48,7 +48,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
           <p className="type-eyebrow text-zinc-400 mb-3">Architecture</p>
 
           <h2 className="type-h1 text-zinc-950 dark:text-white mb-3">
-            How Lunor turns calls into completed actions.
+            How VoiceOps turns calls into completed actions.
           </h2>
 
           <p className="type-body text-zinc-600 dark:text-zinc-400">

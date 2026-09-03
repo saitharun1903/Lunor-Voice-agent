@@ -41,6 +41,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // On page load or refresh, strictly reset to light theme
     try {
+      localStorage.removeItem("voiceops-theme");
       localStorage.removeItem("lunor-theme");
       localStorage.removeItem("luno-theme");
     } catch (e) {

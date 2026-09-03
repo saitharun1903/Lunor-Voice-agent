@@ -320,7 +320,7 @@ export default function AdminDashboardPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `luno-leads-${new Date().toISOString().split("T")[0]}.csv`;
+    link.download = `voiceops-leads-${new Date().toISOString().split("T")[0]}.csv`;
     link.click();
   };
 
@@ -378,11 +378,11 @@ export default function AdminDashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-extrabold text-sm shadow-md shadow-blue-500/20">
-              L
+              V
             </div>
             <div>
               <span className="font-extrabold text-base tracking-tight text-zinc-950 dark:text-white">
-                LUNOR ADMIN
+                VOICEOPS ADMIN
               </span>
               <span className="ml-2 text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">
                 Production Studio
@@ -1144,7 +1144,7 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="text"
-                    value={data.settings.voiceDemoTitle || "Talk to Lunor"}
+                    value={data.settings.voiceDemoTitle || "Talk to VoiceOps"}
                     onChange={(e) =>
                       setData({
                         ...data,
@@ -1215,7 +1215,7 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="email"
-                    value={data.settings.email || "conversations@lunor.co.in"}
+                    value={data.settings.email || "conversations@voiceops.in"}
                     onChange={(e) =>
                       setData({
                         ...data,
@@ -1452,7 +1452,7 @@ export default function AdminDashboardPage() {
 
                 <div>
                   <label className="font-semibold text-zinc-700 dark:text-zinc-300">
-                    What Lunor Automated
+                    What VoiceOps Automated
                   </label>
                   <textarea
                     rows={2}

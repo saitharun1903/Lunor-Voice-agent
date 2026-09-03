@@ -115,7 +115,7 @@ export const Navbar = memo(function Navbar() {
             href="/"
             onClick={scrollToTop}
             className="relative z-10 flex items-center shrink-0 group"
-            aria-label="Lunor Home"
+            aria-label="VoiceOps Home"
           >
             <LunorLogo size={18} showWordmark={true} />
           </a>
@@ -187,7 +187,7 @@ export const Navbar = memo(function Navbar() {
                 active:scale-[0.98]
               "
             >
-              Talk to Lunor
+              Talk to VoiceOps
             </button>
 
             {/* Mobile hamburger */}
@@ -243,7 +243,7 @@ export const Navbar = memo(function Navbar() {
                   onClick={() => scrollToSection("contact")}
                   className="w-full py-2.5 rounded-xl text-[13px] font-semibold text-white bg-zinc-950 hover:bg-blue-600 dark:bg-white dark:text-zinc-950 dark:hover:bg-blue-500 dark:hover:text-white transition-colors shadow-sm"
                 >
-                  Talk to Lunor
+                  Talk to VoiceOps
                 </button>
               </div>
             </motion.div>

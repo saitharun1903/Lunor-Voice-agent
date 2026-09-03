@@ -68,7 +68,7 @@ export class VoiceAgentService {
     try {
       this.setState("connecting");
 
-      // 1. Request short-lived session token from Luno backend
+      // 1. Request short-lived session token from VoiceOps backend
       const res = await fetch("/api/voice/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -76,7 +76,7 @@ export class VoiceAgentService {
 
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.error || "Luno's live demo is temporarily unavailable.");
+        throw new Error(errorData.error || "VoiceOps live demo is temporarily unavailable.");
       }
 
       const { ws_url } = await res.json();
@@ -98,7 +98,7 @@ export class VoiceAgentService {
           this.setState(this.isMuted ? "muted" : "listening");
         } else if (typeof status === "object" && status.state === "ended") {
           if (status.reason === "insufficient_balance") {
-            this.emitError("The demo session has reached its capacity. Please contact Luno.");
+            this.emitError("The demo session has reached its capacity. Please contact VoiceOps.");
           } else if (status.reason === "connection_lost") {
             this.emitError("Connection interrupted. Please check your network and try again.");
           } else {
@@ -117,7 +117,7 @@ export class VoiceAgentService {
       session.on("error", (err: Error) => {
         const errMsg = err?.message || "";
         if (errMsg.includes("Permission denied") || errMsg.includes("NotAllowedError") || errMsg.includes("permission")) {
-          this.emitError("Microphone access is required to talk to Luno.");
+          this.emitError("Microphone access is required to talk to VoiceOps.");
         } else {
           this.emitError("We couldn't start the conversation. Please try again.");
         }
@@ -129,7 +129,7 @@ export class VoiceAgentService {
       console.error("[VoiceAgentService] Start error:", err);
       const msg = err?.message || "";
       if (msg.includes("Permission denied") || msg.includes("NotAllowedError")) {
-        this.emitError("Microphone access is required to talk to Luno.");
+        this.emitError("Microphone access is required to talk to VoiceOps.");
       } else {
         this.emitError(err.message || "We couldn't start the conversation. Please try again.");
       }

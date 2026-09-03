@@ -115,7 +115,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects, stats
 
                 <div className="space-y-2.5 p-5 sm:p-6 rounded-2xl bg-blue-600/[0.02] dark:bg-blue-600/[0.04] border border-blue-600/15">
                   <span className="type-eyebrow text-blue-600 dark:text-blue-400 block font-bold">
-                    What Lunor Built & Deployed
+                    What VoiceOps Built & Deployed
                   </span>
                   <p className="leading-relaxed type-body-sm text-zinc-800 dark:text-zinc-200">
                     {project.whatLunoAutomated}

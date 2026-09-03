@@ -19,14 +19,14 @@ const monoFont = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://voiceops.in"),
-  title: "Lunor — AI Voice Automation for Business",
+  title: "VOICEOPS — AI Voice Automation for Business",
   description:
-    "Lunor builds AI voice systems that automate the first layer of business phone conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+    "VoiceOps builds AI voice systems that automate the first layer of business phone conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
   keywords: [
-    "Lunor",
+    "VOICEOPS",
     "VoiceOps",
     "voiceops.in",
-    "Lunor AI",
+    "VoiceOps AI",
     "AI Voice Agent",
     "Voice Automation",
     "Business Phone Automation",
@@ -35,22 +35,22 @@ export const metadata: Metadata = {
     "Inbound Lead Qualification",
     "AI Reservation Booking",
   ],
-  authors: [{ name: "Lunor Technologies" }],
+  authors: [{ name: "VoiceOps Technologies" }],
   alternates: {
     canonical: "https://voiceops.in",
   },
   openGraph: {
-    title: "Lunor — AI Voice Automation for Business",
+    title: "VOICEOPS — AI Voice Automation for Business",
     description:
       "Automate the first layer of every business call. Custom voice systems designed for real workflows.",
     url: "https://voiceops.in",
-    siteName: "Lunor",
+    siteName: "VOICEOPS",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lunor — AI Voice Automation for Business",
+    title: "VOICEOPS — AI Voice Automation for Business",
     description:
       "Automate the first layer of every business call. Custom voice systems designed for real workflows.",
   },

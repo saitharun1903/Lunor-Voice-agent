@@ -21,7 +21,7 @@ export function TrustSection() {
     {
       title: "Warm Human Escalation",
       description:
-        "When a caller needs a human specialist, Lunor summarizes the context and executes an instant warm phone transfer.",
+        "When a caller needs a human specialist, VoiceOps summarizes the context and executes an instant warm phone transfer.",
       icon: PhoneForwarded,
     },
     {

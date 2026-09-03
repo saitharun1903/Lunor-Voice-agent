@@ -9,24 +9,27 @@ interface HeroProps {
   headline?: string;
   subheadline?: string;
   onTalkToLuno?: () => void;
+  onTalkToVoiceOps?: () => void;
 }
 
 export const Hero = memo(function Hero({
   eyebrow = "Voice Automation for Business",
-  subheadline = "Lunor builds custom AI voice systems that handle repetitive conversations — answering customer enquiries, qualifying leads, and booking appointments directly into your calendar with zero hold times.",
+  subheadline = "VoiceOps builds custom AI voice systems that handle repetitive conversations — answering customer enquiries, qualifying leads, and booking appointments directly into your calendar with zero hold times.",
   onTalkToLuno,
+  onTalkToVoiceOps,
 }: HeroProps) {
   const scrollToContact = useCallback(() => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const handleTalkToLunor = useCallback(() => {
-    if (onTalkToLuno) {
-      onTalkToLuno();
+  const handleTalkToVoiceOps = useCallback(() => {
+    const trigger = onTalkToVoiceOps || onTalkToLuno;
+    if (trigger) {
+      trigger();
     } else {
       document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [onTalkToLuno]);
+  }, [onTalkToLuno, onTalkToVoiceOps]);
 
   return (
     <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
@@ -85,11 +88,11 @@ export const Hero = memo(function Hero({
               </button>
 
               <button
-                onClick={handleTalkToLunor}
+                onClick={handleTalkToVoiceOps}
                 className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl type-btn btn-outline-secondary"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                <span>Talk to Lunor Live ↓</span>
+                <span>Talk to VoiceOps Live ↓</span>
               </button>
             </motion.div>
 
@@ -128,7 +131,7 @@ export const Hero = memo(function Hero({
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="type-eyebrow text-zinc-800 dark:text-zinc-200 font-bold">
-                    How Lunor Operates
+                    How VoiceOps Operates
                   </span>
                 </div>
                 <span className="type-label-tech text-zinc-400">
@@ -148,10 +151,10 @@ export const Hero = memo(function Hero({
                   </p>
                 </div>
 
-                {/* 2. Lunor Voice System */}
+                {/* 2. VoiceOps Voice System */}
                 <div className="p-3.5 rounded-xl bg-blue-600/[0.03] dark:bg-blue-600/[0.06] border border-blue-600/20 space-y-1">
                   <span className="type-eyebrow text-blue-600 dark:text-blue-400 block text-[10px]">
-                    02. Lunor Understands & Responds
+                    02. VoiceOps Understands & Responds
                   </span>
                   <p className="type-body-sm text-zinc-950 dark:text-white font-medium leading-snug">
                     “Tomorrow at 3:00 PM is open. I&apos;ve reserved that slot for you and sent an SMS confirmation.”
@@ -177,7 +180,7 @@ export const Hero = memo(function Hero({
               {/* Call to Action Bar */}
               <div className="pt-2">
                 <button
-                  onClick={handleTalkToLunor}
+                  onClick={handleTalkToVoiceOps}
                   className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold btn-solid-primary shadow-sm"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-blue-400" />

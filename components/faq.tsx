@@ -10,23 +10,23 @@ export function FaqSection() {
   const faqs = [
     {
       q: "Do we need to change our existing business phone number?",
-      a: "No. You keep your existing numbers with zero disruption. We simply set up conditional call forwarding, SIP trunking, or simultaneous ringing from your existing carrier (Twilio, RingCentral, Vonage, Telnyx, Verizon, AT&T, FreePBX, etc.) into your Lunor voice agent.",
+      a: "No. You keep your existing numbers with zero disruption. We simply set up conditional call forwarding, SIP trunking, or simultaneous ringing from your existing carrier (Twilio, RingCentral, Vonage, Telnyx, Verizon, AT&T, FreePBX, etc.) into your VoiceOps voice agent.",
     },
     {
       q: "What happens when a caller asks something complex or requests a human specialist?",
-      a: "Lunor handles human escalation gracefully. If a caller requests a specialist, exhibits high urgency, or presents a complex edge case, Lunor performs an instant warm transfer (SIP REFER) to your designated staff line while automatically dispatching a real-time transcript summary to your phone or CRM.",
+      a: "VoiceOps handles human escalation gracefully. If a caller requests a specialist, exhibits high urgency, or presents a complex edge case, VoiceOps performs an instant warm transfer (SIP REFER) to your designated staff line while automatically dispatching a real-time transcript summary to your phone or CRM.",
     },
     {
-      q: "Can Lunor check real-time calendar availability and prevent double bookings?",
-      a: "Yes. Lunor integrates directly with your Google Calendar, Outlook 365, Calendly, OpenTable, JaneApp, or custom booking API. Before confirming any booking, Lunor queries live availability and holds the slot in real time with zero risk of double booking.",
+      q: "Can VoiceOps check real-time calendar availability and prevent double bookings?",
+      a: "Yes. VoiceOps integrates directly with your Google Calendar, Outlook 365, Calendly, OpenTable, JaneApp, or custom booking API. Before confirming any booking, VoiceOps queries live availability and holds the slot in real time with zero risk of double booking.",
     },
     {
-      q: "How fast is Lunor's voice response cadence during a live conversation?",
-      a: "Lunor operates with an ultra-low conversational latency of sub-400ms. This enables natural human-like cadence, dynamic turn-taking, intelligent interruption handling, and zero awkward pauses.",
+      q: "How fast is VoiceOps's voice response cadence during a live conversation?",
+      a: "VoiceOps operates with an ultra-low conversational latency of sub-400ms. This enables natural human-like cadence, dynamic turn-taking, intelligent interruption handling, and zero awkward pauses.",
     },
     {
       q: "Is our caller conversation and patient/client data secure?",
-      a: "Yes. Lunor is engineered with enterprise security guardrails including SOC2 readiness, HIPAA safeguards for PHI redaction, TLS 1.3/SRTP encrypted audio streams, and a strict zero data retention policy for foundation model training.",
+      a: "Yes. VoiceOps is engineered with enterprise security guardrails including SOC2 readiness, HIPAA safeguards for PHI redaction, TLS 1.3/SRTP encrypted audio streams, and a strict zero data retention policy for foundation model training.",
     },
     {
       q: "How long does a custom studio deployment take from kickoff to go-live?",
@@ -50,7 +50,7 @@ export function FaqSection() {
           </h2>
 
           <p className="type-body text-zinc-600 dark:text-zinc-400">
-            Everything business owners and technical leaders need to know about deploying Lunor voice systems.
+            Everything business owners and technical leaders need to know about deploying VoiceOps voice systems.
           </p>
         </div>
 

@@ -19,7 +19,7 @@ export async function syncLeadToGoogleSheets(
       monthlyCallVolume: lead.monthlyCallVolume || "Not specified",
       requirements: lead.requirements,
       status: lead.status,
-      source: "Luno Website Contact Flow",
+      source: "VoiceOps Website Contact Flow",
     };
 
     const response = await fetch(webhookUrl, {

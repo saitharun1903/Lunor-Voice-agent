@@ -188,7 +188,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       case "listening":
         return { label: "LISTENING TO YOU", color: "text-emerald-500", dot: "bg-emerald-500 animate-pulse" };
       case "speaking":
-        return { label: "LUNOR TRANSMITTING", color: "text-blue-500", dot: "bg-blue-500 animate-ping" };
+        return { label: "VOICEOPS TRANSMITTING", color: "text-blue-500", dot: "bg-blue-500 animate-ping" };
       case "muted":
         return { label: "MIC MUTED", color: "text-amber-500", dot: "bg-amber-500" };
       case "error":
@@ -260,7 +260,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
                       : "bg-blue-600/15 text-blue-600 dark:text-blue-400"
                   }`}
                 >
-                  {t.role === "user" ? "YOU" : "LUNOR"}
+                  {t.role === "user" ? "YOU" : "VOICEOPS"}
                 </span>
                 <p className="type-body-sm text-zinc-900 dark:text-zinc-100 font-normal">{t.text}</p>
               </div>

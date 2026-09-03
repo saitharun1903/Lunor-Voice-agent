@@ -37,7 +37,7 @@ export function AboutSection() {
               We build voice systems around how businesses actually work.
             </h2>
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed mb-8">
-              Most automated phone menus and generic bots fail because they force callers into unnatural numbered menus. Lunor takes the opposite approach: we build conversational agents that understand colloquial speech, adapt to interruptions, and execute real actions across your business software.
+              Most automated phone menus and generic bots fail because they force callers into unnatural numbered menus. VoiceOps takes the opposite approach: we build conversational agents that understand colloquial speech, adapt to interruptions, and execute real actions across your business software.
             </p>
           </div>
 

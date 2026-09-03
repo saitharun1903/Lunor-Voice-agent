@@ -2,19 +2,19 @@ import { SiteData } from "./types";
 
 export const defaultSiteData: SiteData = {
   settings: {
-    companyName: "LUNOR",
+    companyName: "VOICEOPS",
     tagline: "Voice automation for the first layer of business calls.",
-    email: "conversations@lunor.co.in",
+    email: "conversations@voiceops.in",
     phone: "+1 (888) 586-6240",
     whatsapp: "+1 (888) 586-6240",
-    meetingUrl: "https://cal.com/lunor-studio/discovery",
+    meetingUrl: "https://cal.com/voiceops/discovery",
     heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
     heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
     heroSubheadline:
-      "Lunor builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+      "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     googleSheetsWebhookUrl: "",
     voiceDemoEnabled: true,
-    voiceDemoTitle: "Talk to Lunor",
+    voiceDemoTitle: "Talk to VoiceOps",
     voiceDemoDescription:
       "Experience how an AI voice system can handle the first layer of a real business conversation.",
     voiceDemoAgentId: "246585",

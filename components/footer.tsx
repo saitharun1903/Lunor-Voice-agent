@@ -21,7 +21,7 @@ export function Footer({ settings }: FooterProps) {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-black/[0.05] dark:border-white/[0.06]">
             {/* Column 1: Brand & Tagline */}
             <div className="md:col-span-5 space-y-4">
-              <Link href="/" className="inline-block group" aria-label="Lunor Home">
+              <Link href="/" className="inline-block group" aria-label="VoiceOps Home">
                 <LunorLogo size={28} showWordmark={true} />
               </Link>
               <p className="type-body-sm text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
@@ -74,10 +74,10 @@ export function Footer({ settings }: FooterProps) {
               <ul className="space-y-2 type-body-sm text-zinc-600 dark:text-zinc-400">
                 <li>
                   <a
-                    href={`mailto:${settings.email || "conversations@lunor.co.in"}`}
+                    href={`mailto:${settings.email || "conversations@voiceops.in"}`}
                     className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-mono"
                   >
-                    {settings.email || "conversations@lunor.co.in"}
+                    {settings.email || "conversations@voiceops.in"}
                   </a>
                 </li>
                 <li>
@@ -102,7 +102,7 @@ export function Footer({ settings }: FooterProps) {
 
           {/* Bottom Bar */}
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 type-body-sm text-zinc-500">
-            <p>© {new Date().getFullYear()} Lunor Technologies Inc. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} VoiceOps Technologies Inc. All rights reserved.</p>
 
             <div className="flex items-center gap-5">
               <button
@@ -162,7 +162,7 @@ export function Footer({ settings }: FooterProps) {
                 {legalModal === "privacy" ? (
                   <>
                     <p>
-                      <strong>1. Privacy Commitments:</strong> Lunor designs conversational systems that respect customer data sovereignty. We do not sell or monetize caller data.
+                      <strong>1. Privacy Commitments:</strong> VoiceOps designs conversational systems that respect customer data sovereignty. We do not sell or monetize caller data.
                     </p>
                     <p>
                       <strong>2. Telephony & Audio Data:</strong> Voice audio processed during calls is routed exclusively through enterprise-grade channels and stored according to your business data retention policies.
@@ -174,7 +174,7 @@ export function Footer({ settings }: FooterProps) {
                 ) : (
                   <>
                     <p>
-                      <strong>1. Service Scope:</strong> Lunor provides voice automation studio services, conversational agent deployment, and telephony workflow integration.
+                      <strong>1. Service Scope:</strong> VoiceOps provides voice automation studio services, conversational agent deployment, and telephony workflow integration.
                     </p>
                     <p>
                       <strong>2. Service Level Agreement:</strong> Enterprise tier deployments include high availability telephony routing with automated fallback and warm human transfer capabilities.

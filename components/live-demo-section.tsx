@@ -9,7 +9,7 @@ interface LiveDemoSectionProps {
 }
 
 export const LiveDemoSection = memo(function LiveDemoSection({
-  title = "Talk to Lunor.",
+  title = "Talk to VoiceOps.",
   description = "Experience how an AI voice system handles the first layer of a real business conversation with sub-400ms latency.",
 }: LiveDemoSectionProps) {
   return (

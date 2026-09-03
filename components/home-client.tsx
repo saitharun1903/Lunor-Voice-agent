@@ -21,19 +21,19 @@ interface HomeClientProps {
 
 export const HomeClient = memo(function HomeClient({ initialData }: HomeClientProps) {
   const settings = initialData?.settings || {
-    companyName: "Lunor",
+    companyName: "VOICEOPS",
     tagline: "Voice automation for the first layer of business calls.",
-    email: "conversations@lunor.co.in",
+    email: "conversations@voiceops.in",
     phone: "+1 (888) 586-6240",
     whatsapp: "+18885866240",
     meetingUrl: "https://meet.google.com",
     heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
     heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
     heroSubheadline:
-      "Lunor builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+      "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     googleSheetsWebhookUrl: "",
     voiceDemoEnabled: true,
-    voiceDemoTitle: "Talk to Lunor.",
+    voiceDemoTitle: "Talk to VoiceOps.",
     voiceDemoDescription:
       "Experience how an AI voice system handles the first layer of a real business conversation with sub-second response times.",
   };
@@ -71,14 +71,14 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
 
         {/* Chapter 2: Live Voice Product Demo (Directly Below Hero) */}
         <LiveDemoSection
-          title={settings.voiceDemoTitle || "Talk to Lunor."}
+          title={settings.voiceDemoTitle || "Talk to VoiceOps."}
           description={
             settings.voiceDemoDescription ||
             "Experience how an AI voice system handles the first layer of a real business conversation with sub-second response times."
           }
         />
 
-        {/* Chapter 3: What Lunor Does (01-06 Editorial Index & Interactive Action Visualizer) */}
+        {/* Chapter 3: What VoiceOps Does (01-06 Editorial Index & Interactive Action Visualizer) */}
         <UseCasesSection useCases={useCases} />
 
         {/* Chapter 4: Product Architecture & Telephony Flow */}

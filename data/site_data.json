@@ -1,17 +1,17 @@
 {
   "settings": {
-    "companyName": "LUNOR",
+    "companyName": "VOICEOPS",
     "tagline": "Voice automation for the first layer of business calls.",
     "email": "koppulasaitharunreddy7@gmail.com",
     "phone": "+91 9032015985",
     "whatsapp": "+91 9032015985",
-    "meetingUrl": "https://cal.com/lunor-studio/discovery",
+    "meetingUrl": "https://cal.com/voiceops/discovery",
     "heroEyebrow": "VOICE AUTOMATION FOR BUSINESS",
     "heroHeadline": "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
-    "heroSubheadline": "Lunor builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+    "heroSubheadline": "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     "googleSheetsWebhookUrl": "https://script.google.com/macros/s/AKfycbxEsFQSv-3Rqm295uKDrKRo81wiO2dGyt-fy11ctVBy5r0JXJDem3fooqhND79yj4lfKw/exec",
     "voiceDemoEnabled": true,
-    "voiceDemoTitle": "Talk to Lunor",
+    "voiceDemoTitle": "Talk to VoiceOps",
     "voiceDemoDescription": "Experience how an AI voice system can handle the first layer of a real business conversation.",
     "voiceDemoAgentId": "246585",
     "adminPasswordHash": "admin123"

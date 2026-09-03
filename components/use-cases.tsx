@@ -108,7 +108,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
           </h2>
 
           <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            From inbound enquiries and calendar bookings to lead qualification and CRM updates, Lunor executes complete conversational workflows without staff intervention.
+            From inbound enquiries and calendar bookings to lead qualification and CRM updates, VoiceOps executes complete conversational workflows without staff intervention.
           </p>
         </div>
 
@@ -206,11 +206,11 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                     </p>
                   </div>
 
-                  {/* Lunor AI */}
+                  {/* VoiceOps AI */}
                   <div className="p-4 rounded-2xl bg-blue-600/[0.04] dark:bg-blue-600/[0.08] border border-blue-600/20 space-y-1">
                     <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 text-xs font-medium">
                       <Bot className="w-3.5 h-3.5" />
-                      <span>Lunor Voice Agent</span>
+                      <span>VoiceOps Voice Agent</span>
                     </div>
                     <p className="type-body font-medium text-zinc-950 dark:text-white">
                       “{currentCase.agent}”

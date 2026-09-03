@@ -47,7 +47,7 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
           </h2>
 
           <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            No complex phone system rip-and-replace. Lunor sits seamlessly in front of your carriers, booking tools, and CRMs.
+            No complex phone system rip-and-replace. VoiceOps sits seamlessly in front of your carriers, booking tools, and CRMs.
           </p>
         </div>
 

@@ -98,7 +98,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
       });
     } catch (err: any) {
       setStatus("error");
-      setErrorMessage(err.message || "Something went wrong. Please try again or contact Lunor directly.");
+      setErrorMessage(err.message || "Something went wrong. Please try again or contact VoiceOps directly.");
     } finally {
       setLoading(false);
     }
@@ -174,7 +174,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
               <div className="space-y-3 pt-2">
                 {/* 1. Email */}
                 <a
-                  href={`mailto:${settings.email || "conversations@lunor.co.in"}`}
+                  href={`mailto:${settings.email || "conversations@voiceops.in"}`}
                   className="flex items-center gap-3.5 p-4 rounded-2xl structured-card"
                 >
                   <div className="w-9 h-9 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] text-zinc-600 dark:text-zinc-400 flex items-center justify-center shrink-0">
@@ -183,7 +183,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   <div>
                     <p className="type-eyebrow text-zinc-400">Email</p>
                     <p className="type-body font-semibold text-zinc-950 dark:text-white font-mono text-sm">
-                      {settings.email || "conversations@lunor.co.in"}
+                      {settings.email || "conversations@voiceops.in"}
                     </p>
                   </div>
                 </a>
@@ -240,7 +240,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         Inquiry Received.
                       </h3>
                       <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto">
-                        Lunor engineering will review your workflow requirements and provide a custom conversational blueprint within 24 hours.
+                        VoiceOps engineering will review your workflow requirements and provide a custom conversational blueprint within 24 hours.
                       </p>
                       <div className="pt-4">
                         <button
