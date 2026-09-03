@@ -4,15 +4,15 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.voiceops.in"),
-  title: "VOICEOPS — AI Voice Automation for Business",
+  title: "VOICEOPS — AI Voice Automation for Business Calls",
   description:
-    "VOICEOPS builds AI voice agents that automate the first layer of business calls, including enquiries, bookings, lead qualification, support, sales and follow-ups.",
+    "VOICEOPS builds AI voice agents that automate the first layer of business calls — enquiries, bookings, qualification, support and follow-ups.",
   keywords: [
     "VOICEOPS",
     "VoiceOps",
     "voiceops.in",
     "VoiceOps AI",
-    "AI Voice Automation for Business",
+    "AI Voice Automation for Business Calls",
     "AI Voice Agent",
     "Voice Automation",
     "Business Phone Automation",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     canonical: "https://www.voiceops.in/",
   },
   openGraph: {
-    title: "VOICEOPS — AI Voice Automation for Business",
+    title: "VOICEOPS — AI Voice Automation for Business Calls",
     description:
-      "VOICEOPS builds AI voice agents that automate the first layer of business calls, including enquiries, bookings, lead qualification, support, sales and follow-ups.",
+      "VOICEOPS builds AI voice agents that automate the first layer of business calls — enquiries, bookings, qualification, support and follow-ups.",
     url: "https://www.voiceops.in/",
     siteName: "VOICEOPS",
     locale: "en_US",
@@ -41,15 +41,15 @@ export const metadata: Metadata = {
         url: "/voiceops-og.png",
         width: 1200,
         height: 630,
-        alt: "VOICEOPS — AI Voice Automation for Business",
+        alt: "VOICEOPS — AI Voice Automation for Business Calls",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "VOICEOPS — AI Voice Automation for Business",
+    title: "VOICEOPS — AI Voice Automation for Business Calls",
     description:
-      "VOICEOPS builds AI voice agents that automate the first layer of business calls, including enquiries, bookings, lead qualification, support, sales and follow-ups.",
+      "VOICEOPS builds AI voice agents that automate the first layer of business calls — enquiries, bookings, qualification, support and follow-ups.",
     images: ["/voiceops-og.png"],
   },
   robots: {
@@ -86,21 +86,23 @@ const jsonLd = {
       "@id": "https://www.voiceops.in/#organization",
       name: "VOICEOPS",
       legalName: "VoiceOps Technologies Inc.",
-      url: "https://www.voiceops.in",
+      url: "https://www.voiceops.in/",
       logo: {
         "@type": "ImageObject",
         url: "https://www.voiceops.in/icon.svg",
-        width: "48",
-        height: "48",
+        width: "512",
+        height: "512",
       },
       image: "https://www.voiceops.in/voiceops-og.png",
       description:
-        "VOICEOPS builds AI voice agents that automate the first layer of business calls, including enquiries, bookings, lead qualification, support, sales and follow-ups.",
+        "VOICEOPS builds AI voice agents that automate the first layer of business calls — enquiries, bookings, qualification, support and follow-ups.",
       email: "conversations@voiceops.in",
+      telephone: "+1 (888) 586-6240",
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "customer service",
         email: "conversations@voiceops.in",
+        telephone: "+1 (888) 586-6240",
         url: "https://www.voiceops.in/#contact",
         availableLanguage: ["en"],
       },
@@ -108,13 +110,14 @@ const jsonLd = {
     {
       "@type": "WebSite",
       "@id": "https://www.voiceops.in/#website",
-      url: "https://www.voiceops.in",
+      url: "https://www.voiceops.in/",
       name: "VOICEOPS",
       alternateName: ["VoiceOps", "VoiceOps AI"],
       publisher: {
         "@id": "https://www.voiceops.in/#organization",
       },
-      description: "AI Voice Automation for Business. Automate the first layer of every call.",
+      description:
+        "VOICEOPS builds AI voice agents that automate the first layer of business calls — enquiries, bookings, qualification, support and follow-ups.",
     },
     {
       "@type": "SoftwareApplication",
@@ -122,9 +125,9 @@ const jsonLd = {
       name: "VOICEOPS",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Cloud",
-      url: "https://www.voiceops.in",
+      url: "https://www.voiceops.in/",
       description:
-        "VOICEOPS builds AI voice agents that automate the first layer of business calls, including enquiries, bookings, lead qualification, support, sales and follow-ups.",
+        "VOICEOPS builds AI voice agents that automate the first layer of business calls — enquiries, bookings, qualification, support and follow-ups.",
       offers: {
         "@type": "Offer",
         price: "0",

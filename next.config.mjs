@@ -37,6 +37,31 @@ const nextConfig = {
         destination: "https://www.voiceops.in/:path*",
         permanent: true,
       },
+      {
+        source: "/capabilities",
+        destination: "/#capabilities",
+        permanent: false,
+      },
+      {
+        source: "/use-cases",
+        destination: "/#capabilities",
+        permanent: false,
+      },
+      {
+        source: "/industries",
+        destination: "/#industries",
+        permanent: false,
+      },
+      {
+        source: "/work",
+        destination: "/#work",
+        permanent: false,
+      },
+      {
+        source: "/process",
+        destination: "/#process",
+        permanent: false,
+      },
     ];
   },
   async headers() {

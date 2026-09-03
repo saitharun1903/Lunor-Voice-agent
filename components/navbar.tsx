@@ -14,7 +14,7 @@ interface NavLink {
 
 const PRIMARY_LINKS: NavLink[] = [
   { label: "Live Demo", id: "demo" },
-  { label: "Capabilities", id: "use-cases" },
+  { label: "Capabilities", id: "capabilities" },
   { label: "Industries", id: "industries" },
   { label: "Work", id: "work" },
   { label: "Process", id: "process" },
@@ -27,6 +27,20 @@ const SECONDARY_LINKS: NavLink[] = [
   { label: "FAQ", id: "faq" },
   { label: "Contact", id: "contact" },
 ];
+
+function normalizeNavId(id: string | null | undefined): string {
+  if (!id) return "demo";
+  const clean = id.replace(/^[#/]+/, "").replace(/[#/]+$/, "").trim().toLowerCase();
+  if (clean === "capabilities" || clean === "use-cases") return "capabilities";
+  if (clean === "demo" || clean === "live-demo" || clean === "talk") return "demo";
+  if (clean === "industries" || clean === "industry") return "industries";
+  if (clean === "work" || clean === "portfolio" || clean === "case-studies") return "work";
+  if (clean === "process" || clean === "methodology" || clean === "how-it-works") return "process";
+  if (clean === "architecture") return "architecture";
+  if (clean === "faq") return "faq";
+  if (clean === "contact") return "contact";
+  return clean;
+}
 
 export const Navbar = memo(function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -43,10 +57,14 @@ export const Navbar = memo(function Navbar() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   const navRef = useRef<HTMLElement>(null);
-  const linkRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+  const linkRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const moreRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
   const lastScrollY = useRef(0);
+
+  // Intent lock to protect programmatic navigation (clicks) during smooth scroll
+  const isNavigatingIntentRef = useRef<string | null>(null);
+  const navigationLockTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Detect reduced motion preference
   useEffect(() => {
@@ -63,14 +81,15 @@ export const Navbar = memo(function Navbar() {
       const nav = navRef.current;
       if (!nav) return;
 
-      let targetKey = activeSection;
-      if (!linkRefs.current[targetKey]) {
-        const isSecondary = SECONDARY_LINKS.some((s) => s.id === activeSection);
-        if (isSecondary && linkRefs.current["more"]) {
-          targetKey = "more";
-        } else if (linkRefs.current["demo"]) {
-          targetKey = "demo";
-        }
+      // RULE: Liquid indicator ONLY represents PRIMARY navigation items.
+      // NEVER fall back to "more"!
+      const targetKey = normalizeNavId(activeSection);
+      const isPrimary = PRIMARY_LINKS.some((p) => p.id === targetKey);
+
+      if (!isPrimary) {
+        // Outside primary sections, gracefully fade out the indicator rather than jumping to More!
+        setIndicatorPos((prev) => ({ ...prev, opacity: 0 }));
+        return;
       }
 
       const targetEl = linkRefs.current[targetKey];
@@ -119,6 +138,24 @@ export const Navbar = memo(function Navbar() {
       if (ro) ro.disconnect();
     };
   }, [updateIndicatorPosition, indicatorMounted]);
+
+  // Synchronous hash reading on mount and hashchange
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window === "undefined") return;
+      const hash = window.location.hash;
+      if (hash) {
+        const normalized = normalizeNavId(hash);
+        if (PRIMARY_LINKS.some((p) => p.id === normalized)) {
+          setActiveSection(normalized);
+        }
+      }
+    };
+
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
 
   // Passive, rAF-throttled scroll listener (zero continuous re-renders)
   useEffect(() => {
@@ -189,39 +226,98 @@ export const Navbar = memo(function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // IntersectionObserver to update active navigation state stably on scroll
+  // Unified, deterministic scroll observer for PRIMARY navigation sections only
   useEffect(() => {
-    const observedIds = ["demo", "use-cases", "industries", "work", "process", "architecture", "faq", "contact"];
-    const observers = observedIds.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
+    const primarySectionIds = ["demo", "capabilities", "industries", "work", "process"];
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(id);
-            }
-          });
-        },
-        { threshold: 0.25, rootMargin: "-80px 0px -40% 0px" }
-      );
-      observer.observe(el);
-      return observer;
-    });
+    const handleSectionDetection = () => {
+      // If user clicked a navigation item and programmatic smooth scroll is active, ignore observer!
+      if (isNavigatingIntentRef.current) return;
 
-    return () => {
-      observers.forEach((obs) => obs?.disconnect());
+      const viewportAnchor = window.innerHeight * 0.38; // Activation anchor at 38% of viewport
+      let activePrimary: string | null = null;
+      let minDistance = Infinity;
+
+      for (const id of primarySectionIds) {
+        let el = document.getElementById(id);
+        if (!el && id === "capabilities") {
+          el = document.getElementById("use-cases");
+        }
+        if (!el) continue;
+
+        const rect = el.getBoundingClientRect();
+        // Check if section encompasses the activation anchor line
+        if (rect.top <= viewportAnchor && rect.bottom >= viewportAnchor) {
+          activePrimary = id;
+          break;
+        }
+
+        // Midpoint proximity calculation as fallback
+        const midPoint = rect.top + rect.height / 2;
+        const dist = Math.abs(midPoint - viewportAnchor);
+        if (dist < minDistance && rect.bottom > 0 && rect.top < window.innerHeight) {
+          minDistance = dist;
+          activePrimary = id;
+        }
+      }
+
+      if (activePrimary && activePrimary !== activeSection) {
+        setActiveSection(activePrimary);
+      }
     };
-  }, []);
 
-  const scrollToSection = useCallback((id: string) => {
-    // Instant feedback: latest click wins immediately
+    // User manual interaction instantly releases navigation intent lock
+    const onManualScroll = () => {
+      if (isNavigatingIntentRef.current) {
+        isNavigatingIntentRef.current = null;
+      }
+    };
+
+    window.addEventListener("wheel", onManualScroll, { passive: true });
+    window.addEventListener("touchmove", onManualScroll, { passive: true });
+
+    // Initial evaluation
+    handleSectionDetection();
+
+    let scrollRaf: number | null = null;
+    const throttledScroll = () => {
+      if (scrollRaf !== null) return;
+      scrollRaf = window.requestAnimationFrame(() => {
+        handleSectionDetection();
+        scrollRaf = null;
+      });
+    };
+
+    window.addEventListener("scroll", throttledScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+      window.removeEventListener("wheel", onManualScroll);
+      window.removeEventListener("touchmove", onManualScroll);
+      if (scrollRaf !== null) window.cancelAnimationFrame(scrollRaf);
+      if (navigationLockTimerRef.current) clearTimeout(navigationLockTimerRef.current);
+    };
+  }, [activeSection]);
+
+  const scrollToSection = useCallback((rawId: string) => {
+    const id = normalizeNavId(rawId);
+    // Instant direct update for user click
     setActiveSection(id);
+    isNavigatingIntentRef.current = id;
     setMobileMenuOpen(false);
     setMoreMenuOpen(false);
 
-    const element = document.getElementById(id);
+    // Lock scroll tracking for 800ms during smooth scroll
+    if (navigationLockTimerRef.current) {
+      clearTimeout(navigationLockTimerRef.current);
+    }
+    navigationLockTimerRef.current = setTimeout(() => {
+      isNavigatingIntentRef.current = null;
+    }, 800);
+
+    const element =
+      document.getElementById(id) ||
+      (id === "capabilities" ? document.getElementById("use-cases") : null);
+
     if (element) {
       const offset = 80;
       const bodyRect = document.body.getBoundingClientRect().top;
@@ -237,7 +333,6 @@ export const Navbar = memo(function Navbar() {
   }, []);
 
   const isDark = theme === "dark";
-  const isSecondaryActive = SECONDARY_LINKS.some((s) => s.id === activeSection);
 
   return (
     <>
@@ -319,16 +414,18 @@ export const Navbar = memo(function Navbar() {
               const isTabletHidden = link.id === "process";
 
               return (
-                <button
+                <Link
                   key={link.id}
+                  href={`/#${link.id}`}
                   ref={(el) => {
-                    linkRefs.current[link.id] = el;
+                    linkRefs.current[link.id] = el as unknown as HTMLElement;
                   }}
-                  onClick={() => {
-                    setActiveSection(link.id);
+                  onClick={(e) => {
+                    e.preventDefault();
                     scrollToSection(link.id);
                   }}
                   onMouseEnter={() => setHoveredIndex(idx)}
+                  aria-current={isActive ? "location" : undefined}
                   className={`relative z-10 px-2.5 sm:px-3 py-2 rounded-xl transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] flex items-center justify-center ${
                     isTabletHidden ? "hidden lg:inline-flex" : "inline-flex"
                   } ${
@@ -350,16 +447,13 @@ export const Navbar = memo(function Navbar() {
                   )}
 
                   <span className="relative z-10">{link.label}</span>
-                </button>
+                </Link>
               );
             })}
 
-            {/* "More" Secondary Navigation Popover */}
+            {/* "More" Secondary Navigation Popover (Independent of active section) */}
             <div className="relative" ref={moreRef}>
               <button
-                ref={(el) => {
-                  linkRefs.current["more"] = el;
-                }}
                 onClick={() => setMoreMenuOpen((prev) => !prev)}
                 aria-expanded={moreMenuOpen}
                 aria-haspopup="true"
@@ -367,8 +461,6 @@ export const Navbar = memo(function Navbar() {
                 className={`relative z-10 flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-xl transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] ${
                   moreMenuOpen
                     ? "text-[#141414] dark:text-white font-semibold bg-black/[0.035] dark:bg-white/[0.05]"
-                    : isSecondaryActive
-                    ? "text-[#141414] dark:text-white font-semibold"
                     : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white font-medium"
                 }`}
               >
@@ -390,17 +482,18 @@ export const Navbar = memo(function Navbar() {
                     className="absolute top-full right-0 mt-2.5 w-52 py-2 rounded-xl bg-[#FFFDF8] dark:bg-[#0c101c] border border-[rgba(28,25,20,0.09)] dark:border-white/[0.10] shadow-[0_12px_36px_rgba(28,25,20,0.08)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.7)] z-50 text-left"
                   >
                     {SECONDARY_LINKS.map((item, idx) => (
-                      <button
+                      <Link
                         key={idx}
-                        onClick={() => {
-                          setActiveSection(item.id);
+                        href={`/#${item.id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
                           scrollToSection(item.id);
                           setMoreMenuOpen(false);
                         }}
                         className="w-full min-h-[44px] px-4 py-2.5 text-[13px] font-sans font-medium text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white hover:bg-black/[0.035] dark:hover:bg-white/[0.06] text-left transition-colors flex items-center justify-between whitespace-nowrap touch-manipulation"
                       >
                         <span>{item.label}</span>
-                      </button>
+                      </Link>
                     ))}
                   </motion.div>
                 )}
@@ -498,10 +591,11 @@ export const Navbar = memo(function Navbar() {
                 {[...PRIMARY_LINKS, ...SECONDARY_LINKS].map((link, idx) => {
                   const isActive = activeSection === link.id;
                   return (
-                    <button
+                    <Link
                       key={idx}
-                      onClick={() => {
-                        setActiveSection(link.id);
+                      href={`/#${link.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
                         scrollToSection(link.id);
                       }}
                       className={`w-full px-3.5 py-2.5 rounded-xl text-left font-sans text-sm transition-colors whitespace-nowrap flex items-center justify-between ${
@@ -511,7 +605,7 @@ export const Navbar = memo(function Navbar() {
                       }`}
                     >
                       <span>{link.label}</span>
-                    </button>
+                    </Link>
                   );
                 })}
               </div>

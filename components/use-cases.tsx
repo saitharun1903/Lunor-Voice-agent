@@ -14,54 +14,54 @@ const CAPABILITY_CARDS = [
     index: "01",
     title: "ENQUIRIES",
     subtitle: "Answer repetitive customer questions.",
-    explanation: "Answers incoming questions about hours, services, pricing, and locations directly from your verified business data.",
-    workflow: ["Question", "Understand", "Answer", "Resolved"],
-    outcome: "Resolved in 1.2s without staff interruption.",
+    explanation: "Answers incoming customer questions about hours, services, pricing and locations using verified business data.",
+    workflow: ["Ask", "Understand", "Answer", "Resolve"],
+    outcome: "Verified business response",
     tiltClass: "lg:rotate-[-0.5deg]",
   },
   {
     index: "02",
     title: "BOOKINGS",
     subtitle: "Handle reservations and appointments.",
-    explanation: "Checks live calendar availability and locks confirmed appointments directly into your scheduling software.",
-    workflow: ["Request", "Check Availability", "Reserve", "Confirm"],
-    outcome: "Works with existing booking systems.",
+    explanation: "Handles booking requests and checks availability before confirming a slot.",
+    workflow: ["Request", "Check", "Book", "Confirm"],
+    outcome: "Booking completed",
     tiltClass: "lg:rotate-[0.5deg]",
   },
   {
     index: "03",
     title: "QUALIFICATION",
     subtitle: "Capture requirements and identify intent.",
-    explanation: "Gathers caller budget, project timeline, and specific needs before passing verified profiles to your specialists.",
-    workflow: ["Ask", "Collect", "Qualify", "Pass Result"],
-    outcome: "High-intent buyer verified in CRM.",
+    explanation: "Collects the important requirements needed to understand caller intent.",
+    workflow: ["Ask", "Qualify", "Score", "Route"],
+    outcome: "Qualified lead",
     tiltClass: "lg:rotate-[-0.5deg]",
   },
   {
     index: "04",
     title: "SALES",
-    subtitle: "Start structured prospect conversations.",
-    explanation: "Answers product scope queries, handles initial pricing considerations, and coordinates introductory discovery meetings.",
-    workflow: ["Understand Need", "Answer Scope", "Collect Details", "Route / Follow Up"],
-    outcome: "Discovery meeting locked on rep calendar.",
+    subtitle: "Support inbound sales conversations.",
+    explanation: "Answers product questions, handles common objections and captures interest.",
+    workflow: ["Listen", "Answer", "Qualify", "Route"],
+    outcome: "Lead captured",
     tiltClass: "lg:rotate-[0.5deg]",
   },
   {
     index: "05",
     title: "SUPPORT",
-    subtitle: "Handle first-level customer requests.",
-    explanation: "Looks up order numbers, ticket statuses, and guidelines directly from your database, freeing staff for complex issues.",
-    workflow: ["Identify Request", "Answer", "Lookup Info", "Escalate if Needed"],
-    outcome: "Routine ticket closed without human delay.",
+    subtitle: "Resolve common customer issues.",
+    explanation: "Handles routine support questions and provides accurate status information.",
+    workflow: ["Identify", "Resolve", "Confirm", "Close"],
+    outcome: "Issue resolved",
     tiltClass: "lg:rotate-[-0.5deg]",
   },
   {
     index: "06",
     title: "FOLLOW-UPS",
-    subtitle: "Run structured outbound conversations.",
-    explanation: "Reaches out automatically to confirm next-day visits, follow up on pending estimates, or confirm job readiness.",
-    workflow: ["Context", "Call", "Conversation", "Next Action"],
-    outcome: "Estimate converted into scheduled dispatch.",
+    subtitle: "Handle structured outbound follow-ups.",
+    explanation: "Handles reminders, confirmations and structured follow-up conversations.",
+    workflow: ["Call", "Confirm", "Update", "Complete"],
+    outcome: "Follow-up completed",
     tiltClass: "lg:rotate-[0.5deg]",
   },
 ];
@@ -74,7 +74,9 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
   }, []);
 
   return (
-    <section id="use-cases" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
+    <section id="capabilities" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors scroll-mt-16">
+      {/* Invisible anchor for backward compatibility with legacy #use-cases */}
+      <div id="use-cases" className="absolute -top-24 pointer-events-none" />
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Section Header */}
         <motion.div

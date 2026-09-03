@@ -15,7 +15,11 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
   };
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const target =
+      id === "use-cases" || id === "capabilities"
+        ? document.getElementById("capabilities") || document.getElementById("use-cases")
+        : document.getElementById(id);
+    target?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -30,6 +34,20 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
             <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 font-normal leading-relaxed">
               Voice automation for the first layer of business calls. Custom conversational systems engineered for real operational workflows.
             </p>
+            <div className="pt-2 space-y-1 font-mono text-xs text-[#58534C] dark:text-zinc-400">
+              <p>
+                Email:{" "}
+                <a href="mailto:conversations@voiceops.in" className="hover:text-zinc-950 dark:hover:text-white transition-colors underline">
+                  conversations@voiceops.in
+                </a>
+              </p>
+              <p>
+                Phone:{" "}
+                <a href="tel:+18885866240" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  +1 (888) 586-6240
+                </a>
+              </p>
+            </div>
           </div>
 
           {/* Navigation Columns */}
@@ -40,24 +58,52 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
               </span>
               <ul className="space-y-1 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <button onClick={() => scrollTo("demo")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
+                  <Link
+                    href="/#demo"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("demo");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
                     Live Demo
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("use-cases")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
+                  <Link
+                    href="/#capabilities"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("capabilities");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
                     Capabilities
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("industries")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
+                  <Link
+                    href="/#industries"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("industries");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
                     Industries
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("architecture")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
+                  <Link
+                    href="/#architecture"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("architecture");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
                     The First Layer
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -68,24 +114,52 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
               </span>
               <ul className="space-y-1 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <button onClick={() => scrollTo("work")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
+                  <Link
+                    href="/#work"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("work");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
                     Work & Case Studies
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("process")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
-                    Methodology
-                  </button>
+                  <Link
+                    href="/#process"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("process");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
+                    Process & Methodology
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("faq")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
+                  <Link
+                    href="/#faq"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("faq");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
                     FAQ
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("contact")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
-                    Deploy
-                  </button>
+                  <Link
+                    href="/#contact"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("contact");
+                    }}
+                    className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation"
+                  >
+                    Contact VoiceOps
+                  </Link>
                 </li>
               </ul>
             </div>
