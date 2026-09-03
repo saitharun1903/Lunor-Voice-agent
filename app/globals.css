@@ -37,6 +37,16 @@
 
   --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 6px 18px -4px rgba(0, 0, 0, 0.03);
   --card-shadow-hover: 0 12px 32px -6px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+
+  /* LIQUID GLASS MATERIAL SYSTEM (Light Mode) */
+  --glass-bg-subtle: rgba(255, 255, 255, 0.45);
+  --glass-bg-standard: rgba(255, 255, 255, 0.72);
+  --glass-bg-active: rgba(255, 255, 255, 0.88);
+  --glass-border-subtle: rgba(17, 18, 21, 0.06);
+  --glass-border-standard: rgba(17, 18, 21, 0.09);
+  --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+  --glass-blur: 14px;
 }
 
 .dark {
@@ -64,6 +74,16 @@
 
   --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(255, 255, 255, 0.04);
   --card-shadow-hover: 0 14px 40px -4px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.12);
+
+  /* LIQUID GLASS MATERIAL SYSTEM (Dark Mode - Smoked Optical Glass) */
+  --glass-bg-subtle: rgba(14, 17, 26, 0.48);
+  --glass-bg-standard: rgba(16, 20, 30, 0.70);
+  --glass-bg-active: rgba(22, 28, 42, 0.86);
+  --glass-border-subtle: rgba(255, 255, 255, 0.07);
+  --glass-border-standard: rgba(255, 255, 255, 0.11);
+  --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.6), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --glass-blur: 14px;
 }
 
 html {
@@ -236,6 +256,53 @@ body {
 }
 
 /* =========================================================
+   LIQUID GLASS MATERIAL UTILITY CLASSES
+   ========================================================= */
+
+/* Glass Level 1: Very subtle floating surface */
+.liquid-glass-01 {
+  background-color: var(--glass-bg-subtle);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border-subtle);
+  box-shadow: var(--glass-highlight);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Glass Level 2: Standard interactive surface */
+.liquid-glass-02 {
+  background-color: var(--glass-bg-standard);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border-standard);
+  box-shadow: var(--glass-highlight), var(--glass-shadow);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+/* Glass Level 3: Active / focused surface */
+.liquid-glass-03 {
+  background-color: var(--glass-bg-active);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-accent);
+  box-shadow: var(--glass-highlight), var(--glass-shadow);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Browser Fallback without backdrop-filter */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .liquid-glass-01 {
+    background-color: rgba(18, 21, 30, 0.92);
+  }
+  .liquid-glass-02 {
+    background-color: rgba(18, 21, 30, 0.96);
+  }
+  .liquid-glass-03 {
+    background-color: rgba(24, 28, 40, 0.98);
+  }
+}
+
+/* =========================================================
    RESTRAINED BUTTONS & INTERACTION
    ========================================================= */
 
@@ -268,15 +335,18 @@ body {
   transform: translateY(1px);
 }
 
-/* Secondary Compact Outline Button */
-.btn-compact-secondary {
-  background-color: transparent;
+/* Secondary Compact Liquid Glass Button */
+.btn-compact-secondary,
+.btn-glass-secondary {
+  background-color: var(--glass-bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: inherit;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 500;
-  border: 1px solid currentColor;
-  opacity: 0.85;
+  border: 1px solid var(--glass-border-standard);
+  box-shadow: var(--glass-highlight), 0 2px 8px -2px rgba(0, 0, 0, 0.12);
   border-radius: 0.625rem;
   padding: 0.5rem 1.125rem;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
@@ -285,10 +355,16 @@ body {
   gap: 0.375rem;
 }
 
-.btn-compact-secondary:hover {
-  opacity: 1;
-  background-color: rgba(120, 120, 140, 0.08);
+.btn-compact-secondary:hover,
+.btn-glass-secondary:hover {
+  background-color: var(--glass-bg-standard);
+  border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-1px);
+}
+
+.btn-compact-secondary:active,
+.btn-glass-secondary:active {
+  transform: translateY(1px);
 }
 
 /* Blue Action Button */

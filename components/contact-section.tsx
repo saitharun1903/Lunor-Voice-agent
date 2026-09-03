@@ -109,7 +109,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
             <div className="pt-2">
               <button
                 onClick={scrollToDemo}
-                className="btn-compact-secondary text-zinc-300 border-white/20 hover:border-white/40"
+                className="btn-glass-secondary text-zinc-300 hover:text-white"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-blue-400" />
                 <span>Talk to VoiceOps Live Demo ↑</span>
@@ -119,7 +119,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
           {/* Right Column: Clean Editorial Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#0c101c] border border-white/[0.08] shadow-2xl space-y-6">
+            <div className="p-8 sm:p-10 rounded-3xl bg-[#0c101c] border border-white/[0.08] shadow-[var(--glass-highlight),0_20px_50px_rgba(0,0,0,0.5)] space-y-6">
               {status === "success" ? (
                 <div className="py-12 text-center space-y-4">
                   <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">

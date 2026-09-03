@@ -62,11 +62,12 @@ export const FlipCard = memo(function FlipCard({
         }`}
       >
         {/* =========================================================
-            FRONT FACE: Pure Editorial Minimalism
+            FRONT FACE: Pure Editorial Minimalism with Physical Coated Material
             ========================================================= */}
-        <div className="backface-hidden absolute inset-0 rounded-2xl bg-white dark:bg-[#0e121d] border border-black/[0.08] dark:border-white/[0.09] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden transition-colors">
+        <div className="backface-hidden absolute inset-0 rounded-2xl bg-white dark:bg-[#0e121d] border border-black/[0.08] dark:border-white/[0.09] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden transition-colors shadow-[var(--glass-highlight)]">
           {/* Subtle Ambient Specular Corner */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/[0.06] via-transparent to-transparent pointer-events-none" />
+          <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-blue-500/[0.05] via-transparent to-transparent pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/[0.15] to-transparent pointer-events-none" />
 
           {/* Top: Index */}
           <div className="flex items-center justify-between">
@@ -89,7 +90,7 @@ export const FlipCard = memo(function FlipCard({
           {/* Bottom: Subtle Interactive Exploration Cue */}
           <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between text-xs font-sans text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-200 transition-colors">
             <span className="text-[11px] font-medium tracking-wide">Explore workflow</span>
-            <div className="w-6 h-6 rounded-full bg-black/[0.04] dark:bg-white/[0.06] flex items-center justify-center text-zinc-500 dark:text-zinc-400">
+            <div className="w-6 h-6 rounded-full liquid-glass-01 flex items-center justify-center text-zinc-500 dark:text-zinc-300">
               <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </div>
@@ -98,7 +99,7 @@ export const FlipCard = memo(function FlipCard({
         {/* =========================================================
             BACK FACE: Detailed Operational Discovery
             ========================================================= */}
-        <div className="backface-hidden rotate-y-180 absolute inset-0 rounded-2xl bg-[#faf9f6] dark:bg-[#090c15] border border-blue-600/30 dark:border-blue-500/30 p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden shadow-xl">
+        <div className="backface-hidden rotate-y-180 absolute inset-0 rounded-2xl bg-[#faf9f6] dark:bg-[#090c15] border border-blue-600/30 dark:border-blue-500/30 p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden shadow-xl shadow-[var(--glass-highlight)]">
           {/* Top: Header & Close Trigger */}
           <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.07] pb-3">
             <div className="flex items-center gap-2 text-xs font-mono">

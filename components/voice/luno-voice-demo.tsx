@@ -161,11 +161,11 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
   return (
     <div className={`w-full max-w-2xl mx-auto ${className}`}>
-      {/* Hardware-Grade Clean Console */}
-      <div className="relative rounded-3xl p-6 sm:p-8 bg-[#0a0d16] border border-white/[0.08] shadow-2xl space-y-6">
+      {/* Hardware-Grade Optical Liquid Glass Console */}
+      <div className="relative rounded-3xl p-6 sm:p-8 liquid-glass-02 shadow-2xl space-y-6 text-left">
         {/* Status Header */}
         <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full liquid-glass-01">
             <span className={`w-2 h-2 rounded-full ${status.dot}`} />
             <span className="font-mono text-xs font-semibold tracking-wider text-zinc-300 uppercase">
               {status.text}
@@ -177,7 +177,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
           </span>
         </div>
 
-        {/* Dynamic Voice Visualizer Canvas */}
+        {/* Dynamic Voice Visualizer Canvas (Solid / Dark Surface for Maximum Contrast) */}
         <div className="relative h-28 w-full rounded-2xl bg-black/40 border border-white/[0.04] flex items-center justify-center overflow-hidden">
           <canvas
             ref={canvasRef}
@@ -188,7 +188,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
           {!isActive && state !== "connecting" && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="font-sans text-xs text-zinc-400 bg-black/60 px-3.5 py-1.5 rounded-full border border-white/[0.08] backdrop-blur-md">
+              <span className="font-sans text-xs text-zinc-400 liquid-glass-01 px-3.5 py-1.5 rounded-full border border-white/[0.08] backdrop-blur-md">
                 Click &apos;Start Conversation&apos; to speak live
               </span>
             </div>
@@ -255,10 +255,10 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
               <>
                 <button
                   onClick={handleToggleMute}
-                  className={`px-4 py-2 rounded-xl text-xs font-medium border transition-colors flex items-center gap-1.5 ${
+                  className={`px-4 py-2 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 ${
                     isMuted
-                      ? "bg-amber-500 text-white border-amber-500"
-                      : "bg-transparent text-zinc-300 border-white/20 hover:border-white/40"
+                      ? "bg-amber-500 text-white"
+                      : "liquid-glass-01 hover:liquid-glass-02 text-zinc-300 hover:text-white"
                   }`}
                 >
                   {isMuted ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
