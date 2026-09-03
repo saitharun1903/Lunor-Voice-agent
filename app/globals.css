@@ -234,6 +234,32 @@ body {
   background: radial-gradient(circle at 60% 40%, rgba(59, 130, 246, 0.15) 0%, rgba(30, 58, 138, 0.06) 50%, transparent 75%);
 }
 
+/* Seamless Chapter Transition Gradient Bridges */
+.bridge-midnight-to-ivory {
+  height: 6rem;
+  background: linear-gradient(180deg, #06080e 0%, #0b0e17 40%, #faf8f5 100%);
+}
+
+.dark .bridge-midnight-to-ivory {
+  height: 5rem;
+  background: linear-gradient(180deg, #06080e 0%, #080b13 50%, #0b0e17 100%);
+}
+
+.bridge-ivory-to-midnight {
+  height: 6rem;
+  background: linear-gradient(180deg, #faf8f5 0%, #0b0e17 60%, #06080e 100%);
+}
+
+.dark .bridge-ivory-to-midnight {
+  height: 5rem;
+  background: linear-gradient(180deg, #0b0e17 0%, #080a13 50%, #06080e 100%);
+}
+
+/* Ambient Continuous Signal Thread Glow */
+.signal-spine-glow {
+  box-shadow: 0 0 10px 1px rgba(59, 130, 246, 0.4);
+}
+
 /* =========================================================
    3D FLIP CARD SYSTEM UTILITIES
    ========================================================= */

@@ -15,6 +15,7 @@ import { HowItWorksSection } from "./how-it-works";
 import { FaqSection } from "./faq";
 import { ContactSection } from "./contact-section";
 import { Footer } from "./footer";
+import { SignalSpine } from "./ui/signal-spine";
 import { SiteData } from "@/lib/types";
 
 interface HomeClientProps {
@@ -58,10 +59,13 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
 
   return (
     <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-blue-600 selection:text-white transition-colors duration-200 overflow-x-hidden">
+      {/* Continuous Acoustic Signal Thread (Visual Spine) */}
+      <SignalSpine />
+
       {/* Dynamic Scroll-Reactive Navigation */}
       <Navbar />
 
-      {/* Main Experience Flow: 13-Chapter Editorial Architecture */}
+      {/* Main Experience Flow: 13-Chapter Seamless Continuous Architecture */}
       <main className="relative">
         {/* Chapter 01: Hero (Cinematic Dark Opening with Flowing VoiceOps Signal) */}
         <Hero
@@ -83,17 +87,29 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
           }
         />
 
+        {/* Seamless Transition Bridge: Midnight → Neutral Zone */}
+        <div className="bridge-midnight-to-ivory" aria-hidden="true" />
+
         {/* Chapter 04: First-Layer Experience (Customer → VoiceOps → Understand → Act → Resolution) */}
         <SystemDiagram />
 
-        {/* Chapter 05: Capabilities Matrix (01-06 Editorial Ledger & Changing Visual) */}
+        {/* Chapter 05: Capabilities Matrix (01-06 3D Flip Card System) */}
         <UseCasesSection useCases={useCases} />
+
+        {/* Seamless Transition Bridge: Neutral Zone → Midnight */}
+        <div className="bridge-ivory-to-midnight" aria-hidden="true" />
 
         {/* Chapter 06: Workflow (Calls Should End in Actions: 4-Stage Execution Pipeline) */}
         <WorkflowSection />
 
+        {/* Seamless Transition Bridge: Midnight → Neutral Zone */}
+        <div className="bridge-midnight-to-ivory" aria-hidden="true" />
+
         {/* Chapter 07: Industry World (Voice Automation for the Way Your Business Works) */}
         <IndustriesSection industries={industries} />
+
+        {/* Seamless Transition Bridge: Neutral Zone → Midnight */}
+        <div className="bridge-ivory-to-midnight" aria-hidden="true" />
 
         {/* Chapter 08: Integrations & Connectivity (Phone, Calendar, CRM, Business Systems) */}
         <IntegrationsSection />
