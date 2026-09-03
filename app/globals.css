@@ -215,6 +215,27 @@ body {
 }
 
 /* =========================================================
+   3D FLIP CARD SYSTEM UTILITIES
+   ========================================================= */
+.perspective-1400 {
+  perspective: 1400px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* =========================================================
    RESTRAINED BUTTONS & INTERACTION
    ========================================================= */
 
