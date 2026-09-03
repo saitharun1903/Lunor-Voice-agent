@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { FlipCard } from "./ui/flip-card";
 import { UseCase } from "@/lib/types";
@@ -67,6 +67,12 @@ const CAPABILITY_CARDS = [
 ];
 
 export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCasesProps) {
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+
+  const handleCardToggle = useCallback((id: string) => {
+    setActiveCardId((current) => (current === id ? null : id));
+  }, []);
+
   return (
     <section id="use-cases" className="py-28 md:py-40 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
@@ -102,6 +108,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
               transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <FlipCard
+                id={card.index}
                 index={card.index}
                 title={card.title}
                 subtitle={card.subtitle}
@@ -109,6 +116,8 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                 workflow={card.workflow}
                 outcome={card.outcome}
                 tiltClass={card.tiltClass}
+                isFlipped={activeCardId === card.index}
+                onToggle={() => handleCardToggle(card.index)}
               />
             </motion.div>
           ))}

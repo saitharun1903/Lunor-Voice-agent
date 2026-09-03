@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useState, memo, useCallback } from "react";
-import { ArrowUpRight, ArrowLeft, CheckCircle2 } from "lucide-react";
-
-export interface FlipCardWorkflowStep {
-  label: string;
-}
+import React, { memo, useCallback } from "react";
+import { ArrowUpRight, ArrowLeft } from "lucide-react";
 
 export interface FlipCardProps {
+  id: string;
   index: string;
   title: string;
   subtitle: string;
@@ -15,9 +12,12 @@ export interface FlipCardProps {
   workflow: string[];
   outcome: string;
   tiltClass?: string;
+  isFlipped: boolean;
+  onToggle: () => void;
 }
 
 export const FlipCard = memo(function FlipCard({
+  id,
   index,
   title,
   subtitle,
@@ -25,46 +25,50 @@ export const FlipCard = memo(function FlipCard({
   workflow,
   outcome,
   tiltClass = "",
+  isFlipped,
+  onToggle,
 }: FlipCardProps) {
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  const toggleFlip = useCallback(() => {
-    setIsFlipped((prev) => !prev);
-  }, []);
-
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        toggleFlip();
+        onToggle();
       } else if (e.key === "Escape" && isFlipped) {
         e.preventDefault();
-        setIsFlipped(false);
+        onToggle();
       }
     },
-    [isFlipped, toggleFlip]
+    [isFlipped, onToggle]
   );
 
   return (
     <div
-      className={`perspective-1400 w-full h-[370px] ${tiltClass} select-none outline-none`}
+      className={`perspective-1400 w-full h-[370px] ${tiltClass} select-none outline-none cursor-pointer group transition-transform duration-200 ease-out hover:-translate-y-1`}
       role="button"
       tabIndex={0}
-      aria-pressed={isFlipped}
+      aria-expanded={isFlipped}
       aria-label={`${title} capability card. Click or press enter to view detailed workflow.`}
-      onClick={toggleFlip}
+      onClick={onToggle}
       onKeyDown={handleKeyDown}
     >
-      {/* 3D Rotating Inner Object */}
+      {/* 3D Rotating Inner Object (Strict GPU Transform, 500ms Instant Response) */}
       <div
-        className={`w-full h-full relative transition-all duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] transform-style-3d cursor-pointer hover:-translate-y-1 ${
-          isFlipped ? "rotate-y-180 shadow-2xl" : "shadow-md hover:shadow-xl"
+        className={`w-full h-full relative transform-style-3d will-change-transform ${
+          isFlipped ? "shadow-2xl" : "shadow-md group-hover:shadow-lg"
         }`}
+        style={{
+          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          transformOrigin: "center center",
+          transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms ease",
+        }}
       >
         {/* =========================================================
             FRONT FACE: Pure Editorial Minimalism with Tactile Matte Material
             ========================================================= */}
-        <div className="backface-hidden absolute inset-0 rounded-2xl bg-white dark:bg-[#0e121d] border border-black/[0.07] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden transition-colors">
+        <div
+          className="backface-hidden absolute inset-0 rounded-2xl bg-white dark:bg-[#0e121d] border border-black/[0.07] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden transition-colors pointer-events-auto"
+          style={{ transform: "rotateY(0deg)" }}
+        >
           {/* Top: Index */}
           <div className="flex items-center justify-between">
             <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wider">
@@ -95,7 +99,10 @@ export const FlipCard = memo(function FlipCard({
         {/* =========================================================
             BACK FACE: Detailed Operational Discovery (Matte Architectural Surface)
             ========================================================= */}
-        <div className="backface-hidden rotate-y-180 absolute inset-0 rounded-2xl bg-[#faf9f6] dark:bg-[#090c15] border border-black/[0.07] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden shadow-lg">
+        <div
+          className="backface-hidden absolute inset-0 rounded-2xl bg-[#faf9f6] dark:bg-[#090c15] border border-black/[0.07] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden shadow-lg pointer-events-auto"
+          style={{ transform: "rotateY(180deg)" }}
+        >
           {/* Top: Header & Close Trigger */}
           <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.07] pb-3">
             <div className="flex items-center gap-2 text-xs font-mono">
@@ -111,7 +118,7 @@ export const FlipCard = memo(function FlipCard({
               className="flex items-center gap-1 text-[11px] font-sans text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
-                toggleFlip();
+                onToggle();
               }}
             >
               <ArrowLeft className="w-3 h-3" />
