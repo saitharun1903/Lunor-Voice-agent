@@ -2,61 +2,62 @@
 
 import React, { memo } from "react";
 
-const steps = [
-  {
-    num: "01",
-    name: "Understand",
-    description: "We review your common caller questions, intake scripts, and operational bottlenecks.",
-  },
-  {
-    num: "02",
-    name: "Design",
-    description: "We map natural conversational pathways, tone parameters, and warm-transfer logic.",
-  },
-  {
-    num: "03",
-    name: "Build",
-    description: "We connect the voice system to your phone lines, booking calendar, and CRM.",
-  },
-  {
-    num: "04",
-    name: "Launch",
-    description: "Your voice agent goes live 24/7 with automatic call logging and performance monitoring.",
-  },
-];
-
 export const HowItWorksSection = memo(function HowItWorksSection() {
+  const stages = [
+    {
+      step: "01",
+      title: "Understand",
+      description: "We audit your inbound call recordings, common questions, and exception cases to map your team's exact conversational decision tree.",
+    },
+    {
+      step: "02",
+      title: "Design",
+      description: "We craft tailored conversational pathways, human-like cadences, and business boundaries in our testing environment.",
+    },
+    {
+      step: "03",
+      title: "Build & Integrate",
+      description: "We connect VoiceOps directly to your calendar software, CRM, and carrier numbers for real-time reads and writes.",
+    },
+    {
+      step: "04",
+      title: "Launch & Supervise",
+      description: "We deploy the first layer to live phone lines, audit early transcripts, and continuously calibrate response accuracy.",
+    },
+  ];
+
   return (
-    <section id="process" className="py-20 md:py-24 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="process" className="py-24 md:py-36 relative overflow-hidden chapter-stone border-t border-black/[0.06] dark:border-white/[0.08]">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14 border-b border-black/[0.04] dark:border-white/[0.05] pb-10">
-          <div className="max-w-lg">
-            <p className="type-eyebrow text-zinc-400 mb-3">Process</p>
-            <h2 className="type-h1 text-zinc-950 dark:text-white">
-              How implementation works.
-            </h2>
-          </div>
-          <p className="type-body text-zinc-500 dark:text-zinc-400 max-w-sm lg:text-right">
-            Four steps from brief to a live voice agent answering your calls.
+        <div className="max-w-3xl mb-16 sm:mb-20 text-left space-y-3">
+          <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
+            METHODOLOGY
+          </p>
+
+          <h2 className="type-serif-h1 text-zinc-950 dark:text-white font-normal">
+            From initial call audit to live phone lines.
+          </h2>
+
+          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed">
+            How we take your company from missed calls and phone tag to an automated first layer in days.
           </p>
         </div>
 
-        {/* Numbered Ledger — no cards, just type & space */}
-        <div className="divide-y divide-black/[0.04] dark:divide-white/[0.05]">
-          {steps.map((step) => (
-            <div
-              key={step.num}
-              className="grid grid-cols-12 items-baseline gap-4 py-6"
-            >
-              <span className="col-span-1 type-label-tech text-zinc-300 dark:text-zinc-600">
-                {step.num}
+        {/* Continuous Editorial Journey (No Generic Boxed Cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 relative">
+          {stages.map((stage, idx) => (
+            <div key={stage.step} className="space-y-4 pt-4 border-t border-black/[0.12] dark:border-white/[0.12]">
+              <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 block">
+                PHASE {stage.step}
               </span>
-              <h3 className="col-span-3 type-h3 text-zinc-950 dark:text-white">
-                {step.name}
+
+              <h3 className="font-serif text-2xl text-zinc-950 dark:text-white font-normal">
+                {stage.title}
               </h3>
-              <p className="col-span-8 type-body text-zinc-600 dark:text-zinc-400">
-                {step.description}
+
+              <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                {stage.description}
               </p>
             </div>
           ))}

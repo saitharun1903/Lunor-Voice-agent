@@ -1,194 +1,126 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { memo } from "react";
 import Link from "next/link";
-import { X, Shield, FileText } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUp } from "lucide-react";
 import { SiteSettings } from "@/lib/types";
-import { LunorLogo } from "./ui/lunor-logo";
 
 interface FooterProps {
   settings: SiteSettings;
 }
 
-export function Footer({ settings }: FooterProps) {
-  const [legalModal, setLegalModal] = useState<"privacy" | "terms" | null>(null);
+export const Footer = memo(function Footer({ settings }: FooterProps) {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <>
-      <footer className="py-16 border-t border-black/[0.06] dark:border-white/[0.08] bg-black/[0.015] dark:bg-black/60">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-black/[0.05] dark:border-white/[0.06]">
-            {/* Column 1: Brand & Tagline */}
-            <div className="md:col-span-5 space-y-4">
-              <Link href="/" className="inline-block group" aria-label="VoiceOps Home">
-                <LunorLogo size={28} showWordmark={true} />
-              </Link>
-              <p className="type-body-sm text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
-                {settings.tagline || "Voice automation for the first layer of business calls."}
-              </p>
-              <p className="type-body-sm text-zinc-500">
-                Custom conversational systems engineered for real operational workflows.
-              </p>
-            </div>
-
-            {/* Column 2: Quick Links */}
-            <div className="md:col-span-3 space-y-3">
-              <p className="type-eyebrow text-zinc-950 dark:text-white">
-                Studio
-              </p>
-              <ul className="space-y-2 type-body-sm text-zinc-600 dark:text-zinc-400">
-                <li>
-                  <a href="#demo" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Live Demo
-                  </a>
-                </li>
-                <li>
-                  <a href="#use-cases" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Capabilities
-                  </a>
-                </li>
-                <li>
-                  <a href="#architecture" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Architecture
-                  </a>
-                </li>
-                <li>
-                  <a href="#industries" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Industries
-                  </a>
-                </li>
-                <li>
-                  <a href="#work" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
-                    Case Studies
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 3: Contact & Direct */}
-            <div className="md:col-span-4 space-y-3">
-              <p className="type-eyebrow text-zinc-950 dark:text-white">
-                Direct Inquiries
-              </p>
-              <ul className="space-y-2 type-body-sm text-zinc-600 dark:text-zinc-400">
-                <li>
-                  <a
-                    href={`mailto:${settings.email || "conversations@voiceops.in"}`}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-mono"
-                  >
-                    {settings.email || "conversations@voiceops.in"}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`tel:${settings.phone || "+18885866240"}`}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-mono"
-                  >
-                    {settings.phone || "+1 (888) 586-6240"}
-                  </a>
-                </li>
-                <li className="pt-2">
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center type-btn text-blue-600 dark:text-blue-400 hover:underline"
-                  >
-                    Build My Voice Agent →
-                  </a>
-                </li>
-              </ul>
-            </div>
+    <footer className="chapter-midnight border-t border-white/[0.08] py-16 sm:py-20 text-white">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 border-b border-white/[0.08] pb-12">
+          {/* Brand & Thesis */}
+          <div className="space-y-3 max-w-sm text-left">
+            <Link href="/" className="inline-block font-sans font-bold text-sm uppercase tracking-tight text-white">
+              VOICEOPS
+            </Link>
+            <p className="type-sans-body-sm text-zinc-400 font-normal leading-relaxed">
+              Voice automation for the first layer of business calls. Custom conversational systems engineered for real operational workflows.
+            </p>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 type-body-sm text-zinc-500">
-            <p>© {new Date().getFullYear()} VoiceOps Technologies Inc. All rights reserved.</p>
+          {/* Quiet Navigation Columns */}
+          <div className="flex flex-wrap gap-12 sm:gap-16 text-xs text-left">
+            <div className="space-y-3">
+              <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block">
+                EXPERIENCE
+              </span>
+              <ul className="space-y-2 font-sans text-zinc-400">
+                <li>
+                  <button onClick={() => scrollTo("demo")} className="hover:text-white transition-colors">
+                    Live Demo
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollTo("use-cases")} className="hover:text-white transition-colors">
+                    Capabilities
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollTo("industries")} className="hover:text-white transition-colors">
+                    Industries
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollTo("architecture")} className="hover:text-white transition-colors">
+                    The First Layer
+                  </button>
+                </li>
+              </ul>
+            </div>
 
-            <div className="flex items-center gap-5">
-              <button
-                onClick={() => setLegalModal("privacy")}
-                className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors"
-              >
-                Privacy Policy
-              </button>
-              <button
-                onClick={() => setLegalModal("terms")}
-                className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors"
-              >
-                Terms of Service
-              </button>
+            <div className="space-y-3">
+              <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block">
+                STUDIO
+              </span>
+              <ul className="space-y-2 font-sans text-zinc-400">
+                <li>
+                  <button onClick={() => scrollTo("work")} className="hover:text-white transition-colors">
+                    Work & Case Studies
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollTo("process")} className="hover:text-white transition-colors">
+                    Methodology
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollTo("faq")} className="hover:text-white transition-colors">
+                    FAQ
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => scrollTo("contact")} className="hover:text-white transition-colors">
+                    Deploy
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block">
+                ADMIN
+              </span>
+              <ul className="space-y-2 font-sans text-zinc-400">
+                <li>
+                  <Link href="/admin/login" className="hover:text-white transition-colors">
+                    Admin Portal
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      </footer>
 
-      {/* Legal Dialog Modal */}
-      <AnimatePresence>
-        {legalModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setLegalModal(null)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 15 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 15 }}
-              className="relative w-full max-w-lg rounded-3xl structured-card p-6 sm:p-8 shadow-2xl z-10 space-y-4"
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-zinc-500">
+          <p>© {new Date().getFullYear()} VoiceOps Technologies Inc. All rights reserved.</p>
+
+          <div className="flex items-center gap-6">
+            <span>voiceops.in</span>
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-1 hover:text-white transition-colors"
             >
-              <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
-                <div className="flex items-center gap-2">
-                  {legalModal === "privacy" ? (
-                    <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                  ) : (
-                    <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                  )}
-                  <h3 className="type-h3 text-zinc-950 dark:text-white">
-                    {legalModal === "privacy" ? "Privacy Policy" : "Terms of Service"}
-                  </h3>
-                </div>
-                <button
-                  onClick={() => setLegalModal(null)}
-                  className="w-7 h-7 rounded-full flex items-center justify-center bg-black/[0.04] dark:bg-white/[0.08] text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="type-body-sm text-zinc-600 dark:text-zinc-300 space-y-3 leading-relaxed max-h-[60vh] overflow-y-auto pr-2">
-                {legalModal === "privacy" ? (
-                  <>
-                    <p>
-                      <strong>1. Privacy Commitments:</strong> VoiceOps designs conversational systems that respect customer data sovereignty. We do not sell or monetize caller data.
-                    </p>
-                    <p>
-                      <strong>2. Telephony & Audio Data:</strong> Voice audio processed during calls is routed exclusively through enterprise-grade channels and stored according to your business data retention policies.
-                    </p>
-                    <p>
-                      <strong>3. Zero Model Training:</strong> Client phone transcripts are strictly isolated and never used to train public foundation models without explicit contractual agreement.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p>
-                      <strong>1. Service Scope:</strong> VoiceOps provides voice automation studio services, conversational agent deployment, and telephony workflow integration.
-                    </p>
-                    <p>
-                      <strong>2. Service Level Agreement:</strong> Enterprise tier deployments include high availability telephony routing with automated fallback and warm human transfer capabilities.
-                    </p>
-                    <p>
-                      <strong>3. Compliance:</strong> Clients are responsible for ensuring their telecommunication disclosures comply with regional call recording and disclosure laws.
-                    </p>
-                  </>
-                )}
-              </div>
-            </motion.div>
+              <span>Back to Top</span>
+              <ArrowUp className="w-3 h-3" />
+            </button>
           </div>
-        )}
-      </AnimatePresence>
-    </>
+        </div>
+      </div>
+    </footer>
   );
-}
+});

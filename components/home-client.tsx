@@ -4,8 +4,9 @@ import React, { memo, useCallback } from "react";
 import { Navbar } from "./navbar";
 import { Hero } from "./hero";
 import { LiveDemoSection } from "./live-demo-section";
-import { UseCasesSection } from "./use-cases";
+import { AboutSection } from "./about";
 import { SystemDiagram } from "./ui/system-diagram";
+import { UseCasesSection } from "./use-cases";
 import { IndustriesSection } from "./industries";
 import { IntegrationsSection } from "./integrations";
 import { HowItWorksSection } from "./how-it-works";
@@ -30,7 +31,7 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
     heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
     heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
     heroSubheadline:
-      "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
+      "VoiceOps builds custom AI voice systems that handle repetitive conversations — from customer enquiries and bookings to lead qualification, support, and warm staff handoffs.",
     googleSheetsWebhookUrl: "",
     voiceDemoEnabled: true,
     voiceDemoTitle: "Talk to VoiceOps.",
@@ -56,12 +57,12 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
 
   return (
     <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-blue-600 selection:text-white transition-colors duration-200 overflow-x-hidden">
-      {/* Floating Navigation */}
+      {/* Quiet Minimal Navigation */}
       <Navbar />
 
-      {/* Main Experience Flow: Product-First Storytelling */}
+      {/* Main Experience Flow: Visual Chapters & Narrative Journey */}
       <main className="relative">
-        {/* Chapter 1: Hero with Asymmetric Editorial Layout & Acoustic Ribbon */}
+        {/* Chapter 1: Cinematic Full-Width Opening (Deep Midnight) */}
         <Hero
           eyebrow={settings.heroEyebrow}
           headline={settings.heroHeadline}
@@ -69,41 +70,44 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
           onTalkToLuno={scrollToDemo}
         />
 
-        {/* Chapter 2: Live Voice Product Demo (Directly Below Hero) */}
+        {/* Chapter 2: Hardware-Grade Live Voice Product Moment (Deep Midnight) */}
         <LiveDemoSection
           title={settings.voiceDemoTitle || "Talk to VoiceOps."}
           description={
             settings.voiceDemoDescription ||
-            "Experience how an AI voice system handles the first layer of a real business conversation with sub-second response times."
+            "Experience how an AI voice system handles the first layer of a real business conversation with sub-second turn cadence."
           }
         />
 
-        {/* Chapter 3: What VoiceOps Does (01-06 Editorial Index & Interactive Action Visualizer) */}
-        <UseCasesSection useCases={useCases} />
+        {/* Chapter 3: The Operational Problem (Warm Ivory Editorial) */}
+        <AboutSection />
 
-        {/* Chapter 4: Product Architecture & Telephony Flow */}
+        {/* Chapter 4: The Signature Concept: The First Layer (Soft Stone Transition) */}
         <SystemDiagram />
 
-        {/* Chapter 5: Industry Solutions (Featured Real Estate + Modular Switchers) */}
+        {/* Chapter 5: What VoiceOps Automates: Editorial Capabilities (Warm Ivory) */}
+        <UseCasesSection useCases={useCases} />
+
+        {/* Chapter 6: Industry World Blueprint (Deep Midnight Atmosphere) */}
         <IndustriesSection industries={industries} />
 
-        {/* Chapter 6: Carrier, SIP & CRM Ecosystem */}
+        {/* Chapter 7: Connectivity & Ecosystem (Editorial Columns) */}
         <IntegrationsSection />
 
-        {/* Chapter 7: 4-Phase Implementation Methodology */}
-        <HowItWorksSection />
-
-        {/* Chapter 8: Verified Client Case Studies */}
+        {/* Chapter 8: Verified Client Case Studies (Magazine Spread Publication) */}
         <PortfolioSection projects={projects} stats={stats} />
 
-        {/* Chapter 9: Technical & Operational FAQ */}
+        {/* Chapter 9: 4-Phase Deployment Methodology (Continuous Journey Line) */}
+        <HowItWorksSection />
+
+        {/* Chapter 10: Minimalist Editorial FAQ */}
         <FaqSection />
 
-        {/* Chapter 10: Inbound Closing & Consultation Request Deck */}
+        {/* Chapter 11: Cinematic Closing Scene & Consultation Form (Deep Midnight) */}
         <ContactSection settings={settings} />
       </main>
 
-      {/* Footer */}
+      {/* Quiet Editorial Footer */}
       <Footer settings={settings} />
     </div>
   );

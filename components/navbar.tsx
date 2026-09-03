@@ -1,79 +1,33 @@
 "use client";
 
-import React, { useState, useEffect, useRef, memo, useCallback } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
-import { ThemeToggle } from "./theme-toggle";
-import { LunorLogo } from "./ui/lunor-logo";
+import React, { useState, useEffect, memo, useCallback } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowUpRight, Sun, Moon } from "lucide-react";
+import { useTheme } from "./theme-provider";
 
 export const Navbar = memo(function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const moreRef = useRef<HTMLDivElement>(null);
-
-  // Framer Motion smooth scroll tracking for Apple-style glossy sheen movement
-  const { scrollY, scrollYProgress } = useScroll();
-  
-  // Smooth spring physics for liquid gloss movement
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 24,
-    restDelta: 0.001,
-  });
-
-  // Glossy light blue reflection moves horizontally across the navbar as page scrolls
-  const sheenTranslateX = useTransform(smoothProgress, [0, 1], ["-120%", "120%"]);
-  
-  // Subtle top-edge light beam position
-  const borderBeamX = useTransform(smoothProgress, [0, 1], ["-100%", "200%"]);
 
   useEffect(() => {
-    const unsubscribe = scrollY.on("change", (latest) => {
-      setScrolled(latest > 15);
-    });
-    return () => unsubscribe();
-  }, [scrollY]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
-        setMoreOpen(false);
-      }
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
     };
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMoreOpen(false);
-        setMobileMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = useCallback((id: string) => {
-    setMoreOpen(false);
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const offsetPosition =
-        element.getBoundingClientRect().top + window.pageYOffset - 68;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
 
-  const scrollToTop = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    setMoreOpen(false);
-    setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-  const primaryLinks = [
+  const navLinks = [
     { label: "Live Demo", id: "demo" },
     { label: "Capabilities", id: "use-cases" },
     { label: "Industries", id: "industries" },
@@ -81,175 +35,147 @@ export const Navbar = memo(function Navbar() {
     { label: "Process", id: "process" },
   ];
 
-  const secondaryLinks = [
-    { label: "Architecture", id: "architecture" },
-    { label: "Case Studies", id: "work" },
-    { label: "FAQ", id: "faq" },
-    { label: "Contact", id: "contact" },
-  ];
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-3 pb-0 pointer-events-none">
-      <div className="max-w-5xl mx-auto pointer-events-auto">
-        <nav
-          className={`relative w-full flex items-center justify-between h-[48px] px-4 rounded-2xl overflow-hidden transition-all duration-300 ${
-            scrolled
-              ? "bg-white/85 dark:bg-[#0c0d12]/85 backdrop-blur-2xl border border-blue-500/20 dark:border-blue-400/20 shadow-[0_8px_30px_-4px_rgba(59,130,246,0.12),0_2px_10px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_-4px_rgba(37,99,235,0.25),0_0_1px_1px_rgba(255,255,255,0.08)]"
-              : "bg-white/70 dark:bg-[#0c0d12]/70 backdrop-blur-xl border border-black/[0.06] dark:border-white/[0.08] shadow-sm"
-          }`}
-        >
-          {/* 1. Dynamic Moving Light-Blue Glossy Liquid Sheen across the navbar */}
-          <motion.div
-            style={{ x: sheenTranslateX }}
-            className="absolute inset-y-0 w-3/4 pointer-events-none -skew-x-12 opacity-80 dark:opacity-60 bg-gradient-to-r from-transparent via-blue-400/[0.18] to-transparent blur-md will-change-transform"
-          />
-
-          {/* 2. Top-Edge Ambient Blue Specular Light Beam */}
-          <motion.div
-            style={{ x: borderBeamX }}
-            className="absolute top-0 left-0 w-1/3 h-[1.5px] pointer-events-none bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-90 will-change-transform"
-          />
-
-          {/* 3. Brand Logo */}
-          <a
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "py-2.5 bg-[#06080e]/85 dark:bg-[#06080e]/85 backdrop-blur-md border-b border-white/[0.08]"
+            : "py-4 bg-transparent"
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between">
+          {/* Brand Mark */}
+          <Link
             href="/"
-            onClick={scrollToTop}
-            className="relative z-10 flex items-center shrink-0 group"
             aria-label="VoiceOps Home"
+            className="flex items-center gap-2 group outline-none"
           >
-            <LunorLogo size={18} showWordmark={true} />
-          </a>
+            {/* Minimal Acoustic Mark */}
+            <div className="w-5 h-5 flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 12V12.01M8 8V16M12 4V20M16 8V16M20 12V12.01"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  className="text-blue-500 group-hover:text-blue-400 transition-colors"
+                />
+              </svg>
+            </div>
+            <span className="font-sans font-bold text-sm tracking-tight uppercase text-white">
+              VOICEOPS
+            </span>
+          </Link>
 
-          {/* 4. Desktop Navigation Links */}
-          <div className="relative z-10 hidden md:flex items-center gap-0.5">
-            {primaryLinks.map((link) => (
+          {/* Quiet Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-7">
+            {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="relative px-3 py-1 text-[13px] font-normal text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150 whitespace-nowrap group"
+                className="font-sans text-[13px] font-normal text-zinc-400 hover:text-white transition-colors duration-150 outline-none"
               >
                 {link.label}
-                {/* Subtle underline indicator on hover */}
-                <span className="absolute bottom-0 left-3 right-3 h-px bg-blue-600 dark:bg-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
               </button>
             ))}
+          </nav>
 
-            {/* More Dropdown */}
-            <div className="relative" ref={moreRef}>
+          {/* Right Action Stack */}
+          <div className="flex items-center gap-3">
+            {/* Minimal Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle visual theme"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            {/* Compact CTA */}
+            <button
+              onClick={() => scrollToSection("demo")}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium transition-all duration-150 shadow-xs active:scale-[0.98]"
+            >
+              <span>Talk to VoiceOps</span>
+            </button>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open mobile menu"
+              className="md:hidden w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Full-Screen Editorial Mobile Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-50 bg-[#06080e] text-white flex flex-col justify-between p-7 sm:p-10"
+          >
+            {/* Top Bar */}
+            <div className="flex items-center justify-between">
+              <span className="font-sans font-bold text-sm tracking-tight uppercase text-white">
+                VOICEOPS
+              </span>
               <button
-                onClick={() => setMoreOpen(!moreOpen)}
-                aria-expanded={moreOpen}
-                className="flex items-center gap-0.5 px-3 py-1 text-[13px] font-normal text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150 whitespace-nowrap"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close menu"
+                className="w-9 h-9 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white"
               >
-                <span>More</span>
-                <ChevronDown
-                  className={`w-3 h-3 mt-px transition-transform duration-150 ${
-                    moreOpen ? "rotate-180 text-blue-600 dark:text-blue-400" : ""
-                  }`}
-                />
+                <X className="w-5 h-5" />
               </button>
-
-              <AnimatePresence>
-                {moreOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 4, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 4, scale: 0.96 }}
-                    transition={{ duration: 0.14, ease: "easeOut" }}
-                    className="absolute top-full left-0 mt-2 w-44 p-1.5 rounded-2xl bg-white/95 dark:bg-[#111218]/95 backdrop-blur-2xl border border-blue-500/20 dark:border-white/[0.1] shadow-2xl z-50 space-y-0.5"
-                  >
-                    {secondaryLinks.map((sub) => (
-                      <button
-                        key={sub.label}
-                        onClick={() => scrollToSection(sub.id)}
-                        className="w-full text-left px-3 py-2 text-[13px] font-normal text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 rounded-xl transition-colors whitespace-nowrap"
-                      >
-                        {sub.label}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
-          </div>
 
-          {/* 5. Right Controls: Theme Toggle & Solid CTA */}
-          <div className="relative z-10 flex items-center gap-2">
-            <ThemeToggle />
-
-            {/* Compact High-Contrast CTA */}
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="hidden sm:flex items-center px-3.5 h-[30px] rounded-xl text-[12.5px] font-semibold tracking-[-0.01em] whitespace-nowrap transition-all duration-150
-                bg-zinc-950 text-white hover:bg-blue-600
-                dark:bg-white dark:text-zinc-950 dark:hover:bg-blue-500 dark:hover:text-white
-                shadow-[0_1px_3px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)]
-                active:scale-[0.98]
-              "
-            >
-              Talk to VoiceOps
-            </button>
-
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-              className="md:hidden w-8 h-8 rounded-xl flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-black/[0.05] dark:hover:bg-white/[0.07] transition-colors"
-            >
-              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-            </button>
-          </div>
-        </nav>
-
-        {/* Mobile Drawer */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="md:hidden mt-2 p-3.5 rounded-2xl bg-white/95 dark:bg-[#0f1016]/95 backdrop-blur-2xl border border-blue-500/20 dark:border-white/[0.1] shadow-2xl"
-            >
-              {/* Primary links */}
-              <div className="space-y-0.5">
-                {primaryLinks.map((link) => (
+            {/* Editorial Nav Index */}
+            <div className="space-y-6 my-auto">
+              <span className="type-editorial-eyebrow text-zinc-500 block">
+                INDEX
+              </span>
+              <div className="space-y-4">
+                {navLinks.map((link, idx) => (
                   <button
                     key={link.id}
                     onClick={() => scrollToSection(link.id)}
-                    className="w-full text-left px-3.5 py-2.5 text-[13px] font-normal text-zinc-800 dark:text-zinc-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl hover:bg-black/[0.02] dark:hover:bg-white/[0.04] transition-colors"
+                    className="flex items-baseline justify-between w-full text-left group"
                   >
-                    {link.label}
+                    <span className="font-serif text-3xl sm:text-4xl text-zinc-300 group-hover:text-white transition-colors">
+                      {link.label}
+                    </span>
+                    <span className="font-mono text-xs text-zinc-600 group-hover:text-blue-400 transition-colors">
+                      0{idx + 1}
+                    </span>
                   </button>
                 ))}
               </div>
+            </div>
 
-              {/* Secondary links */}
-              <div className="mt-2 pt-2 border-t border-black/[0.06] dark:border-white/[0.07] space-y-0.5">
-                {secondaryLinks.map((sub) => (
-                  <button
-                    key={sub.label}
-                    onClick={() => scrollToSection(sub.id)}
-                    className="w-full text-left px-3.5 py-2 text-[13px] font-normal text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl hover:bg-black/[0.02] dark:hover:bg-white/[0.04] transition-colors"
-                  >
-                    {sub.label}
-                  </button>
-                ))}
+            {/* Bottom Actions */}
+            <div className="pt-6 border-t border-white/[0.08] space-y-4">
+              <button
+                onClick={() => scrollToSection("demo")}
+                className="w-full py-3 rounded-xl bg-blue-600 text-white font-medium text-sm flex items-center justify-center gap-2"
+              >
+                <span>Talk to VoiceOps Live</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+              <div className="flex items-center justify-between text-xs text-zinc-500 font-mono">
+                <span>voiceops.in</span>
+                <span>Sub-400ms Voice Automation</span>
               </div>
-
-              {/* CTA */}
-              <div className="mt-3 pt-3 border-t border-black/[0.06] dark:border-white/[0.07]">
-                <button
-                  onClick={() => scrollToSection("contact")}
-                  className="w-full py-2.5 rounded-xl text-[13px] font-semibold text-white bg-zinc-950 hover:bg-blue-600 dark:bg-white dark:text-zinc-950 dark:hover:bg-blue-500 dark:hover:text-white transition-colors shadow-sm"
-                >
-                  Talk to VoiceOps
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </header>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 });

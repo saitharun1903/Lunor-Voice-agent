@@ -2,7 +2,7 @@
 
 import React, { useState, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ArrowRight, Zap, CheckCircle2, Bot, User, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, User, Bot } from "lucide-react";
 import { UseCase } from "@/lib/types";
 
 interface UseCasesProps {
@@ -14,73 +14,67 @@ const CAPABILITIES = [
     id: "enquiries",
     num: "01",
     title: "Customer Enquiries",
-    headline: "Instant Policy, Pricing & FAQ Resolution",
-    description: "Answers repetitive questions regarding opening hours, service catalogs, location directions, and pricing with zero hold time.",
+    headline: "Answers routine questions instantly with zero hold time.",
+    description: "Opening hours, service pricing, directions, policies, and parking answered directly from your verified business knowledge.",
     caller: "What are your operating hours this weekend, and is customer parking available?",
     agent: "We're open Saturday and Sunday from 9:00 AM to 8:00 PM. Free customer parking is located right behind the main entrance on 4th Ave.",
-    actionName: "Instant Knowledge Lookup",
-    actionOutput: "Matched 100% with Knowledge Base · Resolution: 1.2s",
-    systemEvent: "FAQ_RESOLVED_AUTONOMOUSLY",
+    workflow: ["Caller Enquires", "Instant Knowledge Match", "Natural Response", "Zero Wait"],
+    outcome: "Resolved in 1.2 seconds without staff interruption",
   },
   {
     id: "bookings",
     num: "02",
     title: "Reservations & Scheduling",
-    headline: "Real-Time Calendar Lock & SMS Confirmation",
-    description: "Checks live calendar availability across practitioners or staff, resolves conflicts, and confirms appointments with calendar invites.",
+    headline: "Checks calendar availability and locks confirmed slots.",
+    description: "Connects directly with your Google Calendar, Outlook, or booking software to schedule visits, consultations, and reservations.",
     caller: "I'd like to book an appointment for tomorrow afternoon around 3:00 PM.",
     agent: "Tomorrow at 3:00 PM with Dr. Reynolds is open. I've locked that slot for you and sent an SMS confirmation with the invite link.",
-    actionName: "Cal.com / Google Calendar Write",
-    actionOutput: "Slot Confirmed: Tomorrow 3:00 PM · SMS Dispatched",
-    systemEvent: "CALENDAR_SLOT_RESERVED",
+    workflow: ["Request Received", "Live Calendar Checked", "Slot Reserved", "SMS Confirmation Sent"],
+    outcome: "Slot written directly into your booking system",
   },
   {
     id: "qualification",
     num: "03",
     title: "Lead Qualification",
-    headline: "Structured Intake & Criterion Grading",
-    description: "Asks structured qualifying questions to evaluate caller budget, timeline, urgency, and requirement specifics before routing.",
+    headline: "Asks the right questions before routing to your sales team.",
+    description: "Gathers caller budget, timeline, and project requirements so your senior specialists receive fully scored, high-intent profiles.",
     caller: "Looking for a 3-bedroom property in Westside with a budget around ₹90 Lakhs.",
     agent: "Recorded your 3-bedroom preference, ₹90L budget, and next-month timeline. A senior property specialist has received your verified profile.",
-    actionName: "CRM Lead Scoring & Routing",
-    actionOutput: "Lead Grade: High Intent (Score 95/100) · Hubspot Synced",
-    systemEvent: "LEAD_QUALIFIED_AND_ASSIGNED",
+    workflow: ["Caller Intent Captured", "Budget & Timing Scored", "CRM Lead Created", "Broker Notified"],
+    outcome: "High-intent buyer verified and logged in CRM",
   },
   {
     id: "sales",
     num: "04",
     title: "Sales Discovery",
-    headline: "Inbound Prospect Discovery & Demo Booking",
-    description: "Engages high-intent buyers with product details, resolves objection queries, and books technical discovery meetings directly.",
+    headline: "Engages high-intent inbound prospects and schedules demos.",
+    description: "Answers product scope queries, handles initial pricing considerations, and coordinates introductory discovery meetings.",
     caller: "How does your phone integration connect with our existing carrier lines?",
     agent: "You can keep your existing phone number via simple call forwarding or direct SIP trunking. Would you like to schedule a 15-minute setup review?",
-    actionName: "Sales Pipeline Automation",
-    actionOutput: "Discovery Call Booked: Friday 11:00 AM · Rep Assigned",
-    systemEvent: "SALES_DISCOVERY_CONVERTED",
+    workflow: ["Prospect Inquires", "Technical Scope Answered", "Discovery Call Booked", "Calendar Invite Sent"],
+    outcome: "Introductory demo scheduled on representative's calendar",
   },
   {
     id: "support",
     num: "05",
     title: "Tier-One Support",
-    headline: "Live Status Lookups & Guided Troubleshooting",
-    description: "Resolves routine support queries, looks up order/ticket statuses via API, and guides callers through step-by-step procedures.",
+    headline: "Resolves common status lookups and guided troubleshooting.",
+    description: "Looks up order numbers, ticket statuses, and returns policies directly from your database, freeing support staff for complex issues.",
     caller: "Can you check the current status of service ticket #7842?",
     agent: "Ticket #7842 was completed this morning by technician Marcus. A complete service report has been emailed to your account address.",
-    actionName: "Helpdesk Database Query",
-    actionOutput: "Ticket #7842 Status: Verified Complete · Email Synced",
-    systemEvent: "SUPPORT_TICKET_RESOLVED",
+    workflow: ["Ticket Number Verified", "Database Queried", "Status Delivered", "Email Report Dispatched"],
+    outcome: "Routine inquiry closed without human intervention",
   },
   {
     id: "followups",
     num: "06",
     title: "Outbound Follow-ups",
-    headline: "Automated Reminders, Confirmations & Callbacks",
-    description: "Executes structured outbound calls for appointment confirmations, estimate follow-ups, and feedback collection automatically.",
+    headline: "Automates appointment confirmations and callback workflows.",
+    description: "Reaches out automatically to confirm next-day visits, follow up on pending estimates, or confirm job readiness.",
     caller: "Hi, calling back regarding the commercial quote emailed yesterday.",
     agent: "I see your estimate was approved. Would you like me to schedule the technician dispatch for this Thursday morning?",
-    actionName: "Dispatch Coordination Engine",
-    actionOutput: "Estimate Approved · Technician Dispatched for Thursday",
-    systemEvent: "DISPATCH_CONFIRMED",
+    workflow: ["Callback Initiated", "Quote Context Retrieved", "Dispatch Confirmed", "Technician Assigned"],
+    outcome: "Estimate converted into scheduled dispatch",
   },
 ];
 
@@ -95,53 +89,42 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
   }, []);
 
   return (
-    <section id="use-cases" className="py-24 md:py-32 relative overflow-hidden bg-[var(--bg-primary)]">
-      {/* Background soft ambient glow */}
-      <div className="absolute top-1/2 -right-40 w-96 h-96 ambient-glow-blue pointer-events-none -z-10 opacity-60" />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="use-cases" className="py-24 md:py-36 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <p className="type-eyebrow text-blue-600 dark:text-blue-400 mb-3 tracking-wider">
-            CAPABILITIES MATRIX
+        <div className="max-w-3xl mb-16 sm:mb-20 text-left space-y-3">
+          <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
+            CAPABILITIES
           </p>
 
-          <h2 className="type-h1 text-zinc-950 dark:text-white mb-4">
-            Deterministic voice automation for real business.
+          <h2 className="type-serif-h1 text-zinc-950 dark:text-white font-normal">
+            What VoiceOps automates.
           </h2>
 
-          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            From inbound enquiries and calendar bookings to lead qualification and CRM updates, VoiceOps executes complete conversational workflows without staff intervention.
+          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 max-w-xl font-normal leading-relaxed">
+            Every business has specific call patterns. VoiceOps is configured around your exact procedures, questions, and software.
           </p>
         </div>
 
-        {/* Interactive Capabilities Workbench */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: 01-06 Interactive Ledger with Smooth Spring Gliding Pill */}
-          <div className="lg:col-span-5 space-y-2 relative">
+        {/* Editorial Two-Column Interactive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* Left: Calm Typographic Ledger */}
+          <div className="lg:col-span-5 space-y-2">
             {CAPABILITIES.map((item) => {
               const isSelected = selectedId === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => setSelectedId(item.id)}
-                  className="relative w-full text-left p-4 rounded-2xl transition-all duration-150 flex items-center justify-between group outline-none"
+                  className={`w-full text-left p-4 rounded-xl transition-all duration-150 flex items-center justify-between group outline-none ${
+                    isSelected
+                      ? "bg-black/[0.05] dark:bg-white/[0.07]"
+                      : "hover:bg-black/[0.02] dark:hover:bg-white/[0.03]"
+                  }`}
                 >
-                  {/* Fluid Gliding Background Pill (Apple / Linear style) */}
-                  {isSelected && (
-                    <motion.div
-                      layoutId="activeCapabilityPill"
-                      className="absolute inset-0 rounded-2xl bg-black/[0.04] dark:bg-white/[0.07] border border-black/[0.08] dark:border-white/[0.12] shadow-sm -z-10"
-                      transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                    >
-                      {/* Left vertical accent indicator */}
-                      <span className="absolute left-0 top-3 bottom-3 w-1 bg-blue-600 dark:bg-blue-400 rounded-r-full" />
-                    </motion.div>
-                  )}
-
-                  <div className="flex items-start gap-3.5 pl-1.5">
+                  <div className="flex items-baseline gap-4">
                     <span
-                      className={`type-label-tech font-bold transition-colors mt-0.5 ${
+                      className={`font-mono text-xs font-bold transition-colors ${
                         isSelected
                           ? "text-blue-600 dark:text-blue-400"
                           : "text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300"
@@ -149,122 +132,98 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                     >
                       {item.num}
                     </span>
-                    <div>
-                      <h3
-                        className={`type-h3 transition-colors ${
-                          isSelected
-                            ? "text-zinc-950 dark:text-white"
-                            : "text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-950 dark:group-hover:text-white"
-                        }`}
-                      >
-                        {item.title}
-                      </h3>
-                      <p className="type-body-sm text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">
-                        {item.description}
-                      </p>
-                    </div>
+                    <span
+                      className={`font-sans text-base transition-colors ${
+                        isSelected
+                          ? "font-semibold text-zinc-950 dark:text-white"
+                          : "font-normal text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-950 dark:group-hover:text-zinc-200"
+                      }`}
+                    >
+                      {item.title}
+                    </span>
                   </div>
 
-                  <ChevronRight
-                    className={`w-4 h-4 shrink-0 transition-all duration-200 ${
+                  <span
+                    className={`text-xs font-mono transition-opacity ${
                       isSelected
-                        ? "text-blue-600 dark:text-blue-400 translate-x-1 opacity-100"
-                        : "text-zinc-400 opacity-0 group-hover:opacity-100"
+                        ? "text-blue-600 dark:text-blue-400 opacity-100"
+                        : "opacity-0 group-hover:opacity-60"
                     }`}
-                  />
+                  >
+                    →
+                  </span>
                 </button>
               );
             })}
           </div>
 
-          {/* Right Column: Dynamic Conversational Simulator */}
-          <div className="lg:col-span-7 lg:sticky lg:top-24">
+          {/* Right: One Changing Workflow Canvas */}
+          <div className="lg:col-span-7 lg:sticky lg:top-28">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedId}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-3xl p-7 sm:p-8 structured-card space-y-6 shadow-xl border border-black/[0.08] dark:border-white/[0.1] backdrop-blur-xl"
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+                className="p-8 sm:p-10 rounded-2xl bg-white dark:bg-[#0c0f18] border border-black/[0.08] dark:border-white/[0.09] shadow-xl space-y-6"
               >
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
-                  <div>
-                    <span className="type-eyebrow text-blue-600 dark:text-blue-400 block mb-1">
-                      LIVE WORKFLOW #{currentCase.num}
-                    </span>
-                    <h3 className="type-h2 text-zinc-950 dark:text-white">
-                      {currentCase.headline}
-                    </h3>
-                  </div>
-
-                  <span className="type-label-tech text-[10px] px-2.5 py-1 rounded-md bg-blue-600/10 text-blue-600 dark:text-blue-400 font-bold border border-blue-600/20">
-                    {currentCase.systemEvent}
+                <div className="border-b border-black/[0.06] dark:border-white/[0.07] pb-5 space-y-2">
+                  <span className="type-editorial-eyebrow text-blue-600 dark:text-blue-400 block">
+                    CAPABILITY #{currentCase.num}
                   </span>
+                  <h3 className="font-serif text-2xl text-zinc-950 dark:text-white font-normal leading-snug">
+                    {currentCase.headline}
+                  </h3>
+                  <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    {currentCase.description}
+                  </p>
                 </div>
 
-                {/* Simulated Conversation Feed */}
+                {/* Clear Dialogue Example */}
                 <div className="space-y-3">
-                  {/* Caller */}
-                  <div className="p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] space-y-1">
-                    <div className="flex items-center gap-2 text-zinc-500 text-xs font-medium">
-                      <User className="w-3.5 h-3.5" />
-                      <span>Inbound Caller</span>
-                    </div>
-                    <p className="type-body text-zinc-900 dark:text-zinc-100">
+                  <div className="p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] space-y-1">
+                    <span className="text-[11px] font-sans font-medium text-zinc-500 block">Caller</span>
+                    <p className="font-sans text-sm text-zinc-900 dark:text-zinc-100 font-normal">
                       “{currentCase.caller}”
                     </p>
                   </div>
 
-                  {/* VoiceOps AI */}
-                  <div className="p-4 rounded-2xl bg-blue-600/[0.04] dark:bg-blue-600/[0.08] border border-blue-600/20 space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 text-xs font-medium">
-                        <Bot className="w-3.5 h-3.5" />
-                        <span>VoiceOps Voice Agent</span>
-                      </div>
-                      {/* Mini animated audio bars */}
-                      <div className="flex items-center gap-0.5 h-3">
-                        <span className="w-0.5 h-2 bg-blue-600 dark:bg-blue-400 rounded-full animate-soundwave" />
-                        <span className="w-0.5 h-3.5 bg-blue-600 dark:bg-blue-400 rounded-full animate-soundwave [animation-delay:0.2s]" />
-                        <span className="w-0.5 h-2 bg-blue-600 dark:bg-blue-400 rounded-full animate-soundwave [animation-delay:0.4s]" />
-                      </div>
-                    </div>
-                    <p className="type-body font-medium text-zinc-950 dark:text-white">
+                  <div className="p-4 rounded-xl bg-blue-600/[0.04] dark:bg-blue-600/[0.07] border border-blue-600/20 space-y-1">
+                    <span className="text-[11px] font-sans font-semibold text-blue-600 dark:text-blue-400 block">VoiceOps</span>
+                    <p className="font-sans text-sm text-zinc-950 dark:text-white font-medium">
                       “{currentCase.agent}”
                     </p>
                   </div>
                 </div>
 
-                {/* Real-time Business System Output Card */}
-                <div className="p-4 rounded-2xl bg-emerald-500/[0.05] dark:bg-emerald-500/[0.08] border border-emerald-500/20 space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="type-eyebrow text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      {currentCase.actionName}
-                    </span>
-                    <span className="type-label-tech text-emerald-600 dark:text-emerald-400">
-                      VERIFIED EXECUTION
-                    </span>
+                {/* 4-Step Process Progression Line */}
+                <div className="pt-2">
+                  <span className="type-editorial-eyebrow text-zinc-400 block mb-3">
+                    EXECUTION PATHWAY
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono">
+                    {currentCase.workflow.map((step, idx) => (
+                      <div
+                        key={idx}
+                        className="p-2.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] text-zinc-700 dark:text-zinc-300 flex flex-col justify-between"
+                      >
+                        <span className="text-[9px] text-zinc-400 block mb-1">0{idx + 1}</span>
+                        <span className="font-sans leading-tight">{step}</span>
+                      </div>
+                    ))}
                   </div>
-                  <p className="type-body-sm text-zinc-700 dark:text-zinc-300 font-medium">
-                    {currentCase.actionOutput}
-                  </p>
                 </div>
 
-                {/* Footer Action */}
-                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <p className="type-body-sm text-zinc-500 dark:text-zinc-400">
-                    {currentCase.description}
-                  </p>
-                  <button
-                    onClick={scrollToContact}
-                    className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl type-btn btn-solid-primary shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
-                  >
-                    <span>Deploy This Workflow</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+                {/* Verified Outcome Banner */}
+                <div className="p-3.5 rounded-xl bg-emerald-500/[0.08] dark:bg-emerald-500/[0.1] border border-emerald-500/20 flex items-center justify-between text-xs">
+                  <span className="font-sans font-medium text-emerald-700 dark:text-emerald-300">
+                    {currentCase.outcome}
+                  </span>
+                  <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+                    VERIFIED
+                  </span>
                 </div>
               </motion.div>
             </AnimatePresence>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo } from "react";
-import { CheckCircle2, TrendingUp, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Project, SiteStats } from "@/lib/types";
 
 interface PortfolioProps {
@@ -13,149 +13,130 @@ const DEFAULT_PROJECTS: Project[] = [
   {
     id: "noor-doors",
     name: "Noor Modern Doors",
-    industry: "Doors & Architectural Systems",
-    tagline: "AI voice agent for instant customer enquiries, lead qualification, and appointment scheduling",
-    problem: "Customers called at different times, but missed calls and delayed responses caused potential leads to be lost. The sales team also spent significant time answering repetitive questions about doors, windows, pricing, and requirements.",
-    whatLunoAutomated: "Deployed a 24/7 AI voice agent that answers customer calls naturally, understands their requirements, asks qualifying questions, provides basic product information, captures lead details, and schedules follow-ups or showroom visits automatically.",
+    industry: "Architectural Doors & Glazing",
+    tagline: "Converting unpredictable inbound buyer calls into qualified showroom consultations.",
+    problem: "Customers phoned at all hours inquiring about custom sizing and pricing. The showroom sales team lost hours to repetitive sizing questions while missed calls after 6 PM went completely cold.",
+    whatLunoAutomated: "VoiceOps answers every inbound call in under a second. The agent understands architectural specifications, qualifies contractor timelines and budgets, and locks showroom consultation appointments directly onto sales calendars.",
     handles: [
-      "Product specifications, pricing & custom sizing",
-      "Buyer & contractor timeline and budget qualification",
-      "Instant showroom consultation scheduling",
-      "Automated CRM sync and sales rep notification",
+      "Custom door sizing & catalog specs",
+      "Contractor budget & timeline qualification",
+      "Showroom consultation appointment booking",
+      "Automated CRM lead record creation",
     ],
-    result: "Reduced lead response time from hours to seconds, improved lead capture, reduced missed-call opportunities, and allowed the sales team to focus on high-intent customers.",
+    result: "Lead response time reduced to 0 seconds · Zero missed weekend inquiries · Sales reps focus exclusively on qualified buyers.",
     active: true,
   },
   {
     id: "apex-realty",
     name: "Apex Luxury Properties",
     industry: "Real Estate & Leasing",
-    tagline: "Autonomous Buyer Qualification & Showing Dispatch",
-    problem: "Brokers missed 40% of inbound weekend calls from prospective property buyers inquiring about active high-value listings.",
-    whatLunoAutomated: "Engineered a voice agent that answers instantly, qualifies buyer pre-approval & budget, answers property FAQs, and schedules private showings directly onto broker calendars.",
+    tagline: "Autonomous buyer qualification and private showing calendar locks.",
+    problem: "Brokers missed 40% of inbound weekend calls from prospective property buyers inquiring about active high-value listings during private viewings.",
+    whatLunoAutomated: "VoiceOps answers immediately, confirms listing availability, verifies buyer pre-approval and move-in timeline, and writes showings directly into broker calendars.",
     handles: [
       "Property specifications & pricing inquiries",
-      "Buyer budget and move-in timeline qualification",
-      "Instant private showing calendar scheduling",
-      "Broker CRM synchronization & instant SMS alerts",
+      "Buyer pre-approval & budget verification",
+      "Private showing calendar coordination",
+      "Instant SMS summary to listing broker",
     ],
-    result: "100% weekend inquiry capture · 68% showing booking conversion rate · Average response time reduced to 0 seconds.",
-    active: true,
-  },
-  {
-    id: "horizon-dental",
-    name: "Horizon Healthcare Clinics",
-    industry: "Medical & Dental Clinics",
-    tagline: "24/7 Patient Appointment Coordination",
-    problem: "Front desk staff spent 5+ hours per day handling routine booking calls and appointment confirmations instead of attending to in-clinic patients.",
-    whatLunoAutomated: "Built a patient voice layer integrated with the clinic EHR calendar to coordinate bookings, cancellations, insurance questions, and urgent clinical triage.",
-    handles: [
-      "Specialist calendar appointment booking",
-      "Insurance provider & policy collection",
-      "Pre-procedure preparation guidance",
-      "Emergency clinical triage escalation",
-    ],
-    result: "Zero hold times · 78% reduction in front-desk call load · 22% increase in new patient intake appointments.",
+    result: "100% weekend inquiry capture · 68% showing booking conversion rate · Phone tag eliminated entirely.",
     active: true,
   },
 ];
 
-export const PortfolioSection = memo(function PortfolioSection({ projects, stats }: PortfolioProps) {
-  const rawProjects = projects && projects.length > 0 ? projects : DEFAULT_PROJECTS;
-  const activeProjects = rawProjects.filter((p) => p && p.active);
+export const PortfolioSection = memo(function PortfolioSection({ projects }: PortfolioProps) {
+  const activeProjects =
+    projects && projects.length > 0 ? projects.filter((p) => p.active) : DEFAULT_PROJECTS;
 
   return (
-    <section id="work" className="py-24 md:py-32 relative overflow-hidden bg-black/[0.015] dark:bg-white/[0.01] border-y border-black/[0.04] dark:border-white/[0.04]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-16 md:mb-20 text-left">
-          <p className="type-eyebrow text-blue-600 dark:text-blue-400 mb-3 tracking-wider">
-            VERIFIED CASE STUDIES
+    <section id="work" className="py-24 md:py-36 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        {/* Editorial Section Header */}
+        <div className="max-w-3xl mb-16 sm:mb-20 text-left space-y-3">
+          <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
+            CASE STUDY PUBLICATION
           </p>
 
-          <h2 className="type-h1 text-zinc-950 dark:text-white mb-4">
-            Proven performance in production environments.
+          <h2 className="type-serif-h1 text-zinc-950 dark:text-white font-normal">
+            Real deployments. Measured results.
           </h2>
 
-          <p className="type-body-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            Every studio deployment delivers measurable business outcomes — eliminating missed calls, automating customer qualification, and saving hundreds of operational staff hours.
+          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed">
+            How growing companies replaced hold music and missed calls with intelligent first-layer voice automation.
           </p>
         </div>
 
-        {/* Editorial Case Studies Spreads */}
-        <div className="space-y-10">
-          {activeProjects.map((project) => (
-            <div
+        {/* Magazine-Spread Case Studies */}
+        <div className="space-y-16 sm:space-y-24">
+          {activeProjects.slice(0, 2).map((project, idx) => (
+            <article
               key={project.id}
-              className="p-7 sm:p-9 md:p-10 rounded-3xl interactive-card space-y-6 shadow-xl border border-black/[0.08] dark:border-white/[0.1] overflow-hidden"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start border-b border-black/[0.06] dark:border-white/[0.08] pb-16 sm:pb-24 last:border-b-0"
             >
-              {/* Header */}
-              <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-5 space-y-2">
-                <span className="type-eyebrow text-blue-600 dark:text-blue-400 block font-bold">
-                  {project.industry}
-                </span>
-                <h3 className="type-h2 text-zinc-950 dark:text-white">
+              {/* Left Column: Title, Statement & Metadata */}
+              <div className="lg:col-span-6 space-y-5">
+                <div className="flex items-center gap-3 text-xs font-mono text-zinc-500">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">0{idx + 1}</span>
+                  <span>/</span>
+                  <span className="uppercase tracking-wider">{project.industry}</span>
+                </div>
+
+                <h3 className="font-sans font-bold text-xl sm:text-2xl text-zinc-950 dark:text-white tracking-tight">
                   {project.name}
                 </h3>
-                <p className="type-body text-zinc-600 dark:text-zinc-400 max-w-3xl">
-                  {project.tagline}
+
+                <p className="font-serif text-2xl sm:text-3xl text-zinc-900 dark:text-zinc-100 font-normal leading-snug">
+                  “{project.tagline}”
                 </p>
+
+                {/* Handled Items */}
+                {project.handles && project.handles.length > 0 && (
+                  <div className="pt-4 space-y-2">
+                    <span className="type-editorial-eyebrow text-zinc-400 block">
+                      AUTOMATED WORKFLOWS
+                    </span>
+                    <ul className="space-y-1.5 font-sans text-xs text-zinc-600 dark:text-zinc-400">
+                      {project.handles.map((h, i) => (
+                        <li key={i} className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
-              {/* Problem & Solution Breakdown */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2.5 p-5 sm:p-6 rounded-2xl bg-black/[0.015] dark:bg-white/[0.02] border border-black/[0.03] dark:border-white/[0.04]">
-                  <span className="type-eyebrow text-zinc-950 dark:text-white block font-bold">
-                    The Business Challenge
+              {/* Right Column: Problem, VoiceOps Automation, Verified Result */}
+              <div className="lg:col-span-6 space-y-6 pt-2">
+                <div className="space-y-2">
+                  <span className="type-editorial-eyebrow text-zinc-500 block">
+                    THE BUSINESS CHALLENGE
                   </span>
-                  <p className="leading-relaxed type-body-sm text-zinc-600 dark:text-zinc-400">
+                  <p className="type-sans-body-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
                     {project.problem}
                   </p>
                 </div>
 
-                <div className="space-y-2.5 p-5 sm:p-6 rounded-2xl bg-blue-600/[0.02] dark:bg-blue-600/[0.04] border border-blue-600/15">
-                  <span className="type-eyebrow text-blue-600 dark:text-blue-400 block font-bold">
-                    What VoiceOps Built & Deployed
+                <div className="space-y-2">
+                  <span className="type-editorial-eyebrow text-blue-600 dark:text-blue-400 block">
+                    WHAT VOICEOPS BUILT & DEPLOYED
                   </span>
-                  <p className="leading-relaxed type-body-sm text-zinc-800 dark:text-zinc-200">
+                  <p className="type-sans-body-sm text-zinc-800 dark:text-zinc-200 leading-relaxed font-medium">
                     {project.whatLunoAutomated}
                   </p>
                 </div>
-              </div>
 
-              {/* Handled Capabilities List (if present) */}
-              {project.handles && project.handles.length > 0 && (
-                <div className="pt-1">
-                  <span className="type-eyebrow text-zinc-400 block mb-3">
-                    Automated Workflows
+                <div className="p-4 rounded-xl bg-emerald-500/[0.08] dark:bg-emerald-500/[0.1] border border-emerald-500/20 space-y-1">
+                  <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block">
+                    MEASURED OUTCOME
                   </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {project.handles.map((h, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300 bg-black/[0.015] dark:bg-white/[0.02] px-3.5 py-2 rounded-xl border border-black/[0.03] dark:border-white/[0.04]"
-                      >
-                        <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-                        <span className="truncate">{h}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Full-width Verified Business Impact Highlight Box */}
-              {project.result && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-emerald-500/[0.06] dark:bg-emerald-500/[0.08] border border-emerald-500/20 space-y-1.5">
-                  <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs type-eyebrow">
-                    <TrendingUp className="w-4 h-4 shrink-0" />
-                    <span>Verified Business Outcome</span>
-                  </div>
-                  <p className="type-body-sm text-zinc-800 dark:text-zinc-200 font-medium leading-relaxed">
+                  <p className="font-sans text-xs font-semibold text-zinc-950 dark:text-white leading-snug">
                     {project.result}
                   </p>
                 </div>
-              )}
-            </div>
+              </div>
+            </article>
           ))}
         </div>
       </div>
