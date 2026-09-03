@@ -36,9 +36,9 @@ export const Navbar = memo(function Navbar() {
   const [activeSection, setActiveSection] = useState<string>("demo");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Single persistent Apple-style liquid active indicator state
+  // Single persistent Apple-style soft moving active highlight state
   const [indicatorMounted, setIndicatorMounted] = useState(false);
-  const [indicatorPos, setIndicatorPos] = useState({ x: 0, y: 0, opacity: 0, scale: 0.92 });
+  const [indicatorPos, setIndicatorPos] = useState({ x: 0, y: 0, width: 0, height: 0, opacity: 0 });
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   const navRef = useRef<HTMLElement>(null);
@@ -56,7 +56,7 @@ export const Navbar = memo(function Navbar() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // Update single persistent liquid indicator position via transforms
+  // Update single persistent soft active surface bounds via transforms and width
   const updateIndicatorPosition = useCallback(
     (isInitial = false) => {
       const nav = navRef.current;
@@ -78,15 +78,15 @@ export const Navbar = memo(function Navbar() {
       const navRect = nav.getBoundingClientRect();
       const elRect = targetEl.getBoundingClientRect();
 
-      // Position the 18px pale light-blue luminous circle near the lower-right portion of the active item
-      const x = elRect.left - navRect.left + elRect.width - 20;
-      const y = elRect.top - navRect.top + (elRect.height - 18) / 2 + 1;
+      // Bounds of the active highlight surface matching the target item
+      const x = elRect.left - navRect.left;
+      const y = elRect.top - navRect.top;
+      const width = elRect.width;
+      const height = elRect.height;
 
+      setIndicatorPos({ x, y, width, height, opacity: 1 });
       if (isInitial) {
-        setIndicatorPos({ x, y, opacity: 1, scale: 1 });
         setIndicatorMounted(true);
-      } else {
-        setIndicatorPos({ x, y, opacity: 1, scale: 1 });
       }
     },
     [activeSection]
@@ -102,9 +102,21 @@ export const Navbar = memo(function Navbar() {
       });
     }
 
+    const nav = navRef.current;
+    let ro: ResizeObserver | null = null;
+    if (nav && typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => {
+        updateIndicatorPosition();
+      });
+      ro.observe(nav);
+    }
+
     const onResize = () => updateIndicatorPosition();
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (ro) ro.disconnect();
+    };
   }, [updateIndicatorPosition, indicatorMounted]);
 
   // Passive, rAF-throttled scroll listener (zero continuous re-renders)
@@ -273,61 +285,40 @@ export const Navbar = memo(function Navbar() {
             className="relative hidden md:flex items-center gap-1 lg:gap-1.5 text-[13px] font-medium"
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            {/* ONE Persistent Light-Blue Luminous Circle Active Indicator (Moves with Transform) */}
-            {indicatorMounted && (
+            {/* ONE Shared Soft Light-Blue Active Surface (Moves smoothly via transform behind active item) */}
+            {indicatorMounted && indicatorPos.width > 0 && (
               <motion.div
                 aria-hidden="true"
-                className="absolute pointer-events-none z-0 rounded-full flex items-center justify-center"
-                initial={{
-                  x: indicatorPos.x,
-                  y: indicatorPos.y,
-                  opacity: 0,
-                  scale: 0.92,
-                }}
+                className="absolute top-0 left-0 pointer-events-none z-0"
+                initial={false}
                 animate={{
                   x: indicatorPos.x,
                   y: indicatorPos.y,
+                  width: indicatorPos.width,
+                  height: indicatorPos.height,
                   opacity: indicatorPos.opacity,
-                  scale: indicatorPos.scale,
                 }}
                 transition={
                   prefersReducedMotion
-                    ? { duration: 0.15 }
+                    ? { duration: 0.1 }
                     : {
-                        duration: 0.30,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.32,
+                        ease: [0.22, 1, 0.36, 1], // Critically damped Apple-style curve, zero bounce
                       }
                 }
-                style={{ width: 18, height: 18 }}
-              >
-                {/* Small Pale Light-Blue Luminous Sphere (No White Core, No Neon) */}
-                <div
-                  className="w-full h-full rounded-full flex items-center justify-center transition-colors"
-                  style={{
-                    background: isDark
-                      ? "radial-gradient(circle at 35% 35%, #CDE3FF 0%, #BBD8FF 45%, #9BC4FF 100%)"
-                      : "radial-gradient(circle at 35% 35%, #DCEBFF 0%, #C9E1FF 45%, #B4D5FF 100%)",
-                    border: isDark
-                      ? "1px solid rgba(147, 197, 253, 0.35)"
-                      : "1px solid rgba(100, 160, 255, 0.28)",
-                    boxShadow: isDark
-                      ? "0 0 0 2px rgba(96, 165, 250, 0.20), 0 0 10px rgba(96, 165, 250, 0.28), 0 1px 3px rgba(37, 99, 235, 0.20)"
-                      : "0 0 0 2px rgba(100, 160, 255, 0.16), 0 0 10px rgba(100, 170, 255, 0.24), 0 1px 3px rgba(37, 99, 235, 0.12)",
-                  }}
-                >
-                  {/* Subtle Atmospheric Blue Center Dot */}
-                  <div
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{
-                      background: isDark ? "#60A5FA" : "#3B82F6",
-                      opacity: isDark ? 0.75 : 0.65,
-                      boxShadow: isDark
-                        ? "0 0 3px rgba(96, 165, 250, 0.6)"
-                        : "0 0 3px rgba(59, 130, 246, 0.4)",
-                    }}
-                  />
-                </div>
-              </motion.div>
+                style={{
+                  borderRadius: "12px",
+                  background: isDark
+                    ? "rgba(147, 197, 253, 0.14)"
+                    : "rgba(220, 234, 255, 0.85)", // #DCEAFF with subtle airy depth
+                  border: isDark
+                    ? "1px solid rgba(147, 197, 253, 0.22)"
+                    : "1px solid rgba(180, 210, 255, 0.55)",
+                  boxShadow: isDark
+                    ? "0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.04)"
+                    : "0 1px 3px rgba(37, 99, 235, 0.06), 0 0 0 1px rgba(200, 222, 255, 0.35)",
+                }}
+              />
             )}
 
             {PRIMARY_LINKS.map((link, idx) => {
@@ -342,21 +333,24 @@ export const Navbar = memo(function Navbar() {
                   ref={(el) => {
                     linkRefs.current[link.id] = el;
                   }}
-                  onClick={() => scrollToSection(link.id)}
+                  onClick={() => {
+                    setActiveSection(link.id);
+                    scrollToSection(link.id);
+                  }}
                   onMouseEnter={() => setHoveredIndex(idx)}
-                  className={`relative z-10 px-2.5 sm:px-3 py-2 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] flex items-center justify-center ${
+                  className={`relative z-10 px-2.5 sm:px-3 py-2 rounded-xl transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] flex items-center justify-center ${
                     isTabletHidden ? "hidden lg:inline-flex" : "inline-flex"
                   } ${
                     isActive
                       ? "text-[#141414] dark:text-white font-semibold"
-                      : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white"
+                      : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white font-medium"
                   }`}
                 >
-                  {/* Subtle Local Hover Highlight (Independent of Active Indicator) */}
+                  {/* Subtle Local Hover Highlight (Independent of Active Highlight, only on inactive items) */}
                   {isHovered && !isActive && (
                     <motion.span
                       layoutId="navHoverPlate"
-                      className="absolute inset-0 rounded-lg bg-black/[0.035] dark:bg-white/[0.05] pointer-events-none -z-10"
+                      className="absolute inset-0 rounded-xl bg-black/[0.035] dark:bg-white/[0.05] pointer-events-none -z-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -379,12 +373,12 @@ export const Navbar = memo(function Navbar() {
                 aria-expanded={moreMenuOpen}
                 aria-haspopup="true"
                 aria-label="More navigation options"
-                className={`relative z-10 flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] ${
+                className={`relative z-10 flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-xl transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] ${
                   moreMenuOpen
                     ? "text-[#141414] dark:text-white font-semibold bg-black/[0.035] dark:bg-white/[0.05]"
                     : isSecondaryActive
                     ? "text-[#141414] dark:text-white font-semibold"
-                    : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white"
+                    : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white font-medium"
                 }`}
               >
                 <span>More</span>
@@ -407,7 +401,11 @@ export const Navbar = memo(function Navbar() {
                     {SECONDARY_LINKS.map((item, idx) => (
                       <button
                         key={idx}
-                        onClick={() => scrollToSection(item.id)}
+                        onClick={() => {
+                          setActiveSection(item.id);
+                          scrollToSection(item.id);
+                          setMoreMenuOpen(false);
+                        }}
                         className="w-full min-h-[44px] px-4 py-2.5 text-[13px] font-sans font-medium text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white hover:bg-black/[0.035] dark:hover:bg-white/[0.06] text-left transition-colors flex items-center justify-between whitespace-nowrap touch-manipulation"
                       >
                         <span>{item.label}</span>
@@ -515,25 +513,25 @@ export const Navbar = memo(function Navbar() {
 
               {/* Navigation Items (Single List, Never Wraps) */}
               <div className="space-y-1 py-4 my-auto overflow-y-auto">
-                {[...PRIMARY_LINKS, ...SECONDARY_LINKS].map((link, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => scrollToSection(link.id)}
-                    className="w-full px-3.5 py-2.5 rounded-xl text-left font-sans text-sm font-medium text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white hover:bg-black/[0.035] dark:hover:bg-white/[0.06] transition-colors whitespace-nowrap flex items-center justify-between"
-                  >
-                    <span>{link.label}</span>
-                    {activeSection === link.id && (
-                      <span
-                        className="w-2.5 h-2.5 rounded-full shrink-0"
-                        style={{
-                          background: isDark ? "#BBD8FF" : "#C9E1FF",
-                          border: "1px solid rgba(100, 160, 255, 0.35)",
-                          boxShadow: "0 0 6px rgba(100, 170, 255, 0.4)",
-                        }}
-                      />
-                    )}
-                  </button>
-                ))}
+                {[...PRIMARY_LINKS, ...SECONDARY_LINKS].map((link, idx) => {
+                  const isActive = activeSection === link.id;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setActiveSection(link.id);
+                        scrollToSection(link.id);
+                      }}
+                      className={`w-full px-3.5 py-2.5 rounded-xl text-left font-sans text-sm transition-colors whitespace-nowrap flex items-center justify-between ${
+                        isActive
+                          ? "bg-[#DCEAFF] dark:bg-[rgba(147,197,253,0.15)] text-[#141414] dark:text-white font-semibold border border-blue-200/70 dark:border-blue-400/20 shadow-sm"
+                          : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white hover:bg-black/[0.035] dark:hover:bg-white/[0.06] font-medium"
+                      }`}
+                    >
+                      <span>{link.label}</span>
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Action Footer */}
