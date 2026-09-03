@@ -36,11 +36,78 @@ export const Navbar = memo(function Navbar() {
   const [activeSection, setActiveSection] = useState<string>("demo");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  // Single persistent Apple-style liquid active indicator state
+  const [indicatorMounted, setIndicatorMounted] = useState(false);
+  const [indicatorPos, setIndicatorPos] = useState({ x: 0, y: 0, opacity: 0, scale: 0.92 });
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  const navRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
   const moreRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
   const lastScrollY = useRef(0);
 
-  // Passive, rAF-throttled scroll handler (zero continuous re-renders)
+  // Detect reduced motion preference
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const handler = () => setPrefersReducedMotion(mq.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // Update single persistent liquid indicator position via transforms
+  const updateIndicatorPosition = useCallback(
+    (isInitial = false) => {
+      const nav = navRef.current;
+      if (!nav) return;
+
+      let targetKey = activeSection;
+      if (!linkRefs.current[targetKey]) {
+        const isSecondary = SECONDARY_LINKS.some((s) => s.id === activeSection);
+        if (isSecondary && linkRefs.current["more"]) {
+          targetKey = "more";
+        } else if (linkRefs.current["demo"]) {
+          targetKey = "demo";
+        }
+      }
+
+      const targetEl = linkRefs.current[targetKey];
+      if (!targetEl) return;
+
+      const navRect = nav.getBoundingClientRect();
+      const elRect = targetEl.getBoundingClientRect();
+
+      // Position the 22px circular liquid glass indicator near the lower-right portion of the active item
+      const x = elRect.left - navRect.left + elRect.width - 22;
+      const y = elRect.top - navRect.top + (elRect.height - 22) / 2 + 2;
+
+      if (isInitial) {
+        setIndicatorPos({ x, y, opacity: 1, scale: 1 });
+        setIndicatorMounted(true);
+      } else {
+        setIndicatorPos({ x, y, opacity: 1, scale: 1 });
+      }
+    },
+    [activeSection]
+  );
+
+  // Re-measure indicator position on activeSection change, fonts loaded, and window resize
+  useEffect(() => {
+    updateIndicatorPosition(!indicatorMounted);
+
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        updateIndicatorPosition();
+      });
+    }
+
+    const onResize = () => updateIndicatorPosition();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [updateIndicatorPosition, indicatorMounted]);
+
+  // Passive, rAF-throttled scroll listener (zero continuous re-renders)
   useEffect(() => {
     const onScroll = () => {
       if (rafId.current !== null) return;
@@ -109,7 +176,7 @@ export const Navbar = memo(function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Observer to track which section is currently in view
+  // IntersectionObserver to update active navigation state stably on scroll
   useEffect(() => {
     const observedIds = ["demo", "use-cases", "industries", "work", "process", "architecture", "faq", "contact"];
     const observers = observedIds.map((id) => {
@@ -124,7 +191,7 @@ export const Navbar = memo(function Navbar() {
             }
           });
         },
-        { threshold: 0.2, rootMargin: "-80px 0px -40% 0px" }
+        { threshold: 0.25, rootMargin: "-80px 0px -40% 0px" }
       );
       observer.observe(el);
       return observer;
@@ -136,8 +203,11 @@ export const Navbar = memo(function Navbar() {
   }, []);
 
   const scrollToSection = useCallback((id: string) => {
+    // Instant feedback: latest click wins immediately
+    setActiveSection(id);
     setMobileMenuOpen(false);
     setMoreMenuOpen(false);
+
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -154,6 +224,7 @@ export const Navbar = memo(function Navbar() {
   }, []);
 
   const isDark = theme === "dark";
+  const isSecondaryActive = SECONDARY_LINKS.some((s) => s.id === activeSection);
 
   return (
     <>
@@ -194,13 +265,51 @@ export const Navbar = memo(function Navbar() {
           </Link>
 
           {/* =========================================================
-              ZONE 2: CENTER NAVIGATION (Compact, High Contrast, Never Wraps)
+              ZONE 2: CENTER NAVIGATION (With Apple-Style Liquid Indicator)
               ========================================================= */}
           <nav
+            ref={navRef}
             aria-label="Primary Navigation"
-            className="hidden md:flex items-center gap-1 lg:gap-1.5 text-[13px] font-medium"
+            className="relative hidden md:flex items-center gap-1 lg:gap-1.5 text-[13px] font-medium"
             onMouseLeave={() => setHoveredIndex(null)}
           >
+            {/* ONE Persistent Liquid Light Active Indicator (Moves with Transform) */}
+            {indicatorMounted && (
+              <motion.div
+                aria-hidden="true"
+                className="absolute pointer-events-none z-0 rounded-full flex items-center justify-center"
+                initial={{
+                  x: indicatorPos.x,
+                  y: indicatorPos.y,
+                  opacity: 0,
+                  scale: 0.92,
+                }}
+                animate={{
+                  x: indicatorPos.x,
+                  y: indicatorPos.y,
+                  opacity: indicatorPos.opacity,
+                  scale: indicatorPos.scale,
+                }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0.15 }
+                    : {
+                        type: "spring",
+                        stiffness: 350,
+                        damping: 28,
+                        mass: 0.75,
+                      }
+                }
+                style={{ width: 22, height: 22 }}
+              >
+                {/* Soft Pale-Blue Liquid Glass Circle with Tactile Highlight */}
+                <div className="w-full h-full rounded-full bg-[#CFE3FF]/85 dark:bg-blue-500/25 border border-[#BFD9FF] dark:border-blue-400/40 shadow-[0_2px_8px_rgba(37,99,235,0.18),inset_0_1px_1.5px_rgba(255,255,255,0.95)] dark:shadow-[0_2px_10px_rgba(59,130,246,0.3),inset_0_1px_1px_rgba(255,255,255,0.3)] backdrop-blur-[2px] flex items-center justify-center transition-colors">
+                  {/* Micro Liquid Iris Center */}
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-600/80 dark:bg-blue-400/90 shadow-[0_0_3px_rgba(37,99,235,0.5)]" />
+                </div>
+              </motion.div>
+            )}
+
             {PRIMARY_LINKS.map((link, idx) => {
               const isActive = activeSection === link.id;
               const isHovered = hoveredIndex === idx;
@@ -208,19 +317,22 @@ export const Navbar = memo(function Navbar() {
               return (
                 <button
                   key={link.id}
+                  ref={(el) => {
+                    linkRefs.current[link.id] = el;
+                  }}
                   onClick={() => scrollToSection(link.id)}
                   onMouseEnter={() => setHoveredIndex(idx)}
-                  className={`relative px-3 py-1.5 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
+                  className={`relative z-10 px-3 py-1.5 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
                     isActive
                       ? "text-[#141414] dark:text-white font-semibold"
                       : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white"
                   }`}
                 >
-                  {/* Subtle Local Hover Highlight */}
+                  {/* Subtle Local Hover Highlight (Independent of Active Indicator) */}
                   {isHovered && !isActive && (
                     <motion.span
                       layoutId="navHoverPlate"
-                      className="absolute inset-0 rounded-lg bg-black/[0.035] dark:bg-white/[0.05] pointer-events-none"
+                      className="absolute inset-0 rounded-lg bg-black/[0.035] dark:bg-white/[0.05] pointer-events-none -z-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -229,15 +341,6 @@ export const Navbar = memo(function Navbar() {
                   )}
 
                   <span className="relative z-10">{link.label}</span>
-
-                  {/* Refined Gliding Active Blue Underline */}
-                  {isActive && (
-                    <motion.span
-                      layoutId="activeNavUnderline"
-                      className="absolute -bottom-[2px] left-3 right-3 h-[2px] bg-blue-600 dark:bg-blue-400 rounded-full"
-                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    />
-                  )}
                 </button>
               );
             })}
@@ -245,13 +348,18 @@ export const Navbar = memo(function Navbar() {
             {/* "More" Secondary Navigation Popover */}
             <div className="relative" ref={moreRef}>
               <button
+                ref={(el) => {
+                  linkRefs.current["more"] = el;
+                }}
                 onClick={() => setMoreMenuOpen((prev) => !prev)}
                 aria-expanded={moreMenuOpen}
                 aria-haspopup="true"
                 aria-label="More navigation options"
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
+                className={`relative z-10 flex items-center gap-1 px-3 py-1.5 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
                   moreMenuOpen
                     ? "text-[#141414] dark:text-white font-semibold bg-black/[0.035] dark:bg-white/[0.05]"
+                    : isSecondaryActive
+                    ? "text-[#141414] dark:text-white font-semibold"
                     : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white"
                 }`}
               >
@@ -391,7 +499,7 @@ export const Navbar = memo(function Navbar() {
                   >
                     <span>{link.label}</span>
                     {activeSection === link.id && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
+                      <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0 shadow-xs" />
                     )}
                   </button>
                 ))}
