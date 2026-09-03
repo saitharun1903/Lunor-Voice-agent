@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect, memo, useCallback } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X, ArrowUpRight, Sun, Moon } from "lucide-react";
 import { useTheme } from "./theme-provider";
 
 export const Navbar = memo(function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 200, damping: 28, restDelta: 0.001 });
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -87,13 +89,24 @@ export const Navbar = memo(function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isCompressed ? "-translate-y-1.5 py-2" : "translate-y-0 py-3 sm:py-3.5"
+          isCompressed
+            ? "-translate-y-2 py-2 opacity-85"
+            : "translate-y-0 py-3 sm:py-3.5 opacity-100"
         } ${
           isScrolled
-            ? "bg-[#06080e]/92 dark:bg-[#06080e]/92 backdrop-blur-sm border-b border-white/[0.06] shadow-sm"
+            ? scrollDirection === "up"
+              ? "bg-[#06080e]/95 dark:bg-[#06080e]/95 backdrop-blur-md border-b border-white/[0.08] shadow-md"
+              : "bg-[#06080e]/90 dark:bg-[#06080e]/90 backdrop-blur-sm border-b border-white/[0.05]"
             : "bg-transparent border-b border-transparent"
         }`}
       >
+        {/* Subtle Reading Progress Indicator Line on Scroll */}
+        {isScrolled && (
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-blue-600/40 via-blue-500 to-blue-400/40 origin-left pointer-events-none"
+            style={{ scaleX: smoothProgress }}
+          />
+        )}
         <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between">
           {/* Brand Mark with VoiceOps Signal Wave */}
           <Link

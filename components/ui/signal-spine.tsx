@@ -1,15 +1,19 @@
 "use client";
 
 import React, { memo } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, useVelocity, useTransform } from "framer-motion";
 
 export const SignalSpine = memo(function SignalSpine() {
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress, scrollY } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 24,
     restDelta: 0.001,
   });
+
+  const scrollVelocity = useVelocity(scrollY);
+  const nodeScale = useTransform(scrollVelocity, [-1500, -200, 0, 200, 1500], [1.6, 1.3, 1, 1, 1]);
+  const smoothScale = useSpring(nodeScale, { stiffness: 300, damping: 25 });
 
   return (
     <div
@@ -25,11 +29,12 @@ export const SignalSpine = memo(function SignalSpine() {
         />
       </div>
 
-      {/* Floating Acoustic Signal Node (Matte Precision Dot) */}
+      {/* Floating Acoustic Signal Node (Matte Precision Dot with Reverse-Scroll Spring Response) */}
       <motion.div
-        className="absolute w-1.5 h-1.5 -left-[2.5px] rounded-full bg-blue-500"
+        className="absolute w-2 h-2 -left-[3.5px] rounded-full bg-blue-500 flex items-center justify-center"
         style={{
           top: "0%",
+          scale: smoothScale,
           translateY: useSpring(
             scrollYProgress,
             { stiffness: 100, damping: 20 }

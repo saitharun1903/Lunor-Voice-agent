@@ -1,6 +1,8 @@
 "use client";
 
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUp } from "lucide-react";
 import { Navbar } from "./navbar";
 import { Hero } from "./hero";
 import { AboutSection } from "./about";
@@ -57,6 +59,27 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
     document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    let lastY = 0;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > 450 && y < lastY) {
+        setShowScrollTop(true);
+      } else if (y <= 450 || y > lastY + 15) {
+        setShowScrollTop(false);
+      }
+      lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-blue-600 selection:text-white transition-colors duration-200 overflow-x-hidden">
       {/* Continuous Acoustic Signal Thread (Visual Spine) */}
@@ -87,29 +110,17 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
           }
         />
 
-        {/* Seamless Transition Bridge: Midnight → Neutral Zone */}
-        <div className="bridge-midnight-to-ivory" aria-hidden="true" />
-
         {/* Chapter 04: First-Layer Experience (Customer → VoiceOps → Understand → Act → Resolution) */}
         <SystemDiagram />
 
         {/* Chapter 05: Capabilities Matrix (01-06 3D Flip Card System) */}
         <UseCasesSection useCases={useCases} />
 
-        {/* Seamless Transition Bridge: Neutral Zone → Midnight */}
-        <div className="bridge-ivory-to-midnight" aria-hidden="true" />
-
         {/* Chapter 06: Workflow (Calls Should End in Actions: 4-Stage Execution Pipeline) */}
         <WorkflowSection />
 
-        {/* Seamless Transition Bridge: Midnight → Neutral Zone */}
-        <div className="bridge-midnight-to-ivory" aria-hidden="true" />
-
         {/* Chapter 07: Industry World (Voice Automation for the Way Your Business Works) */}
         <IndustriesSection industries={industries} />
-
-        {/* Seamless Transition Bridge: Neutral Zone → Midnight */}
-        <div className="bridge-ivory-to-midnight" aria-hidden="true" />
 
         {/* Chapter 08: Integrations & Connectivity (Phone, Calendar, CRM, Business Systems) */}
         <IntegrationsSection />
@@ -129,6 +140,24 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
 
       {/* Chapter 13: Quiet Editorial Footer */}
       <Footer settings={settings} />
+
+      {/* Floating Quick Return Control on Scroll-Up */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            onClick={scrollToTop}
+            initial={{ opacity: 0, y: 16, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.9 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            aria-label="Return to top"
+            className="fixed bottom-6 right-6 z-40 px-3.5 py-2 rounded-full bg-[#0e121d]/90 dark:bg-white/95 text-white dark:text-zinc-950 text-xs font-medium backdrop-blur-md border border-white/10 dark:border-black/10 shadow-xl flex items-center gap-1.5 hover:scale-105 active:scale-95 transition-transform"
+          >
+            <ArrowUp className="w-3.5 h-3.5 text-blue-400 dark:text-blue-600" />
+            <span className="tracking-wide">Top</span>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 });
