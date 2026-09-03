@@ -53,8 +53,8 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
 
         {/* Continuous Connected Visual Path with VoiceOps Signal Transformation */}
         <div className="relative">
-          {/* Animated Connecting Line */}
-          <div className="hidden md:block absolute top-6 left-6 right-6 h-[1.5px] bg-[rgba(36,33,26,0.08)] dark:bg-white/[0.08] pointer-events-none z-0">
+          {/* Animated Connecting Line (Desktop only) */}
+          <div className="hidden lg:block absolute top-6 left-6 right-6 h-[1.5px] bg-[rgba(36,33,26,0.08)] dark:bg-white/[0.08] pointer-events-none z-0">
             <motion.div
               className="h-full bg-gradient-to-r from-transparent via-blue-500 to-transparent w-40"
               animate={{
@@ -68,7 +68,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 relative z-10">
             {stages.map((stage, idx) => (
               <motion.div
                 key={stage.step}

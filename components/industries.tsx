@@ -94,7 +94,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
               <button
                 key={ind.id}
                 onClick={() => setActiveId(ind.id)}
-                className={`relative px-4 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-150 outline-none ${
+                className={`relative min-h-[44px] px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-150 outline-none touch-manipulation flex items-center justify-center ${
                   isSelected
                     ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-semibold shadow-xs"
                     : "text-[#58534C] dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
@@ -114,7 +114,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="p-8 sm:p-12 rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-sm space-y-8"
+            className="p-6 sm:p-8 md:p-10 lg:p-12 rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-sm space-y-8"
           >
             {/* Industry Header */}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[rgba(36,33,26,0.06)] dark:border-white/[0.08] pb-6">
@@ -140,7 +140,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
               <span className="type-editorial-eyebrow text-[#888278] dark:text-zinc-400 block mb-4">
                 WORKFLOW PATHWAY
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
                 {current.steps.map((step, idx) => (
                   <div
                     key={idx}

@@ -143,7 +143,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
                 <div>
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-zinc-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/btn outline-none"
+                    className="inline-flex items-center gap-1.5 min-h-[44px] py-2 font-sans text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/btn outline-none touch-manipulation"
                   >
                     <span>View Case Study</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
@@ -183,7 +183,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
 
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="w-8 h-8 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] flex items-center justify-center text-zinc-600 dark:text-zinc-300 transition-colors"
+                  className="w-10 h-10 min-h-[44px] min-w-[44px] rounded-xl bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] flex items-center justify-center text-zinc-600 dark:text-zinc-300 transition-colors touch-manipulation"
                   aria-label="Close Case Study"
                 >
                   <X className="w-4 h-4" />

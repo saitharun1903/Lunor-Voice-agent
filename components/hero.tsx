@@ -83,7 +83,8 @@ export const Hero = memo(function Hero({
 
     const updateDimensions = () => {
       if (!canvas) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const isTabletOrTouch = window.innerWidth <= 1024 || ("ontouchstart" in window);
+      dpr = isTabletOrTouch ? Math.min(window.devicePixelRatio || 1, 1.5) : Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.offsetWidth;
       height = canvas.offsetHeight;
       canvas.width = Math.floor(width * dpr);
@@ -409,7 +410,7 @@ export const Hero = memo(function Hero({
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[92svh] lg:min-h-[100svh] w-full bg-[#F5F1E8] dark:bg-[#07090e] transition-colors duration-200 flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-12 px-5 sm:px-8 md:px-12 overflow-hidden select-none"
+      className="relative min-h-[580px] md:min-h-[640px] md:max-h-[850px] lg:min-h-[100svh] w-full bg-[#F5F1E8] dark:bg-[#07090e] transition-colors duration-200 flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 px-5 sm:px-8 md:px-10 lg:px-12 overflow-hidden select-none"
     >
       {/* Subtle Environmental Grid Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(rgba(36,33,26,0.035)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none -z-10" />
@@ -438,12 +439,12 @@ export const Hero = memo(function Hero({
             </span>
           </motion.div>
 
-          {/* Headline (350-650ms entrance, stable permanent position) */}
+          {/* Headline (350-650ms entrance, tuned 42-56px for tablet) */}
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="font-sans text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.08] text-zinc-950 dark:text-white tracking-tight"
+            className="font-sans text-4xl sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] font-bold leading-[1.08] text-zinc-950 dark:text-white tracking-tight max-w-2xl"
           >
             Automate the first layer
             <br />
@@ -492,7 +493,7 @@ export const Hero = memo(function Hero({
         >
           <button
             onClick={handleTalkToVoiceOps}
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-sans text-xs font-semibold tracking-tight transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5 shadow-sm"
+            className="inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-sans text-xs sm:text-[13px] font-semibold tracking-tight transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5 shadow-sm touch-manipulation"
           >
             <span>Talk to VoiceOps</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -500,7 +501,7 @@ export const Hero = memo(function Hero({
 
           <button
             onClick={scrollToContact}
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-transparent text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white border border-black/15 dark:border-white/15 hover:border-black/30 dark:hover:border-white/30 font-sans text-xs font-medium transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5"
+            className="inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2.5 rounded-xl bg-transparent text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white border border-black/15 dark:border-white/15 hover:border-black/30 dark:hover:border-white/30 font-sans text-xs sm:text-[13px] font-medium transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5 touch-manipulation"
           >
             <span>Build My Voice Agent</span>
             <ArrowUpRight className="w-3 h-3 text-zinc-500" />

@@ -38,24 +38,24 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
               <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold">
                 EXPERIENCE
               </span>
-              <ul className="space-y-2 font-sans text-zinc-600 dark:text-zinc-400">
+              <ul className="space-y-1 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <button onClick={() => scrollTo("demo")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("demo")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     Live Demo
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("use-cases")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("use-cases")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     Capabilities
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("industries")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("industries")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     Industries
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("architecture")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("architecture")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     The First Layer
                   </button>
                 </li>
@@ -66,24 +66,24 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
               <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold">
                 STUDIO
               </span>
-              <ul className="space-y-2 font-sans text-zinc-600 dark:text-zinc-400">
+              <ul className="space-y-1 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <button onClick={() => scrollTo("work")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("work")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     Work & Case Studies
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("process")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("process")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     Methodology
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("faq")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("faq")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     FAQ
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => scrollTo("contact")} className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <button onClick={() => scrollTo("contact")} className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     Deploy
                   </button>
                 </li>
@@ -94,9 +94,9 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
               <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold">
                 ADMIN
               </span>
-              <ul className="space-y-2 font-sans text-zinc-600 dark:text-zinc-400">
+              <ul className="space-y-1 font-sans text-zinc-600 dark:text-zinc-400">
                 <li>
-                  <Link href="/admin/login" className="hover:text-zinc-950 dark:hover:text-white transition-colors">
+                  <Link href="/admin/login" className="hover:text-zinc-950 dark:hover:text-white transition-colors min-h-[40px] py-1.5 flex items-center touch-manipulation">
                     Admin Portal
                   </Link>
                 </li>

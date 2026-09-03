@@ -36,13 +36,13 @@ export const AboutSection = memo(function AboutSection() {
         </div>
 
         {/* Two-Column Editorial Narrative with Generous Whitespace */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-20 items-start">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 space-y-6"
+            className="md:col-span-1 lg:col-span-6 space-y-6"
           >
             <p className="type-sans-body-lg text-[#141414] dark:text-zinc-200 leading-relaxed font-normal">
               In almost every growing enterprise, over 65% of incoming telephone calls repeat the exact same five conversations: checking opening times, asking service pricing, booking appointment slots, or qualifying basic requirements.
@@ -57,7 +57,7 @@ export const AboutSection = memo(function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 space-y-6"
+            className="md:col-span-1 lg:col-span-6 space-y-6"
           >
             <p className="type-sans-body text-[#141414] dark:text-zinc-200 leading-relaxed">
               <strong className="text-zinc-950 dark:text-white font-semibold">VoiceOps creates a dedicated first layer.</strong> Every incoming caller is greeted in under a second by an intelligent conversational voice agent trained on your actual business rules, booking calendars, and product catalogs.

@@ -90,6 +90,8 @@ export const SystemDiagram = memo(function SystemDiagram() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className={`p-6 rounded-2xl transition-all duration-200 ${
+                  idx === 4 ? "sm:col-span-2 lg:col-span-1" : ""
+                } ${
                   step.highlight
                     ? "bg-[#FAF8F2] dark:bg-[#0e1220] border border-blue-600/35 shadow-sm"
                     : "bg-[#FAF8F2]/75 dark:bg-white/[0.03] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07]"

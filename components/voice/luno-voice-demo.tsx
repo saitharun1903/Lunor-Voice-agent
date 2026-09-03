@@ -235,13 +235,13 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
               <button
                 onClick={handleStartCall}
                 disabled={state === "connecting"}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium transition-all shadow-md active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-md active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 touch-manipulation"
               >
                 {state === "connecting" ? (
                   <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
-                    <PhoneCall className="w-3.5 h-3.5" />
+                    <PhoneCall className="w-4 h-4" />
                     <span>Start Conversation</span>
                   </>
                 )}
@@ -250,21 +250,21 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
               <>
                 <button
                   onClick={handleToggleMute}
-                  className={`px-4 py-2 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                  className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center gap-1.5 touch-manipulation ${
                     isMuted
                       ? "bg-amber-500 text-white"
                       : "bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-zinc-300 hover:text-white"
                   }`}
                 >
-                  {isMuted ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
+                  {isMuted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                   <span>{isMuted ? "Unmute" : "Mute"}</span>
                 </button>
 
                 <button
                   onClick={handleStopCall}
-                  className="px-4 py-2 rounded-xl text-xs font-medium bg-rose-600 hover:bg-rose-500 text-white transition-colors flex items-center gap-1.5"
+                  className="min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-rose-600 hover:bg-rose-500 text-white transition-colors flex items-center gap-1.5 touch-manipulation"
                 >
-                  <PhoneOff className="w-3.5 h-3.5" />
+                  <PhoneOff className="w-4 h-4" />
                   <span>End Session</span>
                 </button>
               </>

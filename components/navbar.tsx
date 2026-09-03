@@ -20,8 +20,8 @@ const PRIMARY_LINKS: NavLink[] = [
 ];
 
 const SECONDARY_LINKS: NavLink[] = [
+  { label: "Process & Methodology", id: "process" },
   { label: "Architecture", id: "architecture" },
-  { label: "Methodology", id: "process" },
   { label: "Case Studies", id: "work" },
   { label: "FAQ", id: "faq" },
   { label: "Contact", id: "contact" },
@@ -333,6 +333,8 @@ export const Navbar = memo(function Navbar() {
             {PRIMARY_LINKS.map((link, idx) => {
               const isActive = activeSection === link.id;
               const isHovered = hoveredIndex === idx;
+              // On tablet (768-1023px), Process is accessible via More popover to prevent cramping
+              const isTabletHidden = link.id === "process";
 
               return (
                 <button
@@ -342,7 +344,9 @@ export const Navbar = memo(function Navbar() {
                   }}
                   onClick={() => scrollToSection(link.id)}
                   onMouseEnter={() => setHoveredIndex(idx)}
-                  className={`relative z-10 px-3 py-1.5 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
+                  className={`relative z-10 px-2.5 sm:px-3 py-2 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] flex items-center justify-center ${
+                    isTabletHidden ? "hidden lg:inline-flex" : "inline-flex"
+                  } ${
                     isActive
                       ? "text-[#141414] dark:text-white font-semibold"
                       : "text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white"
@@ -375,7 +379,7 @@ export const Navbar = memo(function Navbar() {
                 aria-expanded={moreMenuOpen}
                 aria-haspopup="true"
                 aria-label="More navigation options"
-                className={`relative z-10 flex items-center gap-1 px-3 py-1.5 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
+                className={`relative z-10 flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-lg transition-colors duration-150 whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation min-h-[44px] ${
                   moreMenuOpen
                     ? "text-[#141414] dark:text-white font-semibold bg-black/[0.035] dark:bg-white/[0.05]"
                     : isSecondaryActive
@@ -398,13 +402,13 @@ export const Navbar = memo(function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -4, scale: 0.98 }}
                     transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute top-full right-0 mt-2.5 w-48 py-2 rounded-xl bg-[#FFFDF8] dark:bg-[#0c101c] border border-[rgba(28,25,20,0.09)] dark:border-white/[0.10] shadow-[0_12px_36px_rgba(28,25,20,0.08)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.7)] z-50 text-left"
+                    className="absolute top-full right-0 mt-2.5 w-52 py-2 rounded-xl bg-[#FFFDF8] dark:bg-[#0c101c] border border-[rgba(28,25,20,0.09)] dark:border-white/[0.10] shadow-[0_12px_36px_rgba(28,25,20,0.08)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.7)] z-50 text-left"
                   >
                     {SECONDARY_LINKS.map((item, idx) => (
                       <button
                         key={idx}
                         onClick={() => scrollToSection(item.id)}
-                        className="w-full px-4 py-2 text-[12.5px] font-sans font-medium text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white hover:bg-black/[0.035] dark:hover:bg-white/[0.06] text-left transition-colors flex items-center justify-between whitespace-nowrap"
+                        className="w-full min-h-[44px] px-4 py-2.5 text-[13px] font-sans font-medium text-[#4E4A43] dark:text-[#A9A7A2] hover:text-[#141414] dark:hover:text-white hover:bg-black/[0.035] dark:hover:bg-white/[0.06] text-left transition-colors flex items-center justify-between whitespace-nowrap touch-manipulation"
                       >
                         <span>{item.label}</span>
                       </button>
@@ -419,11 +423,11 @@ export const Navbar = memo(function Navbar() {
               ZONE 3: ACTION GROUP (Theme Control + Primary Solid Matte CTA)
               ========================================================= */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-            {/* Theme Toggle (Tactile 36x36px control with smooth 90deg rotation) */}
+            {/* Theme Toggle (Tactile control with smooth 90deg rotation and 44px touch area) */}
             <button
               onClick={toggleTheme}
               aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-              className="w-9 h-9 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.07] dark:hover:bg-white/[0.12] border border-[rgba(28,25,20,0.08)] dark:border-white/[0.08] flex items-center justify-center text-[#141414] dark:text-zinc-200 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              className="w-10 h-10 min-h-[44px] min-w-[44px] sm:w-9 sm:h-9 sm:min-h-[36px] sm:min-w-[36px] rounded-xl bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.07] dark:hover:bg-white/[0.12] border border-[rgba(28,25,20,0.08)] dark:border-white/[0.08] flex items-center justify-center text-[#141414] dark:text-zinc-200 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation"
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
@@ -443,10 +447,10 @@ export const Navbar = memo(function Navbar() {
               </AnimatePresence>
             </button>
 
-            {/* Primary Compact CTA (High Contrast, Tactile, No Gloss) */}
+            {/* Primary Compact CTA (High Contrast, Tactile, 42px touch height on tablet) */}
             <button
               onClick={() => scrollToSection("demo")}
-              className="group hidden sm:inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-xl bg-[#141414] hover:bg-black text-white dark:bg-white dark:hover:bg-zinc-100 dark:text-[#141414] text-[13px] font-semibold tracking-tight transition-all duration-150 shadow-xs hover:-translate-y-[1px] active:scale-[0.985] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              className="group hidden sm:inline-flex items-center justify-center gap-1.5 min-h-[42px] px-3.5 sm:px-4 rounded-xl bg-[#141414] hover:bg-black text-white dark:bg-white dark:hover:bg-zinc-100 dark:text-[#141414] text-xs sm:text-[13px] font-semibold tracking-tight transition-all duration-150 shadow-xs hover:-translate-y-[1px] active:scale-[0.985] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 touch-manipulation"
             >
               <PhoneCall className="w-3.5 h-3.5 text-blue-400 dark:text-blue-600 transition-transform group-hover:translate-x-0.5" />
               <span>Talk to VoiceOps</span>

@@ -78,8 +78,8 @@ export const WorkflowSection = memo(function WorkflowSection() {
 
         {/* Large Visual Workflow with Continuous Animated Signal */}
         <div className="relative pt-6">
-          {/* Continuous Glowing Signal Pathway (Desktop) */}
-          <div className="hidden md:block absolute top-[4.2rem] left-12 right-12 h-[2px] bg-[rgba(36,33,26,0.08)] dark:bg-white/[0.08] pointer-events-none z-0">
+          {/* Continuous Glowing Signal Pathway (Desktop only) */}
+          <div className="hidden lg:block absolute top-[4.2rem] left-12 right-12 h-[2px] bg-[rgba(36,33,26,0.08)] dark:bg-white/[0.08] pointer-events-none z-0">
             <motion.div
               className="h-full bg-gradient-to-r from-transparent via-blue-500 to-transparent w-48"
               animate={{
@@ -93,7 +93,7 @@ export const WorkflowSection = memo(function WorkflowSection() {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 relative z-10">
             {workflowNodes.map((node, idx) => {
               const Icon = node.icon;
               return (

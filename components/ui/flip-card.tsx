@@ -43,7 +43,7 @@ export const FlipCard = memo(function FlipCard({
 
   return (
     <div
-      className={`perspective-1400 w-full h-[370px] ${tiltClass} select-none outline-none cursor-pointer group transition-transform duration-200 ease-out hover:-translate-y-1`}
+      className={`perspective-1400 w-full h-[370px] ${tiltClass} select-none outline-none cursor-pointer group transition-transform duration-200 ease-out hover:-translate-y-1 touch-manipulation`}
       role="button"
       tabIndex={0}
       aria-expanded={isFlipped}
