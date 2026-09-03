@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api/"],
+        disallow: ["/admin", "/admin/", "/admin/login", "/api/"],
       },
     ],
-    sitemap: "https://voiceops.in/sitemap.xml",
+    sitemap: "https://www.voiceops.in/sitemap.xml",
   };
 }

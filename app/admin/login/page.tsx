@@ -6,7 +6,7 @@ import { Lock, ArrowRight, Shield, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { LunorLogo } from "@/components/ui/lunor-logo";
+import { VoiceOpsLogo } from "@/components/ui/lunor-logo";
 
 export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
       {/* Top Bar */}
       <div className="max-w-6xl w-full mx-auto flex items-center justify-between py-2">
         <Link href="/" aria-label="VoiceOps Home">
-          <LunorLogo size={30} showWordmark={true} />
+          <VoiceOpsLogo size={30} showWordmark={true} />
         </Link>
         <ThemeToggle />
       </div>
@@ -63,9 +63,9 @@ export default function AdminLoginPage() {
             <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-3">
               <Shield className="w-6 h-6" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+            <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
               VoiceOps Admin Portal
-            </h1>
+            </h2>
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
               Enter authorized administrator password to manage studio data, projects, and leads.
             </p>

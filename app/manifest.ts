@@ -1,0 +1,25 @@
+﻿import { MetadataRoute } from "next";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: "VOICEOPS",
+    short_name: "VOICEOPS",
+    description: "AI Voice Automation for Business",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#F5F1E8",
+    theme_color: "#141414",
+    icons: [
+      {
+        src: "/favicon.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+      },
+      {
+        src: "/icon.svg",
+        sizes: "48x48",
+        type: "image/svg+xml",
+      },
+    ],
+  };
+}

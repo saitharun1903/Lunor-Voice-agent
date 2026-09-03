@@ -2,6 +2,43 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "voiceops.in",
+          },
+        ],
+        destination: "https://www.voiceops.in/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "lunor.co.in",
+          },
+        ],
+        destination: "https://www.voiceops.in/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.lunor.co.in",
+          },
+        ],
+        destination: "https://www.voiceops.in/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
