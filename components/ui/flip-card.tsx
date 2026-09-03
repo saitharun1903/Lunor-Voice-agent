@@ -66,7 +66,7 @@ export const FlipCard = memo(function FlipCard({
             FRONT FACE: Pure Editorial Minimalism with Tactile Matte Material
             ========================================================= */}
         <div
-          className="backface-hidden absolute inset-0 rounded-2xl bg-white dark:bg-[#0e121d] border border-black/[0.07] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden transition-colors pointer-events-auto"
+          className="backface-hidden absolute inset-0 rounded-2xl bg-[#FAF8F2] dark:bg-[#0e121d] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden transition-colors pointer-events-auto"
           style={{ transform: "rotateY(0deg)" }}
         >
           {/* Top: Index */}
@@ -74,7 +74,7 @@ export const FlipCard = memo(function FlipCard({
             <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wider">
               {index}
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[rgba(36,33,26,0.2)] dark:bg-white/20" />
           </div>
 
           {/* Middle: Title & One-Line Purpose */}
@@ -82,15 +82,15 @@ export const FlipCard = memo(function FlipCard({
             <h3 className="font-serif text-2xl sm:text-[1.7rem] text-zinc-950 dark:text-white font-normal leading-snug tracking-tight">
               {title}
             </h3>
-            <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 leading-relaxed">
               {subtitle}
             </p>
           </div>
 
           {/* Bottom: Subtle Interactive Exploration Cue */}
-          <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between text-xs font-sans text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-200 transition-colors">
+          <div className="pt-4 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] flex items-center justify-between text-xs font-sans text-[#888278] group-hover:text-zinc-900 dark:group-hover:text-zinc-200 transition-colors">
             <span className="text-[11px] font-medium tracking-wide">Explore workflow</span>
-            <div className="w-6 h-6 rounded-full bg-black/[0.04] dark:bg-white/[0.06] flex items-center justify-center text-zinc-500 dark:text-zinc-400">
+            <div className="w-6 h-6 rounded-full bg-[rgba(36,33,26,0.04)] dark:bg-white/[0.06] flex items-center justify-center text-[#58534C] dark:text-zinc-400">
               <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </div>
@@ -100,7 +100,7 @@ export const FlipCard = memo(function FlipCard({
             BACK FACE: Detailed Operational Discovery (Matte Architectural Surface)
             ========================================================= */}
         <div
-          className="backface-hidden absolute inset-0 rounded-2xl bg-[#faf9f6] dark:bg-[#090c15] border border-black/[0.07] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden shadow-lg pointer-events-auto"
+          className="backface-hidden absolute inset-0 rounded-2xl bg-[#FFFDF8] dark:bg-[#090c15] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.08] p-7 sm:p-8 flex flex-col justify-between text-left overflow-hidden shadow-sm pointer-events-auto"
           style={{ transform: "rotateY(180deg)" }}
         >
           {/* Top: Header & Close Trigger */}

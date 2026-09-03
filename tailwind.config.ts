@@ -42,6 +42,17 @@ const config: Config = {
           accent: "#1d4ed8",
           accentDark: "#3b82f6",
         },
+        ivory: {
+          bg: "#F5F1E8",
+          subtle: "#F0ECE3",
+          surface: "#FAF8F2",
+          elevated: "#FFFDF8",
+        },
+        graphite: {
+          text: "#141414",
+          secondary: "#58534C",
+          muted: "#888278",
+        },
       },
       boxShadow: {
         "apple-subtle": "0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)",

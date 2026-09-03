@@ -28,7 +28,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
   ];
 
   return (
-    <section id="process" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+    <section id="process" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
         <motion.div
@@ -46,7 +46,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
             From initial call audit to live phone lines.
           </h2>
 
-          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed">
+          <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 font-normal leading-relaxed">
             How we take your company from missed calls and phone tag to an automated first layer in days.
           </p>
         </motion.div>
@@ -54,21 +54,21 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
         {/* Continuous Connected Visual Path with VoiceOps Signal Transformation */}
         <div className="relative">
           {/* Animated Connecting Line */}
-          <div className="hidden md:block absolute top-6 left-6 right-6 h-[1.5px] bg-black/[0.08] dark:bg-white/[0.08] pointer-events-none z-0">
+          <div className="hidden md:block absolute top-6 left-6 right-6 h-[1.5px] bg-[rgba(36,33,26,0.08)] dark:bg-white/[0.08] pointer-events-none z-0">
             <motion.div
               className="h-full bg-gradient-to-r from-transparent via-blue-500 to-transparent w-40"
               animate={{
-                x: ["-100%", "400%"],
+                x: ["-50%", "350%"],
               }}
               transition={{
                 repeat: Infinity,
-                duration: 4.5,
+                duration: 3.5,
                 ease: "linear",
               }}
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
             {stages.map((stage, idx) => (
               <motion.div
                 key={stage.step}
@@ -76,7 +76,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-4 pt-4 border-t border-black/[0.12] dark:border-white/[0.12] text-left"
+                className="space-y-4 pt-4 border-t border-[rgba(36,33,26,0.12)] dark:border-white/[0.12] text-left"
               >
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
@@ -89,7 +89,7 @@ export const HowItWorksSection = memo(function HowItWorksSection() {
                   {stage.title}
                 </h3>
 
-                <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400 leading-relaxed text-xs">
+                <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 leading-relaxed text-xs">
                   {stage.description}
                 </p>
               </motion.div>

@@ -73,7 +73,7 @@ export const ResultsValueSection = memo(function ResultsValueSection() {
             return (
               <div
                 key={outcome.title}
-                className="rounded-3xl p-7 backdrop-blur-xl bg-white/70 dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+                className="rounded-3xl p-7 bg-[#FAF8F2] dark:bg-zinc-900/60 border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between"
               >
                 <div>
                   <div className="w-10 h-10 rounded-xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-5">

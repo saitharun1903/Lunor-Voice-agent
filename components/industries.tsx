@@ -63,7 +63,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
   }, []);
 
   return (
-    <section id="industries" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+    <section id="industries" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
         <motion.div
@@ -81,13 +81,13 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
             Voice automation for the way your business works.
           </h2>
 
-          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 max-w-xl font-normal leading-relaxed">
+          <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 max-w-xl font-normal leading-relaxed">
             Every deployment is configured around the specific operational rules, scheduling systems, and compliance guidelines of your vertical.
           </p>
         </motion.div>
 
         {/* Horizontal Editorial Selector with Gliding Active Signal */}
-        <div className="flex items-center gap-2 pb-3 overflow-x-auto border-b border-black/[0.06] dark:border-white/[0.08] mb-10 no-scrollbar">
+        <div className="flex items-center gap-2 pb-3 overflow-x-auto border-b border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] mb-10 no-scrollbar">
           {INDUSTRY_STORIES.map((ind) => {
             const isSelected = activeId === ind.id;
             return (
@@ -97,7 +97,7 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
                 className={`relative px-4 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-150 outline-none ${
                   isSelected
                     ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-semibold shadow-xs"
-                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
+                    : "text-[#58534C] dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
                 }`}
               >
                 {ind.name}
@@ -114,10 +114,10 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-[#0c101c] border border-black/[0.08] dark:border-white/[0.08] shadow-xl space-y-8"
+            className="p-8 sm:p-12 rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-sm space-y-8"
           >
             {/* Industry Header */}
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-black/[0.06] dark:border-white/[0.08] pb-6">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[rgba(36,33,26,0.06)] dark:border-white/[0.08] pb-6">
               <div className="space-y-2 max-w-2xl text-left">
                 <span className="font-mono text-xs text-blue-600 dark:text-blue-400 uppercase tracking-wider block font-semibold">
                   {current.name} Blueprint
@@ -125,28 +125,28 @@ export const IndustriesSection = memo(function IndustriesSection({ industries }:
                 <h3 className="font-serif text-2xl sm:text-3xl text-zinc-950 dark:text-white font-normal leading-snug">
                   {current.tagline}
                 </h3>
-                <p className="type-sans-body text-zinc-600 dark:text-zinc-400 leading-relaxed text-sm">
+                <p className="type-sans-body text-[#58534C] dark:text-zinc-400 leading-relaxed text-sm">
                   {current.summary}
                 </p>
               </div>
 
-              <div className="px-4 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-mono shrink-0">
+              <div className="px-4 py-2 rounded-lg bg-emerald-600/[0.08] border border-emerald-600/20 text-emerald-800 dark:text-emerald-400 text-xs font-mono shrink-0">
                 ✓ {current.metric}
               </div>
             </div>
 
             {/* Step-by-Step Flow: Illustrative Workflow */}
             <div className="text-left">
-              <span className="type-editorial-eyebrow text-zinc-500 dark:text-zinc-400 block mb-4">
+              <span className="type-editorial-eyebrow text-[#888278] dark:text-zinc-400 block mb-4">
                 WORKFLOW PATHWAY
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
                 {current.steps.map((step, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-xl bg-black/[0.02] dark:bg-black/40 border border-black/[0.05] dark:border-white/[0.05] space-y-1.5"
+                    className="p-4 rounded-xl bg-[#FFFDF8] dark:bg-black/40 border border-[rgba(36,33,26,0.07)] dark:border-white/[0.05] space-y-1.5"
                   >
-                    <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 block">0{idx + 1}</span>
+                    <span className="font-mono text-[10px] text-[#888278] dark:text-zinc-500 block">0{idx + 1}</span>
                     <p className="font-sans text-xs text-zinc-900 dark:text-white font-medium leading-snug">
                       {step}
                     </p>

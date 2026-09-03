@@ -13,45 +13,59 @@
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* LIGHT EDITORIAL CHAPTER (Warm Ivory & Charcoal Graphite) */
-  --bg-primary: #faf8f5;
-  --bg-secondary: #f3f1eb;
-  --bg-tertiary: #eae7de;
-  --bg-canvas: #faf8f5;
+  /* =========================================================
+     LIGHT EDITORIAL CHAPTER (Warm Architectural Ivory & Graphite)
+     ========================================================= */
+  --light-bg: #F5F1E8;             /* Primary Canvas Foundation */
+  --light-bg-subtle: #F0ECE3;      /* Subtle Tonal Contrast Layer */
+  --light-surface: #FAF8F2;        /* Primary Card & Surface Plate */
+  --light-elevated: #FFFDF8;       /* Elevated Surface & Active Focus */
+  --light-border: rgba(36, 33, 26, 0.08); /* Warm hairline boundary */
+  --light-border-subtle: rgba(36, 33, 26, 0.05);
+  --light-text: #141414;           /* Deep Rich Graphite */
+  --light-text-secondary: #58534C; /* Warm Charcoal */
+  --light-text-muted: #888278;     /* Soft Warm Gray */
+  --light-accent: #2563eb;         /* VoiceOps Cobalt Accent */
 
-  --text-primary: #111215;
-  --text-secondary: #4a4d57;
-  --text-tertiary: #737785;
-  --text-muted: #9da1b0;
+  --bg-primary: var(--light-bg);
+  --bg-secondary: var(--light-bg-subtle);
+  --bg-tertiary: #EBE6DC;
+  --bg-canvas: var(--light-bg);
 
-  --surface-card: #ffffff;
-  --surface-plate: #f6f4ee;
+  --text-primary: var(--light-text);
+  --text-secondary: var(--light-text-secondary);
+  --text-tertiary: #6E685E;
+  --text-muted: var(--light-text-muted);
 
-  --border-subtle: rgba(17, 18, 21, 0.07);
-  --border-strong: rgba(17, 18, 21, 0.14);
+  --surface-card: var(--light-surface);
+  --surface-plate: var(--light-bg-subtle);
+  --surface-elevated: var(--light-elevated);
+
+  --border-subtle: var(--light-border-subtle);
+  --border-strong: rgba(36, 33, 26, 0.15);
   --border-accent: rgba(37, 99, 235, 0.28);
 
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
   --accent-muted: rgba(37, 99, 235, 0.08);
 
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 6px 18px -4px rgba(0, 0, 0, 0.03);
-  --card-shadow-hover: 0 12px 32px -6px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
+  --card-shadow: 0 1px 3px rgba(30, 28, 22, 0.03), 0 6px 18px -4px rgba(30, 28, 22, 0.04);
+  --card-shadow-hover: 0 12px 32px -6px rgba(30, 28, 22, 0.06), 0 4px 12px -2px rgba(30, 28, 22, 0.03);
 
   /* MATTE PRODUCT MATERIAL SYSTEM (Light Mode) */
-  --surface-matte-01: rgba(255, 255, 255, 0.75);
-  --surface-matte-02: #ffffff;
-  --border-matte-subtle: rgba(17, 18, 21, 0.06);
-  --border-matte-standard: rgba(17, 18, 21, 0.09);
-  --shadow-matte: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+  --surface-matte-01: rgba(250, 248, 242, 0.82);
+  --surface-matte-02: #FAF8F2;
+  --border-matte-subtle: rgba(36, 33, 26, 0.07);
+  --border-matte-standard: rgba(36, 33, 26, 0.10);
+  --shadow-matte: 0 4px 20px -2px rgba(30, 28, 22, 0.04);
 }
 
 .dark {
-  /* DARK CINEMATIC CHAPTER (Deep Midnight Navy & Warm Silver) */
-  --bg-primary: #06080e;
+  /* DARK CINEMATIC CHAPTER (Deep Midnight Charcoal & Warm Silver) */
+  --bg-primary: #07090e;
   --bg-secondary: #0c0f18;
   --bg-tertiary: #131724;
-  --bg-canvas: #06080e;
+  --bg-canvas: #07090e;
 
   --text-primary: #f5f5f7;
   --text-secondary: #9da0ad;
@@ -60,6 +74,7 @@
 
   --surface-card: #0d101a;
   --surface-plate: #090b12;
+  --surface-elevated: #111522;
 
   --border-subtle: rgba(255, 255, 255, 0.07);
   --border-strong: rgba(255, 255, 255, 0.12);
@@ -197,47 +212,49 @@ body {
 
 /* Warm Editorial Ivory Environment */
 .chapter-ivory {
-  background-color: #faf8f5;
-  color: #111215;
-  border-color: rgba(17, 18, 21, 0.08);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
 }
 
 .dark .chapter-ivory {
-  background-color: #0b0e17;
-  color: #f5f5f7;
-  border-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
 }
 
-/* Soft Stone Transition Environment */
+/* Soft Warm Tone Transition Environment */
 .chapter-stone {
-  background-color: #f3f1eb;
-  color: #111215;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
 }
 
 .dark .chapter-stone {
-  background-color: #090b12;
-  color: #f5f5f7;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
 }
 
 /* Seamless Chapter Transition Gradient Bridges */
 .bridge-midnight-to-ivory {
   height: 6rem;
-  background: linear-gradient(180deg, #06080e 0%, #0b0e17 40%, #faf8f5 100%);
+  background: linear-gradient(180deg, #06080e 0%, #0b0e17 40%, #F5F1E8 100%);
 }
 
 .dark .bridge-midnight-to-ivory {
   height: 5rem;
-  background: linear-gradient(180deg, #06080e 0%, #080b13 50%, #0b0e17 100%);
+  background: linear-gradient(180deg, #06080e 0%, #080b13 50%, #07090e 100%);
 }
 
 .bridge-ivory-to-midnight {
   height: 6rem;
-  background: linear-gradient(180deg, #faf8f5 0%, #0b0e17 60%, #06080e 100%);
+  background: linear-gradient(180deg, #F5F1E8 0%, #0b0e17 60%, #06080e 100%);
 }
 
 .dark .bridge-ivory-to-midnight {
   height: 5rem;
-  background: linear-gradient(180deg, #0b0e17 0%, #080a13 50%, #06080e 100%);
+  background: linear-gradient(180deg, #07090e 0%, #080a13 50%, #06080e 100%);
 }
 
 /* =========================================================

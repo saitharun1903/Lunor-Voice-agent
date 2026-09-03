@@ -74,7 +74,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
   }, []);
 
   return (
-    <section id="use-cases" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+    <section id="use-cases" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Section Header */}
         <motion.div
@@ -89,10 +89,10 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
           </p>
 
           <h2 className="type-serif-h1 text-zinc-950 dark:text-white font-normal">
-            What VoiceOps automates.
+            Autonomous phone capabilities.
           </h2>
 
-          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 max-w-xl font-normal leading-relaxed">
+          <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal">
             Click any card to inspect the exact conversational workflow and verified outcome.
           </p>
         </motion.div>

@@ -159,9 +159,9 @@ export const Hero = memo(function Hero({
         // Check active theme
         const isDark = document.documentElement.classList.contains("dark");
 
-        // Palette setup
-        const primaryColor = isDark ? "241, 245, 249" : "17, 24, 39";
-        const secondaryColor = isDark ? "148, 163, 184" : "71, 85, 105";
+        // Palette setup (Deep graphite & warm charcoal in Light Mode, soft silver in Dark Mode)
+        const primaryColor = isDark ? "241, 245, 249" : "20, 20, 20";
+        const secondaryColor = isDark ? "148, 163, 184" : "88, 83, 76";
         const accentColor = isDark ? "59, 130, 246" : "37, 99, 235"; // VoiceOps Cobalt
 
         // Time step (multi-harmonic non-repeating flow)
@@ -409,10 +409,10 @@ export const Hero = memo(function Hero({
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[92svh] lg:min-h-[100svh] w-full bg-[#faf8f5] dark:bg-[#07090e] transition-colors duration-200 flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-12 px-5 sm:px-8 md:px-12 overflow-hidden select-none"
+      className="relative min-h-[92svh] lg:min-h-[100svh] w-full bg-[#F5F1E8] dark:bg-[#07090e] transition-colors duration-200 flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-12 px-5 sm:px-8 md:px-12 overflow-hidden select-none"
     >
       {/* Subtle Environmental Grid Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.035)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(36,33,26,0.035)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none -z-10" />
 
       {/* Central Living VoiceOps Signal Canvas (Behind Typography, Pointer Events None) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
@@ -433,7 +433,7 @@ export const Hero = memo(function Hero({
             className="flex items-center gap-2"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
-            <span className="font-mono text-xs font-semibold tracking-wider text-zinc-600 dark:text-zinc-400 uppercase">
+            <span className="font-mono text-xs font-semibold tracking-wider text-[#58534C] dark:text-zinc-400 uppercase">
               {eyebrow}
             </span>
           </motion.div>
@@ -447,7 +447,7 @@ export const Hero = memo(function Hero({
           >
             Automate the first layer
             <br />
-            <span className="text-zinc-500 dark:text-zinc-400 font-normal">
+            <span className="text-[#6E685E] dark:text-zinc-400 font-normal">
               of every call.
             </span>
           </motion.h1>
@@ -457,7 +457,7 @@ export const Hero = memo(function Hero({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="font-sans text-base sm:text-lg text-zinc-600 dark:text-zinc-300 max-w-xl leading-relaxed font-normal"
+            className="font-sans text-base sm:text-lg text-[#58534C] dark:text-zinc-300 max-w-xl leading-relaxed font-normal"
           >
             {subheadline}
           </motion.p>
@@ -467,7 +467,7 @@ export const Hero = memo(function Hero({
       </div>
 
       {/* Bottom Editorial Actions & Clean System Anchor */}
-      <div className="relative z-10 max-w-5xl mx-auto w-full pt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-black/[0.06] dark:border-white/[0.08]">
+      <div className="relative z-10 max-w-5xl mx-auto w-full pt-8 flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08]">
         {/* Left Quiet Product Baseline */}
         <motion.div
           initial={{ opacity: 0 }}

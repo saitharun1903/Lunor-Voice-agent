@@ -157,12 +157,12 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
   return (
     <div className={`w-full max-w-2xl mx-auto ${className}`}>
       {/* Hardware-Grade Precision Matte Console */}
-      <div className="relative rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#0b0e17] border border-black/[0.08] dark:border-white/[0.07] shadow-xl space-y-6 text-left transition-colors">
+      <div className="relative rounded-3xl p-6 sm:p-8 bg-[#FAF8F2] dark:bg-[#0b0e17] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07] shadow-xl space-y-6 text-left transition-colors">
         {/* Status Header */}
-        <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-4">
-          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.05] dark:border-white/[0.06]">
+        <div className="flex items-center justify-between border-b border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] pb-4">
+          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-[rgba(36,33,26,0.04)] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.06)] dark:border-white/[0.06]">
             <span className={`w-2 h-2 rounded-full ${status.dot}`} />
-            <span className="font-mono text-xs font-semibold tracking-wider text-zinc-700 dark:text-zinc-300 uppercase">
+            <span className="font-mono text-xs font-semibold tracking-wider text-[#58534C] dark:text-zinc-300 uppercase">
               {status.text}
             </span>
           </div>
@@ -191,7 +191,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
         </div>
 
         {/* Quiet Transcript Terminal */}
-        <div className="min-h-[80px] space-y-2 p-4 rounded-xl bg-zinc-50 dark:bg-black/30 border border-black/[0.05] dark:border-white/[0.05] text-xs font-sans text-zinc-800 dark:text-zinc-300">
+        <div className="min-h-[80px] space-y-2 p-4 rounded-xl bg-[#F2EDE3] dark:bg-black/30 border border-[rgba(36,33,26,0.06)] dark:border-white/[0.05] text-xs font-sans text-zinc-800 dark:text-zinc-300">
           {transcripts.length === 0 ? (
             <div className="text-center py-3 text-zinc-500 font-light">
               {isActive

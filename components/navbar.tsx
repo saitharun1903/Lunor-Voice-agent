@@ -117,8 +117,8 @@ export const Navbar = memo(function Navbar() {
         <div
           className={`max-w-5xl mx-auto h-14 sm:h-[54px] px-4 sm:px-6 rounded-2xl flex items-center justify-between transition-all duration-300 ${
             isScrolled
-              ? "bg-[#faf8f5]/95 dark:bg-[#080a11]/95 backdrop-blur-md border border-black/[0.08] dark:border-white/[0.08] shadow-md dark:shadow-2xl"
-              : "bg-[#faf8f5]/80 dark:bg-[#080a11]/80 backdrop-blur-sm border border-black/[0.05] dark:border-white/[0.06]"
+              ? "bg-[#FAF8F2]/95 dark:bg-[#080a11]/95 backdrop-blur-md border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-md dark:shadow-2xl"
+              : "bg-[#FAF8F2]/80 dark:bg-[#080a11]/80 backdrop-blur-sm border border-[rgba(36,33,26,0.05)] dark:border-white/[0.06]"
           }`}
         >
           {/* Brand Mark with VoiceOps Signal Wave (High Contrast in both Light & Dark) */}
@@ -194,7 +194,7 @@ export const Navbar = memo(function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.96 }}
                     transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute top-full right-0 mt-3 w-48 py-2 rounded-xl bg-white dark:bg-[#0f1320] border border-black/[0.08] dark:border-white/[0.09] shadow-xl z-50 text-left"
+                    className="absolute top-full right-0 mt-3 w-48 py-2 rounded-xl bg-[#FAF8F2] dark:bg-[#0f1320] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.09] shadow-xl z-50 text-left"
                   >
                     {secondaryNavLinks.map((item, idx) => (
                       <button
@@ -266,7 +266,7 @@ export const Navbar = memo(function Navbar() {
               animate={{ x: "0%" }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[82%] max-w-sm h-full bg-[#faf8f5] dark:bg-[#090c14] border-l border-black/[0.08] dark:border-white/[0.08] p-6 flex flex-col justify-between shadow-2xl text-left"
+              className="w-[82%] max-w-sm h-full bg-[#F5F1E8] dark:bg-[#090c14] border-l border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] p-6 flex flex-col justify-between shadow-2xl text-left"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}

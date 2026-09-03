@@ -41,7 +41,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
   ];
 
   return (
-    <section id="architecture" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+    <section id="architecture" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Section Heading with Staggered Reveal */}
         <motion.div
@@ -59,7 +59,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
             Every business has a first layer.
           </h2>
 
-          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+          <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal">
             VoiceOps sits quietly in front of your phones, taking care of initial conversations before they interrupt your operational team.
           </p>
         </motion.div>
@@ -67,7 +67,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
         {/* The 5-Stage Connected Concept Flow with Animated VoiceOps Signal */}
         <div className="relative">
           {/* Animated Connecting Signal Line (Desktop) */}
-          <div className="hidden lg:block absolute top-7 left-8 right-8 h-[2px] bg-black/[0.06] dark:bg-white/[0.08] pointer-events-none z-0">
+          <div className="hidden lg:block absolute top-7 left-8 right-8 h-[2px] bg-[rgba(36,33,26,0.08)] dark:bg-white/[0.08] pointer-events-none z-0">
             <motion.div
               className="h-full bg-gradient-to-r from-blue-500/40 via-blue-500 to-blue-500/40"
               animate={{
@@ -91,15 +91,15 @@ export const SystemDiagram = memo(function SystemDiagram() {
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className={`p-6 rounded-2xl transition-all duration-200 ${
                   step.highlight
-                    ? "bg-white dark:bg-[#0e1220] border-2 border-blue-600/30 shadow-lg"
-                    : "bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.06] dark:border-white/[0.07]"
+                    ? "bg-[#FAF8F2] dark:bg-[#0e1220] border border-blue-600/35 shadow-sm"
+                    : "bg-[#FAF8F2]/75 dark:bg-white/[0.03] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07]"
                 }`}
               >
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-[rgba(36,33,26,0.07)] dark:border-white/[0.08]">
                   <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
                     {step.num}
                   </span>
-                  <span className="type-editorial-eyebrow text-zinc-500 text-[10px]">
+                  <span className="type-editorial-eyebrow text-[#888278] dark:text-zinc-500 text-[10px]">
                     {step.label}
                   </span>
                 </div>
@@ -108,7 +108,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
                   {step.headline}
                 </h3>
 
-                <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400 text-xs leading-relaxed">
+                <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 text-xs leading-relaxed">
                   {step.description}
                 </p>
               </motion.div>

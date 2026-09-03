@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export const AboutSection = memo(function AboutSection() {
   return (
-    <section id="about" className="py-28 md:py-40 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+    <section id="about" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Eyebrow with Reveal */}
         <motion.p
@@ -29,7 +29,7 @@ export const AboutSection = memo(function AboutSection() {
           >
             The calls your team
             <br />
-            <span className="italic font-light text-zinc-500 dark:text-zinc-400">
+            <span className="italic font-light text-[#6E685E] dark:text-zinc-400">
               shouldn&apos;t have to answer.
             </span>
           </motion.h2>
@@ -44,10 +44,10 @@ export const AboutSection = memo(function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 space-y-6"
           >
-            <p className="type-sans-body-lg text-zinc-800 dark:text-zinc-200 leading-relaxed font-normal">
+            <p className="type-sans-body-lg text-[#141414] dark:text-zinc-200 leading-relaxed font-normal">
               In almost every growing enterprise, over 65% of incoming telephone calls repeat the exact same five conversations: checking opening times, asking service pricing, booking appointment slots, or qualifying basic requirements.
             </p>
-            <p className="type-sans-body text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="type-sans-body text-[#58534C] dark:text-zinc-400 leading-relaxed">
               When key team members spend their day answering repetitive phone questions, customer wait times spike, staff attention is fragmented, and high-value deals slip through unanswered.
             </p>
           </motion.div>
@@ -59,12 +59,12 @@ export const AboutSection = memo(function AboutSection() {
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 space-y-6"
           >
-            <p className="type-sans-body text-zinc-800 dark:text-zinc-200 leading-relaxed">
+            <p className="type-sans-body text-[#141414] dark:text-zinc-200 leading-relaxed">
               <strong className="text-zinc-950 dark:text-white font-semibold">VoiceOps creates a dedicated first layer.</strong> Every incoming caller is greeted in under a second by an intelligent conversational voice agent trained on your actual business rules, booking calendars, and product catalogs.
             </p>
 
             {/* Clean Editorial Numbers (No Heavy Cards) */}
-            <div className="space-y-4 pt-2 border-t border-black/[0.06] dark:border-white/[0.08]">
+            <div className="space-y-4 pt-2 border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08]">
               <div className="flex items-baseline gap-4">
                 <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 shrink-0">01</span>
                 <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400">

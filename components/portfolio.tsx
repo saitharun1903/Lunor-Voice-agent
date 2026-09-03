@@ -76,7 +76,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
   }, []);
 
   return (
-    <section id="work" className="py-24 md:py-36 relative overflow-hidden bg-[#faf8f5] dark:bg-[#07090e] border-t border-black/[0.06] dark:border-white/[0.08] transition-colors">
+    <section id="work" className="py-24 md:py-36 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Section Header */}
         <motion.div
@@ -94,13 +94,13 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
             Real deployments. Measured results.
           </h2>
 
-          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed">
+          <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 font-normal leading-relaxed">
             How growing companies replaced missed calls and phone tag with an automated first layer.
           </p>
         </motion.div>
 
         {/* Clean, Fast-to-Scan Editorial Case Study Previews */}
-        <div className="border-t border-black/[0.08] dark:border-white/[0.08] divide-y divide-black/[0.08] dark:divide-white/[0.08]">
+        <div className="border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] divide-y divide-[rgba(36,33,26,0.08)] dark:divide-white/[0.08]">
           {activeProjects.slice(0, 2).map((project, idx) => (
             <motion.article
               key={project.id}
@@ -124,7 +124,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
                   {project.name}
                 </h3>
 
-                <p className="font-sans text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal max-w-xl">
+                <p className="font-sans text-sm sm:text-base text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal max-w-xl">
                   {project.tagline}
                 </p>
               </div>
@@ -167,7 +167,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-3xl bg-[#faf8f5] dark:bg-[#0c101c] border border-black/[0.08] dark:border-white/[0.09] shadow-2xl p-6 sm:p-10 space-y-8 text-left"
+              className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.09] shadow-2xl p-6 sm:p-10 space-y-8 text-left"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
