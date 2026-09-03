@@ -31,60 +31,69 @@ export const FaqSection = memo(function FaqSection() {
   ];
 
   return (
-    <section id="faq" className="py-24 md:py-36 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
-      <div className="max-w-4xl mx-auto px-5 sm:px-8">
-        {/* Minimalist Editorial Header */}
-        <div className="mb-14 sm:mb-20 text-left space-y-3">
-          <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
-            FAQ
-          </p>
+    <section id="faq" className="py-28 md:py-40 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        {/* Editorial Two-Column Structure (Reference Style) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Heading & Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 space-y-4 text-left lg:sticky lg:top-28"
+          >
+            <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
+              FAQ
+            </p>
 
-          <h2 className="type-serif-h1 text-zinc-950 dark:text-white font-normal">
-            Your questions.
-          </h2>
+            <h2 className="type-serif-display text-zinc-950 dark:text-white font-normal leading-[1.08]">
+              Your questions.
+            </h2>
 
-          <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed">
-            Everything business owners and operations teams need to know about VoiceOps.
-          </p>
-        </div>
+            <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed">
+              Everything business owners and operations teams need to know about deploying VoiceOps.
+            </p>
+          </motion.div>
 
-        {/* Quiet Minimalist Accordion (No Giant Boxes) */}
-        <div className="divide-y divide-black/[0.08] dark:divide-white/[0.1] border-y border-black/[0.08] dark:border-white/[0.1]">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <div key={index} className="py-6">
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full text-left flex items-baseline justify-between gap-6 group outline-none"
-                >
-                  <span className="font-serif text-xl sm:text-2xl text-zinc-950 dark:text-white font-normal group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {faq.q}
-                  </span>
+          {/* Right Column: Question List with Thin Rules and Smooth Accordion */}
+          <div className="lg:col-span-7 divide-y divide-black/[0.08] dark:divide-white/[0.1] border-y border-black/[0.08] dark:border-white/[0.1]">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div key={index} className="py-6 text-left">
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="w-full text-left flex items-baseline justify-between gap-6 group outline-none"
+                  >
+                    <span className="font-serif text-xl sm:text-2xl text-zinc-950 dark:text-white font-normal group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {faq.q}
+                    </span>
 
-                  <span className="text-zinc-400 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors shrink-0">
-                    {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-                  </span>
-                </button>
+                    <span className="text-zinc-400 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors shrink-0">
+                      {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                    </span>
+                  </button>
 
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <p className="pt-4 type-sans-body text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
-                        {faq.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <p className="pt-4 type-sans-body text-zinc-600 dark:text-zinc-400 leading-relaxed text-sm">
+                          {faq.a}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

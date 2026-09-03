@@ -2,7 +2,7 @@
 
 import React, { useState, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, User, Bot } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { UseCase } from "@/lib/types";
 
 interface UseCasesProps {
@@ -18,7 +18,7 @@ const CAPABILITIES = [
     description: "Opening hours, service pricing, directions, policies, and parking answered directly from your verified business knowledge.",
     caller: "What are your operating hours this weekend, and is customer parking available?",
     agent: "We're open Saturday and Sunday from 9:00 AM to 8:00 PM. Free customer parking is located right behind the main entrance on 4th Ave.",
-    workflow: ["Caller Enquires", "Instant Knowledge Match", "Natural Response", "Zero Wait"],
+    workflow: ["Question", "Understand", "Answer", "Resolved"],
     outcome: "Resolved in 1.2 seconds without staff interruption",
   },
   {
@@ -29,7 +29,7 @@ const CAPABILITIES = [
     description: "Connects directly with your Google Calendar, Outlook, or booking software to schedule visits, consultations, and reservations.",
     caller: "I'd like to book an appointment for tomorrow afternoon around 3:00 PM.",
     agent: "Tomorrow at 3:00 PM with Dr. Reynolds is open. I've locked that slot for you and sent an SMS confirmation with the invite link.",
-    workflow: ["Request Received", "Live Calendar Checked", "Slot Reserved", "SMS Confirmation Sent"],
+    workflow: ["Request", "Availability", "Reserve", "Confirm"],
     outcome: "Slot written directly into your booking system",
   },
   {
@@ -40,7 +40,7 @@ const CAPABILITIES = [
     description: "Gathers caller budget, timeline, and project requirements so your senior specialists receive fully scored, high-intent profiles.",
     caller: "Looking for a 3-bedroom property in Westside with a budget around ₹90 Lakhs.",
     agent: "Recorded your 3-bedroom preference, ₹90L budget, and next-month timeline. A senior property specialist has received your verified profile.",
-    workflow: ["Caller Intent Captured", "Budget & Timing Scored", "CRM Lead Created", "Broker Notified"],
+    workflow: ["Question", "Requirement", "Score", "Qualify"],
     outcome: "High-intent buyer verified and logged in CRM",
   },
   {
@@ -51,7 +51,7 @@ const CAPABILITIES = [
     description: "Answers product scope queries, handles initial pricing considerations, and coordinates introductory discovery meetings.",
     caller: "How does your phone integration connect with our existing carrier lines?",
     agent: "You can keep your existing phone number via simple call forwarding or direct SIP trunking. Would you like to schedule a 15-minute setup review?",
-    workflow: ["Prospect Inquires", "Technical Scope Answered", "Discovery Call Booked", "Calendar Invite Sent"],
+    workflow: ["Inquire", "Verify Scope", "Coordinate", "Invite"],
     outcome: "Introductory demo scheduled on representative's calendar",
   },
   {
@@ -62,7 +62,7 @@ const CAPABILITIES = [
     description: "Looks up order numbers, ticket statuses, and returns policies directly from your database, freeing support staff for complex issues.",
     caller: "Can you check the current status of service ticket #7842?",
     agent: "Ticket #7842 was completed this morning by technician Marcus. A complete service report has been emailed to your account address.",
-    workflow: ["Ticket Number Verified", "Database Queried", "Status Delivered", "Email Report Dispatched"],
+    workflow: ["Lookup", "Fetch DB", "Explain", "Dispatch"],
     outcome: "Routine inquiry closed without human intervention",
   },
   {
@@ -73,7 +73,7 @@ const CAPABILITIES = [
     description: "Reaches out automatically to confirm next-day visits, follow up on pending estimates, or confirm job readiness.",
     caller: "Hi, calling back regarding the commercial quote emailed yesterday.",
     agent: "I see your estimate was approved. Would you like me to schedule the technician dispatch for this Thursday morning?",
-    workflow: ["Callback Initiated", "Quote Context Retrieved", "Dispatch Confirmed", "Technician Assigned"],
+    workflow: ["Initiate", "Context", "Confirm", "Dispatch"],
     outcome: "Estimate converted into scheduled dispatch",
   },
 ];
@@ -84,15 +84,17 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
   const currentCase =
     CAPABILITIES.find((c) => c.id === selectedId) || CAPABILITIES[0];
 
-  const scrollToContact = useCallback(() => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  }, []);
-
   return (
-    <section id="use-cases" className="py-24 md:py-36 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
+    <section id="use-cases" className="py-28 md:py-40 relative overflow-hidden chapter-ivory border-t border-black/[0.06] dark:border-white/[0.08]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 sm:mb-20 text-left space-y-3">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mb-16 sm:mb-20 text-left space-y-3"
+        >
           <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
             CAPABILITIES
           </p>
@@ -104,11 +106,11 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
           <p className="type-sans-body-lg text-zinc-600 dark:text-zinc-400 max-w-xl font-normal leading-relaxed">
             Every business has specific call patterns. VoiceOps is configured around your exact procedures, questions, and software.
           </p>
-        </div>
+        </motion.div>
 
         {/* Editorial Two-Column Interactive Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left: Calm Typographic Ledger */}
+          {/* Left: Calm Typographic Ledger with Gliding Active Pill */}
           <div className="lg:col-span-5 space-y-2">
             {CAPABILITIES.map((item) => {
               const isSelected = selectedId === item.id;
@@ -116,13 +118,13 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                 <button
                   key={item.id}
                   onClick={() => setSelectedId(item.id)}
-                  className={`w-full text-left p-4 rounded-xl transition-all duration-150 flex items-center justify-between group outline-none ${
+                  className={`w-full text-left p-4 rounded-xl transition-all duration-200 flex items-center justify-between group outline-none relative ${
                     isSelected
-                      ? "bg-black/[0.05] dark:bg-white/[0.07]"
+                      ? "bg-black/[0.06] dark:bg-white/[0.08]"
                       : "hover:bg-black/[0.02] dark:hover:bg-white/[0.03]"
                   }`}
                 >
-                  <div className="flex items-baseline gap-4">
+                  <div className="flex items-baseline gap-4 relative z-10">
                     <span
                       className={`font-mono text-xs font-bold transition-colors ${
                         isSelected
@@ -144,7 +146,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                   </div>
 
                   <span
-                    className={`text-xs font-mono transition-opacity ${
+                    className={`text-xs font-mono transition-opacity relative z-10 ${
                       isSelected
                         ? "text-blue-600 dark:text-blue-400 opacity-100"
                         : "opacity-0 group-hover:opacity-60"
@@ -157,15 +159,15 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
             })}
           </div>
 
-          {/* Right: One Changing Workflow Canvas */}
+          {/* Right: One Changing Workflow Canvas with Smooth Layout Animations */}
           <div className="lg:col-span-7 lg:sticky lg:top-28">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedId}
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                 className="p-8 sm:p-10 rounded-2xl bg-white dark:bg-[#0c0f18] border border-black/[0.08] dark:border-white/[0.09] shadow-xl space-y-6"
               >
                 {/* Header */}
@@ -210,7 +212,7 @@ export const UseCasesSection = memo(function UseCasesSection({ useCases }: UseCa
                         className="p-2.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.05] text-zinc-700 dark:text-zinc-300 flex flex-col justify-between"
                       >
                         <span className="text-[9px] text-zinc-400 block mb-1">0{idx + 1}</span>
-                        <span className="font-sans leading-tight">{step}</span>
+                        <span className="font-sans leading-tight font-medium">{step}</span>
                       </div>
                     ))}
                   </div>

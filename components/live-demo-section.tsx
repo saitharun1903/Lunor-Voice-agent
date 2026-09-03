@@ -1,6 +1,7 @@
 "use client";
 
 import React, { memo } from "react";
+import { motion } from "framer-motion";
 import { LunoVoiceDemo } from "./voice/luno-voice-demo";
 
 interface LiveDemoSectionProps {
@@ -18,8 +19,14 @@ export const LiveDemoSection = memo(function LiveDemoSection({
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] ambient-glow-midnight pointer-events-none -z-10 blur-3xl opacity-75" />
 
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        {/* Editorial Heading Block */}
-        <div className="max-w-2xl mx-auto mb-12 sm:mb-16 text-center space-y-4">
+        {/* Editorial Heading Block with Smooth Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mx-auto mb-12 sm:mb-16 text-center space-y-4"
+        >
           <p className="type-editorial-eyebrow text-blue-400">
             LIVE VOICE PRODUCT EXPERIENCE
           </p>
@@ -31,10 +38,17 @@ export const LiveDemoSection = memo(function LiveDemoSection({
           <p className="type-sans-body text-zinc-400 max-w-lg mx-auto leading-relaxed">
             {description}
           </p>
-        </div>
+        </motion.div>
 
         {/* Premier Voice Console */}
-        <LunoVoiceDemo />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98, y: 16 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <LunoVoiceDemo />
+        </motion.div>
       </div>
     </section>
   );

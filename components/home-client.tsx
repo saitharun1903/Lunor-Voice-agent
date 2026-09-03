@@ -3,14 +3,15 @@
 import React, { memo, useCallback } from "react";
 import { Navbar } from "./navbar";
 import { Hero } from "./hero";
-import { LiveDemoSection } from "./live-demo-section";
 import { AboutSection } from "./about";
+import { LiveDemoSection } from "./live-demo-section";
 import { SystemDiagram } from "./ui/system-diagram";
 import { UseCasesSection } from "./use-cases";
+import { WorkflowSection } from "./workflow-section";
 import { IndustriesSection } from "./industries";
 import { IntegrationsSection } from "./integrations";
-import { HowItWorksSection } from "./how-it-works";
 import { PortfolioSection } from "./portfolio";
+import { HowItWorksSection } from "./how-it-works";
 import { FaqSection } from "./faq";
 import { ContactSection } from "./contact-section";
 import { Footer } from "./footer";
@@ -31,7 +32,7 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
     heroEyebrow: "VOICE AUTOMATION FOR BUSINESS",
     heroHeadline: "AUTOMATE THE FIRST LAYER OF EVERY CALL.",
     heroSubheadline:
-      "VoiceOps builds custom AI voice systems that handle repetitive conversations — from customer enquiries and bookings to lead qualification, support, and warm staff handoffs.",
+      "VoiceOps builds AI voice systems that handle repetitive business conversations — from enquiries and bookings to lead qualification, support, follow-ups and more.",
     googleSheetsWebhookUrl: "",
     voiceDemoEnabled: true,
     voiceDemoTitle: "Talk to VoiceOps.",
@@ -57,12 +58,12 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
 
   return (
     <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-blue-600 selection:text-white transition-colors duration-200 overflow-x-hidden">
-      {/* Quiet Minimal Navigation */}
+      {/* Dynamic Scroll-Reactive Navigation */}
       <Navbar />
 
-      {/* Main Experience Flow: Visual Chapters & Narrative Journey */}
+      {/* Main Experience Flow: 13-Chapter Editorial Architecture */}
       <main className="relative">
-        {/* Chapter 1: Cinematic Full-Width Opening (Deep Midnight) */}
+        {/* Chapter 01: Hero (Cinematic Dark Opening with Flowing VoiceOps Signal) */}
         <Hero
           eyebrow={settings.heroEyebrow}
           headline={settings.heroHeadline}
@@ -70,7 +71,10 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
           onTalkToLuno={scrollToDemo}
         />
 
-        {/* Chapter 2: Hardware-Grade Live Voice Product Moment (Deep Midnight) */}
+        {/* Chapter 02: Editorial Statement (The Calls Your Team Shouldn't Have to Answer) */}
+        <AboutSection />
+
+        {/* Chapter 03: Live Voice Demo (Hardware-Grade VoiceOps Product Moment) */}
         <LiveDemoSection
           title={settings.voiceDemoTitle || "Talk to VoiceOps."}
           description={
@@ -79,35 +83,35 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
           }
         />
 
-        {/* Chapter 3: The Operational Problem (Warm Ivory Editorial) */}
-        <AboutSection />
-
-        {/* Chapter 4: The Signature Concept: The First Layer (Soft Stone Transition) */}
+        {/* Chapter 04: First-Layer Experience (Customer → VoiceOps → Understand → Act → Resolution) */}
         <SystemDiagram />
 
-        {/* Chapter 5: What VoiceOps Automates: Editorial Capabilities (Warm Ivory) */}
+        {/* Chapter 05: Capabilities Matrix (01-06 Editorial Ledger & Changing Visual) */}
         <UseCasesSection useCases={useCases} />
 
-        {/* Chapter 6: Industry World Blueprint (Deep Midnight Atmosphere) */}
+        {/* Chapter 06: Workflow (Calls Should End in Actions: 4-Stage Execution Pipeline) */}
+        <WorkflowSection />
+
+        {/* Chapter 07: Industry World (Voice Automation for the Way Your Business Works) */}
         <IndustriesSection industries={industries} />
 
-        {/* Chapter 7: Connectivity & Ecosystem (Editorial Columns) */}
+        {/* Chapter 08: Integrations & Connectivity (Phone, Calendar, CRM, Business Systems) */}
         <IntegrationsSection />
 
-        {/* Chapter 8: Verified Client Case Studies (Magazine Spread Publication) */}
+        {/* Chapter 09: Case Studies (Magazine Feature Spread for Noor Modern Doors) */}
         <PortfolioSection projects={projects} stats={stats} />
 
-        {/* Chapter 9: 4-Phase Deployment Methodology (Continuous Journey Line) */}
+        {/* Chapter 10: Process (01 Understand → 02 Design → 03 Build → 04 Launch) */}
         <HowItWorksSection />
 
-        {/* Chapter 10: Minimalist Editorial FAQ */}
+        {/* Chapter 11: FAQ (Reference-Style 2-Column Editorial Questions) */}
         <FaqSection />
 
-        {/* Chapter 11: Cinematic Closing Scene & Consultation Form (Deep Midnight) */}
+        {/* Chapter 12: Contact (Cinematic Closing: Let's Automate Your First Layer) */}
         <ContactSection settings={settings} />
       </main>
 
-      {/* Quiet Editorial Footer */}
+      {/* Chapter 13: Quiet Editorial Footer */}
       <Footer settings={settings} />
     </div>
   );
