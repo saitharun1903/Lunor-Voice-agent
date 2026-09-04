@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useState, useCallback } from "react";
+import React, { memo, useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -15,6 +15,7 @@ import {
   UserCheck,
   Headphones,
   Check,
+  Play,
 } from "lucide-react";
 import { CapabilityItem, UseCase } from "@/lib/types";
 import { MOTION_EASINGS } from "@/lib/motion-config";
@@ -100,6 +101,8 @@ export const UseCasesSection = memo(function UseCasesSection({
   const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isShowingBlueprint, setIsShowingBlueprint] = useState(false);
+  const [simStep, setSimStep] = useState<number | null>(null);
+  const [isSimulating, setIsSimulating] = useState(false);
 
   const items =
     capabilities && capabilities.length > 0
@@ -119,12 +122,34 @@ export const UseCasesSection = memo(function UseCasesSection({
       : DEFAULT_CAPABILITIES;
 
   const currentItem = items[activeIndex] || items[0];
-  const IconComponent = currentItem.icon;
 
   const handleSelect = useCallback((idx: number) => {
     setActiveIndex(idx);
     setIsShowingBlueprint(false);
+    setSimStep(null);
+    setIsSimulating(false);
   }, []);
+
+  const runSimulation = useCallback(() => {
+    if (isSimulating) return;
+    setIsSimulating(true);
+    setSimStep(0);
+
+    const t1 = setTimeout(() => setSimStep(1), 500);
+    const t2 = setTimeout(() => setSimStep(2), 1000);
+    const t3 = setTimeout(() => setSimStep(3), 1500);
+    const t4 = setTimeout(() => {
+      setSimStep(null);
+      setIsSimulating(false);
+    }, 2400);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
+  }, [isSimulating]);
 
   return (
     <section
@@ -157,8 +182,7 @@ export const UseCasesSection = memo(function UseCasesSection({
         </motion.div>
 
         {/* =========================================================
-            ASYMMETRIC SPOTLIGHT COMPOSITION:
-            Large Focused Active Stage (Left) + Tactile Selector Deck (Right)
+            ASYMMETRIC SPOTLIGHT COMPOSITION
             ========================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Focused Spotlight Stage (7 cols) */}
@@ -170,10 +194,10 @@ export const UseCasesSection = memo(function UseCasesSection({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.99 }}
                 transition={{ duration: 0.35, ease: MOTION_EASINGS.editorial }}
-                className="w-full rounded-3xl p-7 sm:p-8 bg-[#FAF8F2] dark:bg-[#10131B] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.09] shadow-xl space-y-6 text-left relative min-h-[460px] flex flex-col justify-between"
+                className="w-full rounded-3xl p-7 sm:p-8 bg-[#FAF8F2] dark:bg-[#10131B] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.09] shadow-xl space-y-6 text-left relative min-h-[470px] flex flex-col justify-between"
               >
                 <div>
-                  {/* Top Bar: Index, Icon & Blueprint Toggle */}
+                  {/* Top Bar: Index, Icon & Action Controls */}
                   <div className="flex items-center justify-between border-b border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] pb-4">
                     <div className="flex items-center gap-2.5">
                       <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
@@ -185,14 +209,26 @@ export const UseCasesSection = memo(function UseCasesSection({
                       </span>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => setIsShowingBlueprint((prev) => !prev)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-sans font-medium bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.06] dark:hover:bg-white/[0.09] text-zinc-700 dark:text-zinc-300 transition-colors"
-                    >
-                      <RotateCcw className="w-3 h-3" />
-                      <span>{isShowingBlueprint ? "View Overview" : "Inspect Specs"}</span>
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={runSimulation}
+                        disabled={isSimulating}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-sans font-medium bg-blue-600/10 hover:bg-blue-600/20 text-blue-700 dark:text-blue-300 transition-colors disabled:opacity-50"
+                      >
+                        <Play className={`w-3 h-3 ${isSimulating ? "animate-spin text-blue-500" : ""}`} />
+                        <span>{isSimulating ? "Simulating..." : "Simulate Call"}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setIsShowingBlueprint((prev) => !prev)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-sans font-medium bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.06] dark:hover:bg-white/[0.09] text-zinc-700 dark:text-zinc-300 transition-colors"
+                      >
+                        <RotateCcw className="w-3 h-3" />
+                        <span>{isShowingBlueprint ? "Overview" : "Inspect Specs"}</span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Main Content: Overview or Technical Blueprint */}
@@ -209,23 +245,44 @@ export const UseCasesSection = memo(function UseCasesSection({
 
                       {/* 4-Step Execution Pathway Grid */}
                       <div className="space-y-2 pt-2">
-                        <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider font-semibold block">
-                          EXECUTION PATHWAY
-                        </span>
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider font-semibold block">
+                            EXECUTION PATHWAY
+                          </span>
+                          {isSimulating && (
+                            <span className="font-mono text-[10px] text-blue-600 dark:text-blue-400 font-semibold animate-pulse">
+                              SIMULATING STEP 0{(simStep ?? 0) + 1}
+                            </span>
+                          )}
+                        </div>
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          {currentItem.workflow.map((step, idx) => (
-                            <div
-                              key={idx}
-                              className="p-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.05] dark:border-white/[0.06] flex items-center gap-2.5"
-                            >
-                              <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 shrink-0">
-                                0{idx + 1}
-                              </span>
-                              <span className="font-sans text-xs font-medium text-zinc-800 dark:text-zinc-200">
-                                {step}
-                              </span>
-                            </div>
-                          ))}
+                          {currentItem.workflow.map((step, idx) => {
+                            const isStepActive = simStep === idx;
+                            return (
+                              <div
+                                key={idx}
+                                className={`p-3 rounded-xl border transition-all duration-200 flex items-center gap-2.5 ${
+                                  isStepActive
+                                    ? "bg-blue-500/15 border-blue-500 text-blue-700 dark:text-blue-300 shadow-sm scale-[1.02]"
+                                    : "bg-black/[0.02] dark:bg-white/[0.03] border-black/[0.05] dark:border-white/[0.06]"
+                                }`}
+                              >
+                                <span
+                                  className={`font-mono text-xs font-bold shrink-0 ${
+                                    isStepActive
+                                      ? "text-blue-600 dark:text-blue-400"
+                                      : "text-zinc-400 dark:text-zinc-500"
+                                  }`}
+                                >
+                                  0{idx + 1}
+                                </span>
+                                <span className="font-sans text-xs font-medium text-zinc-800 dark:text-zinc-200">
+                                  {step}
+                                </span>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>

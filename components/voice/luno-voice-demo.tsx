@@ -277,6 +277,21 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
           )}
         </div>
 
+        {/* Interactive Prompt Inspiration Chips */}
+        <div className="flex items-center gap-2 flex-wrap pt-1">
+          <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider font-semibold">
+            TRY ASKING:
+          </span>
+          {["\"Can I schedule a showroom appointment?\"", "\"What are your operating hours?\"", "\"Do you qualify commercial projects?\""].map((prompt, i) => (
+            <span
+              key={i}
+              className="px-2.5 py-1 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.05] dark:border-white/[0.06] text-[11px] font-sans text-zinc-600 dark:text-zinc-400"
+            >
+              {prompt}
+            </span>
+          ))}
+        </div>
+
         {/* Real-time Streaming Conversational Transcript Terminal */}
         <div className="min-h-[110px] max-h-[160px] overflow-y-auto space-y-2.5 p-4 rounded-2xl bg-[#F2EDE3] dark:bg-black/50 border border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] text-xs font-sans text-zinc-800 dark:text-zinc-300">
           {transcripts.length === 0 ? (

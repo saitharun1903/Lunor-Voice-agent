@@ -6,7 +6,6 @@ import {
   AnimatePresence,
   useReducedMotion,
   useScroll,
-  useTransform,
   useMotionValueEvent,
 } from "framer-motion";
 import {
@@ -16,8 +15,9 @@ import {
   Calendar,
   Layers,
   Sparkles,
-  ArrowRight,
-  ShieldCheck,
+  Terminal,
+  Activity,
+  Check,
 } from "lucide-react";
 import { MOTION_EASINGS } from "@/lib/motion-config";
 
@@ -28,6 +28,12 @@ interface PipelineStage {
   description: string;
   detail: string;
   telemetryPacket: string;
+  systemLog: {
+    protocol: string;
+    action: string;
+    payload: string;
+    status: string;
+  };
   icon: React.ComponentType<{ className?: string }>;
 }
 
@@ -40,6 +46,12 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "A customer calls your regular business phone number with an urgent booking, inquiry, or question.",
     detail: "Carrier SIP Ingest · Instant Ring",
     telemetryPacket: "SIP Protocol · Sub-second Inbound Ring",
+    systemLog: {
+      protocol: "SIP / Opus Audio Stream Initialized",
+      action: "Direct Inward Dialing (DID) Carrier Handshake",
+      payload: '{ event: "call.inbound", caller: "+1 (888) 586-XXXX", queue: "direct_layer" }',
+      status: "HANDSHAKE COMMITTED · 0ms",
+    },
     icon: PhoneIncoming,
   },
   {
@@ -50,6 +62,12 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "Answers in under a second with natural conversational cadence. Zero hold music, zero robotic phone trees.",
     detail: "VoiceOps answers naturally with sub-second cadence.",
     telemetryPacket: "Acoustic Engine · 380ms Synthetic Turn",
+    systemLog: {
+      protocol: "Neural Acoustic Streaming Engine",
+      action: 'Greeting Stream: "Thank you for calling. How can I help your project today?"',
+      payload: '{ turn_cadence: "340ms", voice_model: "voiceops-neural-v2", interruptions: "supported" }',
+      status: "STREAMING SYNTHETIC AUDIO",
+    },
     icon: Cpu,
   },
   {
@@ -60,6 +78,12 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "Listens to natural phrasing, clarifies preferences, and extracts key entities and qualification criteria.",
     detail: "Extracts intent, booking slots, and caller requirements.",
     telemetryPacket: "NER Pipeline · Entities & Slot Extracted",
+    systemLog: {
+      protocol: "Real-time Entity & Intent Resolution",
+      action: "Extracted Slots: [Showroom Visit] · [Thursday 3:00 PM] · [Acoustic Glass]",
+      payload: '{ intent: "schedule_appointment", confidence: 0.994, entities: { guests: 2 } }',
+      status: "INTENT PARSED · 100% CERTAINTY",
+    },
     icon: CheckCircle2,
   },
   {
@@ -70,6 +94,12 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "Queries live calendar slots, locks bookings, looks up inventory, or writes records to your business CRM.",
     detail: "Executes real calendar bookings and database actions.",
     telemetryPacket: "API Mutation · Confirmed Calendar Lock",
+    systemLog: {
+      protocol: "Two-Way Business Software Webhook",
+      action: "POST /api/calendar/bookings -> 200 OK Confirmed",
+      payload: '{ calendar_event_id: "evt_99214", crm_lead_id: "lead_4482", slot_locked: true }',
+      status: "CALENDAR & CRM COMMITTED",
+    },
     icon: Calendar,
   },
   {
@@ -80,6 +110,12 @@ const PIPELINE_STAGES: PipelineStage[] = [
       "Resolves the call autonomously in software, or warm-transfers to your specialist with complete summary notes.",
     detail: "Syncs directly to CRM or warm-transfers with notes.",
     telemetryPacket: "Closed Loop · CRM Synchronized + Notes",
+    systemLog: {
+      protocol: "Closed-Loop Call Summary & Verification",
+      action: "SMS Confirmation Dispatched to Caller + Full Telephony Audio Transcript Archived",
+      payload: '{ call_duration: "58s", human_staff_interrupted: 0, outcome: "autonomous_complete" }',
+      status: "CALL RESOLVED AUTONOMOUSLY",
+    },
     icon: Layers,
   },
 ];
@@ -126,8 +162,8 @@ export const SystemDiagram = memo(function SystemDiagram() {
     [handleSelectStep]
   );
 
-  // Desktop horizontal positions: column centers in a 5-column grid (10%, 30%, 50%, 70%, 90%)
   const activePercent = 10 + activeStepIndex * 20;
+  const activeStage = PIPELINE_STAGES[activeStepIndex];
 
   return (
     <section
@@ -139,35 +175,42 @@ export const SystemDiagram = memo(function SystemDiagram() {
       onMouseEnter={() => setHasUserInteracted(true)}
       onTouchStart={() => setHasUserInteracted(true)}
     >
-      {/* Sticky Inner Container: stays comfortably in view while user scrolls */}
-      <div className={`${shouldReduceMotion ? "py-24" : "sticky top-20 min-h-[85vh] py-16 sm:py-20"} flex flex-col justify-center overflow-hidden`}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 w-full">
+      <div className={`${shouldReduceMotion ? "py-24" : "sticky top-20 min-h-[88vh] py-14 sm:py-18"} flex flex-col justify-center overflow-hidden`}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 w-full space-y-8">
           {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: MOTION_EASINGS.editorial }}
-            className="max-w-2xl mb-12 sm:mb-14 text-left space-y-3"
-          >
-            <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
-              THE SIGNATURE CONTINUOUS ARCHITECTURE
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: MOTION_EASINGS.editorial }}
+              className="max-w-2xl text-left space-y-2"
+            >
+              <p className="type-editorial-eyebrow text-blue-600 dark:text-blue-400">
+                THE SIGNATURE CONTINUOUS ARCHITECTURE
+              </p>
 
-            <h2 className="type-serif-h1 text-zinc-950 dark:text-white font-normal text-3xl sm:text-4xl md:text-5xl">
-              Every business has a first layer.
-            </h2>
+              <h2 className="type-serif-h1 text-zinc-950 dark:text-white font-normal text-3xl sm:text-4xl md:text-5xl">
+                Every business has a first layer.
+              </h2>
 
-            <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal text-sm sm:text-base">
-              VoiceOps sits quietly in front of your phones, taking care of initial conversations before they interrupt your operational team.
-            </p>
-          </motion.div>
+              <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal text-sm sm:text-base">
+                VoiceOps sits quietly in front of your phones, resolving initial conversations before they interrupt your operational team.
+              </p>
+            </motion.div>
+
+            {/* Live Pipeline Telemetry Indicator */}
+            <div className="hidden sm:flex items-center gap-2 font-mono text-[11px] px-3.5 py-1.5 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.07] dark:border-white/[0.07] text-zinc-700 dark:text-zinc-300">
+              <Activity className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
+              <span>STAGE {activeStage.num} ACTIVE: {activeStage.label}</span>
+            </div>
+          </div>
 
           {/* =========================================================
               DESKTOP PIPELINE (lg & xl)
               Dedicated Elevated Conduit Rail ABOVE the Cards
               ========================================================= */}
-          <div className="hidden lg:block relative mb-12">
+          <div className="hidden lg:block relative">
             {/* Elevated Conduit Rail Area */}
             <div className="relative h-10 mb-2 flex items-center">
               {/* Base Neutral Rail */}
@@ -183,7 +226,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
                 animate={{
                   width: `${activeStepIndex * 20}%`,
                 }}
-                transition={{ duration: 0.45, ease: MOTION_EASINGS.editorial }}
+                transition={{ duration: 0.4, ease: MOTION_EASINGS.editorial }}
               />
 
               {/* Traveling Signal Ring: Luminous beacon gliding across stages */}
@@ -192,7 +235,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
                 animate={{
                   left: `${activePercent}%`,
                 }}
-                transition={{ duration: 0.45, ease: MOTION_EASINGS.editorial }}
+                transition={{ duration: 0.4, ease: MOTION_EASINGS.editorial }}
               >
                 <div className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 shadow-sm" />
               </motion.div>
@@ -267,7 +310,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
                         ? "bg-[#FCFAF5] dark:bg-[#0d1222] border border-blue-500/50 dark:border-blue-400/40 shadow-lg shadow-blue-950/[0.04] dark:shadow-black/50 -translate-y-1.5 scale-[1.02]"
                         : "bg-[#FAF8F2]/75 dark:bg-white/[0.03] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07] hover:border-[rgba(36,33,26,0.2)] dark:hover:border-white/[0.14] opacity-75 hover:opacity-100"
                     }`}
-                    style={{ minHeight: "270px" }}
+                    style={{ minHeight: "250px" }}
                   >
                     <div>
                       {/* Top Row: Index & Label */}
@@ -319,23 +362,12 @@ export const SystemDiagram = memo(function SystemDiagram() {
                     </div>
 
                     {/* Active Secondary Detail Reveal */}
-                    <div className="mt-4 pt-3 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] min-h-[42px] flex items-center">
+                    <div className="mt-3 pt-2.5 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] min-h-[36px] flex items-center">
                       {isActive ? (
-                        <motion.div
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -4 }}
-                          transition={{ duration: 0.22, ease: MOTION_EASINGS.editorial }}
-                          className="space-y-1 w-full"
-                        >
-                          <div className="flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300">
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
-                            <span className="line-clamp-1">{step.detail}</span>
-                          </div>
-                          <div className="font-mono text-[9px] text-zinc-500 dark:text-zinc-400 pl-3">
-                            {step.telemetryPacket}
-                          </div>
-                        </motion.div>
+                        <div className="flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
+                          <span className="line-clamp-1">{step.detail}</span>
+                        </div>
                       ) : (
                         <span className="text-[11px] text-[#A8A298] dark:text-zinc-600 font-mono">
                           Phase 0{idx + 1}
@@ -346,11 +378,36 @@ export const SystemDiagram = memo(function SystemDiagram() {
                 );
               })}
             </div>
+
+            {/* LIVE SYSTEM TELEMETRY PACKET MONITOR (Creative Studio Wow Factor) */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStage.num}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25, ease: MOTION_EASINGS.editorial }}
+                className="mt-6 p-4 rounded-2xl bg-zinc-950 border border-white/10 text-zinc-300 font-mono text-xs shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-blue-400 font-bold">[{activeStage.num} // {activeStage.label}]</span>
+                    <span className="text-zinc-400">{activeStage.systemLog.protocol}</span>
+                  </div>
+                  <div className="text-[11px] text-zinc-400">
+                    ↳ <span className="text-zinc-200">{activeStage.systemLog.action}</span>
+                  </div>
+                </div>
+
+                <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] text-emerald-400 font-semibold shrink-0">
+                  {activeStage.systemLog.status}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* =========================================================
               MOBILE VERTICAL PIPELINE (<lg)
-              Vertical Signal Rail with Stacked Cards
               ========================================================= */}
           <div className="block lg:hidden relative pl-6 sm:pl-8">
             <div className="absolute left-2.5 sm:left-3.5 top-6 bottom-6 w-[2px] bg-[rgba(36,33,26,0.12)] dark:bg-white/[0.12] rounded-full">
@@ -461,10 +518,15 @@ export const SystemDiagram = memo(function SystemDiagram() {
                             animate={{ opacity: 1, height: "auto", marginTop: 12 }}
                             exit={{ opacity: 0, height: 0, marginTop: 0 }}
                             transition={{ duration: 0.22, ease: MOTION_EASINGS.editorial }}
-                            className="pt-2.5 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300 overflow-hidden"
+                            className="pt-2.5 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] space-y-2 overflow-hidden"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
-                            <span>{step.detail}</span>
+                            <div className="flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300">
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
+                              <span>{step.detail}</span>
+                            </div>
+                            <div className="font-mono text-[9px] text-zinc-500 dark:text-zinc-400">
+                              {step.systemLog.action}
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -476,7 +538,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
           </div>
 
           {/* Quiet Editorial Footer */}
-          <div className="mt-12 pt-6 border-t border-black/[0.06] dark:border-white/[0.08] flex flex-col sm:flex-row items-baseline justify-between gap-3 text-xs text-zinc-500 font-sans">
+          <div className="pt-4 border-t border-black/[0.06] dark:border-white/[0.08] flex flex-col sm:flex-row items-baseline justify-between gap-3 text-xs text-zinc-500 font-sans">
             <span>Compatible with all carriers, Twilio, SIP trunks, or simple conditional phone forwarding.</span>
             <span className="font-mono text-zinc-400">Zero telephone hardware to install</span>
           </div>
