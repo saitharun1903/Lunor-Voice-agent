@@ -435,9 +435,9 @@ export const defaultSiteData: SiteData = {
     {
       id: "process-01",
       step: "01",
-      title: "Understand",
+      title: "Discover",
       description:
-        "We audit your inbound call recordings, common questions, and exception cases to map your team's exact conversational decision tree.",
+        "We audit your inbound call recordings, repetitive inquiries, and escalation criteria to map your exact conversational decision tree.",
       status: "published",
       order: 1,
     },
@@ -446,27 +446,36 @@ export const defaultSiteData: SiteData = {
       step: "02",
       title: "Design",
       description:
-        "We craft tailored conversational pathways, human-like cadences, and business boundaries in our dedicated testing environment.",
+        "We craft tailored conversational pathways, brand tone of voice, and boundary rules in our dedicated sandbox.",
       status: "published",
       order: 2,
     },
     {
       id: "process-03",
       step: "03",
-      title: "Build & Integrate",
+      title: "Build",
       description:
-        "We connect VoiceOps directly to your calendar software, CRM, and carrier numbers for real-time reads and writes.",
+        "We construct custom conversational pipelines trained on your product catalogs, verified knowledge base, and business logic.",
       status: "published",
       order: 3,
     },
     {
       id: "process-04",
       step: "04",
-      title: "Launch & Supervise",
+      title: "Integrate",
       description:
-        "We deploy the first layer to live phone lines, audit early transcripts, and continuously calibrate response accuracy.",
+        "We wire VoiceOps directly to your calendar software, CRM, and carrier SIP lines for real-time reads and writes.",
       status: "published",
       order: 4,
+    },
+    {
+      id: "process-05",
+      step: "05",
+      title: "Launch",
+      description:
+        "We deploy the first layer to live phone lines, audit early transcripts, and supervise calls to ensure sub-400ms accuracy.",
+      status: "published",
+      order: 5,
     },
   ],
   faqs: [

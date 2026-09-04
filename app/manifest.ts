@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "AI Voice Automation for Business",
     start_url: "/",
     display: "standalone",
-    background_color: "#F5F1E8",
+    background_color: "#FFFFFF",
     theme_color: "#141414",
     icons: [
       {

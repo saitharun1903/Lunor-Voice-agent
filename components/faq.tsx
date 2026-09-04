@@ -41,7 +41,7 @@ export const FaqSection = memo(function FaqSection({ faqs }: FaqProps) {
       : DEFAULT_FAQS;
 
   return (
-    <section id="faq" className="py-28 md:py-40 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
+    <section id="faq" className="py-20 sm:py-24 md:py-28 relative overflow-hidden bg-white dark:bg-[#07090e] border-t border-slate-100 dark:border-white/[0.08] transition-colors scroll-mt-16">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Two-Column Structure (Reference Style) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -61,13 +61,13 @@ export const FaqSection = memo(function FaqSection({ faqs }: FaqProps) {
               Your questions.
             </h2>
 
-            <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 font-normal leading-relaxed">
+            <p className="type-sans-body-lg text-slate-600 dark:text-zinc-400 font-normal leading-relaxed">
               Everything business owners and operations teams need to know about deploying VoiceOps.
             </p>
           </motion.div>
 
           {/* Right Column: Question List with Thin Rules and Smooth Accordion */}
-          <div className="lg:col-span-7 divide-y divide-[rgba(36,33,26,0.08)] dark:divide-white/[0.1] border-y border-[rgba(36,33,26,0.08)] dark:border-white/[0.1]">
+          <div className="lg:col-span-7 divide-y divide-slate-200/80 dark:divide-white/[0.1] border-y border-slate-200/80 dark:border-white/[0.1]">
             {items.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
@@ -80,7 +80,7 @@ export const FaqSection = memo(function FaqSection({ faqs }: FaqProps) {
                       {faq.q}
                     </span>
 
-                    <span className="text-[#888278] group-hover:text-zinc-950 dark:group-hover:text-white transition-colors shrink-0">
+                    <span className="text-slate-400 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors shrink-0">
                       {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                     </span>
                   </button>
@@ -94,7 +94,7 @@ export const FaqSection = memo(function FaqSection({ faqs }: FaqProps) {
                         transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="pt-4 type-sans-body text-[#58534C] dark:text-zinc-400 leading-relaxed text-sm">
+                        <p className="pt-4 type-sans-body text-slate-600 dark:text-zinc-400 leading-relaxed text-sm">
                           {faq.a}
                         </p>
                       </motion.div>

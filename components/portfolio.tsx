@@ -76,7 +76,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
   }, []);
 
   return (
-    <section id="work" className="py-24 md:py-36 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
+    <section id="work" className="py-20 sm:py-24 md:py-28 relative overflow-hidden bg-white dark:bg-[#07090e] border-t border-slate-100 dark:border-white/[0.08] transition-colors scroll-mt-16">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Section Header */}
         <motion.div
@@ -94,7 +94,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
             Real deployments. Measured results.
           </h2>
 
-          <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 font-normal leading-relaxed">
+          <p className="type-sans-body-lg text-slate-600 dark:text-zinc-400 font-normal leading-relaxed">
             How growing companies replaced missed calls and phone tag with an automated first layer.
           </p>
         </motion.div>
@@ -108,10 +108,10 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="p-6 sm:p-8 md:p-10 rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-sm text-left space-y-6"
+              className="p-6 sm:p-8 md:p-10 rounded-3xl bg-white dark:bg-[#0c101c] border border-slate-200/80 dark:border-white/[0.08] shadow-sm text-left space-y-6"
             >
               {/* Header Telemetry */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(36,33,26,0.06)] dark:border-white/[0.08] pb-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/[0.08] pb-5">
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
                     CASE STUDY 0{idx + 1}
@@ -139,7 +139,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
 
               {/* 3-Column Editorial Grid: Challenge · VoiceOps Deployment · Measured Result */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
-                <div className="p-4 rounded-2xl bg-[#FFFDF8] dark:bg-black/30 border border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] space-y-1.5">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-black/30 border border-slate-200/70 dark:border-white/[0.06] space-y-1.5">
                   <span className="font-mono text-[10px] uppercase font-semibold text-amber-700 dark:text-amber-400 tracking-wider block">
                     THE BOTTLENECK
                   </span>
@@ -168,7 +168,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
               </div>
 
               {/* Action Trigger */}
-              <div className="pt-2 flex items-center justify-between border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06]">
+              <div className="pt-2 flex items-center justify-between border-t border-slate-100 dark:border-white/[0.06]">
                 <span className="text-xs text-zinc-500 font-sans hidden sm:inline">
                   Verified enterprise metrics from live telephony logs.
                 </span>
@@ -197,7 +197,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.09] shadow-2xl p-6 sm:p-10 space-y-8 text-left"
+              className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-3xl bg-white dark:bg-[#0c101c] border border-slate-200/80 dark:border-white/[0.09] shadow-2xl p-6 sm:p-10 space-y-8 text-left"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}

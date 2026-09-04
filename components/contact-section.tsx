@@ -77,7 +77,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
   }, []);
 
   return (
-    <section id="contact" className="py-24 md:py-36 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
+    <section id="contact" className="py-20 sm:py-24 md:py-28 relative overflow-hidden bg-white dark:bg-[#07090e] border-t border-slate-100 dark:border-white/[0.08] transition-colors scroll-mt-16">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Editorial Statement */}
@@ -90,11 +90,11 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
               Let&apos;s automate your first layer.
             </h2>
 
-            <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal">
+            <p className="type-sans-body-lg text-slate-600 dark:text-zinc-400 leading-relaxed font-normal">
               Tell us which calls your business receives and what you&apos;d like to automate. Our engineering team audits your requirements and configures a tailored voice blueprint.
             </p>
 
-            <div className="pt-4 space-y-2 text-xs font-mono text-[#888278] dark:text-zinc-500">
+            <div className="pt-4 space-y-2 text-xs font-mono text-slate-400 dark:text-zinc-500">
               <p>Email: {settings.email || "conversations@voiceops.in"}</p>
               <p>Turnaround: 24h technical blueprint review</p>
             </div>
@@ -102,7 +102,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
             <div className="pt-2">
               <button
                 onClick={scrollToDemo}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-transparent text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white border border-[rgba(36,33,26,0.15)] dark:border-white/15 text-xs font-medium transition-all"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-transparent text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white border border-slate-200 dark:border-white/15 text-xs font-medium transition-all"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>Talk to VoiceOps Live Demo ↑</span>
@@ -112,7 +112,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
 
           {/* Right Column: Clean Editorial Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07] shadow-sm space-y-6">
+            <div className="p-8 sm:p-10 rounded-3xl bg-slate-50/80 dark:bg-[#0c101c] border border-slate-200/80 dark:border-white/[0.07] shadow-sm space-y-6">
               {status === "success" ? (
                 <div className="py-12 text-center space-y-4">
                   <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
@@ -121,12 +121,12 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                   <h3 className="font-serif text-2xl text-zinc-950 dark:text-white font-normal">
                     Requirement Received.
                   </h3>
-                  <p className="type-sans-body text-[#58534C] dark:text-zinc-400 max-w-md mx-auto leading-relaxed text-sm">
+                  <p className="type-sans-body text-slate-600 dark:text-zinc-400 max-w-md mx-auto leading-relaxed text-sm">
                     VoiceOps engineering will review your workflow and reach out directly at {formData.email || "your email"} to schedule your voice architecture walkthrough.
                   </p>
                   <button
                     onClick={() => setStatus("idle")}
-                    className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-[rgba(36,33,26,0.15)] dark:border-white/20 mt-4"
+                    className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-slate-200 dark:border-white/20 mt-4"
                   >
                     Submit another requirement
                   </button>
@@ -144,7 +144,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Marcus Vance"
-                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-[#FFFDF8] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-[#888278] dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
                       />
                     </div>
 
@@ -157,7 +157,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         placeholder="Vance Realty Group"
-                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-[#FFFDF8] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-[#888278] dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
                       />
                     </div>
                   </div>
@@ -173,7 +173,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="marcus@vancerealty.com"
-                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-[#FFFDF8] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-[#888278] dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
                       />
                     </div>
 
@@ -186,7 +186,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+1 (555) 000-0000"
-                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-[#FFFDF8] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-[#888278] dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+                        className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
                       />
                     </div>
                   </div>
@@ -200,7 +200,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       value={formData.industry}
                       onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
                       placeholder="e.g. Real Estate, Clinic, Restaurant, Trade Services"
-                      className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-[#FFFDF8] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-[#888278] dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+                      className="w-full min-h-[46px] px-4 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
                     />
                   </div>
 
@@ -214,7 +214,7 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
                       value={formData.requirements}
                       onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                       placeholder="Describe your current call flow, questions asked by callers, or booking systems..."
-                      className="w-full px-4 py-3 rounded-xl bg-[#FFFDF8] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.09)] dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-[#888278] dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-zinc-950 dark:text-white text-sm placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors resize-none"
                     />
                   </div>
 

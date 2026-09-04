@@ -59,15 +59,15 @@ export const FlipCard = memo(function FlipCard({
           transformStyle: "preserve-3d",
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
           boxShadow: isFlipped
-            ? "0 20px 35px -10px rgba(0, 0, 0, 0.12), 0 0 1px 1px rgba(36, 33, 26, 0.08)"
-            : "0 4px 16px -4px rgba(0, 0, 0, 0.04), 0 0 1px 1px rgba(36, 33, 26, 0.06)",
+            ? "0 20px 35px -10px rgba(0, 0, 0, 0.12), 0 0 1px 1px rgba(0, 0, 0, 0.08)"
+            : "0 4px 16px -4px rgba(0, 0, 0, 0.04), 0 0 1px 1px rgba(0, 0, 0, 0.06)",
         }}
       >
         {/* =========================================================
             FRONT FACE: Pure Editorial Minimalism (WHAT IT DOES)
             ========================================================= */}
         <div
-          className="absolute inset-0 rounded-2xl bg-[#FAF8F5] dark:bg-[#11141E] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] p-6 sm:p-7 flex flex-col justify-between text-left overflow-hidden transition-all duration-200 group-hover:border-blue-500/30 group-hover:-translate-y-1"
+          className="absolute inset-0 rounded-2xl bg-white dark:bg-[#11141E] border border-slate-200/80 dark:border-white/[0.08] p-6 sm:p-7 flex flex-col justify-between text-left overflow-hidden transition-all duration-200 group-hover:border-blue-500/30 group-hover:-translate-y-1"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -79,7 +79,7 @@ export const FlipCard = memo(function FlipCard({
             <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wider">
               {index}
             </span>
-            <div className="w-1.5 h-1.5 rounded-full bg-[rgba(36,33,26,0.2)] dark:bg-white/20 group-hover:bg-blue-500 transition-colors" />
+            <div className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/20 group-hover:bg-blue-500 transition-colors" />
           </div>
 
           {/* Middle: Title & One-Line Value Proposition */}
@@ -87,15 +87,15 @@ export const FlipCard = memo(function FlipCard({
             <h3 className="font-serif text-2xl sm:text-[1.65rem] text-zinc-950 dark:text-white font-normal leading-snug tracking-tight">
               {title}
             </h3>
-            <p className="font-sans text-[13.5px] sm:text-sm text-[#58534C] dark:text-zinc-300 leading-relaxed font-normal">
+            <p className="font-sans text-[13.5px] sm:text-sm text-slate-600 dark:text-zinc-300 leading-relaxed font-normal">
               {subtitle}
             </p>
           </div>
 
           {/* Bottom: Tactile Exploration Cue */}
-          <div className="pt-3 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] flex items-center justify-between text-xs font-sans text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-200 transition-colors">
+          <div className="pt-3 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-xs font-sans text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-200 transition-colors">
             <span className="text-[11px] font-medium tracking-wide">View execution flow</span>
-            <div className="w-6 h-6 rounded-full bg-[rgba(36,33,26,0.04)] dark:bg-white/[0.06] group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-all">
+            <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-white/[0.06] group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-all">
               <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </div>
@@ -105,7 +105,7 @@ export const FlipCard = memo(function FlipCard({
             BACK FACE: Concise Operational Architecture (HOW IT WORKS + RESULT)
             ========================================================= */}
         <div
-          className="absolute inset-0 rounded-2xl bg-[#FFFDF8] dark:bg-[#0B0E17] border border-[rgba(36,33,26,0.1)] dark:border-white/[0.09] p-6 sm:p-7 flex flex-col justify-between text-left overflow-hidden shadow-sm"
+          className="absolute inset-0 rounded-2xl bg-slate-50 dark:bg-[#0B0E17] border border-slate-200/90 dark:border-white/[0.09] p-6 sm:p-7 flex flex-col justify-between text-left overflow-hidden shadow-sm"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",

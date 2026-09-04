@@ -5,8 +5,6 @@ import {
   motion,
   AnimatePresence,
   useReducedMotion,
-  useScroll,
-  useMotionValueEvent,
 } from "framer-motion";
 import {
   PhoneIncoming,
@@ -27,13 +25,7 @@ interface PipelineStage {
   headline: string;
   description: string;
   detail: string;
-  telemetryPacket: string;
-  systemLog: {
-    protocol: string;
-    action: string;
-    payload: string;
-    status: string;
-  };
+  summary: string;
   icon: React.ComponentType<{ className?: string }>;
 }
 
@@ -43,79 +35,49 @@ const PIPELINE_STAGES: PipelineStage[] = [
     label: "CALL",
     headline: "Inbound Phone Call",
     description:
-      "A customer calls your regular business phone number with an urgent booking, inquiry, or question.",
-    detail: "Carrier SIP Ingest · Instant Ring",
-    telemetryPacket: "SIP Protocol · Sub-second Inbound Ring",
-    systemLog: {
-      protocol: "SIP / Opus Audio Stream Initialized",
-      action: "Direct Inward Dialing (DID) Carrier Handshake",
-      payload: '{ event: "call.inbound", caller: "+1 (888) 586-XXXX", queue: "direct_layer" }',
-      status: "HANDSHAKE COMMITTED · 0ms",
-    },
+      "A customer calls your business number with an urgent booking, inquiry, or question.",
+    detail: "Direct connection through your existing phone line with zero hardware needed.",
+    summary: "Instant pickup through carrier forwarding or direct line integration.",
     icon: PhoneIncoming,
   },
   {
     num: "02",
     label: "VOICEOPS",
-    headline: "Instant Synthetic Answer",
+    headline: "Instant Voice Response",
     description:
       "Answers in under a second with natural conversational cadence. Zero hold music, zero robotic phone trees.",
-    detail: "VoiceOps answers naturally with sub-second cadence.",
-    telemetryPacket: "Acoustic Engine · 380ms Synthetic Turn",
-    systemLog: {
-      protocol: "Neural Acoustic Streaming Engine",
-      action: 'Greeting Stream: "Thank you for calling. How can I help your project today?"',
-      payload: '{ turn_cadence: "340ms", voice_model: "voiceops-neural-v2", interruptions: "supported" }',
-      status: "STREAMING SYNTHETIC AUDIO",
-    },
+    detail: "VoiceOps answers naturally, adapting to interruptions without delays.",
+    summary: "Immediate pickup that speaks with clarity and conversational warmth.",
     icon: Cpu,
   },
   {
     num: "03",
     label: "UNDERSTAND",
-    headline: "Context & Intent Extraction",
+    headline: "Natural Understanding",
     description:
-      "Listens to natural phrasing, clarifies preferences, and extracts key entities and qualification criteria.",
-    detail: "Extracts intent, booking slots, and caller requirements.",
-    telemetryPacket: "NER Pipeline · Entities & Slot Extracted",
-    systemLog: {
-      protocol: "Real-time Entity & Intent Resolution",
-      action: "Extracted Slots: [Showroom Visit] · [Thursday 3:00 PM] · [Acoustic Glass]",
-      payload: '{ intent: "schedule_appointment", confidence: 0.994, entities: { guests: 2 } }',
-      status: "INTENT PARSED · 100% CERTAINTY",
-    },
+      "Listens to natural phrasing, clarifies preferences, and extracts key details with high accuracy.",
+    detail: "Captures caller intent, contact info, and specific requests without rigid menus.",
+    summary: "Deep language comprehension that clarifies ambiguous customer requests.",
     icon: CheckCircle2,
   },
   {
     num: "04",
     label: "ACT",
-    headline: "Real Execution & Commitment",
+    headline: "Real Action & Commitment",
     description:
-      "Queries live calendar slots, locks bookings, looks up inventory, or writes records to your business CRM.",
-    detail: "Executes real calendar bookings and database actions.",
-    telemetryPacket: "API Mutation · Confirmed Calendar Lock",
-    systemLog: {
-      protocol: "Two-Way Business Software Webhook",
-      action: "POST /api/calendar/bookings -> 200 OK Confirmed",
-      payload: '{ calendar_event_id: "evt_99214", crm_lead_id: "lead_4482", slot_locked: true }',
-      status: "CALENDAR & CRM COMMITTED",
-    },
+      "Checks live availability, books appointments, looks up inventory, or updates your business systems.",
+    detail: "Directly syncs with your calendars, booking systems, and workflows in real time.",
+    summary: "Executes actual operations in your business tools while the caller is on the line.",
     icon: Calendar,
   },
   {
     num: "05",
     label: "RESOLVE",
-    headline: "System Sync or Warm Handoff",
+    headline: "Resolution & Summary",
     description:
-      "Resolves the call autonomously in software, or warm-transfers to your specialist with complete summary notes.",
-    detail: "Syncs directly to CRM or warm-transfers with notes.",
-    telemetryPacket: "Closed Loop · CRM Synchronized + Notes",
-    systemLog: {
-      protocol: "Closed-Loop Call Summary & Verification",
-      action: "SMS Confirmation Dispatched to Caller + Full Telephony Audio Transcript Archived",
-      payload: '{ call_duration: "58s", human_staff_interrupted: 0, outcome: "autonomous_complete" }',
-      status: "CALL RESOLVED AUTONOMOUSLY",
-    },
+      "Completes the request seamlessly, sends instant confirmation, or transfers to your team with full context.",
+    detail: "Your team receives clear notes and clean recordings so context is never lost.",
+    summary: "Leaves customers confirmed and staff updated with zero administrative overhead.",
     icon: Layers,
   },
 ];
@@ -126,21 +88,14 @@ export const SystemDiagram = memo(function SystemDiagram() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  // Scroll tracking across comfortable 1.8 viewport heights
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Link scroll progress smoothly to stage index unless user manually clicked
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  // Gentle auto-cycle through stages when user has not manually clicked
+  useEffect(() => {
     if (hasUserInteracted || shouldReduceMotion) return;
-    const stage = Math.min(
-      Math.floor(latest * PIPELINE_STAGES.length),
-      PIPELINE_STAGES.length - 1
-    );
-    setActiveStepIndex(stage);
-  });
+    const timer = setInterval(() => {
+      setActiveStepIndex((prev) => (prev + 1) % PIPELINE_STAGES.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [hasUserInteracted, shouldReduceMotion]);
 
   const handleSelectStep = useCallback((index: number) => {
     setHasUserInteracted(true);
@@ -170,13 +125,11 @@ export const SystemDiagram = memo(function SystemDiagram() {
       id="architecture"
       ref={sectionRef}
       aria-label="VoiceOps Call Architecture Pipeline"
-      className="relative bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors"
-      style={{ minHeight: shouldReduceMotion ? "auto" : "180vh" }}
+      className="py-20 sm:py-24 md:py-28 relative bg-white dark:bg-[#07090e] border-t border-slate-100 dark:border-white/[0.08] transition-colors scroll-mt-16"
       onMouseEnter={() => setHasUserInteracted(true)}
       onTouchStart={() => setHasUserInteracted(true)}
     >
-      <div className={`${shouldReduceMotion ? "py-24" : "sticky top-20 min-h-[88vh] py-14 sm:py-18"} flex flex-col justify-center overflow-hidden`}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 w-full space-y-8">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 w-full space-y-8">
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <motion.div
@@ -194,15 +147,15 @@ export const SystemDiagram = memo(function SystemDiagram() {
                 Every business has a first layer.
               </h2>
 
-              <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal text-sm sm:text-base">
+              <p className="type-sans-body-lg text-slate-600 dark:text-zinc-400 leading-relaxed font-normal text-sm sm:text-base">
                 VoiceOps sits quietly in front of your phones, resolving initial conversations before they interrupt your operational team.
               </p>
             </motion.div>
 
-            {/* Live Pipeline Telemetry Indicator */}
-            <div className="hidden sm:flex items-center gap-2 font-mono text-[11px] px-3.5 py-1.5 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.07] dark:border-white/[0.07] text-zinc-700 dark:text-zinc-300">
-              <Activity className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
-              <span>STAGE {activeStage.num} ACTIVE: {activeStage.label}</span>
+            {/* Live Pipeline Flow Indicator */}
+            <div className="hidden sm:flex items-center gap-2 font-mono text-[11px] px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.07] text-zinc-700 dark:text-zinc-300">
+              <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
+              <span>Stage {activeStage.num} of 05 · {activeStage.label}</span>
             </div>
           </div>
 
@@ -215,7 +168,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
             <div className="relative h-10 mb-2 flex items-center">
               {/* Base Neutral Rail */}
               <div
-                className="absolute h-[2px] bg-[rgba(36,33,26,0.12)] dark:bg-white/[0.12] rounded-full"
+                className="absolute h-[2px] bg-slate-200 dark:bg-white/[0.12] rounded-full"
                 style={{ left: "10%", right: "10%" }}
               />
 
@@ -260,7 +213,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
                               ? "bg-white dark:bg-[#07090e] ring-2 ring-blue-600 dark:ring-blue-400 shadow-sm"
                               : isPassed
                               ? "bg-blue-600/70 dark:bg-blue-400/70 ring-1 ring-blue-600/30"
-                              : "bg-[#D8D2C6] dark:bg-zinc-700 hover:bg-[#B5ADA0] dark:hover:bg-zinc-500"
+                              : "bg-slate-300 dark:bg-zinc-700 hover:bg-slate-400 dark:hover:bg-zinc-500"
                           }`}
                           animate={{
                             scale: isActive ? 1.25 : 1,
@@ -307,19 +260,19 @@ export const SystemDiagram = memo(function SystemDiagram() {
                     onKeyDown={(e) => handleKeyDown(e, idx)}
                     className={`text-left p-5 rounded-2xl transition-all duration-300 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-500 flex flex-col justify-between select-none ${
                       isActive
-                        ? "bg-[#FCFAF5] dark:bg-[#0d1222] border border-blue-500/50 dark:border-blue-400/40 shadow-lg shadow-blue-950/[0.04] dark:shadow-black/50 -translate-y-1.5 scale-[1.02]"
-                        : "bg-[#FAF8F2]/75 dark:bg-white/[0.03] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07] hover:border-[rgba(36,33,26,0.2)] dark:hover:border-white/[0.14] opacity-75 hover:opacity-100"
+                        ? "bg-slate-50 dark:bg-[#0d1222] border border-blue-500/50 dark:border-blue-400/40 shadow-lg shadow-blue-950/[0.04] dark:shadow-black/50 -translate-y-1.5 scale-[1.02]"
+                        : "bg-white dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.07] hover:border-slate-300 dark:hover:border-white/[0.14] opacity-85 hover:opacity-100"
                     }`}
                     style={{ minHeight: "250px" }}
                   >
                     <div>
                       {/* Top Row: Index & Label */}
-                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[rgba(36,33,26,0.07)] dark:border-white/[0.08]">
+                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-white/[0.08]">
                         <span
                           className={`font-mono text-xs font-bold transition-colors ${
                             isActive
                               ? "text-blue-600 dark:text-blue-400"
-                              : "text-[#888278] dark:text-zinc-500"
+                              : "text-slate-400 dark:text-zinc-500"
                           }`}
                         >
                           {step.num}
@@ -330,7 +283,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
                             className={`type-editorial-eyebrow text-[10px] tracking-wider uppercase transition-colors ${
                               isActive
                                 ? "text-zinc-950 dark:text-white font-semibold"
-                                : "text-[#888278] dark:text-zinc-500"
+                                : "text-slate-400 dark:text-zinc-500"
                             }`}
                           >
                             {step.label}
@@ -353,8 +306,8 @@ export const SystemDiagram = memo(function SystemDiagram() {
                       <p
                         className={`type-sans-body-sm text-xs leading-relaxed transition-colors ${
                           isActive
-                            ? "text-[#36322C] dark:text-zinc-300"
-                            : "text-[#6C665D] dark:text-zinc-400"
+                            ? "text-slate-800 dark:text-zinc-300"
+                            : "text-slate-600 dark:text-zinc-400"
                         }`}
                       >
                         {step.description}
@@ -362,14 +315,14 @@ export const SystemDiagram = memo(function SystemDiagram() {
                     </div>
 
                     {/* Active Secondary Detail Reveal */}
-                    <div className="mt-3 pt-2.5 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] min-h-[36px] flex items-center">
+                    <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-white/[0.06] min-h-[36px] flex items-center">
                       {isActive ? (
                         <div className="flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300">
                           <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
                           <span className="line-clamp-1">{step.detail}</span>
                         </div>
                       ) : (
-                        <span className="text-[11px] text-[#A8A298] dark:text-zinc-600 font-mono">
+                        <span className="text-[11px] text-slate-400 dark:text-zinc-600 font-mono">
                           Phase 0{idx + 1}
                         </span>
                       )}
@@ -379,7 +332,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
               })}
             </div>
 
-            {/* LIVE SYSTEM TELEMETRY PACKET MONITOR (Creative Studio Wow Factor) */}
+            {/* Clean Editorial Stage Progression Callout */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStage.num}
@@ -387,20 +340,31 @@ export const SystemDiagram = memo(function SystemDiagram() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.25, ease: MOTION_EASINGS.editorial }}
-                className="mt-6 p-4 rounded-2xl bg-zinc-950 border border-white/10 text-zinc-300 font-mono text-xs shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left"
+                className="mt-6 p-4 rounded-2xl bg-slate-50/90 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left"
               >
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-blue-400 font-bold">[{activeStage.num} // {activeStage.label}]</span>
-                    <span className="text-zinc-400">{activeStage.systemLog.protocol}</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-blue-600/10 dark:bg-blue-400/10 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                    <Sparkles className="w-4 h-4" />
                   </div>
-                  <div className="text-[11px] text-zinc-400">
-                    ↳ <span className="text-zinc-200">{activeStage.systemLog.action}</span>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                        STAGE {activeStage.num} — {activeStage.label}
+                      </span>
+                      <span className="text-xs text-slate-400 dark:text-zinc-500">·</span>
+                      <span className="text-xs text-zinc-900 dark:text-zinc-200 font-medium">
+                        {activeStage.headline}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-zinc-400 mt-0.5">
+                      {activeStage.summary}
+                    </p>
                   </div>
                 </div>
 
-                <div className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] text-emerald-400 font-semibold shrink-0">
-                  {activeStage.systemLog.status}
+                <div className="px-3 py-1.5 rounded-full bg-white dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/[0.1] text-[11px] text-slate-700 dark:text-zinc-300 font-medium shrink-0 flex items-center gap-1.5 shadow-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span>Continuous Telephony Flow</span>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -410,7 +374,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
               MOBILE VERTICAL PIPELINE (<lg)
               ========================================================= */}
           <div className="block lg:hidden relative pl-6 sm:pl-8">
-            <div className="absolute left-2.5 sm:left-3.5 top-6 bottom-6 w-[2px] bg-[rgba(36,33,26,0.12)] dark:bg-white/[0.12] rounded-full">
+            <div className="absolute left-2.5 sm:left-3.5 top-6 bottom-6 w-[2px] bg-slate-200 dark:bg-white/[0.12] rounded-full">
               <motion.div
                 className="w-full bg-blue-600 dark:bg-blue-400 rounded-full"
                 style={{ originY: 0 }}
@@ -424,39 +388,25 @@ export const SystemDiagram = memo(function SystemDiagram() {
             <div
               role="tablist"
               aria-label="Mobile Pipeline Stages"
-              className="space-y-4 relative"
+              aria-orientation="vertical"
+              className="space-y-4"
             >
               {PIPELINE_STAGES.map((step, idx) => {
                 const isActive = activeStepIndex === idx;
-
                 return (
                   <div key={step.num} className="relative">
-                    <div className="absolute -left-6 sm:-left-8 top-6 -translate-x-1/2 flex items-center justify-center">
-                      <motion.div
-                        className={`w-3.5 h-3.5 rounded-full flex items-center justify-center transition-colors ${
-                          isActive
-                            ? "bg-white dark:bg-[#07090e] ring-2 ring-blue-600 dark:ring-blue-400 shadow-sm"
-                            : activeStepIndex >= idx
-                            ? "bg-blue-600/70 dark:bg-blue-400/70"
-                            : "bg-[#D8D2C6] dark:bg-zinc-700"
-                        }`}
-                        animate={{
-                          scale: isActive ? 1.25 : 1,
-                        }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isActive
-                              ? "bg-blue-600 dark:bg-blue-400"
-                              : activeStepIndex >= idx
-                              ? "bg-white dark:bg-[#07090e]"
-                              : "bg-transparent"
-                          }`}
-                        />
-                      </motion.div>
-                    </div>
+                    {/* Node Dot on Conduit */}
+                    <div
+                      className={`absolute -left-[19px] sm:-left-[23px] top-6 w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                        isActive
+                          ? "bg-blue-600 dark:bg-blue-400 border-white dark:border-[#07090e] ring-4 ring-blue-500/20 scale-125 z-10"
+                          : idx < activeStepIndex
+                          ? "bg-blue-600 dark:bg-blue-400 border-white dark:border-[#07090e]"
+                          : "bg-slate-300 dark:bg-zinc-700 border-white dark:border-[#07090e]"
+                      }`}
+                    />
 
+                    {/* Step Card Button */}
                     <button
                       type="button"
                       role="tab"
@@ -466,16 +416,16 @@ export const SystemDiagram = memo(function SystemDiagram() {
                       onClick={() => handleSelectStep(idx)}
                       className={`w-full text-left p-5 rounded-2xl transition-all duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
                         isActive
-                          ? "bg-[#FCFAF5] dark:bg-[#0d1222] border border-blue-500/50 dark:border-blue-400/40 shadow-sm"
-                          : "bg-[#FAF8F2]/80 dark:bg-white/[0.03] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07] opacity-80"
+                          ? "bg-white dark:bg-[#0d1222] border border-blue-500/50 dark:border-blue-400/40 shadow-sm"
+                          : "bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.07] opacity-80"
                       }`}
                     >
-                      <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[rgba(36,33,26,0.07)] dark:border-white/[0.08]">
+                      <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100 dark:border-white/[0.08]">
                         <span
                           className={`font-mono text-xs font-bold ${
                             isActive
                               ? "text-blue-600 dark:text-blue-400"
-                              : "text-[#888278] dark:text-zinc-500"
+                              : "text-slate-400 dark:text-zinc-500"
                           }`}
                         >
                           {step.num}
@@ -484,7 +434,7 @@ export const SystemDiagram = memo(function SystemDiagram() {
                           className={`type-editorial-eyebrow text-[10px] tracking-wider uppercase ${
                             isActive
                               ? "text-zinc-950 dark:text-white font-semibold"
-                              : "text-[#888278] dark:text-zinc-500"
+                              : "text-slate-400 dark:text-zinc-500"
                           }`}
                         >
                           {step.label}
@@ -504,8 +454,8 @@ export const SystemDiagram = memo(function SystemDiagram() {
                       <p
                         className={`type-sans-body-sm text-xs leading-relaxed ${
                           isActive
-                            ? "text-[#36322C] dark:text-zinc-300"
-                            : "text-[#6C665D] dark:text-zinc-400"
+                            ? "text-slate-700 dark:text-zinc-300"
+                            : "text-slate-500 dark:text-zinc-400"
                         }`}
                       >
                         {step.description}
@@ -518,14 +468,14 @@ export const SystemDiagram = memo(function SystemDiagram() {
                             animate={{ opacity: 1, height: "auto", marginTop: 12 }}
                             exit={{ opacity: 0, height: 0, marginTop: 0 }}
                             transition={{ duration: 0.22, ease: MOTION_EASINGS.editorial }}
-                            className="pt-2.5 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] space-y-2 overflow-hidden"
+                            className="pt-2.5 border-t border-slate-100 dark:border-white/[0.06] space-y-2 overflow-hidden"
                           >
                             <div className="flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300">
                               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
                               <span>{step.detail}</span>
                             </div>
-                            <div className="font-mono text-[9px] text-zinc-500 dark:text-zinc-400">
-                              {step.systemLog.action}
+                            <div className="text-[10px] text-slate-500 dark:text-zinc-400">
+                              {step.summary}
                             </div>
                           </motion.div>
                         )}
@@ -543,7 +493,6 @@ export const SystemDiagram = memo(function SystemDiagram() {
             <span className="font-mono text-zinc-400">Zero telephone hardware to install</span>
           </div>
         </div>
-      </div>
     </section>
   );
 });

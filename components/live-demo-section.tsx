@@ -14,7 +14,7 @@ export const LiveDemoSection = memo(function LiveDemoSection({
   description = "Experience how an AI voice system handles the first layer of a real business conversation with sub-second turn cadence.",
 }: LiveDemoSectionProps) {
   return (
-    <section id="demo" className="py-24 md:py-36 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
+    <section id="demo" className="py-20 sm:py-24 md:py-28 relative overflow-hidden bg-white dark:bg-[#07090e] border-t border-slate-100 dark:border-white/[0.08] transition-colors scroll-mt-16">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         {/* Editorial Heading Block with Smooth Reveal */}
         <motion.div
@@ -32,7 +32,7 @@ export const LiveDemoSection = memo(function LiveDemoSection({
             {title}
           </h2>
 
-          <p className="type-sans-body text-[#58534C] dark:text-zinc-400 max-w-lg mx-auto leading-relaxed">
+          <p className="type-sans-body text-slate-600 dark:text-zinc-400 max-w-lg mx-auto leading-relaxed">
             {description}
           </p>
         </motion.div>

@@ -43,15 +43,15 @@ const config: Config = {
           accentDark: "#3b82f6",
         },
         ivory: {
-          bg: "#F5F1E8",
-          subtle: "#F0ECE3",
-          surface: "#FAF8F2",
-          elevated: "#FFFDF8",
+          bg: "#FFFFFF",
+          subtle: "#F8FAFC",
+          surface: "#FFFFFF",
+          elevated: "#FFFFFF",
         },
         graphite: {
-          text: "#141414",
-          secondary: "#58534C",
-          muted: "#888278",
+          text: "#0F172A",
+          secondary: "#475569",
+          muted: "#64748B",
         },
       },
       boxShadow: {

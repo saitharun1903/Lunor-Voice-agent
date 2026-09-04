@@ -170,8 +170,8 @@ export const Navbar = memo(function Navbar({ navigation }: NavbarProps) {
         aria-label="Main Navigation"
         className={`pointer-events-auto flex items-center justify-between gap-2 sm:gap-6 px-3.5 sm:px-5 py-2 rounded-2xl transition-all duration-300 ${
           isScrolled
-            ? "bg-[#FAF8F5]/90 dark:bg-[#0D0F14]/90 backdrop-blur-md border border-[rgba(36,33,26,0.1)] dark:border-white/[0.1] shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
-            : "bg-[#FAF8F5]/75 dark:bg-[#0D0F14]/75 backdrop-blur-sm border border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] shadow-sm"
+            ? "bg-white/90 dark:bg-[#0D0F14]/90 backdrop-blur-md border border-slate-200/80 dark:border-white/[0.1] shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+            : "bg-white/80 dark:bg-[#0D0F14]/80 backdrop-blur-sm border border-slate-200/60 dark:border-white/[0.06] shadow-sm"
         }`}
       >
         {/* Brand Logo */}
@@ -236,7 +236,7 @@ export const Navbar = memo(function Navbar({ navigation }: NavbarProps) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 4, scale: 0.96 }}
                   transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute top-full right-0 mt-2 w-44 p-1.5 rounded-xl bg-[#FAF8F5] dark:bg-[#12151E] border border-[rgba(36,33,26,0.1)] dark:border-white/[0.1] shadow-xl text-left z-50"
+                  className="absolute top-full right-0 mt-2 w-44 p-1.5 rounded-xl bg-white dark:bg-[#12151E] border border-slate-200/80 dark:border-white/[0.1] shadow-xl text-left z-50"
                 >
                   {secondaryLinks.map((sec) => (
                     <button
@@ -293,7 +293,7 @@ export const Navbar = memo(function Navbar({ navigation }: NavbarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto fixed inset-x-4 top-16 z-50 p-5 rounded-2xl bg-[#FAF8F5] dark:bg-[#0D0F14] border border-[rgba(36,33,26,0.12)] dark:border-white/[0.12] shadow-2xl md:hidden text-left space-y-4"
+            className="pointer-events-auto fixed inset-x-4 top-16 z-50 p-5 rounded-2xl bg-white dark:bg-[#0D0F14] border border-slate-200 dark:border-white/[0.12] shadow-2xl md:hidden text-left space-y-4"
           >
             <div className="space-y-1">
               <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold px-2">
@@ -318,7 +318,7 @@ export const Navbar = memo(function Navbar({ navigation }: NavbarProps) {
               })}
             </div>
 
-            <div className="pt-2 border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] space-y-1">
+            <div className="pt-2 border-t border-slate-100 dark:border-white/[0.08] space-y-1">
               <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block font-semibold px-2">
                 EXPLORE
               </span>

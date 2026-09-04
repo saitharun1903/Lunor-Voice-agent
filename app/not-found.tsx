@@ -1,10 +1,10 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { VoiceOpsSymbol } from "@/components/ui/lunor-logo";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-[#F5F1E8] dark:bg-[#07090e] text-zinc-950 dark:text-white flex flex-col items-center justify-center p-6 text-center select-none transition-colors">
+    <div className="min-h-screen bg-white dark:bg-[#07090e] text-zinc-950 dark:text-white flex flex-col items-center justify-center p-6 text-center select-none transition-colors">
       <div className="max-w-md w-full space-y-6">
         <div className="flex items-center justify-center gap-2">
           <VoiceOpsSymbol size={28} />
@@ -20,7 +20,7 @@ export default function NotFound() {
           <h1 className="font-serif text-3xl sm:text-4xl font-normal text-zinc-950 dark:text-white">
             Page not found.
           </h1>
-          <p className="font-sans text-sm text-[#58534C] dark:text-zinc-400 leading-relaxed max-w-sm mx-auto">
+          <p className="font-sans text-sm text-slate-600 dark:text-zinc-400 leading-relaxed max-w-sm mx-auto">
             The page you requested could not be located. Explore VoiceOps AI voice automation on our homepage.
           </p>
         </div>

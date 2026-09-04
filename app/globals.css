@@ -14,27 +14,27 @@
   --font-mono: "JetBrains Mono", monospace;
 
   /* =========================================================
-     LIGHT EDITORIAL CHAPTER (Warm Architectural Ivory & Graphite)
+     LIGHT EDITORIAL CHAPTER (Pure White Foundation & Crisp Slate)
      ========================================================= */
-  --light-bg: #F5F1E8;             /* Primary Canvas Foundation */
-  --light-bg-subtle: #F0ECE3;      /* Subtle Tonal Contrast Layer */
-  --light-surface: #FAF8F2;        /* Primary Card & Surface Plate */
-  --light-elevated: #FFFDF8;       /* Elevated Surface & Active Focus */
-  --light-border: rgba(36, 33, 26, 0.08); /* Warm hairline boundary */
-  --light-border-subtle: rgba(36, 33, 26, 0.05);
-  --light-text: #141414;           /* Deep Rich Graphite */
-  --light-text-secondary: #58534C; /* Warm Charcoal */
-  --light-text-muted: #888278;     /* Soft Warm Gray */
-  --light-accent: #2563eb;         /* VoiceOps Cobalt Accent */
+  --light-bg: #FFFFFF;             /* Pure White Foundation */
+  --light-bg-subtle: #F8FAFC;      /* Cool Slate Contrast Layer */
+  --light-surface: #FFFFFF;        /* Crisp White Surface */
+  --light-elevated: #FFFFFF;       /* Elevated Surface */
+  --light-border: rgba(0, 0, 0, 0.08); /* Clean hairline boundary */
+  --light-border-subtle: rgba(0, 0, 0, 0.05);
+  --light-text: #0F172A;           /* Deep Slate Black */
+  --light-text-secondary: #475569; /* Slate Gray */
+  --light-text-muted: #64748B;     /* Cool Gray */
+  --light-accent: #2563eb;         /* VoiceOps Sapphire Accent */
 
   --bg-primary: var(--light-bg);
   --bg-secondary: var(--light-bg-subtle);
-  --bg-tertiary: #EBE6DC;
+  --bg-tertiary: #F1F5F9;
   --bg-canvas: var(--light-bg);
 
   --text-primary: var(--light-text);
   --text-secondary: var(--light-text-secondary);
-  --text-tertiary: #6E685E;
+  --text-tertiary: #64748B;
   --text-muted: var(--light-text-muted);
 
   --surface-card: var(--light-surface);
@@ -42,22 +42,22 @@
   --surface-elevated: var(--light-elevated);
 
   --border-subtle: var(--light-border-subtle);
-  --border-strong: rgba(36, 33, 26, 0.15);
+  --border-strong: rgba(0, 0, 0, 0.12);
   --border-accent: rgba(37, 99, 235, 0.28);
 
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
   --accent-muted: rgba(37, 99, 235, 0.08);
 
-  --card-shadow: 0 1px 3px rgba(30, 28, 22, 0.03), 0 6px 18px -4px rgba(30, 28, 22, 0.04);
-  --card-shadow-hover: 0 12px 32px -6px rgba(30, 28, 22, 0.06), 0 4px 12px -2px rgba(30, 28, 22, 0.03);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 6px 18px -4px rgba(0, 0, 0, 0.04);
+  --card-shadow-hover: 0 12px 32px -6px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
 
   /* MATTE PRODUCT MATERIAL SYSTEM (Light Mode) */
-  --surface-matte-01: rgba(250, 248, 242, 0.82);
-  --surface-matte-02: #FAF8F2;
-  --border-matte-subtle: rgba(36, 33, 26, 0.07);
-  --border-matte-standard: rgba(36, 33, 26, 0.10);
-  --shadow-matte: 0 4px 20px -2px rgba(30, 28, 22, 0.04);
+  --surface-matte-01: rgba(255, 255, 255, 0.85);
+  --surface-matte-02: #FFFFFF;
+  --border-matte-subtle: rgba(0, 0, 0, 0.06);
+  --border-matte-standard: rgba(0, 0, 0, 0.09);
+  --shadow-matte: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
 }
 
 .dark {
@@ -239,7 +239,7 @@ body {
 /* Seamless Chapter Transition Gradient Bridges */
 .bridge-midnight-to-ivory {
   height: 6rem;
-  background: linear-gradient(180deg, #06080e 0%, #0b0e17 40%, #F5F1E8 100%);
+  background: linear-gradient(180deg, #06080e 0%, #0b0e17 40%, #FFFFFF 100%);
 }
 
 .dark .bridge-midnight-to-ivory {
@@ -249,7 +249,7 @@ body {
 
 .bridge-ivory-to-midnight {
   height: 6rem;
-  background: linear-gradient(180deg, #F5F1E8 0%, #0b0e17 60%, #06080e 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #0b0e17 60%, #06080e 100%);
 }
 
 .dark .bridge-ivory-to-midnight {

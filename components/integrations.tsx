@@ -24,7 +24,7 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
   ];
 
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden bg-[#F5F1E8] dark:bg-[#07090e] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] transition-colors">
+    <section className="py-18 sm:py-20 md:py-24 relative overflow-hidden bg-white dark:bg-[#07090e] border-t border-slate-100 dark:border-white/[0.08] transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -39,7 +39,7 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
           <h2 className="type-serif-h2 text-zinc-950 dark:text-white font-normal">
             Works with the software your business already runs.
           </h2>
-          <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400">
+          <p className="type-sans-body-sm text-slate-600 dark:text-zinc-400">
             VoiceOps connects cleanly with your existing carriers, booking tools, and databases with zero disruption to current phone numbers.
           </p>
         </motion.div>
@@ -55,10 +55,10 @@ export const IntegrationsSection = memo(function IntegrationsSection() {
               transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="space-y-3 text-left"
             >
-              <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-white tracking-wider block border-b border-[rgba(36,33,26,0.08)] dark:border-white/[0.1] pb-2">
+              <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-white tracking-wider block border-b border-slate-200/80 dark:border-white/[0.1] pb-2">
                 {cat.category}
               </span>
-              <ul className="space-y-2 font-sans text-xs text-[#58534C] dark:text-zinc-400">
+              <ul className="space-y-2 font-sans text-xs text-slate-600 dark:text-zinc-400">
                 {cat.items.map((item, i) => (
                   <li key={i} className="flex items-center gap-2 hover:text-zinc-950 dark:hover:text-white transition-colors">
                     <span className="w-1 h-1 rounded-full bg-blue-600/60 dark:bg-blue-400/60" />

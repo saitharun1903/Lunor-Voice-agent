@@ -23,19 +23,19 @@ export const Footer = memo(function Footer({ settings }: FooterProps) {
   };
 
   return (
-    <footer className="bg-[#F0ECE3] dark:bg-[#05070c] border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] py-16 sm:py-20 text-zinc-950 dark:text-white transition-colors">
+    <footer className="bg-slate-50 dark:bg-[#05070c] border-t border-slate-200/80 dark:border-white/[0.08] py-16 sm:py-20 text-zinc-950 dark:text-white transition-colors">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 border-b border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] pb-12">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 border-b border-slate-200/80 dark:border-white/[0.08] pb-12">
           {/* Brand & Thesis */}
           <div className="space-y-3 max-w-sm text-left">
             <Link href="/" className="inline-block font-sans font-bold text-sm uppercase tracking-tight text-zinc-950 dark:text-white">
               VOICEOPS
             </Link>
-            <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 font-normal leading-relaxed">
+            <p className="type-sans-body-sm text-slate-600 dark:text-zinc-400 font-normal leading-relaxed">
               {settings?.footerDescription ||
                 "Voice automation for the first layer of business calls. Custom conversational systems engineered for real operational workflows."}
             </p>
-            <div className="pt-2 space-y-1 font-mono text-xs text-[#58534C] dark:text-zinc-400">
+            <div className="pt-2 space-y-1 font-mono text-xs text-slate-500 dark:text-zinc-400">
               <p>
                 Email:{" "}
                 <a
