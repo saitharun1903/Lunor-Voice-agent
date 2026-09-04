@@ -206,7 +206,7 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
                   WHAT VOICEOPS BUILT & DEPLOYED
                 </span>
                 <p className="font-sans text-sm text-zinc-800 dark:text-zinc-200 leading-relaxed font-medium">
-                  {selectedProject.whatLunoAutomated}
+                  {(selectedProject as any).whatVoiceOpsAutomated || selectedProject.whatLunoAutomated}
                 </p>
               </div>
 

@@ -95,7 +95,7 @@ export const HomeClient = memo(function HomeClient({ initialData }: HomeClientPr
           eyebrow={settings.heroEyebrow}
           headline={settings.heroHeadline}
           subheadline={settings.heroSubheadline}
-          onTalkToLuno={scrollToDemo}
+          onTalkToVoiceOps={scrollToDemo}
         />
 
         {/* Chapter 02: Editorial Statement (The Calls Your Team Shouldn't Have to Answer) */}

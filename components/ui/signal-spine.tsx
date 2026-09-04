@@ -14,6 +14,7 @@ export const SignalSpine = memo(function SignalSpine() {
   const scrollVelocity = useVelocity(scrollY);
   const nodeScale = useTransform(scrollVelocity, [-1500, -200, 0, 200, 1500], [1.6, 1.3, 1, 1, 1]);
   const smoothScale = useSpring(nodeScale, { stiffness: 300, damping: 25 });
+  const nodeTop = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div
@@ -29,16 +30,12 @@ export const SignalSpine = memo(function SignalSpine() {
         />
       </div>
 
-      {/* Floating Acoustic Signal Node (Matte Precision Dot with Reverse-Scroll Spring Response) */}
+      {/* Floating Acoustic Signal Node */}
       <motion.div
         className="absolute w-2 h-2 -left-[3.5px] rounded-full bg-blue-500 flex items-center justify-center"
         style={{
-          top: "0%",
+          top: nodeTop,
           scale: smoothScale,
-          translateY: useSpring(
-            scrollYProgress,
-            { stiffness: 100, damping: 20 }
-          ),
         }}
       />
     </div>

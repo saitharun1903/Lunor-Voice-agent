@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef, memo, useCallback } from "react";
-import { Mic, MicOff, PhoneCall, PhoneOff, AlertCircle } from "lucide-react";
+import { Mic, MicOff, PhoneCall, PhoneOff, AlertCircle, Sparkles } from "lucide-react";
 import { getVoiceAgentService, LunoVoiceState } from "@/lib/voice-service";
 
 interface LunoVoiceDemoProps {
@@ -18,7 +18,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
 
-  // Subscribe to real OmniDimension WebRTC voice agent service
+  // Subscribe to real voice agent service
   useEffect(() => {
     const service = serviceRef.current;
     const unsubscribe = service.subscribe({
@@ -47,7 +47,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
     };
   }, []);
 
-  // Flowing Horizontal Spectral Contour Audio Visualizer
+  // Precision Horizontal Oscilloscope Waveform
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -63,22 +63,21 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
       phase += 0.025;
 
-      let amplitude = 6;
-      let lineColor = "rgba(148, 163, 184, 0.4)";
+      let amplitude = 4;
+      let lineColor = "rgba(113, 113, 122, 0.4)";
 
       if (state === "speaking") {
-        amplitude = 28 + Math.sin(phase * 2.8) * 12;
+        amplitude = 24 + Math.sin(phase * 2.8) * 10;
         lineColor = "#3b82f6";
       } else if (state === "listening") {
-        amplitude = 18 + Math.cos(phase * 2.2) * 8;
+        amplitude = 16 + Math.cos(phase * 2.2) * 6;
         lineColor = "#10b981";
       } else if (state === "connecting") {
-        amplitude = 12;
+        amplitude = 10;
         lineColor = "#f59e0b";
       }
 
-      // Precision Matte Spectral Wave (Zero Neon Shadow)
-      ctx.shadowBlur = 0;
+      // Primary Wave
       ctx.strokeStyle = lineColor;
       ctx.lineWidth = 2.0;
       ctx.beginPath();
@@ -92,9 +91,13 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
       }
       ctx.stroke();
 
-      // Subtle Harmonic Reflection
-      ctx.shadowBlur = 0;
-      ctx.strokeStyle = state === "speaking" ? "rgba(96, 165, 250, 0.3)" : "rgba(255, 255, 255, 0.05)";
+      // Subtle Secondary Harmonic
+      ctx.strokeStyle =
+        state === "speaking"
+          ? "rgba(96, 165, 250, 0.25)"
+          : state === "listening"
+          ? "rgba(52, 211, 153, 0.2)"
+          : "rgba(255, 255, 255, 0.04)";
       ctx.lineWidth = 1;
       ctx.beginPath();
 
@@ -135,45 +138,45 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
   const isActive = state === "listening" || state === "speaking" || state === "muted";
 
-  const getStateLabel = () => {
+  const getStateBadge = () => {
     switch (state) {
       case "connecting":
-        return { text: "CONNECTING", dot: "bg-amber-400" };
+        return { text: "CONNECTING", dot: "bg-amber-400 animate-pulse" };
       case "listening":
         return { text: "LISTENING", dot: "bg-emerald-400 animate-pulse" };
       case "speaking":
-        return { text: "SPEAKING", dot: "bg-blue-400 animate-ping" };
+        return { text: "SPEAKING", dot: "bg-blue-500 animate-ping" };
       case "muted":
         return { text: "MUTED", dot: "bg-amber-400" };
       case "error":
-        return { text: "UNAVAILABLE", dot: "bg-rose-400" };
+        return { text: "UNAVAILABLE", dot: "bg-rose-500" };
       default:
-        return { text: "READY", dot: "bg-zinc-500" };
+        return { text: "READY TO CONNECT", dot: "bg-zinc-400" };
     }
   };
 
-  const status = getStateLabel();
+  const badge = getStateBadge();
 
   return (
     <div className={`w-full max-w-2xl mx-auto ${className}`}>
-      {/* Hardware-Grade Precision Matte Console */}
-      <div className="relative rounded-3xl p-6 sm:p-8 bg-[#FAF8F2] dark:bg-[#0b0e17] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.07] shadow-xl space-y-6 text-left transition-colors">
-        {/* Status Header */}
+      <div className="relative rounded-3xl p-6 sm:p-8 bg-[#FAF8F2] dark:bg-[#11141E] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-xl space-y-6 text-left transition-colors">
+        {/* Console Header Bar */}
         <div className="flex items-center justify-between border-b border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] pb-4">
           <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-[rgba(36,33,26,0.04)] dark:bg-white/[0.04] border border-[rgba(36,33,26,0.06)] dark:border-white/[0.06]">
-            <span className={`w-2 h-2 rounded-full ${status.dot}`} />
-            <span className="font-mono text-xs font-semibold tracking-wider text-[#58534C] dark:text-zinc-300 uppercase">
-              {status.text}
+            <span className={`w-2 h-2 rounded-full ${badge.dot}`} />
+            <span className="font-mono text-xs font-semibold tracking-wider text-zinc-700 dark:text-zinc-300 uppercase">
+              {badge.text}
             </span>
           </div>
 
-          <span className="font-mono text-xs text-zinc-500">
-            OmniDimension WebRTC
-          </span>
+          <div className="flex items-center gap-1.5 font-mono text-xs text-zinc-500">
+            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <span>VoiceOps Telephony Engine</span>
+          </div>
         </div>
 
-        {/* Dynamic Voice Visualizer Canvas (Solid Dark Precision Display) */}
-        <div className="relative h-28 w-full rounded-2xl bg-zinc-950 border border-black/10 dark:border-white/[0.06] flex items-center justify-center overflow-hidden">
+        {/* Dynamic Voice Visualizer Canvas */}
+        <div className="relative h-28 w-full rounded-2xl bg-zinc-950 border border-black/10 dark:border-white/[0.08] flex items-center justify-center overflow-hidden">
           <canvas
             ref={canvasRef}
             width={640}
@@ -183,19 +186,19 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
           {!isActive && state !== "connecting" && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="font-sans text-xs text-zinc-300 bg-zinc-900/90 px-3.5 py-1.5 rounded-full border border-white/10">
-                Click &apos;Start Conversation&apos; to speak live
+              <span className="font-sans text-xs text-zinc-300 bg-zinc-900/90 px-3.5 py-1.5 rounded-full border border-white/10 shadow-sm">
+                Press &apos;Start Conversation&apos; to speak live
               </span>
             </div>
           )}
         </div>
 
-        {/* Quiet Transcript Terminal */}
-        <div className="min-h-[80px] space-y-2 p-4 rounded-xl bg-[#F2EDE3] dark:bg-black/30 border border-[rgba(36,33,26,0.06)] dark:border-white/[0.05] text-xs font-sans text-zinc-800 dark:text-zinc-300">
+        {/* Real Conversational Transcript Feed */}
+        <div className="min-h-[88px] space-y-2.5 p-4 rounded-2xl bg-[#F2EDE3] dark:bg-black/40 border border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] text-xs font-sans text-zinc-800 dark:text-zinc-300">
           {transcripts.length === 0 ? (
-            <div className="text-center py-3 text-zinc-500 font-light">
+            <div className="text-center py-3 text-zinc-500 font-normal">
               {isActive
-                ? "Speak naturally: Ask about properties, booking an appointment, or services..."
+                ? "Speak naturally: Ask about appointments, service pricing, or qualification..."
                 : "Live conversational transcript streams here when active"}
             </div>
           ) : (
@@ -204,30 +207,32 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
                 <span
                   className={`text-[10px] font-mono px-2 py-0.5 rounded-md shrink-0 uppercase tracking-wider ${
                     t.role === "user"
-                      ? "bg-zinc-200 text-zinc-800 dark:bg-white/[0.08] dark:text-zinc-300 font-semibold"
-                      : "bg-blue-600/10 text-blue-600 dark:bg-blue-600/20 dark:text-blue-400 font-bold"
+                      ? "bg-zinc-300 text-zinc-900 dark:bg-white/10 dark:text-zinc-200 font-semibold"
+                      : "bg-blue-600/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-300 font-bold"
                   }`}
                 >
                   {t.role === "user" ? "YOU" : "VOICEOPS"}
                 </span>
-                <p className="font-sans text-zinc-900 dark:text-zinc-200 leading-relaxed">{t.text}</p>
+                <p className="font-sans text-zinc-900 dark:text-zinc-100 leading-relaxed font-normal">
+                  {t.text}
+                </p>
               </div>
             ))
           )}
         </div>
 
-        {/* Error Notification */}
+        {/* Error Alert Box */}
         {errorMessage && (
-          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-400 flex items-center gap-2">
+          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-500 dark:text-rose-400 flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorMessage}</span>
           </div>
         )}
 
-        {/* Single Focused Action */}
+        {/* Action Controls Bar */}
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs text-zinc-500 font-sans">
-            Browser microphone requested on connect
+            Requires standard browser microphone permission
           </span>
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -235,10 +240,10 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
               <button
                 onClick={handleStartCall}
                 disabled={state === "connecting"}
-                className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-md active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 touch-manipulation"
+                className="w-full sm:w-auto min-h-[46px] px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-[13px] font-semibold tracking-tight transition-all shadow-md active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 touch-manipulation outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               >
                 {state === "connecting" ? (
-                  <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
                     <PhoneCall className="w-4 h-4" />
@@ -253,7 +258,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
                   className={`min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center gap-1.5 touch-manipulation ${
                     isMuted
                       ? "bg-amber-500 text-white"
-                      : "bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-zinc-300 hover:text-white"
+                      : "bg-black/[0.05] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-zinc-800 dark:text-zinc-200"
                   }`}
                 >
                   {isMuted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
@@ -262,7 +267,7 @@ export const LunoVoiceDemo = memo(function LunoVoiceDemo({ className = "" }: Lun
 
                 <button
                   onClick={handleStopCall}
-                  className="min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-rose-600 hover:bg-rose-500 text-white transition-colors flex items-center gap-1.5 touch-manipulation"
+                  className="min-h-[44px] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-rose-600 hover:bg-rose-500 text-white transition-colors flex items-center gap-1.5 touch-manipulation shadow-sm"
                 >
                   <PhoneOff className="w-4 h-4" />
                   <span>End Session</span>
