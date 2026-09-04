@@ -15,11 +15,13 @@ export const SignalSpine = memo(function SignalSpine() {
   const nodeScale = useTransform(scrollVelocity, [-1500, -200, 0, 200, 1500], [1.6, 1.3, 1, 1, 1]);
   const smoothScale = useSpring(nodeScale, { stiffness: 300, damping: 25 });
   const nodeTop = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+  const spineOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
 
   return (
-    <div
+    <motion.div
       aria-hidden="true"
       className="hidden xl:flex fixed left-8 top-36 bottom-24 w-[1px] flex-col items-center pointer-events-none z-30 select-none"
+      style={{ opacity: spineOpacity }}
     >
       {/* Background Track */}
       <div className="w-full h-full bg-black/[0.06] dark:bg-white/[0.07] relative overflow-hidden">
@@ -38,6 +40,6 @@ export const SignalSpine = memo(function SignalSpine() {
           scale: smoothScale,
         }}
       />
-    </div>
+    </motion.div>
   );
 });

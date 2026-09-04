@@ -38,7 +38,7 @@ export const Navbar = memo(function Navbar({ navigation }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("demo");
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const moreRef = useRef<HTMLDivElement>(null);
   const isClickScrollingRef = useRef(false);
@@ -51,6 +51,9 @@ export const Navbar = memo(function Navbar({ navigation }: NavbarProps) {
       if (rafId !== null) return;
       rafId = window.requestAnimationFrame(() => {
         setIsScrolled(window.scrollY > 24);
+        if (window.scrollY < 200) {
+          setActiveSection("");
+        }
         rafId = null;
       });
     };
