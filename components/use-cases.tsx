@@ -120,30 +120,59 @@ export const UseCasesSection = memo(function UseCasesSection({
           </p>
         </motion.div>
 
-        {/* 3D Flip Card Collection (3 Columns Desktop, 1 Column Mobile) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {itemsToRender.map((card, idx) => (
-            <motion.div
-              key={card.index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <FlipCard
-                id={card.index}
-                index={card.index}
-                title={card.title}
-                subtitle={card.subtitle}
-                explanation={card.explanation}
-                workflow={card.workflow}
-                outcome={card.outcome}
-                tiltClass={card.tiltClass}
-                isFlipped={activeCardId === card.index}
-                onToggle={() => handleCardToggle(card.index)}
-              />
-            </motion.div>
-          ))}
+        {/* Asymmetric Focal Matrix: Tier 1 Frontline (2 Col) + Tier 2 Specialized (4 Col) */}
+        <div className="space-y-6 lg:space-y-8">
+          {/* Tier 1: Frontline Intake & Scheduling (2 Cards) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {itemsToRender.slice(0, 2).map((card, idx) => (
+              <motion.div
+                key={card.index}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <FlipCard
+                  id={card.index}
+                  index={card.index}
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  explanation={card.explanation}
+                  workflow={card.workflow}
+                  outcome={card.outcome}
+                  tiltClass={card.tiltClass}
+                  isFlipped={activeCardId === card.index}
+                  onToggle={() => handleCardToggle(card.index)}
+                />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Tier 2: Specialized Execution Capabilities (4 Cards) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {itemsToRender.slice(2, 6).map((card, idx) => (
+              <motion.div
+                key={card.index}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (idx + 2) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <FlipCard
+                  id={card.index}
+                  index={card.index}
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  explanation={card.explanation}
+                  workflow={card.workflow}
+                  outcome={card.outcome}
+                  tiltClass={card.tiltClass}
+                  isFlipped={activeCardId === card.index}
+                  onToggle={() => handleCardToggle(card.index)}
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Quiet Bottom Editorial Note */}

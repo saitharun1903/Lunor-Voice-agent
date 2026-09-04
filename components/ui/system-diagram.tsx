@@ -9,6 +9,7 @@ interface PipelineStage {
   headline: string;
   description: string;
   detail: string;
+  telemetryPacket: string;
 }
 
 const PIPELINE_STAGES: PipelineStage[] = [
@@ -18,6 +19,7 @@ const PIPELINE_STAGES: PipelineStage[] = [
     headline: "Inbound Phone Call",
     description: "A customer calls your regular business phone number with an urgent booking, inquiry, or question.",
     detail: "Caller reaches your regular business line.",
+    telemetryPacket: "SIP Protocol · Sub-second Inbound Ring",
   },
   {
     num: "02",
@@ -25,6 +27,7 @@ const PIPELINE_STAGES: PipelineStage[] = [
     headline: "Instant Answer",
     description: "Answers in under a second with natural conversational cadence. Zero hold music, zero robotic menus.",
     detail: "VoiceOps answers naturally with sub-second cadence.",
+    telemetryPacket: "Voice Engine · 380ms Synthetic Turn",
   },
   {
     num: "03",
@@ -32,6 +35,7 @@ const PIPELINE_STAGES: PipelineStage[] = [
     headline: "Context & Intent",
     description: "Listens to natural phrasing, clarifies specific preferences, and qualifies the caller's requirements.",
     detail: "Extracts intent, booking slots, and caller requirements.",
+    telemetryPacket: "NER Pipeline · Entities & Slot Extracted",
   },
   {
     num: "04",
@@ -39,6 +43,7 @@ const PIPELINE_STAGES: PipelineStage[] = [
     headline: "Real Execution",
     description: "Checks live calendars, reserves confirmed slots, queries product specs, or creates CRM records.",
     detail: "Executes real calendar bookings and database actions.",
+    telemetryPacket: "API Mutation · Confirmed Calendar Lock",
   },
   {
     num: "05",
@@ -46,6 +51,7 @@ const PIPELINE_STAGES: PipelineStage[] = [
     headline: "System Sync or Handoff",
     description: "Completed directly in software, or warm-transferred to your specialist with complete summary notes.",
     detail: "Syncs directly to CRM or warm-transfers with notes.",
+    telemetryPacket: "Closed Loop · CRM Synchronized + Notes",
   },
 ];
 
@@ -297,10 +303,15 @@ export const SystemDiagram = memo(function SystemDiagram() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                        className="flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300"
+                        className="space-y-1 w-full"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
-                        <span className="line-clamp-2">{step.detail}</span>
+                        <div className="flex items-center gap-1.5 text-[11px] font-medium text-blue-700 dark:text-blue-300">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" />
+                          <span className="line-clamp-1">{step.detail}</span>
+                        </div>
+                        <div className="font-mono text-[9px] text-zinc-500 dark:text-zinc-400 pl-3">
+                          {step.telemetryPacket}
+                        </div>
                       </motion.div>
                     ) : (
                       <span className="text-[11px] text-[#A8A298] dark:text-zinc-600">

@@ -99,8 +99,8 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
           </p>
         </motion.div>
 
-        {/* Clean, Fast-to-Scan Editorial Case Study Previews */}
-        <div className="border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] divide-y divide-[rgba(36,33,26,0.08)] dark:divide-white/[0.08]">
+        {/* Editorial Feature Spread: High-Visual Product Case Studies */}
+        <div className="space-y-8">
           {activeProjects.slice(0, 2).map((project, idx) => (
             <motion.article
               key={project.id}
@@ -108,47 +108,77 @@ export const PortfolioSection = memo(function PortfolioSection({ projects }: Por
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="py-10 sm:py-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-baseline text-left group"
+              className="p-6 sm:p-8 md:p-10 rounded-3xl bg-[#FAF8F2] dark:bg-[#0c101c] border border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] shadow-sm text-left space-y-6"
             >
-              {/* Left Column: Category, Project Name, 1-2 Line Description */}
-              <div className="lg:col-span-7 space-y-3">
-                <div className="flex items-center gap-2 font-mono text-[11px] text-zinc-500 uppercase tracking-wider">
-                  <span>CASE STUDY</span>
-                  <span>·</span>
-                  <span className="font-semibold text-blue-600 dark:text-blue-400">
-                    0{idx + 1} / {project.industry.toUpperCase()}
+              {/* Header Telemetry */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(36,33,26,0.06)] dark:border-white/[0.08] pb-5">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                    CASE STUDY 0{idx + 1}
+                  </span>
+                  <span className="text-zinc-300 dark:text-zinc-700">/</span>
+                  <span className="font-mono text-xs text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+                    {project.industry}
                   </span>
                 </div>
 
-                <h3 className="font-serif text-2xl sm:text-3xl text-zinc-950 dark:text-white font-normal tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <div className="px-3 py-1 rounded-full bg-emerald-500/[0.08] border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-mono text-[11px] font-medium w-fit">
+                  Live Production Deployment
+                </div>
+              </div>
+
+              {/* Title & Tagline */}
+              <div className="space-y-2">
+                <h3 className="font-serif text-2xl sm:text-3xl text-zinc-950 dark:text-white font-normal">
                   {project.name}
                 </h3>
-
-                <p className="font-sans text-sm sm:text-base text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal max-w-xl">
+                <p className="font-sans text-sm sm:text-base text-zinc-600 dark:text-zinc-300 max-w-2xl leading-relaxed">
                   {project.tagline}
                 </p>
               </div>
 
-              {/* Right Column: Short Result & Single Clean CTA */}
-              <div className="lg:col-span-5 space-y-4 pt-1 lg:pt-0 flex flex-col justify-between">
-                <div className="space-y-1">
-                  <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block">
-                    RESULT
+              {/* 3-Column Editorial Grid: Challenge · VoiceOps Deployment · Measured Result */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
+                <div className="p-4 rounded-2xl bg-[#FFFDF8] dark:bg-black/30 border border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] space-y-1.5">
+                  <span className="font-mono text-[10px] uppercase font-semibold text-amber-700 dark:text-amber-400 tracking-wider block">
+                    THE BOTTLENECK
                   </span>
-                  <p className="font-sans text-sm font-medium text-zinc-900 dark:text-zinc-100 leading-snug">
-                    {project.result}
+                  <p className="font-sans text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                    {project.problem}
                   </p>
                 </div>
 
-                <div>
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="inline-flex items-center gap-1.5 min-h-[44px] py-2 font-sans text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/btn outline-none touch-manipulation"
-                  >
-                    <span>View Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
-                  </button>
+                <div className="p-4 rounded-2xl bg-blue-500/[0.04] dark:bg-blue-950/20 border border-blue-500/15 space-y-1.5">
+                  <span className="font-mono text-[10px] uppercase font-semibold text-blue-700 dark:text-blue-300 tracking-wider block">
+                    VOICEOPS FIRST LAYER
+                  </span>
+                  <p className="font-sans text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                    {project.whatVoiceOpsAutomated || project.whatLunoAutomated}
+                  </p>
                 </div>
+
+                <div className="p-4 rounded-2xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/15 space-y-1.5">
+                  <span className="font-mono text-[10px] uppercase font-semibold text-emerald-700 dark:text-emerald-400 tracking-wider block">
+                    VERIFIED RESULT
+                  </span>
+                  <p className="font-sans text-xs text-zinc-800 dark:text-zinc-200 font-medium leading-relaxed">
+                    {project.result}
+                  </p>
+                </div>
+              </div>
+
+              {/* Action Trigger */}
+              <div className="pt-2 flex items-center justify-between border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06]">
+                <span className="text-xs text-zinc-500 font-sans hidden sm:inline">
+                  Verified enterprise metrics from live telephony logs.
+                </span>
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 text-xs font-semibold tracking-tight transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0.5 shadow-sm cursor-pointer"
+                >
+                  <span>Inspect Workflow Specifications</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
             </motion.article>
           ))}

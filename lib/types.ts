@@ -43,6 +43,7 @@ export interface Project {
   tagline: string;
   problem: string;
   whatLunoAutomated: string;
+  whatVoiceOpsAutomated?: string;
   handles?: string[];
   workflow?: string[];
   metrics?: string[];

@@ -63,27 +63,36 @@ export const AboutSection = memo(function AboutSection() {
               <strong className="text-zinc-950 dark:text-white font-semibold">VoiceOps creates a dedicated first layer.</strong> Every incoming caller is greeted in under a second by an intelligent conversational voice agent trained on your actual business rules, booking calendars, and product catalogs.
             </p>
 
-            {/* Clean Editorial Numbers (No Heavy Cards) */}
-            <div className="space-y-4 pt-2 border-t border-[rgba(36,33,26,0.08)] dark:border-white/[0.08]">
-              <div className="flex items-baseline gap-4">
-                <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 shrink-0">01</span>
-                <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400">
-                  <strong className="text-zinc-900 dark:text-zinc-200">Zero Hold Times:</strong> Every caller receives immediate attention without traditional phone menus or IVR trees.
-                </p>
+            {/* Operational Contrast Matrix (Traditional vs VoiceOps First Layer) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              <div className="p-4 rounded-2xl bg-amber-500/[0.04] dark:bg-amber-500/[0.06] border border-amber-500/15 text-left space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-500" />
+                  <span className="font-mono text-[11px] font-semibold text-amber-800 dark:text-amber-400 uppercase tracking-wider">
+                    TRADITIONAL PHONES
+                  </span>
+                </div>
+                <ul className="text-xs text-zinc-600 dark:text-zinc-400 space-y-1.5 font-sans">
+                  <li>· Callers abandoned on hold queues</li>
+                  <li>· Sales reps answer repetitive pricing</li>
+                  <li>· After-hours inquiries lost to voicemail</li>
+                  <li>· Manual data entry into calendar / CRM</li>
+                </ul>
               </div>
 
-              <div className="flex items-baseline gap-4">
-                <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 shrink-0">02</span>
-                <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400">
-                  <strong className="text-zinc-900 dark:text-zinc-200">Real Work Completed:</strong> Appointments booked directly into your calendar and client profiles written to CRM.
-                </p>
-              </div>
-
-              <div className="flex items-baseline gap-4">
-                <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 shrink-0">03</span>
-                <p className="type-sans-body-sm text-zinc-600 dark:text-zinc-400">
-                  <strong className="text-zinc-900 dark:text-zinc-200">Warm Human Handoff:</strong> When a caller needs a specialist, VoiceOps summarizes the conversation and transfers the line instantly.
-                </p>
+              <div className="p-4 rounded-2xl bg-blue-500/[0.05] dark:bg-blue-500/[0.08] border border-blue-500/20 text-left space-y-2 shadow-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
+                  <span className="font-mono text-[11px] font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
+                    VOICEOPS FIRST LAYER
+                  </span>
+                </div>
+                <ul className="text-xs text-zinc-700 dark:text-zinc-300 space-y-1.5 font-sans">
+                  <li>· Zero hold time — instant sub-second answer</li>
+                  <li>· Autonomous booking & requirements capture</li>
+                  <li>· 24/7 capture of every single inbound call</li>
+                  <li>· Direct calendar locks & warm staff transfer</li>
+                </ul>
               </div>
             </div>
           </motion.div>

@@ -86,12 +86,8 @@ export const ContactSection = memo(function ContactSection({ settings }: Contact
               COMMENCE DEPLOYMENT
             </p>
 
-            <h2 className="type-serif-display text-zinc-950 dark:text-white font-normal leading-[1.08]">
-              Let&apos;s automate
-              <br />
-              <span className="italic font-light text-[#6E685E] dark:text-zinc-400">
-                your first layer.
-              </span>
+            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white leading-[1.12]">
+              Let&apos;s automate your first layer.
             </h2>
 
             <p className="type-sans-body-lg text-[#58534C] dark:text-zinc-400 leading-relaxed font-normal">

@@ -56,13 +56,9 @@ export const WorkflowSection = memo(function WorkflowSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="type-serif-display text-zinc-950 dark:text-white font-normal leading-[1.08]"
+            className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white leading-[1.12]"
           >
-            Calls should end
-            <br />
-            <span className="italic font-light text-[#6E685E] dark:text-zinc-400">
-              in verified actions.
-            </span>
+            Calls should end in verified actions.
           </motion.h2>
 
           <motion.p

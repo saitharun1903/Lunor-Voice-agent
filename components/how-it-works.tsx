@@ -85,31 +85,45 @@ export const HowItWorksSection = memo(function HowItWorksSection({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 relative z-10">
-            {stages.map((stage, idx) => (
-              <motion.div
-                key={stage.step}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-4 pt-4 border-t border-[rgba(36,33,26,0.12)] dark:border-white/[0.12] text-left"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
-                  <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
-                    PHASE {stage.step}
-                  </span>
-                </div>
+            {stages.map((stage, idx) => {
+              const deliverables = [
+                "Call Taxonomy & Logic Map",
+                "Prompt Architecture & Tone",
+                "Calendar & CRM Webhooks",
+                "Supervised Production Cutover",
+              ];
+              return (
+                <motion.div
+                  key={stage.step}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="space-y-4 pt-4 border-t border-[rgba(36,33,26,0.12)] dark:border-white/[0.12] text-left"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
+                    <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                      PHASE {stage.step}
+                    </span>
+                  </div>
 
-                <h3 className="font-serif text-2xl text-zinc-950 dark:text-white font-normal">
-                  {stage.title}
-                </h3>
+                  <h3 className="font-serif text-2xl text-zinc-950 dark:text-white font-normal">
+                    {stage.title}
+                  </h3>
 
-                <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 leading-relaxed text-xs">
-                  {stage.description}
-                </p>
-              </motion.div>
-            ))}
+                  <p className="type-sans-body-sm text-[#58534C] dark:text-zinc-400 leading-relaxed text-xs">
+                    {stage.description}
+                  </p>
+
+                  <div className="pt-2 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06]">
+                    <span className="font-mono text-[10px] text-zinc-500 dark:text-zinc-400 bg-black/[0.03] dark:bg-white/[0.04] px-2.5 py-1 rounded-md inline-block">
+                      ↳ {deliverables[idx] || "Production milestone"}
+                    </span>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

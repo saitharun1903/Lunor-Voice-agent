@@ -2,7 +2,7 @@
 
 import React, { memo, useCallback, useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, ShieldCheck, Zap, Radio } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ShieldCheck, Zap, Radio, PhoneIncoming, Cpu, CheckCircle2, Calendar } from "lucide-react";
 
 interface HeroProps {
   eyebrow?: string;
@@ -11,6 +11,13 @@ interface HeroProps {
   onTalkToVoiceOps?: () => void;
   onTalkToLuno?: () => void;
 }
+
+const ORCHESTRATION_STAGES = [
+  { id: "call", label: "Inbound Call", icon: PhoneIncoming, latency: "0ms" },
+  { id: "voiceops", label: "VoiceOps Engine", icon: Cpu, latency: "<400ms" },
+  { id: "intent", label: "Intent Parsed", icon: CheckCircle2, latency: "Sub-1s" },
+  { id: "action", label: "Calendar / CRM", icon: Calendar, latency: "Committed" },
+];
 
 export const Hero = memo(function Hero({
   eyebrow = "VOICE AUTOMATION FOR BUSINESS",
@@ -21,6 +28,16 @@ export const Hero = memo(function Hero({
 }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
   const [pointerOffset, setPointerOffset] = useState({ x: 0, y: 0 });
+  const [activeStageIndex, setActiveStageIndex] = useState(0);
+
+  // Cycle through the 4 orchestration stages smoothly
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const interval = setInterval(() => {
+      setActiveStageIndex((prev) => (prev + 1) % ORCHESTRATION_STAGES.length);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, [shouldReduceMotion]);
 
   const handleTalkToVoiceOps = useCallback(() => {
     const trigger = onTalkToVoiceOps || onTalkToLuno;
@@ -228,19 +245,48 @@ export const Hero = memo(function Hero({
               </div>
             </div>
 
-            {/* Three Pillar Verification Points */}
-            <div className="space-y-2 pt-1 font-sans text-xs">
+            {/* CALL → VOICEOPS → UNDERSTAND → ACTION Live Progression */}
+            <div className="space-y-1.5 pt-1">
+              <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 dark:text-zinc-400 mb-1.5">
+                <span>SYSTEM PIPELINE</span>
+                <span className="text-blue-600 dark:text-blue-400 font-semibold">STAGE 0{activeStageIndex + 1} / 04</span>
+              </div>
+              <div className="grid grid-cols-4 gap-1.5">
+                {ORCHESTRATION_STAGES.map((stage, idx) => {
+                  const isActive = idx === activeStageIndex;
+                  const isCompleted = idx < activeStageIndex;
+                  return (
+                    <div
+                      key={stage.id}
+                      className={`p-2 rounded-xl text-center border transition-all duration-200 ${
+                        isActive
+                          ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500/30 text-blue-700 dark:text-blue-300 shadow-xs"
+                          : isCompleted
+                          ? "bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-500/20 text-zinc-700 dark:text-zinc-300"
+                          : "bg-black/[0.02] dark:bg-white/[0.02] border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] text-zinc-400 dark:text-zinc-500"
+                      }`}
+                    >
+                      <div className="text-[10px] font-mono font-medium truncate">{stage.label}</div>
+                      <div className="text-[9px] font-mono opacity-80 mt-0.5">{stage.latency}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Operational Verification Points */}
+            <div className="space-y-2 pt-1 border-t border-[rgba(36,33,26,0.06)] dark:border-white/[0.06] font-sans text-xs">
               <div className="flex items-center justify-between text-zinc-700 dark:text-zinc-300">
-                <span className="text-zinc-500 dark:text-zinc-400">Response Speed</span>
-                <span className="font-mono font-medium text-blue-600 dark:text-blue-400">Under 1 second</span>
+                <span className="text-zinc-500 dark:text-zinc-400">Response Cadence</span>
+                <span className="font-mono font-medium text-blue-600 dark:text-blue-400">Sub-400ms Turn</span>
               </div>
               <div className="flex items-center justify-between text-zinc-700 dark:text-zinc-300">
-                <span className="text-zinc-500 dark:text-zinc-400">Action Execution</span>
-                <span className="font-mono font-medium text-emerald-600 dark:text-emerald-400">Calendar + CRM</span>
+                <span className="text-zinc-500 dark:text-zinc-400">System Actions</span>
+                <span className="font-mono font-medium text-emerald-600 dark:text-emerald-400">Calendar + CRM Lock</span>
               </div>
               <div className="flex items-center justify-between text-zinc-700 dark:text-zinc-300">
-                <span className="text-zinc-500 dark:text-zinc-400">Staff Handoff</span>
-                <span className="font-mono font-medium text-zinc-900 dark:text-zinc-200">Warm transfer</span>
+                <span className="text-zinc-500 dark:text-zinc-400">Escalation Handoff</span>
+                <span className="font-mono font-medium text-zinc-900 dark:text-zinc-200">Warm transfer + Notes</span>
               </div>
             </div>
           </div>

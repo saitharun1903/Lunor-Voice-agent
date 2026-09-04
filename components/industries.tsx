@@ -93,20 +93,27 @@ export const IndustriesSection = memo(function IndustriesSection({
         </motion.div>
 
         {/* Horizontal Editorial Selector with Gliding Active Signal */}
-        <div className="flex items-center gap-2 pb-3 overflow-x-auto border-b border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] mb-10 no-scrollbar">
+        <div className="flex items-center gap-2 pb-3 overflow-x-auto border-b border-[rgba(36,33,26,0.08)] dark:border-white/[0.08] mb-10 no-scrollbar relative">
           {stories.map((ind) => {
             const isSelected = activeId === ind.id;
             return (
               <button
                 key={ind.id}
                 onClick={() => setActiveId(ind.id)}
-                className={`relative min-h-[44px] px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-150 outline-none touch-manipulation flex items-center justify-center ${
+                className={`relative min-h-[44px] px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-colors duration-150 outline-none touch-manipulation flex items-center justify-center cursor-pointer ${
                   isSelected
-                    ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-semibold shadow-xs"
+                    ? "text-white dark:text-zinc-950 font-semibold"
                     : "text-[#58534C] dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white"
                 }`}
               >
-                {ind.name}
+                {isSelected && (
+                  <motion.div
+                    layoutId="active-industry-pill"
+                    className="absolute inset-0 rounded-xl bg-zinc-950 dark:bg-white shadow-xs"
+                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                  />
+                )}
+                <span className="relative z-10">{ind.name}</span>
               </button>
             );
           })}
@@ -150,9 +157,14 @@ export const IndustriesSection = memo(function IndustriesSection({
                 {current.steps.map((step, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-xl bg-[#FFFDF8] dark:bg-black/40 border border-[rgba(36,33,26,0.07)] dark:border-white/[0.05] space-y-1.5"
+                    className="p-4 rounded-xl bg-[#FFFDF8] dark:bg-black/40 border border-[rgba(36,33,26,0.07)] dark:border-white/[0.05] space-y-1.5 relative"
                   >
-                    <span className="font-mono text-[10px] text-[#888278] dark:text-zinc-500 block">0{idx + 1}</span>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[10px] text-[#888278] dark:text-zinc-500 block">0{idx + 1}</span>
+                      {idx < current.steps.length - 1 && (
+                        <span className="hidden lg:inline text-zinc-400 text-[11px] font-mono">→</span>
+                      )}
+                    </div>
                     <p className="font-sans text-xs text-zinc-900 dark:text-white font-medium leading-snug">
                       {step}
                     </p>
